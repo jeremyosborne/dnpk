@@ -1,0 +1,19 @@
+# Common gitignore settings for the projects I work on.
+
+# Node
+node_modules
+npm-debug.log
+
+# Bower
+bower_components
+
+# Mac
+.DS_Store
+
+# Atom
+.imdone
+
+# Built application code.
+public/*.*
+!public/.gitkeep
+!public/favicon.ico
