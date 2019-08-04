@@ -52,7 +52,6 @@
     },
     "strength": {
       "description": "Base, unmodified attack/defense strength of the unit.",
-      "minimum": 0,
       "type": "integer"
     },
   }
