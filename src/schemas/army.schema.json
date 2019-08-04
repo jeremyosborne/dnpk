@@ -8,7 +8,7 @@
     "equipment": {
       "description": "Inventory carried by the unit.",
       "items": {
-        "$ref": "https://wrexle.com/dnpk/equippable.schema.json",
+        "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
       },
       "type": "array"
     },
@@ -20,7 +20,7 @@
     "intrinsics": {
       "description": "Permanent effects on this specific unit instance at birth.",
       "items": {
-        "$ref": "https://wrexle.com/dnpk/effect.schema.json",
+        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
       "type": "array"
     },
@@ -46,13 +46,13 @@
     "statuses": {
       "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
       "items": {
-        "$ref": "https://wrexle.com/dnpk/effect.schema.json",
+        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
       "type": "array"
     },
     "strength": {
       "description": "Base, unmodified attack/defense strength of the unit.",
       "type": "integer"
-    },
+    }
   }
 }
