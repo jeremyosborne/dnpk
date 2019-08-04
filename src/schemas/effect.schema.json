@@ -1,0 +1,22 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/effect.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "effect",
+  "type": "object",
+  "description": "Defines a single, particular, longer term effect.",
+  "properties": {
+    "duration": {
+      "description": "Number of turns this effect will last. Default duration of -1 describes a permanent effect.",
+      "default": -1,
+      "type": "integer"
+    },
+    "magnitude": {
+      "description": "Power level of this particular effect. Not always applicable for an effect.",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Descriptive, unique name for this effect.",
+      "type": "string"
+    }
+  }
+}

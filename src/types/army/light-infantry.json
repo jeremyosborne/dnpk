@@ -1,0 +1,10 @@
+{
+  "equipment": [],
+  "health": 2,
+  "intrinsics": [],
+  "movementSpeed": 10,
+  "name": "Light Infantry",
+  "nameInstance": null,
+  "statuses": [],
+  "strength": 3
+}

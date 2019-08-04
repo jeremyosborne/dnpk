@@ -1,0 +1,59 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/army.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "army",
+  "type": "object",
+  "description": "Defines a distinct army type, from which single entity instances are generated in game.",
+  "properties": {
+    "equipment": {
+      "description": "Inventory carried by the unit.",
+      "items": {
+        "$ref": "https://wrexle.com/dnpk/equippable.schema.json",
+      },
+      "type": "array"
+    },
+    "health": {
+      "description": "The base number of successful attacks any instance of this unit type can suffer before dying.",
+      "default": 2,
+      "type": "integer"
+    },
+    "intrinsics": {
+      "description": "Permanent effects on this specific unit instance at birth.",
+      "items": {
+        "$ref": "https://wrexle.com/dnpk/effect.schema.json",
+      },
+      "type": "array"
+    },
+    "movementSpeed": {
+      "description": "The number of squares per turn this unit can move over ideal terrain.",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Descriptive, display name for this type of army.",
+      "examples": [
+        "Heavy Infantry",
+        "Light Infantry"
+      ],
+      "type": "string"
+    },
+    "nameInstance": {
+      "description": "Unique name for the unit",
+      "examples": [
+        "Vorgoth the Timid, Destroyer of Lint Bunnies"
+      ],
+      "type": "string"
+    },
+    "statuses": {
+      "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
+      "items": {
+        "$ref": "https://wrexle.com/dnpk/effect.schema.json",
+      },
+      "type": "array"
+    },
+    "strength": {
+      "description": "Base, unmodified attack/defense strength of the unit.",
+      "minimum": 0,
+      "type": "integer"
+    },
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/equippable.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "effect",
+  "type": "object",
+  "description": "Defines an item that can be equipped by a unit.",
+  "properties": {
+    "intrinsics": {
+      "description": "Intrinsic effects of this item provided when equipped by a unit.",
+      "items": {
+        "$ref": "https://wrexle.com/dnpk/effect.schema.json",
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "Descriptive, unique name for this item.",
+      "type": "string"
+    }
+  }
+}
