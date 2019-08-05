@@ -1,13 +1,9 @@
-const fs = require('fs')
-const Ajv = require('ajv')
+const debug = require('debug')
+const logger = debug('dnpk/battle-module-test')
+const {ajv, schemaId} = require('schemas')
 
-const ajv = new Ajv({
-  useDefaults: true
-})
-const schema = JSON.parse(fs.readFileSync('./schemas/effect.schema.json'))
-const armySchema = ajv.compile(schema)
-
-const army = {}
-
-console.log('armySchema(army):', armySchema(army))
-console.log('army after side effects:', army)
+logger('Testing army schema defaults.')
+const genericArmy = {}
+logger('genericArmy = ', genericArmy)
+ajv.getSchema(schemaId('army'))(genericArmy)
+logger('genericArmy after running through AJV', genericArmy)

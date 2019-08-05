@@ -8,7 +8,7 @@
     "intrinsics": {
       "description": "Intrinsic effects of this item provided when equipped by a unit.",
       "items": {
-        "$ref": "https://wrexle.com/dnpk/effect.schema.json"
+        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
       "type": "array"
     },

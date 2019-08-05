@@ -6,6 +6,7 @@
   "description": "Defines a distinct army type, from which single entity instances are generated in game.",
   "properties": {
     "equipment": {
+      "default": [],
       "description": "Inventory carried by the unit.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
@@ -13,11 +14,12 @@
       "type": "array"
     },
     "health": {
-      "description": "The base number of successful attacks any instance of this unit type can suffer before dying.",
       "default": 2,
+      "description": "The base number of successful attacks any instance of this unit type can suffer before dying.",
       "type": "integer"
     },
     "intrinsics": {
+      "default": [],
       "description": "Permanent effects on this specific unit instance at birth.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
@@ -44,6 +46,7 @@
       "type": "string"
     },
     "statuses": {
+      "default": [],
       "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
