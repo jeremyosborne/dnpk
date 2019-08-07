@@ -5,6 +5,10 @@
   "type": "object",
   "description": "Defines an item that can be equipped by a unit.",
   "properties": {
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
+      "type": "string"
+    },
     "intrinsics": {
       "description": "Intrinsic effects of this item provided when equipped by a unit.",
       "items": {

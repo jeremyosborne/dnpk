@@ -10,6 +10,10 @@
       "default": -1,
       "type": "integer"
     },
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
+      "type": "string"
+    },
     "magnitude": {
       "description": "Power level of this particular effect. Not always applicable for an effect.",
       "type": "integer"

@@ -18,6 +18,10 @@
       "description": "The base number of successful attacks any instance of this unit type can suffer before dying.",
       "type": "integer"
     },
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
+      "type": "string"
+    },
     "intrinsics": {
       "default": [],
       "description": "Permanent effects on this specific unit instance at birth.",

@@ -1,6 +1,6 @@
 # Battle Module
 
-A wargame battle engine that recreates that found in the original [Warlords game by SSG](https://en.wikipedia.org/wiki/Warlords_(1990_video_game)).
+System definition for the battles.
 
 ## Mechanics of original game
 

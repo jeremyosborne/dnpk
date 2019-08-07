@@ -1,9 +1,10 @@
-const debug = require('debug')
-const logger = debug('dnpk/battle-module-test')
-const {ajv, schemaId} = require('schemas')
+const {army} = require('data')
+const _ = require('lodash')
 
-logger('Testing army schema defaults.')
-const genericArmy = {}
-logger('genericArmy = ', genericArmy)
-ajv.getSchema(schemaId('army'))(genericArmy)
-logger('genericArmy after running through AJV', genericArmy)
+console.log('Creating some armies.')
+const armies = _.map([
+  'heavy-infantry',
+  'light-infantry',
+], (name) => army.create(name))
+
+console.log('armies created:', armies)

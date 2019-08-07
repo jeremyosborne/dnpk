@@ -8,7 +8,8 @@
   },
   "scripts": {
     "lint": "eslint \"src/**/*.js?(x)\"",
-    "start": "NODE_PATH=src DEBUG=* node src/index.js",
+    "start": "NODE_PATH=src node src/index.js",
+    "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,6 +36,7 @@
   "dependencies": {
     "ajv": "^6.10.2",
     "debug": "^4.1.1",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "uuid": "^3.3.2"
   }
 }
