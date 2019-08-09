@@ -1,0 +1,5 @@
+{
+  "documentation": "Unit should act as a hero. While slightly redundant with the hero type, allows for writing code that duck types heroes vs. doing if checks for a specific hero class.",
+  "duration": -1,
+  "name": "hero-unit"
+}

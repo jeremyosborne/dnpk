@@ -3,6 +3,9 @@
 //
 
 module.exports = {
-  // Build and create army types.
-  army: require('./army')
+  // Create instances of an army type.
+  army: require('./army'),
+
+  // Create instances of an effect type.
+  effect: require('./effect'),
 }

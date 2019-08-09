@@ -7,7 +7,7 @@ const ajv = new Ajv({
   useDefaults: true
 })
 
-const logger = debug('dnpk/data/schemas')
+const logger = debug('dnpk/data/schema')
 
 const MODULE_DIR = path.resolve(__dirname)
 

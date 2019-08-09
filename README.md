@@ -6,6 +6,7 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 
 * Language: JavaScript
 * [JSON Schema](https://json-schema.org) for raw data type definitions.
+    * To prevent the code from needing to know the difference in the core name of a type, types names will always take the singular form of their noun: "army" not "armies"; "item" not "items".
 * [JSON](http://json.org/) as a data interchange / data storage format.
 * Use of `NODE_PATH=src` to allow local imports within the application codebase. Tests, build tools, etc. will need to be configured to handle this.
 * Module scoped logging via [debug](https://github.com/visionmedia/debug).

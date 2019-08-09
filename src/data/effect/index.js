@@ -7,12 +7,12 @@ const uuid = require('uuid/v1')
 /**
  * The schema these types are derived from.
  */
-const SCHEMA_ID = `https://jeremyosborne.com/dnpk/army.schema.json`
+const SCHEMA_ID = `https://jeremyosborne.com/dnpk/effect.schema.json`
 
 /**
- * Create an instance of a specific army type.
+ * Create an instance of a specific effect type.
  *
- * @param {String} name the unique name of the army we wish to load.
+ * @param {String} name the unique name of the effect we wish to load.
  */
 const create = (name) => {
   if (!schema.isLoaded()) {
@@ -26,7 +26,7 @@ const create = (name) => {
     // Instance specific data.
     defaultData.id = uuid()
   } catch (err) {
-    console.error(`Could not load army of type: ${name}. Error caught:`)
+    console.error(`Could not load effect of type: ${name}. Error caught:`)
     console.error(err)
     return
   }
@@ -35,7 +35,7 @@ const create = (name) => {
   // This will also set defaults.
   const valid = validator(defaultData)
   if (!valid) {
-    console.error(`Army of type ${name} is invalid. Validation errors:`)
+    console.error(`Effect of type ${name} is invalid. Validation errors:`)
     console.error(validator.errors)
     return
   }

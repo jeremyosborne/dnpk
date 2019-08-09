@@ -1,0 +1,12 @@
+{
+  "health": 2,
+  "intrinsics": [
+    {
+      "duration": -1,
+      "name": "hero"
+    }
+  ],
+  "movementSpeed": 16,
+  "name": "wizard",
+  "strength": 7
+}

@@ -1,0 +1,13 @@
+{
+  "health": 2,
+  "intrinsics": [
+    {
+      "duration": -1,
+      "magnitude": 1,
+      "name": "elite-unit"
+    }
+  ],
+  "movementSpeed": 50,
+  "name": "wizard",
+  "strength": 7
+}

@@ -5,8 +5,12 @@
   "type": "object",
   "description": "Defines an item that can be equipped by a unit.",
   "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
     "id": {
-      "description": "Unique id for a particular instance of this type.",
+      "description": "Unique id for a particular instance of this type. As instances of equippables are assumed to be transferrable between the world and armies, all equippable instances should have an id.",
       "type": "string"
     },
     "intrinsics": {

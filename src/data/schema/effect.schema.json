@@ -5,13 +5,17 @@
   "type": "object",
   "description": "Defines a single, particular, longer term effect.",
   "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
     "duration": {
       "description": "Number of turns this effect will last. Default duration of -1 describes a permanent effect.",
       "default": -1,
       "type": "integer"
     },
     "id": {
-      "description": "Unique id for a particular instance of this type.",
+      "description": "Unique id for a particular instance of this type. Effects provided in nested data structures should not need an id.",
       "type": "string"
     },
     "magnitude": {

@@ -5,6 +5,10 @@
   "type": "object",
   "description": "Defines a distinct army type, from which single entity instances are generated in game.",
   "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
     "equipment": {
       "default": [],
       "description": "Inventory carried by the unit.",
