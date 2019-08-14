@@ -11,3 +11,5 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 * Use of `NODE_PATH=src` to allow local imports within the application codebase. Tests, build tools, etc. will need to be configured to handle this.
 * Module scoped logging via [debug](https://github.com/visionmedia/debug).
     * Namespace of all `debug` module name labels must be prefixed with `dnpk/`.
+* Game simulation should be runnable without graphics.
+* Localization is applied at view layer. English strings act as keys for localization, with optional translation of long English content via key.
