@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c i18next-parser.config.js",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src node src/index.js",
     "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
@@ -31,11 +32,13 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "i18next-parser": "^1.0.0-beta34"
   },
   "dependencies": {
     "ajv": "^6.10.2",
     "debug": "^4.1.1",
+    "i18next": "^17.0.11",
     "lodash": "^4.17.15",
     "uuid": "^3.3.2"
   }

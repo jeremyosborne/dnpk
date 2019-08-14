@@ -1,25 +1,55 @@
 const {army} = require('data')
+const i18next = require('i18next')
 const _ = require('lodash')
 
-console.log('Creating some armies.')
-const armies = _.map([
-  'heavy-infantry',
-  'light-infantry',
-  'wizard',
-], (name) => army.create(name))
+// int main(void)
+Promise.resolve()
+  .then(() => i18next.init({
+    lng: 'en',
 
-console.log('armies created:', JSON.stringify(armies, null, 4))
+    // allow keys to be phrases having `:`, `.`
+    // which equates to write phrases in english, fallback to english.
+    nsSeparator: false,
+    keySeparator: false,
 
-// TODO: work in localization of visual strings while doing the console reporting.
+    // do not load a fallback, because it'll be english by default.
+    fallbackLng: false,
 
-// Create 2 groups of armies.
+    // allow an empty value to count as invalid (by default is true).
+    returnEmptyString: false,
 
-// Engage the 2 groups in battle.
+    // true report "missing values", false do not report missing values.
+    debug: process.env.I18N_DEBUG,
 
-// Create the attacking group battle structure.
+    resources: {
+      en: {
+        translation: {}
+      }
+    }
+  }))
+  .then(() => {
+    console.log(i18next.t('Creating armies.'))
 
-// Create the defending group battle structure.
+    const armies = _.map([
+      'heavy-infantry',
+      'light-infantry',
+      'wizard',
+    ], (name) => army.create(name))
 
-// Run the battle between the groups.
+    console.log(i18next.t('Armies created:'))
+    console.log(JSON.stringify(armies, null, 4))
 
-// Return the battle group structure + statistics.
+    // TODO: work in localization of visual strings while doing the console reporting.
+
+    // Create 2 groups of armies.
+
+    // Engage the 2 groups in battle.
+
+    // Create the attacking group battle structure.
+
+    // Create the defending group battle structure.
+
+    // Run the battle between the groups.
+
+    // Return the battle group structure + statistics.
+  })

@@ -13,3 +13,8 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Namespace of all `debug` module name labels must be prefixed with `dnpk/`.
 * Game simulation should be runnable without graphics.
 * Localization is applied at view layer. English strings act as keys for localization, with optional translation of long English content via key.
+    * Potential no. 1:
+        * [i18next](https://www.i18next.com/) and tooling is our trial localization library.
+        * [i18next-parser](https://github.com/i18next/i18next-parser) is used to extract translations.
+            * PROBLEM: output is still in JSON format, so still needs to be converted to `.pot?` format.
+            * PROBLEM: output loses context from where the key string came from.
