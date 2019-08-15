@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c i18next-parser.config.js",
+    "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src node src/index.js",
     "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
@@ -33,6 +33,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-standard": "^4.0.0",
+    "i18next-conv": "^9.1.0",
     "i18next-parser": "^1.0.0-beta34"
   },
   "dependencies": {

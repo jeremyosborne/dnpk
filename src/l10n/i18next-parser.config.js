@@ -1,29 +1,35 @@
+//
+// Configuration file for the i18next-parser which extracts the strings to be translated
+// from our code and places them in the `${language}/translation.json` files in this directory.
+//
 module.exports = {
-  contextSeparator: '_',
   // Key separator used in your translation keys
+  contextSeparator: '_',
 
-  createOldCatalogs: true,
   // Save the \_old files
+  createOldCatalogs: true,
 
-  defaultNamespace: 'translation',
   // Default namespace used in your i18next config
+  defaultNamespace: 'translation',
 
-  defaultValue: '',
   // Default value to give to empty keys
+  defaultValue: '',
 
-  indentation: 2,
   // Indentation of the catalog files
+  indentation: 2,
 
-  keepRemoved: false,
   // Keep keys from the catalog that are no longer in code
+  keepRemoved: false,
 
-  // keySeparator: '.',
-  keySeparator: false,
   // Key separator used in your translation keys
   // If you want to use plain english keys, separators such as `.` and `:` will conflict. You might want to set `keySeparator: false` and `namespaceSeparator: false`. That way, `t('Status: Loading...')` will not think that there are a namespace and three separator dots for instance.
+  // keySeparator: '.',
+  keySeparator: false,
 
-  // see below for more details
+  // map file extensions to lexers
   lexers: {
+    default: ['JavascriptLexer'],
+
     hbs: ['HandlebarsLexer'],
     handlebars: ['HandlebarsLexer'],
 
@@ -36,41 +42,41 @@ module.exports = {
 
     ts: ['TypescriptLexer'],
     tsx: ['TypescriptLexer'],
-
-    default: ['JavascriptLexer']
   },
 
-  lineEnding: 'auto',
   // Control the line ending. See options at https://github.com/ryanve/eol
+  lineEnding: 'auto',
 
-  locales: ['en', 'fr'],
   // An array of the locales in your applications
+  locales: ['de', 'en', 'es', 'fr', 'zh'],
 
-  // namespaceSeparator: ':',
-  namespaceSeparator: false,
   // Namespace separator used in your translation keys
   // If you want to use plain english keys, separators such as `.` and `:` will conflict. You might want to set `keySeparator: false` and `namespaceSeparator: false`. That way, `t('Status: Loading...')` will not think that there are a namespace and three separator dots for instance.
+  // namespaceSeparator: ':',
+  namespaceSeparator: false,
 
-  output: 'locales/$LOCALE/$NAMESPACE.json',
   // Supports $LOCALE and $NAMESPACE injection
   // Supports JSON (.json) and YAML (.yml) file formats
   // Where to write the locale files relative to process.cwd()
+  output: 'src/l10n/$LOCALE/$NAMESPACE.json',
 
-  input: undefined,
   // An array of globs that describe where to look for source files
-  // relative to the location of the configuration file
+  // relative to the location of the configuration file, or rely on the command line.
+  input: undefined,
 
-  reactNamespace: false,
   // For react file, extract the defaultNamespace - https://react.i18next.com/components/translate-hoc.html
   // Ignored when parsing a `.jsx` file and namespace is extracted from that file.
+  reactNamespace: false,
 
-  sort: false,
   // Whether or not to sort the catalog
+  sort: true,
 
-  useKeysAsDefaultValue: false,
   // Whether to use the keys as the default value; ex. "Hello": "Hello", "World": "World"
   // The option `defaultValue` will not work if this is set to true
+  // `true` does not seem to work....
+  useKeysAsDefaultValue: false,
 
-  verbose: false
   // Display info about the parsing including some stats
+  // namely: added keys, restored keys, removed keys
+  verbose: false,
 }
