@@ -18,8 +18,6 @@ Promise.resolve()
     console.log(t('Armies created:'))
     console.log(JSON.stringify(armies, null, 4))
 
-    // TODO: work in localization of visual strings while doing the console reporting.
-
     // Create 2 groups of armies.
 
     // Engage the 2 groups in battle.
