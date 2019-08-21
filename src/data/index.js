@@ -8,4 +8,7 @@ module.exports = {
 
   // Create instances of an effect type.
   effect: require('./effect'),
+
+  // Create instances of an inventory item.
+  equippable: require('./equippable'),
 }
