@@ -1,4 +1,4 @@
-### Localization
+# Localization
 
 * In most circumstances, English should act as both key and default value for the English language (English key is fallback for English value).
     * English can optionally always be keyed, e.g. for really long content like in game help text.
@@ -13,3 +13,7 @@
     * `i18next-parser` is used to pull strings out of source code and updates the `.json` string files.
     * `i18next-conv` converts the `l10n/**/translation.json` files to `l10n/**/translation.po` files.
     * TODO: when translation begin, see what works better for management: `.po` files or has the world grown to accept `.json` files?
+
+## Configuration options
+
+* `I18N_DEBUG` - Boolean. If exists, will provide "this or that string is missing translations."

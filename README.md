@@ -2,7 +2,7 @@
 
 A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.org/wiki/Warlords_(1990_video_game)) and what I always wanted to see as available in a modern version of that game.
 
-## Software Decisions
+## Software organization
 
 * Language: JavaScript
 * [JSON Schema](https://json-schema.org) for raw data type definitions.
@@ -13,3 +13,7 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Namespace of all `debug` module name labels must be prefixed with `dnpk/`.
 * Game simulation should be runnable without graphics.
 * Localization is covered in the `src/l10n` module.
+
+## Configuration options
+
+* Set `NODE_PATH=src` for all scripts.

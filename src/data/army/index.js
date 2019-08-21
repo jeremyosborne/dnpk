@@ -15,20 +15,57 @@ const logger = debug('dnpk/data/army')
  */
 const SCHEMA_ID = `https://jeremyosborne.com/dnpk/army.schema.json`
 
-const ARMY_DIR = path.resolve(__dirname)
-
 /**
- * Base types of the armies.
+ * Directory of data definitions for this type.
  */
-let ARMIES = {}
+const DEFS_DIR = path.resolve(path.join(__dirname, 'defs'))
 
 /**
- * Create an instance of a specific army type.
+ * Cache of loaded data definitions.
  *
- * @param {String} name the unique name of the army we wish to load.
+ * @type {Object}
+ */
+const types = {
+  /**
+   * Cache of currently loaded types, keyed by the type `name`.
+   *
+   * @type {Object}
+   */
+  _cache: {},
+
+  /**
+   * List of type names currently loaded.
+   *
+   * @return {string[]} e.g. ['light-infantry', 'heavy-infantry', etc...]
+   */
+  dir: () => {
+    return _.keys(this._cache)
+  },
+
+  /**
+   * Get reference to current associative array of types.
+   *
+   * @return {object}
+   */
+  get: () => this._cache,
+
+  /**
+   * Set cached value of types, or reset to empty.
+   *
+   * @param {object} types update cache of types.
+   */
+  set: (types) => {
+    this._cache = types || {}
+  },
+}
+
+/**
+ * Create an instance of a specific type.
+ *
+ * @param {String} name the unique name of the type we wish to load.
  */
 const create = (name) => {
-  if (!_.keys(ARMIES).length) {
+  if (!types.dir().length) {
     load()
   }
 
@@ -36,48 +73,46 @@ const create = (name) => {
     schema.load()
   }
 
-  const army = _.cloneDeep(ARMIES[name])
-  if (!army) {
-    throw new Error(`Requesting non existent army type ${name}`)
+  const instance = _.cloneDeep(types.get()[name])
+  if (!instance) {
+    throw new Error(`Requesting non existent type ${name}`)
   }
 
   // Instance specific data.
-  army.id = uuid()
+  instance.id = uuid()
 
   const validator = schema.ajv.getSchema(SCHEMA_ID)
   // validate and set defaults
-  const valid = validator(army)
+  const valid = validator(instance)
   if (!valid) {
-    console.error(`Army of type ${name} is invalid. Validation errors:`)
-    console.error(validator.errors)
-    throw new Error('No invalid army types allowed.')
+    throw new Error(`No invalid types allowed. Invalid type: ${name}, validation.errors: ${validator.errors}`)
   }
 
-  return army
+  return instance
 }
 
 /**
- * Loads and creates an associative array of army types.
- *
- * @type {[type]}
+ * Loads and creates an associative array of types.
  */
 const load = () => {
-  ARMIES = readdirSync(ARMY_DIR, {withFileTypes: true})
+  const typeDefs = readdirSync(DEFS_DIR, {withFileTypes: true})
     .map((dirent) => dirent.name)
     // .json files in this directory are assumed to be data defs.
     .filter((name) => /\.json$/.test(name))
-    .reduce((ARMIES, army) => {
-      logger(`Reading ${army} into set of armies.`)
-      const armyDef = JSON.parse(readFileSync(path.join(ARMY_DIR, army)))
+    .reduce((typeDefs, name) => {
+      logger(`Reading ${name} into set of types.`)
+      const typeDef = JSON.parse(readFileSync(path.join(DEFS_DIR, name)))
       // This is by schema definition, even though it also expressed in the file name.
       // Going to pick the data as the source of truth and not file name.
-      ARMIES[armyDef.name] = armyDef
-      return ARMIES
+      typeDefs[typeDef.name] = typeDef
+      return typeDefs
     }, {})
+  types.set(typeDefs)
 }
 
 // Public API.
 module.exports = {
   create,
   load,
+  types,
 }

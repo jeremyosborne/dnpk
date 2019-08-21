@@ -2,4 +2,8 @@
 
 Define your cannon fodder to support your despotic rule of the realms here.
 
-Keep directory structure flat for now and all files ending in `.json` are assumed to be specific types.
+## Rules
+
+* `defs` folder:
+    * flat (no subfolders)
+    * all files ending in `.json` are treated as army definitions

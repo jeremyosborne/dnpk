@@ -8,7 +8,10 @@ module.exports = {
    */
   init: () => Promise.resolve()
     .then(() => {
-      // Configurable and run time options, hard coded for now.
+      //
+      // Provide runtime configuration...
+      // ...yes this is hardcoded for now (famous last words).
+      //
       const lng = 'en'
 
       return {
