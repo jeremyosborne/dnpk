@@ -1,7 +1,7 @@
 const defs = require('./')
 
 // Assume we'll always have this distinct type.
-const TEST_TYPE = 'light-infantry'
+const TEST_TYPE_VALID = 'light-infantry'
 
 describe('army', () => {
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe('army', () => {
 
   describe('functional test', () => {
     it('works', () => {
-      const instance = defs.create(TEST_TYPE)
+      const instance = defs.create(TEST_TYPE_VALID)
       expect(typeof instance.id === 'string').toEqual(true)
     })
   })

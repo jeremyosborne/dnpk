@@ -1,0 +1,119 @@
+const {
+  readdirSync,
+  readFileSync,
+} = require('fs')
+const _ = require('lodash')
+const path = require('path')
+const schema = require('../schema')
+const uuid = require('uuid/v1')
+
+/**
+ * Build a type factory.
+ *
+ * @param {string} DEFS_DIR directory holding the type defs.
+ * @param {function} logger type specific logging method
+ * @param {string} SCHEMA_ID schema id these types will derive from.
+ * @return {object} returns public api for the type factory.
+ */
+module.exports = ({
+  DEFS_DIR,
+  logger,
+  SCHEMA_ID,
+}) => {
+  /**
+   * Cache of loaded data definitions.
+   *
+   * @type {Object}
+   */
+  const types = {
+    /**
+     * Cache of currently loaded types, keyed by the type `name`.
+     *
+     * @type {Object}
+     */
+    _cache: {},
+
+    /**
+     * List of type names currently loaded.
+     *
+     * @return {string[]} e.g. ['light-infantry', 'heavy-infantry', etc...]
+     */
+    dir: () => {
+      return _.keys(this._cache)
+    },
+
+    /**
+     * Get reference to current associative array of types.
+     *
+     * @return {object}
+     */
+    get: () => this._cache,
+
+    /**
+     * Set cached value of types, or reset to empty.
+     *
+     * @param {object} types update cache of types.
+     */
+    set: (types) => {
+      this._cache = types || {}
+    },
+  }
+
+  /**
+   * Create an instance of a specific type.
+   *
+   * @param {String} name the unique name of the type we wish to load.
+   */
+  const create = (name) => {
+    if (!types.dir().length) {
+      load()
+    }
+
+    if (!schema.isLoaded()) {
+      schema.load()
+    }
+
+    const instance = _.cloneDeep(types.get()[name])
+    if (!instance) {
+      throw new Error(`Requesting non existent type ${name}`)
+    }
+
+    // Instance specific data.
+    instance.id = uuid()
+
+    const validator = schema.ajv.getSchema(SCHEMA_ID)
+    // validate and set defaults
+    const valid = validator(instance)
+    if (!valid) {
+      throw new Error(`No invalid types allowed. Invalid type: ${name}, validation.errors: ${validator.errors}`)
+    }
+
+    return instance
+  }
+
+  /**
+   * Loads and creates an associative array of types.
+   */
+  const load = () => {
+    const typeDefs = readdirSync(DEFS_DIR, {withFileTypes: true})
+      .map((dirent) => dirent.name)
+      // .json files in this directory are assumed to be data defs.
+      .filter((name) => /\.json$/.test(name))
+      .reduce((typeDefs, name) => {
+        logger(`Reading ${name} into set of types.`)
+        const typeDef = JSON.parse(readFileSync(path.join(DEFS_DIR, name)))
+        // This is by schema definition, even though it also expressed in the file name.
+        // Going to pick the data as the source of truth and not file name.
+        typeDefs[typeDef.name] = typeDef
+        return typeDefs
+      }, {})
+    types.set(typeDefs)
+  }
+
+  // Public API for the type factory factory.
+  return {
+    create,
+    load,
+    types,
+  }
+}
