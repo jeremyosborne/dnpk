@@ -13,6 +13,11 @@
     "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
     "test": "NODE_PATH=src jest"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm test"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeremyosborne/dnpk.git"
@@ -33,14 +38,15 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-standard": "^4.0.0",
+    "husky": "^4.0.0-beta.1",
     "i18next-conv": "^9.1.0",
-    "i18next-parser": "^1.0.0-beta34"
+    "i18next-parser": "^1.0.0-beta34",
+    "jest": "^24.9.0"
   },
   "dependencies": {
     "ajv": "^6.10.2",
     "debug": "^4.1.1",
     "i18next": "^17.0.11",
-    "jest": "^24.9.0",
     "lodash": "^4.17.15",
     "uuid": "^3.3.2"
   }
