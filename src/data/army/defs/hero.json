@@ -3,10 +3,10 @@
   "intrinsics": [
     {
       "duration": -1,
-      "name": "hero"
+      "name": "hero-unit"
     }
   ],
   "movementSpeed": 16,
-  "name": "wizard",
+  "name": "hero",
   "strength": 7
 }
