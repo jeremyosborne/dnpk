@@ -8,7 +8,7 @@ const schema = require('../schema')
 const uuid = require('uuid/v1')
 
 /**
- * Build a type factory.
+ * Build a type factory for in game data types: armies, types, etc.
  *
  * @param {string} DEFS_DIR directory holding the type defs.
  * @param {function} logger type specific logging method
