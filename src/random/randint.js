@@ -1,0 +1,15 @@
+const assert = require('assert')
+const random = require('./random').random
+
+/**
+ * Generate a random number min <= randomint <= max.
+ *
+ * @param {number} min lower bounds
+ * @param {number} max upper bounds
+ *
+ * @return {number}
+ */
+module.exports = function (min, max) {
+  assert(max > min)
+  return Math.round(random() * (max - min)) + min
+}
