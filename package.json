@@ -11,7 +11,7 @@
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src node src/index.js",
     "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_PATH=src jest"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "ajv": "^6.10.2",
     "debug": "^4.1.1",
     "i18next": "^17.0.11",
+    "jest": "^24.9.0",
     "lodash": "^4.17.15",
     "uuid": "^3.3.2"
   }

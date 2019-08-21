@@ -10,6 +10,6 @@ const random = require('./random').random
  * @return {number}
  */
 module.exports = function (min, max) {
-  assert(max > min)
+  assert(max > min && Number.isInteger(min) && Number.isInteger(max))
   return Math.round(random() * (max - min)) + min
 }
