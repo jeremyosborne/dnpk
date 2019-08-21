@@ -1,3 +1,4 @@
+const assert = require('assert')
 const {
   readdirSync,
   readFileSync,
@@ -95,19 +96,25 @@ module.exports = ({
    * Loads and creates an associative array of types.
    */
   const load = () => {
-    const typeDefs = readdirSync(DEFS_DIR, {withFileTypes: true})
+    // For data checking.
+    const typeFiles = readdirSync(DEFS_DIR, {withFileTypes: true})
       .map((dirent) => dirent.name)
       // .json files in this directory are assumed to be data defs.
       .filter((name) => /\.json$/.test(name))
-      .reduce((typeDefs, name) => {
-        logger(`Reading ${name} into set of types.`)
-        const typeDef = JSON.parse(readFileSync(path.join(DEFS_DIR, name)))
-        // This is by schema definition, even though it also expressed in the file name.
-        // Going to pick the data as the source of truth and not file name.
-        typeDefs[typeDef.name] = typeDef
-        return typeDefs
-      }, {})
+      .map((name) => path.join(DEFS_DIR, name))
+
+    const typeDefs = typeFiles.reduce((typeDefs, f) => {
+      logger(`Reading ${f} into set of types.`)
+      const typeDef = JSON.parse(readFileSync(f))
+      // This is by schema definition, even though it also expressed in the file name.
+      // Going to pick the data as the source of truth and not file name.
+      typeDefs[typeDef.name] = typeDef
+      return typeDefs
+    }, {})
     types.set(typeDefs)
+
+    // Watch for embedded data naming types that are out of sync with a file name.
+    assert(typeFiles.length === types.dir().length)
   }
 
   // Public API for the type factory factory.
