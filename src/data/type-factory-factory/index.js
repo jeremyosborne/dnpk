@@ -13,14 +13,26 @@ const uuid = require('uuid/v1')
  *
  * @param {string} DEFS_DIR directory holding the type defs.
  * @param {function} logger type specific logging method
+ * @param {function} postCreate a function that will be passed the instance after
+ * all generic creation and, if included, must return the instance along with
+ * any desired modifications.
  * @param {string} SCHEMA_ID schema id these types will derive from.
+ *
  * @return {object} returns public api for the type factory.
  */
 module.exports = ({
   DEFS_DIR,
   logger,
+  postCreate = (instance) => instance,
   SCHEMA_ID,
 }) => {
+  /**
+   * Cache of currently loaded types, keyed by the type `name`.
+   *
+   * @type {Object}
+   */
+  let _cache = {}
+
   /**
    * Cache of loaded data definitions.
    *
@@ -28,19 +40,12 @@ module.exports = ({
    */
   const types = {
     /**
-     * Cache of currently loaded types, keyed by the type `name`.
-     *
-     * @type {Object}
-     */
-    _cache: {},
-
-    /**
      * List of type names currently loaded.
      *
      * @return {string[]} e.g. ['light-infantry', 'heavy-infantry', etc...]
      */
     dir: () => {
-      return _.keys(this._cache)
+      return _.keys(_cache)
     },
 
     /**
@@ -48,7 +53,7 @@ module.exports = ({
      *
      * @return {object}
      */
-    get: () => this._cache,
+    get: () => _cache,
 
     /**
      * Set cached value of types, or reset to empty.
@@ -56,7 +61,7 @@ module.exports = ({
      * @param {object} types update cache of types.
      */
     set: (types) => {
-      this._cache = types || {}
+      _cache = types || {}
     },
   }
 
@@ -64,6 +69,8 @@ module.exports = ({
    * Create an instance of a specific type.
    *
    * @param {String} name the unique name of the type we wish to load.
+   *
+   * @return {object} instance of the particular type.
    */
   const create = (name) => {
     if (!types.dir().length) {
@@ -89,7 +96,7 @@ module.exports = ({
       throw new Error(`No invalid types allowed. Invalid type: ${name}, validation.errors: ${validator.errors}`)
     }
 
-    return instance
+    return postCreate(instance)
   }
 
   /**

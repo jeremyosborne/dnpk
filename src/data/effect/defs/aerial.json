@@ -1,0 +1,6 @@
+{
+  "documentation": "Equivalent to units flagged as \"flying\" in the original Warlords game: dragons, gryphons, etc. In game provides a one of combat bonus to all units within the associated group.",
+  "duration": -1,
+  "magnitude": 1,
+  "name": "aerial"
+}

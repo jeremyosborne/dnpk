@@ -1,10 +1,8 @@
 {
   "health": 2,
-  "intrinsics": [
+  "effects": [
     {
-      "duration": -1,
-      "magnitude": 1,
-      "name": "elite-unit"
+      "name": "elite"
     }
   ],
   "movementSpeed": 50,

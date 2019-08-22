@@ -1,0 +1,6 @@
+{
+  "documentation": "Unit should act as a hero. While slightly redundant with the hero army type, allows for writing code that duck types heroes vs. doing if checks for a specific hero class. Magnitude is arbitrary.",
+  "duration": -1,
+  "magnitude": 1,
+  "name": "hero"
+}

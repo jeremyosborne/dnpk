@@ -1,7 +1,7 @@
 const defs = require('./')
 
 // Assume we'll always have this distinct type.
-const TEST_TYPE_VALID = 'hero-unit'
+const TEST_TYPE_VALID = 'hero'
 
 describe('effect', () => {
   beforeEach(() => {

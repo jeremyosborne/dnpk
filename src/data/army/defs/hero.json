@@ -1,9 +1,8 @@
 {
   "health": 2,
-  "intrinsics": [
+  "effects": [
     {
-      "duration": -1,
-      "name": "hero-unit"
+      "name": "hero"
     }
   ],
   "movementSpeed": 16,

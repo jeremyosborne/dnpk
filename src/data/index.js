@@ -4,11 +4,11 @@
 
 module.exports = {
   // Create instances of an army type.
-  army: require('./army'),
+  army: require('data/army'),
 
   // Create instances of an effect type.
-  effect: require('./effect'),
+  effect: require('data/effect'),
 
   // Create instances of an inventory item.
-  equippable: require('./equippable'),
+  equippable: require('data/equippable'),
 }

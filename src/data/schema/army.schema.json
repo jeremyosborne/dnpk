@@ -26,9 +26,9 @@
       "description": "Unique id for a particular instance of this type.",
       "type": "string"
     },
-    "intrinsics": {
+    "effects": {
       "default": [],
-      "description": "Permanent effects on this specific unit instance at birth.",
+      "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
@@ -52,14 +52,6 @@
         "Vorgoth the Timid, Destroyer of Lint Bunnies"
       ],
       "type": "string"
-    },
-    "statuses": {
-      "default": [],
-      "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
-      "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
-      },
-      "type": "array"
     },
     "strength": {
       "description": "Base, unmodified attack/defense strength of the unit.",
