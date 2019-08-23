@@ -1,4 +1,10 @@
 {
-  "documentation": "A flaming sword, boosts individual hero strength.",
-  "name": "firesword"
+  "name": "firesword",
+  "documentation": "A flaming sword. Boosts individual hero strength.",
+  "effects": [
+    {
+      "name": "strength",
+      "magnitude": 1
+    }
+  ]
 }

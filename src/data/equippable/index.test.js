@@ -25,7 +25,7 @@ describe('equippable', () => {
       defs.types.set({
         fake: {
           // Assume this breaks the underlying schema as this should be an array.
-          intrinsics: 'lots of them',
+          effects: 'lots of them',
         }
       })
       expect(() => defs.create('fake')).toThrow()

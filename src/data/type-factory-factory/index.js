@@ -118,6 +118,7 @@ module.exports = ({
       typeDefs[typeDef.name] = typeDef
       return typeDefs
     }, {})
+
     types.set(typeDefs)
 
     // Watch for embedded data naming types that are out of sync with a file name.

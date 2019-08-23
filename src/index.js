@@ -1,11 +1,11 @@
 const chalk = require('chalk')
-const {army} = require('data')
+const data = require('data')
 const l10n = require('l10n')
 const {t} = require('l10n')
 const _ = require('lodash')
 
 /**
- * Calculates the strength of an individual army.
+ * Calculates the strength of an individual army without any grouping bonuses.
  *
  * @param {object} army instance
  *
@@ -21,7 +21,20 @@ const armyEffectiveStrength = _.flow([
       strength += _.get(eliteEffect, 'magnitude') || 0
       return {army, strength}
     }, {army, strength}),
-  // Transform result.
+  // Check for strength effects on items.
+  ({army, strength}) => {
+    const equipment = _.get(army, 'equipment')
+    const strengthEffects = _.reduce(equipment, (strengthEffects, eq) => {
+      return strengthEffects.concat(
+        _.filter(_.get(equipment, 'effects'), (effect) => _.get(effect, 'name') === 'strength')
+      )
+    }, [])
+    return strengthEffects.reduce(({army, strength}, strengthEffect) => {
+      strength += _.get(strengthEffect, 'magnitude') || 0
+      return {army, strength}
+    }, {army, strength})
+  },
+  // Reduce to just the result we want.
   ({army, strength}) => strength,
 ])
 
@@ -35,12 +48,17 @@ const showGroup = (group, color) => console.log(`${chalk[color](group.reduce((in
 Promise.resolve()
   .then(() => l10n.init())
   .then(() => {
+    // Load data.
+    // I didn't think I explicitly needed to do this, but I probably screwed something
+    // up somewhere or created a circular dependency.
+    data.army.load()
+    data.effect.load()
+    data.equippable.load()
+  })
+  .then(() => {
     console.log(t('Battle prototype'))
 
-    // Explicitly load armies vs. lazy load since we want a list to sample from.
-    army.load()
-
-    const armyTypes = army.types.dir()
+    const armyTypes = data.army.types.dir()
     console.log(t('Armies available:'))
     _.forEach(armyTypes, (army) => {
       console.log(`${chalk.yellow(army)}`)
@@ -50,14 +68,28 @@ Promise.resolve()
 
     console.log('')
 
-    const dadGroup = _.times(4, () => army.create(_.sample(armyTypes)))
+    const dadGroup = _.times(4, () => data.army.create(_.sample(armyTypes)))
     console.log('Dad the Dictator group:')
+    // Equip heroes with items.
+    _.filter(dadGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
+      .forEach((a) => {
+        const eq = data.equippable.create(_.sample(data.equippable.types.dir()))
+        console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+        a.equipment.push(eq)
+      })
     showGroup(dadGroup, 'blue')
 
     console.log('')
 
-    const archerGroup = _.times(4, () => army.create(_.sample(armyTypes)))
+    const archerGroup = _.times(4, () => data.army.create(_.sample(armyTypes)))
     console.log('Archer the Awesome group:')
+    // Equip heroes with items.
+    _.filter(archerGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
+      .forEach((a) => {
+        const eq = data.equippable.create(_.sample(data.equippable.types.dir()))
+        console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+        a.equipment.push(eq)
+      })
     showGroup(archerGroup, 'green')
 
     // Engage the 2 groups in battle.

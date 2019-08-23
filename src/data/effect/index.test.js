@@ -1,7 +1,9 @@
 const defs = require('./')
 
-// Assume we'll always have this distinct type.
+// Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'hero'
+// ...and never this one.
+const TEST_TYPE_INVALID = 'fake'
 
 describe('effect', () => {
   beforeEach(() => {
@@ -17,18 +19,18 @@ describe('effect', () => {
 
   describe('.create()', () => {
     it('breaks on bad name', () => {
-      expect(() => defs.create('fake')).toThrow()
+      expect(() => defs.create(TEST_TYPE_INVALID)).toThrow()
     })
 
     it('breaks with invalid data def', () => {
       // Side effect with bad data, rely on beforeEach to clean up.
       defs.types.set({
-        fake: {
+        [TEST_TYPE_INVALID]: {
           // Assume this breaks the underlying schema as this should be a number.
           duration: 'fast',
         }
       })
-      expect(() => defs.create('fake')).toThrow()
+      expect(() => defs.create(TEST_TYPE_INVALID)).toThrow()
     })
   })
 
