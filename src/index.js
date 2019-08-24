@@ -3,6 +3,7 @@ const data = require('data')
 const l10n = require('l10n')
 const {t} = require('l10n')
 const _ = require('lodash')
+const sprintf = require('sprintf-js').sprintf
 
 /**
  * Calculates the army bonus for the group.
@@ -13,31 +14,47 @@ const _ = require('lodash')
  */
 const armyGroupStrengthBonus = _.flow([
   // Transform object for pipeline
-  (group) => ({group, bonus: 0}),
+  (group) => ({bonus: 0, group}),
+
   // Elite bonus, applied one time by any unit that has elite status.
   ({group, bonus}) => {
-    if (_.some(group, (army) => _.some(_.get(army, 'effects'), (effect) => effect.name === 'elite'))) {
+    if (_.some(group, (army) => _.some(army.effects, (effect) => effect.name === 'elite'))) {
       bonus += 1
     }
-    return {group, bonus}
-  },
-  // Flyer bonus, applied one time by any unit that can be airborne (aerial).
-  ({group, bonus}) => {
-    if (_.some(group, (army) => _.some(_.get(army, 'effects'), (effect) => effect.name === 'aerial'))) {
-      bonus += 1
-    }
-    return {group, bonus}
+    return {bonus, group}
   },
 
-  //
-  // TODO: Add hero bonus.
-  //
+  // Flyer bonus, applied one time by any unit that can be airborne (aerial).
+  ({group, bonus}) => {
+    if (_.some(group, (army) => _.some(army.effects, (effect) => effect.name === 'aerial'))) {
+      bonus += 1
+    }
+    return {bonus, group}
+  },
+
+  // Hero bonus.
+  ({group, bonus}) => {
+    const heroes = _.filter(group, (army) => _.some(army.effects, (effect) => effect.name === 'hero'))
+
+    bonus += _.reduce(heroes, (heroBonus, hero) => {
+      const heroStrength = armyEffectiveStrength(hero)
+      if (heroStrength >= 4 && heroStrength <= 6) {
+        return heroBonus + 1
+      } else if (heroStrength >= 7 && heroStrength <= 8) {
+        return heroBonus + 2
+      } else if (heroStrength >= 9) {
+        return heroBonus + 3
+      } else {
+        return heroBonus
+      }
+    }, 0)
+
+    return {bonus, group}
+  },
 
   //
   // TODO: Add command item bonuses (carried by heroes)
   //
-
-  // TODO: cap the bonus.
 
   // Reduce to just the result we want.
   ({group, bonus}) => bonus,
@@ -52,16 +69,17 @@ const armyGroupStrengthBonus = _.flow([
  */
 const armyEffectiveStrength = _.flow([
   // Transform object for pipeline.
-  (army) => ({army, strength: _.get(army, 'strength')}),
+  (army) => ({army, strength: army.strength || 0}),
+
   // Check for strength effects on items.
   ({army, strength}) => {
-    const equipment = _.get(army, 'equipment')
-    const strengthEffects = _.reduce(equipment, (strengthEffects, eq) => {
-      return strengthEffects.concat(
-        _.filter(_.get(equipment, 'effects'), (effect) => _.get(effect, 'name') === 'strength')
+    const equipment = army.equipment
+    const strengthEffects = _.reduce(equipment, (effects, eq) => {
+      return effects.concat(
+        _.filter(eq.effects, (effect) => effect.name === 'strength')
       )
     }, [])
-    return strengthEffects.reduce(({army, strength}, strengthEffect) => {
+    return _.reduce(strengthEffects, ({army, strength}, strengthEffect) => {
       strength += _.get(strengthEffect, 'magnitude') || 0
       return {army, strength}
     }, {army, strength})
@@ -74,8 +92,9 @@ const armyEffectiveStrength = _.flow([
 ])
 
 // Temporary view functions.
-const showGroup = (group, color) => console.log(`${chalk[color](group.reduce((info, army) => {
-  info.push(`${army.name} (${armyEffectiveStrength(army)})`)
+const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[color](group.reduce((info, army) => {
+  const effectiveStrength = armyEffectiveStrength(army)
+  info.push(`${sprintf('%-17s', army.name)} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${effectiveStrength}) (Battle Str: ${Math.min(9, effectiveStrength + groupStrengthBonus)})`)
   return info
 }, []).join('\n'))}`)
 
@@ -113,8 +132,9 @@ Promise.resolve()
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
-    console.log(t('Army group bonus: {{bonus}}', {bonus: armyGroupStrengthBonus(dadGroup)}))
-    showGroup(dadGroup, 'blue')
+    const dadGroupStrengthBonus = armyGroupStrengthBonus(dadGroup)
+    console.log(t('Army group bonus: {{bonus}}', {bonus: dadGroupStrengthBonus}))
+    showGroup(dadGroup, 'blue', dadGroupStrengthBonus)
 
     console.log('')
 
@@ -127,8 +147,9 @@ Promise.resolve()
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
-    console.log(t('Army group bonus: {{bonus}}', {bonus: armyGroupStrengthBonus(archerGroup)}))
-    showGroup(archerGroup, 'green')
+    const archerGroupStrengthBonus = armyGroupStrengthBonus(archerGroup)
+    console.log(t('Army group bonus: {{bonus}}', {bonus: archerGroupStrengthBonus}))
+    showGroup(archerGroup, 'green', archerGroupStrengthBonus)
 
     // Engage the 2 groups in battle.
 
