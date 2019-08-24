@@ -14,5 +14,5 @@ module.exports = typeFactoryFactory({
       return effect
     },
   ]),
-  SCHEMA_ID: 'https://jeremyosborne.com/dnpk/effect.schema.json',
+  SCHEMA: require('./schema.json'),
 })

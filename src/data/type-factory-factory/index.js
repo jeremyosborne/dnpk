@@ -1,3 +1,4 @@
+const Ajv = require('ajv')
 const assert = require('assert')
 const {
   readdirSync,
@@ -5,8 +6,11 @@ const {
 } = require('fs')
 const _ = require('lodash')
 const path = require('path')
-const schema = require('../schema')
 const uuid = require('uuid/v1')
+
+const ajv = new Ajv({
+  useDefaults: true
+})
 
 /**
  * Build a type factory for in game data types: armies, types, etc.
@@ -16,7 +20,7 @@ const uuid = require('uuid/v1')
  * @param {function} postCreate a function that will be passed the instance after
  * all generic creation and, if included, must return the instance along with
  * any desired modifications.
- * @param {string} SCHEMA_ID schema id these types will derive from.
+ * @param {object} SCHEMA the JSON-Schema describing these types.
  *
  * @return {object} returns public api for the type factory.
  */
@@ -24,7 +28,7 @@ module.exports = ({
   DEFS_DIR,
   logger,
   postCreate = (instance) => instance,
-  SCHEMA_ID,
+  SCHEMA,
 }) => {
   /**
    * Cache of currently loaded types, keyed by the type `name`.
@@ -73,14 +77,6 @@ module.exports = ({
    * @return {object} instance of the particular type.
    */
   const create = (name) => {
-    if (!types.dir().length) {
-      load()
-    }
-
-    if (!schema.isLoaded()) {
-      schema.load()
-    }
-
     const instance = _.cloneDeep(types.get()[name])
     if (!instance) {
       throw new Error(`Requesting non existent type ${name}`)
@@ -89,8 +85,8 @@ module.exports = ({
     // Instance specific data.
     instance.id = uuid()
 
-    const validator = schema.ajv.getSchema(SCHEMA_ID)
     // validate and set defaults
+    const validator = ajv.getSchema(SCHEMA.$id)
     const valid = validator(instance)
     if (!valid) {
       throw new Error(`No invalid types allowed. Invalid type: ${name}, validation.errors: ${validator.errors}`)
@@ -103,6 +99,10 @@ module.exports = ({
    * Loads and creates an associative array of types.
    */
   const load = () => {
+    if (!ajv.getSchema(SCHEMA.$id)) {
+      ajv.addSchema(SCHEMA)
+    }
+
     // For data checking.
     const typeFiles = readdirSync(DEFS_DIR, {withFileTypes: true})
       .map((dirent) => dirent.name)

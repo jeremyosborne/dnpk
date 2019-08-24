@@ -25,5 +25,5 @@ module.exports = typeFactoryFactory({
       return army
     },
   ]),
-  SCHEMA_ID: 'https://jeremyosborne.com/dnpk/army.schema.json',
+  SCHEMA: require('./schema.json'),
 })

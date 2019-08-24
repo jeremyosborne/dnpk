@@ -24,5 +24,5 @@ module.exports = typeFactoryFactory({
       return equippable
     },
   ]),
-  SCHEMA_ID: 'https://jeremyosborne.com/dnpk/equippable.schema.json',
+  SCHEMA: require('./schema.json'),
 })

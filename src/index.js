@@ -46,14 +46,15 @@ const showGroup = (group, color) => console.log(`${chalk[color](group.reduce((in
 
 // int main(void)
 Promise.resolve()
-  .then(() => l10n.init())
   .then(() => {
-    // Load data.
-    // I didn't think I explicitly needed to do this, but I probably screwed something
-    // up somewhere or created a circular dependency.
-    data.army.load()
+    // Load string translations.
+    l10n.init()
+  })
+  .then(() => {
+    // Load data types, keep in dependency order to prevent angry JSON-Schemas.
     data.effect.load()
     data.equippable.load()
+    data.army.load()
   })
   .then(() => {
     console.log(t('Battle prototype'))
@@ -101,4 +102,8 @@ Promise.resolve()
     // Run the battle between the groups.
 
     // Return the battle group structure + statistics.
+  })
+  .catch((err) => {
+    console.error('something broke in the promise chain, have an error:')
+    console.error(err)
   })
