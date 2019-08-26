@@ -133,9 +133,7 @@ Promise.resolve()
 
     const armyTypes = gameObjects.army.dir()
     console.log(t('Armies available:'))
-    _.forEach(armyTypes, (army) => {
-      console.log(`${chalk.yellow(army)}`)
-    })
+    console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
 
     // Create 2 groups of armies.
 
