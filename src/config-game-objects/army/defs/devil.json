@@ -1,0 +1,11 @@
+{
+  "health": 2,
+  "effects": [
+    {
+      "name": "elite"
+    }
+  ],
+  "movementSpeed": 14,
+  "name": "devil",
+  "strength": 8
+}

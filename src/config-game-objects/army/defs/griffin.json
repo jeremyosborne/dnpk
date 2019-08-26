@@ -1,0 +1,11 @@
+{
+  "health": 2,
+  "effects": [
+    {
+      "name": "aerial"
+    }
+  ],
+  "movementSpeed": 16,
+  "name": "griffin",
+  "strength": 5
+}

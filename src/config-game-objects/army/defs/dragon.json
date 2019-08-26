@@ -1,0 +1,14 @@
+{
+  "health": 2,
+  "effects": [
+    {
+      "name": "aerial"
+    },
+    {
+      "name": "elite"
+    }
+  ],
+  "movementSpeed": 20,
+  "name": "dragon",
+  "strength": 9
+}
