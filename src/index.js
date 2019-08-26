@@ -1,6 +1,6 @@
 const chalk = require('chalk')
 const configGameObjects = require('config-game-objects')
-const data = require('data')
+const gameObjects = require('game-objects')
 const l10n = require('l10n')
 const {t} = require('l10n')
 const _ = require('lodash')
@@ -112,7 +112,7 @@ Promise.resolve()
   .then(() => {
     console.log(t('Battle prototype'))
 
-    const armyTypes = data.army.dir()
+    const armyTypes = gameObjects.army.dir()
     console.log(t('Armies available:'))
     _.forEach(armyTypes, (army) => {
       console.log(`${chalk.yellow(army)}`)
@@ -122,12 +122,12 @@ Promise.resolve()
 
     console.log('')
 
-    const dadGroup = _.times(4, () => data.army.create({name: _.sample(armyTypes)}))
+    const dadGroup = _.times(4, () => gameObjects.army.create({name: _.sample(armyTypes)}))
     console.log('Dad the Dictator group:')
     // Equip heroes with items.
     _.filter(dadGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
       .forEach((a) => {
-        const eq = data.equippable.create({name: _.sample(data.equippable.dir())})
+        const eq = gameObjects.equippable.create({name: _.sample(gameObjects.equippable.dir())})
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
@@ -137,12 +137,12 @@ Promise.resolve()
 
     console.log('')
 
-    const archerGroup = _.times(4, () => data.army.create({name: _.sample(armyTypes)}))
+    const archerGroup = _.times(4, () => gameObjects.army.create({name: _.sample(armyTypes)}))
     console.log('Archer the Awesome group:')
     // Equip heroes with items.
     _.filter(archerGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
       .forEach((a) => {
-        const eq = data.equippable.create({name: _.sample(data.equippablen.dir())})
+        const eq = gameObjects.equippable.create({name: _.sample(gameObjects.equippable.dir())})
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
