@@ -1,0 +1,10 @@
+{
+  "name": "crimson-banner",
+  "documentation": "Boosts strength of army group.",
+  "effects": [
+    {
+      "name": "command",
+      "magnitude": 1
+    }
+  ]
+}

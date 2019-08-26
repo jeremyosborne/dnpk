@@ -1,10 +1,10 @@
 {
-  "name": "firesword",
+  "name": "staff-of-might",
   "documentation": "Boosts individual hero strength.",
   "effects": [
     {
       "name": "strength",
-      "magnitude": 1
+      "magnitude": 3
     }
   ]
 }

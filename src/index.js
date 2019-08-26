@@ -33,6 +33,24 @@ const armyGroupStrengthBonus = _.flow([
     return {bonus, group}
   },
 
+  // Command bonus from equipped items.
+  // Check for strength effects on items.
+  ({group, bonus}) => {
+    // Aggregate all equipment.
+    const equipment = _.reduce(group, (equipment, army) => {
+      return equipment.concat(army.equipment || [])
+    }, [])
+    const commandEffects = _.reduce(equipment, (effects, eq) => {
+      return effects.concat(
+        _.filter(eq.effects, (effect) => effect.name === 'command')
+      )
+    }, [])
+    bonus += _.reduce(commandEffects, (commandBonus, commandEffect) => {
+      return commandBonus + (commandEffect.magnitude || 0)
+    }, 0)
+    return {group, bonus}
+  },
+
   // Hero bonus.
   ({group, bonus}) => {
     const heroes = _.filter(group, (army) => _.some(army.effects, (effect) => effect.name === 'hero'))
@@ -80,10 +98,11 @@ const armyEffectiveStrength = _.flow([
         _.filter(eq.effects, (effect) => effect.name === 'strength')
       )
     }, [])
-    return _.reduce(strengthEffects, ({army, strength}, strengthEffect) => {
-      strength += _.get(strengthEffect, 'magnitude') || 0
-      return {army, strength}
-    }, {army, strength})
+    strength += _.reduce(strengthEffects, (strengthBonus, strengthEffect) => {
+      return strengthBonus + (strengthEffect.magnitude || 0)
+    }, 0)
+
+    return {army, strength}
   },
 
   // TODO: cap the strength.

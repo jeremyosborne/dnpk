@@ -1,0 +1,10 @@
+{
+  "name": "crown-of-loriel",
+  "documentation": "Boosts strength of army group.",
+  "effects": [
+    {
+      "name": "command",
+      "magnitude": 1
+    }
+  ]
+}

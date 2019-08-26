@@ -1,10 +1,10 @@
 {
-  "name": "firesword",
+  "name": "darksword",
   "documentation": "Boosts individual hero strength.",
   "effects": [
     {
       "name": "strength",
-      "magnitude": 1
+      "magnitude": 2
     }
   ]
 }
