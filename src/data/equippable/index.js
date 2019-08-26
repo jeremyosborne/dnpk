@@ -1,28 +1,21 @@
-const debug = require('debug')
-const effect = require('data/effect')
+const configGameObjects = require('config-game-objects')
 const _ = require('lodash')
-const path = require('path')
-const typeFactoryFactory = require('../type-factory-factory')
+const uuid = require('uuid/v1')
 
 // Public API.
-module.exports = typeFactoryFactory({
-  DEFS_DIR: path.resolve(path.join(__dirname, 'defs')),
-  logger: debug('dnpk/data/equippable'),
-  postCreate: _.flow([
-    // delete documentation field
-    (equippable) => {
-      delete equippable.documentation
-      return equippable
-    },
-    // instantiate effects
-    (equippable) => {
-      // This works on create and allows us to shorthand effect defs in the
-      // base army defs and fill in the normal information later.
-      // If base def wants to supply more meaningful data, that data will be
-      // preserved as default.
-      equippable.effects = _.map(equippable.effects, (o) => _.merge(effect.create(o.name), o))
-      return equippable
-    },
-  ]),
-  SCHEMA: require('./schema.json'),
-})
+module.exports = {
+  dir: () => configGameObjects.dir('equippable'),
+
+  create: ({name}) => {
+    const equippable = configGameObjects.create({name, type: 'equippable'})
+    equippable.id = uuid()
+    // Instantiate effects, if any.
+    equippable.effects = _.map(equippable.effects, (eff) => {
+      return _.merge(configGameObjects.create({name: eff.name, type: 'effect'}), eff)
+    })
+    // no reason to have this in game
+    delete equippable.documentation
+
+    return equippable
+  }
+}

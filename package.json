@@ -10,7 +10,7 @@
     "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src node src/index.js",
-    "start-dev": "NODE_PATH=src DEBUG=* node src/index.js",
+    "start-debug": "NODE_PATH=src DEBUG=* node src/index.js",
     "test": "NODE_PATH=src jest --coverage"
   },
   "husky": {

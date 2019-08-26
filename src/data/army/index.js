@@ -1,29 +1,23 @@
-const effect = require('data/effect')
-const equippable = require('data/equippable')
-const debug = require('debug')
+const configGameObjects = require('config-game-objects')
 const _ = require('lodash')
-const path = require('path')
-const typeFactoryFactory = require('../type-factory-factory')
+const uuid = require('uuid/v1')
 
 // Public API.
-module.exports = typeFactoryFactory({
-  DEFS_DIR: path.resolve(path.join(__dirname, 'defs')),
-  logger: debug('dnpk/data/army'),
-  postCreate: _.flow([
-    // instantiate effects
-    (army) => {
-      // This works on create and allows us to shorthand effect defs in the
-      // base army defs and fill in the normal information later.
-      // If base def wants to supply more meaningful data, that data will be
-      // preserved as default.
-      army.effects = _.map(army.effects, (o) => _.merge(effect.create(o.name), o))
-      return army
-    },
+module.exports = {
+  dir: () => configGameObjects.dir('army'),
+
+  create: ({name}) => {
+    const army = configGameObjects.create({name, type: 'army'})
+    army.id = uuid()
+    // Instantiate effects, if any.
+    army.effects = _.map(army.effects, (eff) => {
+      return _.merge(configGameObjects.create({name: eff.name, type: 'effect'}), eff)
+    })
     // instantiate equippables (should be rare to non-existent in most game play)
-    (army) => {
-      army.equipment = _.map(army.equipment, (o) => _.merge(equippable.create(o.name), o))
-      return army
-    },
-  ]),
-  SCHEMA: require('./schema.json'),
-})
+    army.equipment = _.map(army.equipment, (eq) => {
+      return _.merge(configGameObjects.create({name: eq.name, type: 'equippable'}), eq)
+    })
+
+    return army
+  }
+}

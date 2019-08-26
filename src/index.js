@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const configGameObjects = require('config-game-objects')
 const data = require('data')
 const l10n = require('l10n')
 const {t} = require('l10n')
@@ -102,18 +103,16 @@ const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[col
 Promise.resolve()
   .then(() => {
     // Load string translations.
-    l10n.init()
+    return l10n.init()
   })
   .then(() => {
-    // Load data types, keep in dependency order to prevent angry JSON-Schemas.
-    data.effect.load()
-    data.equippable.load()
-    data.army.load()
+    // Load user configurable entity definitions.
+    return configGameObjects.load()
   })
   .then(() => {
     console.log(t('Battle prototype'))
 
-    const armyTypes = data.army.types.dir()
+    const armyTypes = data.army.dir()
     console.log(t('Armies available:'))
     _.forEach(armyTypes, (army) => {
       console.log(`${chalk.yellow(army)}`)
@@ -123,12 +122,12 @@ Promise.resolve()
 
     console.log('')
 
-    const dadGroup = _.times(4, () => data.army.create(_.sample(armyTypes)))
+    const dadGroup = _.times(4, () => data.army.create({name: _.sample(armyTypes)}))
     console.log('Dad the Dictator group:')
     // Equip heroes with items.
     _.filter(dadGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
       .forEach((a) => {
-        const eq = data.equippable.create(_.sample(data.equippable.types.dir()))
+        const eq = data.equippable.create({name: _.sample(data.equippable.dir())})
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
@@ -138,12 +137,12 @@ Promise.resolve()
 
     console.log('')
 
-    const archerGroup = _.times(4, () => data.army.create(_.sample(armyTypes)))
+    const archerGroup = _.times(4, () => data.army.create({name: _.sample(armyTypes)}))
     console.log('Archer the Awesome group:')
     // Equip heroes with items.
     _.filter(archerGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
       .forEach((a) => {
-        const eq = data.equippable.create(_.sample(data.equippable.types.dir()))
+        const eq = data.equippable.create({name: _.sample(data.equippablen.dir())})
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
