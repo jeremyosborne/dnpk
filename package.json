@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "doc-gen": "esdoc",
     "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src node src/index.js",
@@ -30,6 +31,11 @@
   "homepage": "https://github.com/jeremyosborne/dnpk#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.2",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-external-nodejs-plugin": "^1.0.0",
+    "esdoc-node": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^6.1.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-config-standard-react": "^8.0.0",

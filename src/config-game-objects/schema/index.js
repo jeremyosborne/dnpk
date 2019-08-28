@@ -88,8 +88,9 @@ const schemaId = (shortName) => `https://jeremyosborne.com/dnpk/${shortName}.sch
  * This method mutates the provided `object` argument. Defensive copying is
  * assumed to be done outside of this method.
  *
- * @param {object} object an object definition to validate and
- * @param {string} type a shortname of `$id` of one of the types like `army` or `effect`.
+ * @param {object} param associative array of arguments
+ * @param {object} param.object an object definition to validate and
+ * @param {string} param.type a shortname of `$id` of one of the types like `army` or `effect`.
  *
  * @return {{valid, errors, object}} associative array of validation method.
  * `valid` is true if valid, false if not.

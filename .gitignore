@@ -21,3 +21,6 @@ public/*.*
 # Jest
 # code coverage data
 coverage
+
+# Autodoc (via esdoc)
+docs-src
