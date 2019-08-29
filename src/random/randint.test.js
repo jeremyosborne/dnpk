@@ -1,3 +1,4 @@
+import {seed} from './random'
 import randint from './randint'
 
 describe('randint', () => {
@@ -19,5 +20,19 @@ describe('randint', () => {
   it('errors as expected', () => {
     expect(() => randint(10, 1)).toThrow()
     expect(() => randint()).toThrow()
+  })
+
+  describe('seed', () => {
+    it('produces the same values when seeded', () => {
+      seed.set(5, 5)
+      // Values from the REPL, assume this will work across systems.
+      expect(randint(1, 10)).toEqual(8)
+      expect(randint(1, 10)).toEqual(8)
+      expect(randint(1, 10)).toEqual(9)
+      expect(randint(1, 10)).toEqual(10)
+      expect(randint(1, 10)).toEqual(8)
+      expect(randint(1, 10)).toEqual(6)
+      expect(randint(1, 10)).toEqual(3n)
+    })
   })
 })
