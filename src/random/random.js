@@ -10,7 +10,7 @@ let seedw = Date.now() / 29
  *
  * @return {number} Floating point number between 0 and 1.
  */
-const random = function () {
+export const random = function () {
   seedz = 36969 * (seedz & 65535) + (seedz >> 16)
   seedw = 18000 * (seedw & 65535) + (seedw >> 16)
   return (Math.abs((seedz << 16) + seedw) % 65535) / 65535
@@ -44,7 +44,7 @@ const random = function () {
   // shouldn't have any problems with this.
 }
 
-const seed = {
+export const seed = {
   /**
    * Seed the pseudo-random number generator.
    *
@@ -54,7 +54,7 @@ const seed = {
    *
    * @see getSeed
    */
-  setSeed: function (sz, sw) {
+  set: function (sz, sw) {
     seedz = sz || Date.now()
     seedw = sw || Date.now() / 29
   },
@@ -66,12 +66,7 @@ const seed = {
    *
    * @see setSeed
    */
-  getSeed: function () {
+  get: function () {
     return {seedz, seedw}
   },
-}
-
-module.exports = {
-  random,
-  seed,
 }

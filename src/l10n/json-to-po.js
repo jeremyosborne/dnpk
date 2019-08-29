@@ -20,6 +20,7 @@ const L10N_DIR = path.resolve(path.join(__dirname))
 const options = {/* see https://github.com/i18next/i18next-gettext-converter */}
 
 console.log('Converting .json files to .po files for each found language.')
+
 Promise.all(
   readdirSync(L10N_DIR, {withFileTypes: true})
     .filter(dirent => dirent.isDirectory())

@@ -1,5 +1,5 @@
-const effect = require('./')
-const configGameObjects = require('config-game-objects')
+import effect from './'
+import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'hero'

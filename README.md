@@ -4,7 +4,7 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 
 ## Software organization
 
-* Language: JavaScript
+* Language: JavaScript, and assume transpilation via Babel. (Sigh... `babel-node` works better than plain old `node` when considering the ecosystem.)
 * [JSON Schema](https://json-schema.org) for raw data type definitions.
     * To prevent the code from needing to know the difference in the core name of a type, types names will always take the singular form of their noun: "army" not "armies"; "item" not "items".
 * [JSON](http://json.org/) as a data interchange / data storage format.

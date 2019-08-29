@@ -1,8 +1,8 @@
-const configGameObjects = require('config-game-objects')
-const uuid = require('uuid/v1')
+import * as configGameObjects from 'config-game-objects'
+import uuid from 'uuid/v1'
 
 // Public API.
-module.exports = {
+export default {
   dir: () => configGameObjects.dir('effect'),
 
   create: ({name}) => {

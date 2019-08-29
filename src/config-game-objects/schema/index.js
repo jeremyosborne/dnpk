@@ -1,7 +1,7 @@
-const Ajv = require('ajv')
-const debug = require('debug')
-const fs = require('fs').promises
-const path = require('path')
+import Ajv from 'ajv'
+import debug from 'debug'
+import {promises as fs} from 'fs'
+import path from 'path'
 
 const ajv = new Ajv({
   useDefaults: true
@@ -105,7 +105,7 @@ const validate = ({object, type}) => {
 }
 
 // Public API.
-module.exports = {
+export default {
   ajv,
   isLoaded,
   load,

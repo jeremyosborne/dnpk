@@ -1,10 +1,9 @@
-const chalk = require('chalk')
-const configGameObjects = require('config-game-objects')
-const gameObjects = require('game-objects')
-const l10n = require('l10n')
-const {t} = require('l10n')
-const _ = require('lodash')
-const sprintf = require('sprintf-js').sprintf
+import * as configGameObjects from 'config-game-objects'
+import chalk from 'chalk'
+import * as gameObjects from 'game-objects'
+import {init as l10nInit, t} from 'l10n'
+import _ from 'lodash'
+import {sprintf} from 'sprintf-js'
 
 /**
  * Calculates the army bonus for the group.
@@ -122,7 +121,7 @@ const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[col
 Promise.resolve()
   .then(() => {
     // Load string translations.
-    return l10n.init()
+    return l10nInit()
   })
   .then(() => {
     // Load user configurable entity definitions.

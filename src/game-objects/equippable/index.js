@@ -1,9 +1,9 @@
-const configGameObjects = require('config-game-objects')
-const _ = require('lodash')
-const uuid = require('uuid/v1')
+import * as configGameObjects from 'config-game-objects'
+import _ from 'lodash'
+import uuid from 'uuid/v1'
 
 // Public API.
-module.exports = {
+export default {
   dir: () => configGameObjects.dir('equippable'),
 
   create: ({name}) => {

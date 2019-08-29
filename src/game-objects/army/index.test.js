@@ -1,5 +1,5 @@
-const army = require('./')
-const configGameObjects = require('config-game-objects')
+import army from './'
+import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'light-infantry'

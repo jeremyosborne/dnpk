@@ -1,4 +1,4 @@
-const randint = require('./randint')
+import randint from './randint'
 
 describe('randint', () => {
   it('returns expected random values', () => {

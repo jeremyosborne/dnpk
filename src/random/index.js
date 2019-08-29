@@ -1,5 +1,2 @@
-module.exports = {
-  random: require('./random').random,
-  randint: require('./randint'),
-  seed: require('./random').seed,
-}
+export {random, seed} from './random'
+export {default as randint} from './randint'
