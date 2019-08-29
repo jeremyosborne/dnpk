@@ -1,4 +1,4 @@
-import army from './'
+import * as army from './'
 import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...

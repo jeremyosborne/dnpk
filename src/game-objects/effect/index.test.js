@@ -1,4 +1,4 @@
-import effect from './'
+import * as effect from './'
 import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...

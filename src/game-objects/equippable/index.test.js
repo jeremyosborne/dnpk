@@ -1,4 +1,4 @@
-import equippable from './'
+import * as equippable from './'
 import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...

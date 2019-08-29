@@ -1,9 +1,15 @@
+
 //
 // Public API.
 //
 // Object creation and helper methods for in game objects.
 //
 
-export {default as army} from './army'
-export {default as effect} from './effect'
-export {default as equippable} from './equippable'
+import * as army from './army'
+export {army}
+
+import * as effect from './effect' // eslint-disable-line import/first
+export {effect}
+
+import * as equippable from './equippable' // eslint-disable-line import/first
+export {equippable}
