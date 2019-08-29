@@ -32,7 +32,7 @@ describe('randint', () => {
       expect(randint(1, 10)).toEqual(10)
       expect(randint(1, 10)).toEqual(8)
       expect(randint(1, 10)).toEqual(6)
-      expect(randint(1, 10)).toEqual(3n)
+      expect(randint(1, 10)).toEqual(3)
     })
   })
 })
