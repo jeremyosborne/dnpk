@@ -1,5 +1,10 @@
 // army-group public API, part of army API.
-import * as group from './group'
+
+// because reserve words
+import * as doAction from './do' // eslint-disable-line import/first
+export {doAction as do}
+
+import * as group from './group' // eslint-disable-line import/first
 export {group}
 
 import * as is from './is' // eslint-disable-line import/first

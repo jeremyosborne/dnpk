@@ -1,0 +1,1 @@
+export {equip} from './equip'
