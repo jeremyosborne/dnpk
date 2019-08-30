@@ -1,4 +1,5 @@
 import * as configGameObjects from 'config-game-objects'
+import dir from './dir'
 import _ from 'lodash'
 import uuid from 'uuid/v1'
 
@@ -26,4 +27,20 @@ export const create = ({name}) => {
   })
 
   return army
+}
+
+/**
+ * Create a random army picked from the currently available list of valid armies.
+ *
+ * @return {object} new army instance.
+ *
+ * @throw {Error} if there appear to be no armies loaded.
+ */
+create.random = () => {
+  const name = _.sample(dir())
+  if (!name) {
+    throw new Error('army.create.random: no army names available. Did you load the armies before calling this method?')
+  }
+
+  return create({name})
 }

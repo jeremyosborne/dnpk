@@ -33,12 +33,12 @@ Promise.resolve()
 
     console.log('')
 
-    const dadGroup = _.times(4, () => gameObjects.army.create({name: _.sample(armyTypes)}))
-    console.log('Dad the Dictator group:')
+    const dadGroup = _.times(4, gameObjects.army.create.random)
+    console.log(t('{{empire}} group:', {empire: 'Dad the Dictator'}))
     // Equip heroes with items.
-    _.filter(dadGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
+    _.filter(dadGroup, (a) => gameObjects.army.is.hero)
       .forEach((a) => {
-        const eq = gameObjects.equippable.create({name: _.sample(gameObjects.equippable.dir())})
+        const eq = gameObjects.equippable.create.random()
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
@@ -48,12 +48,12 @@ Promise.resolve()
 
     console.log('')
 
-    const archerGroup = _.times(4, () => gameObjects.army.create({name: _.sample(armyTypes)}))
-    console.log('Archer the Awesome group:')
+    const archerGroup = _.times(4, gameObjects.army.create.random)
+    console.log(t('{{empire}} group:', {empire: 'Archer the Awesome'}))
     // Equip heroes with items.
-    _.filter(archerGroup, (a) => _.some(_.get(a, 'effects'), (eff) => eff.name === 'hero'))
+    _.filter(archerGroup, (a) => gameObjects.army.is.hero)
       .forEach((a) => {
-        const eq = gameObjects.equippable.create({name: _.sample(gameObjects.equippable.dir())})
+        const eq = gameObjects.equippable.create.random()
         console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
         a.equipment.push(eq)
       })
