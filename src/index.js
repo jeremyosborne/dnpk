@@ -5,12 +5,24 @@ import {init as l10nInit, t} from 'l10n'
 import _ from 'lodash'
 import {sprintf} from 'sprintf-js'
 
-// Temporary view functions.
-const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[color](group.reduce((info, army) => {
-  const effectiveStrength = gameObjects.army.strengthEffective(army)
-  info.push(`${sprintf('%-17s', gameObjects.nameEffective(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${effectiveStrength}) (Battle Str: ${Math.min(9, effectiveStrength + groupStrengthBonus)})`)
-  return info
-}, []).join('\n'))}`)
+const showGroup = (group, color) => {
+  const strengthBonus = gameObjects.army.group.strengthBonus(group)
+  console.log(`${chalk[color](t('Army group bonus: {{bonus}}', {bonus: strengthBonus}))}`)
+  console.log(`${chalk[color](group.reduce((info, army) => {
+    const strengthEffective = gameObjects.army.strengthEffective(army)
+    info.push(`${sprintf('%-17s', gameObjects.nameEffective(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strengthEffective}) (Battle Str: ${Math.min(9, strengthEffective + strengthBonus)})`)
+    return info
+  }, []).join('\n'))}`)
+}
+
+// mutates object passed in
+const heroEquipRandom = (a, color = 'green') => {
+  const eq = gameObjects.equippable.create.random()
+  console.log(chalk[color](`Equipping ${gameObjects.nameEffective(a)} with ${gameObjects.nameEffective(eq)}`))
+  gameObjects.army.do.equip(a, eq)
+
+  return a
+}
 
 // int main(void)
 export const main = async () => {
@@ -28,32 +40,20 @@ export const main = async () => {
   console.log('')
 
   const dadGroup = _.times(4, gameObjects.army.create.random)
-  console.log(t('{{empire}} group:', {empire: 'Dad the Dictator'}))
+  console.log(chalk['blue'](t('{{empire}} group:', {empire: 'Dad the Dictator'})))
   // Equip heroes with items.
   _.filter(dadGroup, gameObjects.army.is.hero)
-    .forEach((a) => {
-      const eq = gameObjects.equippable.create.random()
-      console.log(`Equipping ${gameObjects.nameEffective(a)} with ${eq.name}`)
-      gameObjects.army.do.equip(a, eq)
-    })
-  const dadGroupStrengthBonus = gameObjects.army.group.strengthBonus(dadGroup)
-  console.log(t('Army group bonus: {{bonus}}', {bonus: dadGroupStrengthBonus}))
-  showGroup(dadGroup, 'blue', dadGroupStrengthBonus)
+    .forEach((a) => heroEquipRandom(a, 'blue'))
+  showGroup(dadGroup, 'blue')
 
   console.log('')
 
   const archerGroup = _.times(4, gameObjects.army.create.random)
-  console.log(t('{{empire}} group:', {empire: 'Archer the Awesome'}))
+  console.log(chalk['red'](t('{{empire}} group:', {empire: 'Archer the Awesome'})))
   // Equip heroes with items.
   _.filter(archerGroup, gameObjects.army.is.hero)
-    .forEach((a) => {
-      const eq = gameObjects.equippable.create.random()
-      console.log(`Equipping ${gameObjects.nameEffective(a)} with ${eq.name}`)
-      gameObjects.army.do.equip(a, eq)
-    })
-  const archerGroupStrengthBonus = gameObjects.army.group.strengthBonus(archerGroup)
-  console.log(t('Army group bonus: {{bonus}}', {bonus: archerGroupStrengthBonus}))
-  showGroup(archerGroup, 'green', archerGroupStrengthBonus)
+    .forEach((a) => heroEquipRandom(a, 'red'))
+  showGroup(archerGroup, 'red')
 
   // Engage the 2 groups in battle.
 
