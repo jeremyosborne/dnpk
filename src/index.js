@@ -13,65 +13,59 @@ const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[col
 }, []).join('\n'))}`)
 
 // int main(void)
-Promise.resolve()
-  .then(() => {
-    // Load string translations.
-    return l10nInit()
-  })
-  .then(() => {
-    // Load user configurable entity definitions.
-    return configGameObjects.load()
-  })
-  .then(() => {
-    console.log(t('Battle prototype'))
+export const main = async () => {
+  await l10nInit()
+  await configGameObjects.load()
 
-    const armyTypes = gameObjects.army.dir()
-    console.log(t('Armies available:'))
-    console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
+  console.log(t('Battle prototype'))
 
-    // Create 2 groups of armies.
+  const armyTypes = gameObjects.army.dir()
+  console.log(t('Armies available:'))
+  console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
 
-    console.log('')
+  // Create 2 groups of armies.
 
-    const dadGroup = _.times(4, gameObjects.army.create.random)
-    console.log(t('{{empire}} group:', {empire: 'Dad the Dictator'}))
-    // Equip heroes with items.
-    _.filter(dadGroup, gameObjects.army.is.hero)
-      .forEach((a) => {
-        const eq = gameObjects.equippable.create.random()
-        console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
-        gameObjects.army.do.equip(a, eq)
-      })
-    const dadGroupStrengthBonus = gameObjects.army.group.strengthBonus(dadGroup)
-    console.log(t('Army group bonus: {{bonus}}', {bonus: dadGroupStrengthBonus}))
-    showGroup(dadGroup, 'blue', dadGroupStrengthBonus)
+  console.log('')
 
-    console.log('')
+  const dadGroup = _.times(4, gameObjects.army.create.random)
+  console.log(t('{{empire}} group:', {empire: 'Dad the Dictator'}))
+  // Equip heroes with items.
+  _.filter(dadGroup, gameObjects.army.is.hero)
+    .forEach((a) => {
+      const eq = gameObjects.equippable.create.random()
+      console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+      gameObjects.army.do.equip(a, eq)
+    })
+  const dadGroupStrengthBonus = gameObjects.army.group.strengthBonus(dadGroup)
+  console.log(t('Army group bonus: {{bonus}}', {bonus: dadGroupStrengthBonus}))
+  showGroup(dadGroup, 'blue', dadGroupStrengthBonus)
 
-    const archerGroup = _.times(4, gameObjects.army.create.random)
-    console.log(t('{{empire}} group:', {empire: 'Archer the Awesome'}))
-    // Equip heroes with items.
-    _.filter(archerGroup, gameObjects.army.is.hero)
-      .forEach((a) => {
-        const eq = gameObjects.equippable.create.random()
-        console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
-        gameObjects.army.do.equip(a, eq)
-      })
-    const archerGroupStrengthBonus = gameObjects.army.group.strengthBonus(archerGroup)
-    console.log(t('Army group bonus: {{bonus}}', {bonus: archerGroupStrengthBonus}))
-    showGroup(archerGroup, 'green', archerGroupStrengthBonus)
+  console.log('')
 
-    // Engage the 2 groups in battle.
+  const archerGroup = _.times(4, gameObjects.army.create.random)
+  console.log(t('{{empire}} group:', {empire: 'Archer the Awesome'}))
+  // Equip heroes with items.
+  _.filter(archerGroup, gameObjects.army.is.hero)
+    .forEach((a) => {
+      const eq = gameObjects.equippable.create.random()
+      console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+      gameObjects.army.do.equip(a, eq)
+    })
+  const archerGroupStrengthBonus = gameObjects.army.group.strengthBonus(archerGroup)
+  console.log(t('Army group bonus: {{bonus}}', {bonus: archerGroupStrengthBonus}))
+  showGroup(archerGroup, 'green', archerGroupStrengthBonus)
 
-    // Create the attacking group battle structure.
+  // Engage the 2 groups in battle.
 
-    // Create the defending group battle structure.
+  // Create the attacking group battle structure.
 
-    // Run the battle between the groups.
+  // Create the defending group battle structure.
 
-    // Return the battle group structure + statistics.
-  })
-  .catch((err) => {
-    console.error('something broke in the promise chain, have an error:')
-    console.error(err)
-  })
+  // Run the battle between the groups.
+
+  // Return the battle group structure + statistics.
+}
+
+if (require.main === module) {
+  main()
+}
