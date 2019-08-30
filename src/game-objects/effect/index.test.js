@@ -22,6 +22,7 @@ describe('effect', () => {
     it('works', () => {
       const instance = effect.create({name: TEST_TYPE_VALID})
       expect(typeof instance.id === 'string').toEqual(true)
+      expect(instance.type).toEqual('effect')
     })
 
     it('breaks on bad name', () => {

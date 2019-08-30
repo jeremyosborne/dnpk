@@ -56,6 +56,12 @@
     "strength": {
       "description": "Base, unmodified attack/defense strength of the unit.",
       "type": "integer"
+    },
+    "type": {
+      "enum": ["army"],
+      "default": "army",
+      "description": "duck typing",
+      "type": "string"
     }
   }
 }

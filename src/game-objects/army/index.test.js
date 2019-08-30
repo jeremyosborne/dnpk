@@ -22,6 +22,7 @@ describe('army', () => {
     it('works', () => {
       const instance = army.create({name: TEST_TYPE_VALID})
       expect(typeof instance.id === 'string').toEqual(true)
+      expect(instance.type).toEqual('army')
     })
 
     it('breaks on bad name', () => {

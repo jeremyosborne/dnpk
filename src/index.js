@@ -8,7 +8,7 @@ import {sprintf} from 'sprintf-js'
 // Temporary view functions.
 const showGroup = (group, color, groupStrengthBonus) => console.log(`${chalk[color](group.reduce((info, army) => {
   const effectiveStrength = gameObjects.army.strengthEffective(army)
-  info.push(`${sprintf('%-17s', army.name)} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${effectiveStrength}) (Battle Str: ${Math.min(9, effectiveStrength + groupStrengthBonus)})`)
+  info.push(`${sprintf('%-17s', gameObjects.nameEffective(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${effectiveStrength}) (Battle Str: ${Math.min(9, effectiveStrength + groupStrengthBonus)})`)
   return info
 }, []).join('\n'))}`)
 
@@ -33,7 +33,7 @@ export const main = async () => {
   _.filter(dadGroup, gameObjects.army.is.hero)
     .forEach((a) => {
       const eq = gameObjects.equippable.create.random()
-      console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+      console.log(`Equipping ${gameObjects.nameEffective(a)} with ${eq.name}`)
       gameObjects.army.do.equip(a, eq)
     })
   const dadGroupStrengthBonus = gameObjects.army.group.strengthBonus(dadGroup)
@@ -48,7 +48,7 @@ export const main = async () => {
   _.filter(archerGroup, gameObjects.army.is.hero)
     .forEach((a) => {
       const eq = gameObjects.equippable.create.random()
-      console.log(`Equipping ${a.nameInstance || a.name} with ${eq.name}`)
+      console.log(`Equipping ${gameObjects.nameEffective(a)} with ${eq.name}`)
       gameObjects.army.do.equip(a, eq)
     })
   const archerGroupStrengthBonus = gameObjects.army.group.strengthBonus(archerGroup)

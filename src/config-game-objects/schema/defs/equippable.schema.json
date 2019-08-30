@@ -23,6 +23,12 @@
     "name": {
       "description": "Descriptive, unique name for this item.",
       "type": "string"
+    },
+    "type": {
+      "enum": ["equippable"],
+      "default": "equippable",
+      "description": "duck typing",
+      "type": "string"
     }
   }
 }

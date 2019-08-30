@@ -22,6 +22,7 @@ describe('equippable', () => {
     it('works', () => {
       const instance = equippable.create({name: TEST_TYPE_VALID})
       expect(typeof instance.id === 'string').toEqual(true)
+      expect(instance.type).toEqual('equippable')
     })
 
     it('breaks on bad name', () => {

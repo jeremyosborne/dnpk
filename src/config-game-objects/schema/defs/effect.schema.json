@@ -25,6 +25,12 @@
     "name": {
       "description": "Descriptive, unique name for this effect.",
       "type": "string"
+    },
+    "type": {
+      "enum": ["effect"],
+      "default": "effect",
+      "description": "duck typing",
+      "type": "string"
     }
   }
 }
