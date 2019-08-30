@@ -1,3 +1,4 @@
+// @flow
 import * as configGameObjects from 'config-game-objects'
 import dir from './dir'
 import _ from 'lodash'

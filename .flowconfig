@@ -1,0 +1,14 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+# see: https://github.com/facebook/flow/issues/48#issuecomment-415389171, can't do this on the command line
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+
+[strict]

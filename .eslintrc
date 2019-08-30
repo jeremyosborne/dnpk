@@ -5,7 +5,8 @@
   },
   "parser": "babel-eslint",
   "plugins": [
-     "import",
+    "flowtype",
+    "import",
   ],
   "rules": {
     "import/no-unresolved": ["error"],

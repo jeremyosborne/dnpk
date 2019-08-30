@@ -24,6 +24,8 @@ const heroEquipRandom = (a, color = 'green') => {
   return a
 }
 
+const empireTitle = (empire) => console.log(chalk[empire.color](t('{{empire.name}}', {empire})))
+
 // int main(void)
 export const main = async () => {
   await l10nInit()
@@ -38,9 +40,12 @@ export const main = async () => {
   // Create 2 groups of armies.
 
   console.log('')
-
+  const dadEmpire = {
+    color: 'blue',
+    name: 'Dad the Dictator',
+  }
   const dadGroup = _.times(4, gameObjects.army.create.random)
-  console.log(chalk['blue'](t('{{empire}} group:', {empire: 'Dad the Dictator'})))
+  empireTitle(dadEmpire)
   // Equip heroes with items.
   _.filter(dadGroup, gameObjects.army.is.hero)
     .forEach((a) => heroEquipRandom(a, 'blue'))
@@ -48,8 +53,12 @@ export const main = async () => {
 
   console.log('')
 
+  const archerEmpire = {
+    color: 'red',
+    name: 'Archer the Awesome',
+  }
   const archerGroup = _.times(4, gameObjects.army.create.random)
-  console.log(chalk['red'](t('{{empire}} group:', {empire: 'Archer the Awesome'})))
+  empireTitle(archerEmpire)
   // Equip heroes with items.
   _.filter(archerGroup, gameObjects.army.is.hero)
     .forEach((a) => heroEquipRandom(a, 'red'))
@@ -57,11 +66,20 @@ export const main = async () => {
 
   // Engage the 2 groups in battle.
 
+  console.log('\n\n\nBattle commencing between\n')
+
   // Create the attacking group battle structure.
+  const dadGroupBattleCopy = gameObjects.army.group.sort(_.cloneDeep(dadGroup))
 
   // Create the defending group battle structure.
+  const archerGroupBattleCopy = gameObjects.army.group.sort(_.cloneDeep(archerGroup))
 
   // Run the battle between the groups.
+  empireTitle(dadEmpire)
+  showGroup(dadGroupBattleCopy, 'blue')
+  console.log('vs.')
+  empireTitle(archerEmpire)
+  showGroup(archerGroupBattleCopy, 'red')
 
   // Return the battle group structure + statistics.
 }

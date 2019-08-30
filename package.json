@@ -9,6 +9,7 @@
   "scripts": {
     "doc-gen": "esdoc",
     "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
+    "flow": "flow `# flow does not respect NODE_PATH, path alias handled in .flowconfig`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src babel-node src/index.js",
     "start-debug": "NODE_PATH=src DEBUG=* babel-node src/index.js",
@@ -16,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm test"
+      "pre-push": "npm run lint && npm run flow && npm test"
     }
   },
   "repository": {
@@ -41,16 +42,19 @@
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-external-nodejs-plugin": "^1.0.0",
+    "esdoc-flow-plugin": "^1.0.0",
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^6.1.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-config-standard-react": "^8.0.0",
+    "eslint-plugin-flowtype": "^4.2.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-standard": "^4.0.0",
+    "flow-bin": "^0.106.3",
     "husky": "^4.0.0-beta.1",
     "i18next-conv": "^9.1.0",
     "i18next-parser": "^1.0.0-beta34",
