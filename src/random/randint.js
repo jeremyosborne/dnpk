@@ -9,7 +9,9 @@ import {random} from './random'
  *
  * @return {number}
  */
-export default function (min, max) {
+export const randint = (min, max) => {
   assert(max > min && Number.isInteger(min) && Number.isInteger(max))
   return Math.round(random() * (max - min)) + min
 }
+
+export default randint

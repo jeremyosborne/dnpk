@@ -7,6 +7,8 @@ import {randint} from './randint'
  *
  * @return {number}
  */
-export default function (max) {
+export const d = (max) => {
   return randint(1, max)
 }
+
+export default d
