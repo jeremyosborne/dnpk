@@ -1,0 +1,5 @@
+{
+  "name": "terrain-battle-modifier",
+  "documentation": "Describes the bonus or malus for a unit when battling within a particular terrain. `metadata.terrain-type` defines the type of terrain this unit prefers or dislikes, the magnitude being how much.",
+  "duration": -1
+}

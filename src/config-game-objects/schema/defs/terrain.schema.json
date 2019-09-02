@@ -1,0 +1,23 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/terrain.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "terrain",
+  "type": "object",
+  "description": "Basic terrain information.",
+  "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
+    "name": {
+      "description": "Descriptive, unique name for this terrain.",
+      "type": "string"
+    },
+    "type": {
+      "enum": ["terrain"],
+      "default": "terrain",
+      "description": "duck typing",
+      "type": "string"
+    }
+  }
+}

@@ -11,7 +11,7 @@ import uuid from 'uuid/v1'
  *
  * @return {object} new army instance.
  */
-export const create = ({name}) => {
+export const create = ({name}: {name: string}) => {
   const army = configGameObjects.create({name, type: 'army'})
 
   // All objects get a unique id.

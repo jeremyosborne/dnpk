@@ -9,6 +9,7 @@ import equippable from './equippable'
 import _ from 'lodash'
 import path from 'path'
 import schema from './schema'
+import terrain from './terrain'
 
 const MODULE_DIR = path.resolve(__dirname)
 const MODULE_NAME = path.basename(MODULE_DIR)
@@ -21,6 +22,7 @@ export const types = {
   army,
   effect,
   equippable,
+  terrain,
 }
 
 /**
@@ -77,4 +79,5 @@ export const load = async function ({force = false} = {}) {
   await types.army.load({force})
   await types.effect.load({force})
   await types.equippable.load({force})
+  await types.terrain.load({force})
 }

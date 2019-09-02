@@ -22,6 +22,10 @@
       "description": "Power level of this particular effect. Not always applicable for an effect.",
       "type": "integer"
     },
+    "metadata": {
+      "description": "Additional modifiers for more complex effects.",
+      "type": "object"
+    },
     "name": {
       "description": "Descriptive, unique name for this effect.",
       "type": "string"
