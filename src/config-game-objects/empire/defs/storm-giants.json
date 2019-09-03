@@ -1,0 +1,19 @@
+{
+  "name": "storm-giants",
+  "effects": [
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": 1,
+      "metadata": {
+        "name": "hill"
+      }
+    },
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": -1,
+      "metadata": {
+        "name": "marsh"
+      }
+    }
+  ]
+}

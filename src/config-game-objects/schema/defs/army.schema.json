@@ -28,7 +28,7 @@
     },
     "effects": {
       "default": [],
-      "description": "Longer term effects inflicted on this specific unit instance beyond birth.",
+      "description": "Various effects applied to this entity.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },

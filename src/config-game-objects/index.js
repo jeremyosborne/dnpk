@@ -6,6 +6,7 @@ import army from './army'
 import debug from 'debug'
 import effect from './effect'
 import equippable from './equippable'
+import empire from './empire'
 import _ from 'lodash'
 import path from 'path'
 import schema from './schema'
@@ -21,6 +22,7 @@ logger('This module assumes an async call to provided `.load()` method before ru
 export const types = {
   army,
   effect,
+  empire,
   equippable,
   terrain,
 }
@@ -78,6 +80,7 @@ export const load = async function ({force = false} = {}) {
   await schema.load({force})
   await types.army.load({force})
   await types.effect.load({force})
+  await types.empire.load({force})
   await types.equippable.load({force})
   await types.terrain.load({force})
 }

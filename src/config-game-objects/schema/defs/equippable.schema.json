@@ -14,7 +14,7 @@
       "type": "string"
     },
     "effects": {
-      "description": "Intrinsic effects of this item provided when equipped by a unit.",
+      "description": "Intrinsic effects of this item, often granted to bearer when equipped.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
