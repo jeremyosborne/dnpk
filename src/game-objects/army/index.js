@@ -9,4 +9,4 @@ import * as group from './group' // eslint-disable-line import/first
 export {group}
 import * as is from './is' // eslint-disable-line import/first
 export {is}
-export {strengthEffective} from './strength-effective'
+export {strength} from './strength'

@@ -17,8 +17,8 @@ export {empire}
 import * as equippable from './equippable' // eslint-disable-line import/first
 export {equippable}
 
-import {nameEffective} from './name-effective' // eslint-disable-line import/first
-export {nameEffective}
+import {name} from './name' // eslint-disable-line import/first
+export {name}
 
 import * as terrain from './terrain' // eslint-disable-line import/first
 export {terrain}

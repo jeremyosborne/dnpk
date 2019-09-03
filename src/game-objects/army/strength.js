@@ -1,13 +1,13 @@
 import _ from 'lodash'
 
 /**
- * Calculates the strength of an individual army without any grouping bonuses.
+ * Calculates the effective strength of an individual army.
  *
  * @param {object} army instance
  *
  * @return {number} strength of the army
  */
-export const strengthEffective = _.flow([
+export const strength = _.flow([
   // Transform object for pipeline.
   (army) => ({army, strength: army.strength || 0}),
 
@@ -32,4 +32,4 @@ export const strengthEffective = _.flow([
   ({army, strength}) => strength,
 ])
 
-export default strengthEffective
+export default strength

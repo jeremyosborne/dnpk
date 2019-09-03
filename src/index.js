@@ -10,8 +10,8 @@ const showGroup = (group, color) => {
   const strengthBonus = gameObjects.army.group.strengthBonus(group)
   console.log(`${chalk[color](t('Army group bonus: {{bonus}}', {bonus: strengthBonus}))}`)
   console.log(`${chalk[color](group.reduce((info, army) => {
-    const strengthEffective = gameObjects.army.strengthEffective(army)
-    info.push(`${sprintf('%-17s', gameObjects.nameEffective(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strengthEffective}) (Battle Str: ${Math.min(9, strengthEffective + strengthBonus)})`)
+    const strength = gameObjects.army.strength(army)
+    info.push(`${sprintf('%-17s', gameObjects.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthBonus)})`)
     return info
   }, []).join('\n'))}`)
 }
@@ -19,7 +19,7 @@ const showGroup = (group, color) => {
 // mutates object passed in
 const heroEquipRandom = (a, color = 'green') => {
   const eq = gameObjects.equippable.create.random()
-  console.log(chalk[color](`Equipping ${gameObjects.nameEffective(a)} with ${gameObjects.nameEffective(eq)}`))
+  console.log(chalk[color](`Equipping ${gameObjects.name(a)} with ${gameObjects.name(eq)}`))
   gameObjects.army.do.equip(a, eq)
 
   return a
@@ -92,33 +92,33 @@ export const main = async () => {
   while (attackers.length && defenders.length) {
     // Top of the stack current battle.
     const attacker = attackers[0]
-    const attackerStrength = Math.min(9, gameObjects.army.group.strengthBonus(attackers) + gameObjects.army.strengthEffective(attacker))
+    const attackerStrength = Math.min(9, gameObjects.army.group.strengthBonus(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
-    const defenderStrength = Math.min(9, gameObjects.army.group.strengthBonus(defenders) + gameObjects.army.strengthEffective(defender))
+    const defenderStrength = Math.min(9, gameObjects.army.group.strengthBonus(defenders) + gameObjects.army.strength(defender))
 
-    console.log(`${gameObjects.nameEffective(attacker)} (${attackerStrength}) vs. ${gameObjects.nameEffective(defender)} (${defenderStrength})`)
+    console.log(`${gameObjects.name(attacker)} (${attackerStrength}) vs. ${gameObjects.name(defender)} (${defenderStrength})`)
 
     const attackerHit = d(10) < defenderStrength
     const defenderHit = d(10) < attackerStrength
     // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
 
     if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
-      console.log(`${gameObjects.nameEffective(attacker)} and ${gameObjects.nameEffective(defender)} draw no blood.`)
+      console.log(`${gameObjects.name(attacker)} and ${gameObjects.name(defender)} draw no blood.`)
     } else if (attackerHit) {
-      console.log(`${gameObjects.nameEffective(attacker)} hits and wounds ${gameObjects.nameEffective(defender)}.`)
+      console.log(`${gameObjects.name(attacker)} hits and wounds ${gameObjects.name(defender)}.`)
       defender.health -= 1
     } else {
-      console.log(`${gameObjects.nameEffective(defender)} hits and wounds ${gameObjects.nameEffective(attacker)}.`)
+      console.log(`${gameObjects.name(defender)} hits and wounds ${gameObjects.name(attacker)}.`)
       attacker.health -= 1
     }
 
     if (attacker.health <= 0) {
-      console.log(`${gameObjects.nameEffective(attacker)} is slain.`)
+      console.log(`${gameObjects.name(attacker)} is slain.`)
       // TODO: Handle casualties.
       attackerCasualties.push(attackers.shift())
     }
     if (defender.health <= 0) {
-      console.log(`${gameObjects.nameEffective(defender)} is slain.`)
+      console.log(`${gameObjects.name(defender)} is slain.`)
       // TODO: Handle casualties.
       defenderCasualties.push(defenders.shift())
     }
