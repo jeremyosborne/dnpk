@@ -1,3 +1,3 @@
 # Armies
 
-Define your cannon fodder to support your despotic rule of the realms here.
+Functions to aid your spreadsheets and planning during your world domination.
