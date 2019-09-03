@@ -24,14 +24,14 @@ Plain text online docs of original game: http://www.lemonamiga.com/games/docs.ph
                     A  E  R  S  L  I  S
                     D  R  E  T  L  N  H
                   +---------------------+
-SIRIANS           : .  .  .  .  .  .  . :
-STORM GIANTS      : .  .  .  . +1  . -1 :
-GREY DWARVES      : .  .  . -1 +2  . -1 :
-ORCS OF KOR       : .  .  . -1  .  . +1 :
 ELVALLIE          : .  .  . +1 -1  . -1 :
-SELENTINES        : . +1 +1  .  .  .  . :
+GREY DWARVES      : .  .  . -1 +2  . -1 :
 HORSE LORDS       :+1  .  . -1 -1 +1  . :
 LORD BANE         : .  .  . -1  .  . +1 :
+ORCS OF KOR       : .  .  . -1  .  . +1 :
+SELENTINES        : . +1 +1  .  .  .  . :
+SIRIANS           : .  .  .  .  .  .  . :
+STORM GIANTS      : .  .  .  . +1  . -1 :
                   +---------------------+
                     . = NO EFFECT
 ```
@@ -47,22 +47,22 @@ LORD BANE         : .  .  . -1  .  . +1 :
                  S  L  S
                  T  L  H
                +---------+
-GIANTS         :-1  .  . :
-DWARVES        :-1 +1  . :
-HEAVY INFANTRY :-1 -1 -1 :
-LIGHT INFANTRY :-1 -1 -1 :
-ELVEN ARCHERS  :+1 -1 -1 :
 CAVALRY        :-1 -1 -1 :
-WOLF-RIDERS    :-1 -1  . :
-PEGASI         :+1  .  . :
-GRIFFINS       : . +1  . :
-UNDEAD         :-1  . +1 :
 DEMONS         :-1  .  . :
 DEVILS         :-1  .  . :
 DRAGONS        : .  .  . :
-WIZARDS        : .  .  . :
+DWARVES        :-1 +1  . :
+ELVEN ARCHERS  :+1 -1 -1 :
+GIANTS         :-1  .  . :
+GRIFFINS       : . +1  . :
+HEAVY INFANTRY :-1 -1 -1 :
 HEROES         : .  .  . :
+LIGHT INFANTRY :-1 -1 -1 :
 NAVIES         : .  .  . :
+PEGASI         :+1  .  . :
+UNDEAD         :-1  . +1 :
+WIZARDS        : .  .  . :
+WOLF-RIDERS    :-1 -1  . :
                +---------+
                  . = NO EFFECT
 ```

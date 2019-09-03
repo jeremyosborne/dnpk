@@ -1,5 +1,14 @@
 {
   "health": 2,
+  "effects": [
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": -1,
+      "metadata": {
+        "name": "forest"
+      }
+    }
+  ],
   "movementSpeed": 12,
   "name": "giant",
   "strength": 6

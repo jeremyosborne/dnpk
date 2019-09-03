@@ -1,5 +1,28 @@
 {
   "health": 2,
+  "effects": [
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": -1,
+      "metadata": {
+        "name": "forest"
+      }
+    },
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": -1,
+      "metadata": {
+        "name": "hill"
+      }
+    },
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": -1,
+      "metadata": {
+        "name": "marsh"
+      }
+    }
+  ],
   "movementSpeed": 10,
   "name": "light-infantry",
   "strength": 3

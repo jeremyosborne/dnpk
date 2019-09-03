@@ -3,6 +3,13 @@
   "effects": [
     {
       "name": "aerial"
+    },
+    {
+      "name": "terrain-battle-modifier",
+      "magnitude": 1,
+      "metadata": {
+        "name": "hill"
+      }
     }
   ],
   "movementSpeed": 16,
