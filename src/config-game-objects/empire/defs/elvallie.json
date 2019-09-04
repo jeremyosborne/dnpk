@@ -1,5 +1,6 @@
 {
   "name": "elvallie",
+  "color": "green",
   "effects": [
     {
       "name": "terrain-battle-modifier",

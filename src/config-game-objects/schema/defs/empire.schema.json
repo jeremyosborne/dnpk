@@ -9,8 +9,9 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
-    "id": {
-      "description": "Unique id for a particular instance of this type.",
+    "color": {
+      "default": "black",
+      "description": "Default color of the empire. Hex or known color name.",
       "type": "string"
     },
     "effects": {
@@ -20,6 +21,10 @@
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
       },
       "type": "array"
+    },
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
+      "type": "string"
     },
     "name": {
       "description": "Descriptive, display name for this empire.",

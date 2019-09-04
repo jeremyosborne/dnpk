@@ -1,5 +1,6 @@
 {
   "name": "selentines",
+  "color": "#ADD8E6",
   "effects": [
     {
       "name": "terrain-battle-modifier",

@@ -1,5 +1,6 @@
 {
   "name": "storm-giants",
+  "color": "yellow",
   "effects": [
     {
       "name": "terrain-battle-modifier",
