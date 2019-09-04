@@ -1,2 +1,2 @@
 export {sort} from './sort'
-export {strengthBonus} from './strength-bonus'
+export {strengthModifier} from './strength-modifier'

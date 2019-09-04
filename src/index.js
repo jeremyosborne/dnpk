@@ -7,11 +7,11 @@ import {d} from 'random'
 import {sprintf} from 'sprintf-js'
 
 const showGroup = (group, color) => {
-  const strengthBonus = gameObjects.army.group.strengthBonus(group)
-  console.log(`${chalk[color](t('Army group bonus: {{bonus}}', {bonus: strengthBonus}))}`)
+  const strengthModifier = gameObjects.army.group.strengthModifier(group)
+  console.log(`${chalk[color](t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
   console.log(`${chalk[color](group.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
-    info.push(`${sprintf('%-17s', gameObjects.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthBonus)})`)
+    info.push(`${sprintf('%-17s', gameObjects.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
     return info
   }, []).join('\n'))}`)
 }
@@ -92,9 +92,9 @@ export const main = async () => {
   while (attackers.length && defenders.length) {
     // Top of the stack current battle.
     const attacker = attackers[0]
-    const attackerStrength = Math.min(9, gameObjects.army.group.strengthBonus(attackers) + gameObjects.army.strength(attacker))
+    const attackerStrength = Math.min(9, gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
-    const defenderStrength = Math.min(9, gameObjects.army.group.strengthBonus(defenders) + gameObjects.army.strength(defender))
+    const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
     console.log(`${gameObjects.name(attacker)} (${attackerStrength}) vs. ${gameObjects.name(defender)} (${defenderStrength})`)
 

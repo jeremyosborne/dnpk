@@ -19,8 +19,8 @@ export const strength = _.flow([
         _.filter(eq.effects, (effect) => effect.name === 'strength')
       )
     }, [])
-    strength += _.reduce(strengthEffects, (strengthBonus, strengthEffect) => {
-      return strengthBonus + (strengthEffect.magnitude || 0)
+    strength += _.reduce(strengthEffects, (strengthModifier, strengthEffect) => {
+      return strengthModifier + (strengthEffect.magnitude || 0)
     }, 0)
 
     return {army, strength}

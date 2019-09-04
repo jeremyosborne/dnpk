@@ -2,35 +2,36 @@ import strength from '../strength'
 import _ from 'lodash'
 
 /**
- * Calculates the army bonus for the group.
+ * Calculates the strength modifier from an army group which gets applied to
+ * the army during battle.
  *
- * @param {array} group array of army instances.
+ * @param {object[]} group array of army instances.
  *
  * @return {number} the strength bonus provided by this group.
  */
-export const strengthBonus = _.flow([
+export const strengthModifier = _.flow([
   // Transform object for pipeline
-  (group) => ({bonus: 0, group}),
+  (group) => ({modifier: 0, group}),
 
   // Elite bonus, applied one time by any unit that has elite status.
-  ({group, bonus}) => {
+  ({group, modifier}) => {
     if (_.some(group, (army) => _.some(army.effects, (effect) => effect.name === 'elite'))) {
-      bonus += 1
+      modifier += 1
     }
-    return {bonus, group}
+    return {modifier, group}
   },
 
   // Flyer bonus, applied one time by any unit that can be airborne (aerial).
-  ({group, bonus}) => {
+  ({group, modifier}) => {
     if (_.some(group, (army) => _.some(army.effects, (effect) => effect.name === 'aerial'))) {
-      bonus += 1
+      modifier += 1
     }
-    return {bonus, group}
+    return {modifier, group}
   },
 
   // Command bonus from equipped items.
   // Check for strength effects on items.
-  ({group, bonus}) => {
+  ({group, modifier}) => {
     // Aggregate all equipment.
     const equipment = _.reduce(group, (equipment, army) => {
       return equipment.concat(army.equipment || [])
@@ -40,17 +41,17 @@ export const strengthBonus = _.flow([
         _.filter(eq.effects, (effect) => effect.name === 'command')
       )
     }, [])
-    bonus += _.reduce(commandEffects, (commandBonus, commandEffect) => {
+    modifier += _.reduce(commandEffects, (commandBonus, commandEffect) => {
       return commandBonus + (commandEffect.magnitude || 0)
     }, 0)
-    return {group, bonus}
+    return {group, modifier}
   },
 
   // Hero bonus.
-  ({group, bonus}) => {
+  ({group, modifier}) => {
     const heroes = _.filter(group, (army) => _.some(army.effects, (effect) => effect.name === 'hero'))
 
-    bonus += _.reduce(heroes, (heroBonus, hero) => {
+    modifier += _.reduce(heroes, (heroBonus, hero) => {
       const heroStrength = strength(hero)
       if (heroStrength >= 4 && heroStrength <= 6) {
         return heroBonus + 1
@@ -63,15 +64,11 @@ export const strengthBonus = _.flow([
       }
     }, 0)
 
-    return {bonus, group}
+    return {modifier, group}
   },
 
-  //
-  // TODO: Add command item bonuses (carried by heroes)
-  //
-
   // Reduce to just the result we want.
-  ({group, bonus}) => bonus,
+  ({group, modifier}) => modifier,
 ])
 
-export default strengthBonus
+export default strengthModifier

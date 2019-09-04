@@ -4,8 +4,12 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 
 ## Guiding Principles
 
-* Code blocks and modules should [do one thing well](https://en.wikipedia.org/wiki/Unix_philosophy).
-* Code should be testable.
+* Code
+    * blocks and modules should [do one thing well](https://en.wikipedia.org/wiki/Unix_philosophy).
+    * should be testable.
+    * will be refactored, it's just a question of when.
+* Graphics
+    * Core game mechanics should be usable without graphics.
 * Importing and module structure
     * Intermodule, prefer: `import * as l10n from 'l10n'` vs. `import * as l10n from '../../l10n'`
     * Intramodule, prefer: `import * as './submodule'`
@@ -21,11 +25,12 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * via [debug](https://github.com/visionmedia/debug)
     * Modular scoping.
     * Namespace of all `debug` module name labels must be prefixed with `dnpk/`.
-* Game simulation should be runnable without graphics.
 * Semantics
-    * Singular objects and type defs are singular: `army` vs `armies`.
-    * Plural forms indicate an Array, or some other group or set type.
-    * Data access assumes `effective` value taken at this moment with all relative things considered. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.s
+    * Names and naming conventions are of first class importance.
+    * Singular objects and type definitions should have singular names: `army` not `armies`.
+    * Plural forms indicate groups of objects: arrays, sets, queues, lists, bags, etc.
+    * Attribute value calculations assume some relative `effective` value being computed and returned as a result. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.
+        * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit.
 
 ## Configuration options
 
