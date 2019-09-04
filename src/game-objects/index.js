@@ -17,6 +17,9 @@ export {empire}
 import * as equippable from './equippable' // eslint-disable-line import/first
 export {equippable}
 
+import * as naming from './naming' // eslint-disable-line import/first
+export {naming}
+
 import {name} from './name' // eslint-disable-line import/first
 export {name}
 

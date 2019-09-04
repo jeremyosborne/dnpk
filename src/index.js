@@ -49,7 +49,10 @@ export const main = async () => {
   empireTitle(player1.empire)
   // Equip heroes with items.
   _.filter(player1.group, gameObjects.army.is.hero)
-    .forEach((a) => heroEquipRandom(a, player1.empire))
+    .forEach((a) => {
+      a.nameInstance = gameObjects.naming.create({name: 'hero'})
+      heroEquipRandom(a, player1.empire)
+    })
   showGroup(player1.group, player1.empire)
 
   console.log('')
@@ -62,7 +65,10 @@ export const main = async () => {
   empireTitle(player2.empire)
   // Equip heroes with items.
   _.filter(player2.group, gameObjects.army.is.hero)
-    .forEach((a) => heroEquipRandom(a, player2.empire))
+    .forEach((a) => {
+      a.nameInstance = gameObjects.naming.create({name: 'hero'})
+      heroEquipRandom(a, player2.empire)
+    })
   showGroup(player2.group, player2.empire)
 
   // Engage the 2 groups in battle.
@@ -100,31 +106,33 @@ export const main = async () => {
     const defenderName = `${chalk.hex(defenderColor)(gameObjects.name(defender))}`
     const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
-    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(' + attackerStrength + ')')} vs. ${defenderName} ${chalk.hex(attackerColor)('(' + defenderStrength + ')')}`)
+    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attackerStrength + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defenderStrength + ')')}`)
 
     while (attacker.health && defender.health) {
-      const attackerHit = d(10) < defenderStrength
-      const defenderHit = d(10) < attackerStrength
+      const attackerRoll = d(10)
+      const attackerHit = attackerRoll > defenderStrength
+      const defenderRoll = d(10)
+      const defenderHit = defenderRoll > attackerStrength
       // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
 
       if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
-        console.log(`${attackerName} and ${defenderName} draw no blood.`)
+        console.log(`${attackerName} (${attackerRoll}) and ${defenderName} (${defenderRoll}) draw no blood.`)
       } else if (attackerHit) {
-        console.log(`${attackerName} ${chalk.hex('#AA0000')('wounds')} ${defenderName}.`)
+        console.log(`${attackerName} (${attackerRoll}) ${chalk.hex('#AA0000')('wounds')} ${defenderName} (${defenderRoll}).`)
         defender.health -= 1
       } else {
-        console.log(`${defenderName} ${chalk.hex('#AA0000')('wounds')} ${attackerName}.`)
+        console.log(`${defenderName} (${defenderRoll}) ${chalk.hex('#AA0000')('wounds')} ${attackerName} (${attackerRoll}).`)
         attacker.health -= 1
       }
     }
 
     if (attacker.health <= 0) {
-      console.log(`${attackerName} ${chalk.hex('#AA0000')('is slain')}.`)
+      console.log(`${defenderName} ${chalk.hex('#AA0000')('slays')} ${attackerName}.`)
       // TODO: Handle casualties.
       attackerCasualties.push(attackers.shift())
     }
     if (defender.health <= 0) {
-      console.log(`${defenderName} ${chalk.hex('#AA0000')('is slain')}.`)
+      console.log(`${attackerName} ${chalk.hex('#AA0000')('slays')} ${defenderName}.`)
       // TODO: Handle casualties.
       defenderCasualties.push(defenders.shift())
     }

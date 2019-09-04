@@ -1,0 +1,26 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/naming.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "naming",
+  "type": "object",
+  "description": "A set of strings used for naming in game entities.",
+  "properties": {
+    "name": {
+      "description": "Grouping of these naming strings. This property was in existence and standard before it clashed uncomfortably in this context.",
+      "type": "string"
+    },
+    "namings": {
+      "description": "List of names under this naming grouping.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "type": {
+      "enum": ["naming"],
+      "default": "naming",
+      "description": "duck typing",
+      "type": "string"
+    }
+  }
+}

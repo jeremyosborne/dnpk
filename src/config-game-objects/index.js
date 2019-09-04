@@ -8,6 +8,7 @@ import effect from './effect'
 import equippable from './equippable'
 import empire from './empire'
 import _ from 'lodash'
+import naming from './naming'
 import path from 'path'
 import schema from './schema'
 import terrain from './terrain'
@@ -24,6 +25,7 @@ export const types = {
   effect,
   empire,
   equippable,
+  naming,
   terrain,
 }
 
@@ -82,5 +84,6 @@ export const load = async function ({force = false} = {}) {
   await types.effect.load({force})
   await types.empire.load({force})
   await types.equippable.load({force})
+  await types.naming.load({force})
   await types.terrain.load({force})
 }
