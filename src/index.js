@@ -6,10 +6,10 @@ import _ from 'lodash'
 import {d} from 'random'
 import {sprintf} from 'sprintf-js'
 
-const showGroup = (group, color) => {
+const showGroup = (group, empire) => {
   const strengthModifier = gameObjects.army.group.strengthModifier(group)
-  console.log(`${chalk[color](t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
-  console.log(`${chalk[color](group.reduce((info, army) => {
+  console.log(`${chalk.hex(empire.color)(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
+  console.log(`${chalk.hex(empire.color)(group.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
     info.push(`${sprintf('%-17s', gameObjects.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
     return info
@@ -17,15 +17,15 @@ const showGroup = (group, color) => {
 }
 
 // mutates object passed in
-const heroEquipRandom = (a, color = 'green') => {
+const heroEquipRandom = (a, empire) => {
   const eq = gameObjects.equippable.create.random()
-  console.log(chalk[color](`Equipping ${gameObjects.name(a)} with ${gameObjects.name(eq)}`))
+  console.log(chalk.hex(empire.color)(`Equipping ${gameObjects.name(a)} with ${gameObjects.name(eq)}`))
   gameObjects.army.do.equip(a, eq)
 
   return a
 }
 
-const empireTitle = (empire) => console.log(chalk[empire.color](t('{{empire.name}}', {empire})))
+const empireTitle = (empire) => console.log(chalk.hex(empire.color)(t('{{empire.name}}', {empire})))
 
 // int main(void)
 export const main = async () => {
@@ -41,29 +41,29 @@ export const main = async () => {
   // Create 2 groups of armies.
 
   console.log('')
-  const dadEmpire = {
-    color: 'blue',
-    name: 'Dad the Dictator',
+
+  const player1 = {
+    empire: gameObjects.empire.create.random(),
+    group: _.times(8, gameObjects.army.create.random)
   }
-  const dadGroup = _.times(8, gameObjects.army.create.random)
-  empireTitle(dadEmpire)
+  empireTitle(player1.empire)
   // Equip heroes with items.
-  _.filter(dadGroup, gameObjects.army.is.hero)
-    .forEach((a) => heroEquipRandom(a, 'blue'))
-  showGroup(dadGroup, 'blue')
+  _.filter(player1.group, gameObjects.army.is.hero)
+    .forEach((a) => heroEquipRandom(a, player1.empire))
+  showGroup(player1.group, player1.empire)
 
   console.log('')
 
-  const archerEmpire = {
-    color: 'red',
-    name: 'Archer the Awesome',
+  // Not deduping empires right now. That's fine, we can have infighting.
+  const player2 = {
+    empire: gameObjects.empire.create.random(),
+    group: _.times(8, gameObjects.army.create.random)
   }
-  const archerGroup = _.times(8, gameObjects.army.create.random)
-  empireTitle(archerEmpire)
+  empireTitle(player2.empire)
   // Equip heroes with items.
-  _.filter(archerGroup, gameObjects.army.is.hero)
-    .forEach((a) => heroEquipRandom(a, 'red'))
-  showGroup(archerGroup, 'red')
+  _.filter(player2.group, gameObjects.army.is.hero)
+    .forEach((a) => heroEquipRandom(a, player2.empire))
+  showGroup(player2.group, player2.empire)
 
   // Engage the 2 groups in battle.
 
@@ -72,19 +72,19 @@ export const main = async () => {
   // battle and applying permanent changes. Ideally this allows for a later rules
   // extensions where battle "kills" can be translated to "downed" or "injured"
   // or "captured" or "routed" units.
-  const attackers = gameObjects.army.group.sort(_.cloneDeep(dadGroup))
+  const attackers = gameObjects.army.group.sort(_.cloneDeep(player1.group))
 
   // Create the defending group battle structure.
-  const defenders = gameObjects.army.group.sort(_.cloneDeep(archerGroup))
+  const defenders = gameObjects.army.group.sort(_.cloneDeep(player2.group))
 
   console.log('\n\n\nBattle commencing between\n')
 
   // Who is fighting who.
-  empireTitle(dadEmpire)
-  showGroup(attackers, 'blue')
+  empireTitle(player1.empire)
+  showGroup(attackers, player1.empire)
   console.log('vs.')
-  empireTitle(archerEmpire)
-  showGroup(defenders, 'red')
+  empireTitle(player2.empire)
+  showGroup(defenders, player2.empire)
 
   // While both groups still have units, keep going.
   const attackerCasualties = []
@@ -92,49 +92,59 @@ export const main = async () => {
   while (attackers.length && defenders.length) {
     // Top of the stack current battle.
     const attacker = attackers[0]
+    const attackerColor = player1.empire.color
+    const attackerName = `${chalk.hex(attackerColor)(gameObjects.name(attacker))}`
     const attackerStrength = Math.min(9, gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
+    const defenderColor = player2.empire.color
+    const defenderName = `${chalk.hex(defenderColor)(gameObjects.name(defender))}`
     const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
-    console.log(`${gameObjects.name(attacker)} (${attackerStrength}) vs. ${gameObjects.name(defender)} (${defenderStrength})`)
+    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(' + attackerStrength + ')')} vs. ${defenderName} ${chalk.hex(attackerColor)('(' + defenderStrength + ')')}`)
 
-    const attackerHit = d(10) < defenderStrength
-    const defenderHit = d(10) < attackerStrength
-    // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
+    while (attacker.health && defender.health) {
+      const attackerHit = d(10) < defenderStrength
+      const defenderHit = d(10) < attackerStrength
+      // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
 
-    if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
-      console.log(`${gameObjects.name(attacker)} and ${gameObjects.name(defender)} draw no blood.`)
-    } else if (attackerHit) {
-      console.log(`${gameObjects.name(attacker)} hits and wounds ${gameObjects.name(defender)}.`)
-      defender.health -= 1
-    } else {
-      console.log(`${gameObjects.name(defender)} hits and wounds ${gameObjects.name(attacker)}.`)
-      attacker.health -= 1
+      if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
+        console.log(`${attackerName} and ${defenderName} draw no blood.`)
+      } else if (attackerHit) {
+        console.log(`${attackerName} ${chalk.hex('#AA0000')('wounds')} ${defenderName}.`)
+        defender.health -= 1
+      } else {
+        console.log(`${defenderName} ${chalk.hex('#AA0000')('wounds')} ${attackerName}.`)
+        attacker.health -= 1
+      }
     }
 
     if (attacker.health <= 0) {
-      console.log(`${gameObjects.name(attacker)} is slain.`)
+      console.log(`${attackerName} ${chalk.hex('#AA0000')('is slain')}.`)
       // TODO: Handle casualties.
       attackerCasualties.push(attackers.shift())
     }
     if (defender.health <= 0) {
-      console.log(`${gameObjects.name(defender)} is slain.`)
+      console.log(`${defenderName} ${chalk.hex('#AA0000')('is slain')}.`)
       // TODO: Handle casualties.
       defenderCasualties.push(defenders.shift())
     }
   }
 
+  console.log('\n\nBattle Results!')
+
   // Here attackers and defenders are the mutated copies of the group, not the original.
-  console.log('# attacker casualties:', attackerCasualties.length)
-  console.log('# attacker group remaining:', attackers.length)
-  console.log('# defender casualties:', defenderCasualties.length)
-  console.log('# defender group remaining:', defenders.length)
+  empireTitle(player1.empire)
+  console.log('# casualties:', attackerCasualties.length)
+  console.log('# group remaining:', attackers.length)
+  empireTitle(player2.empire)
+  console.log('# casualties:', defenderCasualties.length)
+  console.log('# group remaining:', defenders.length)
 
   if (attackers.length) {
-    console.log(`${dadEmpire.name} wins the battle!`)
+    console.log(`The ${chalk.hex(player1.empire.color)(player1.empire.name)} empire wins the battle!`)
   }
   if (defenders.length) {
-    console.log(`${archerEmpire.name} wins the battle!`)
+    console.log(`The ${chalk.hex(player2.empire.color)(player2.empire.name)} empire wins the battle!`)
   }
 
   // Return the battle group structure + statistics.

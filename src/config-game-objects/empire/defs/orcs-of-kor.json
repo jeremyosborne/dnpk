@@ -1,6 +1,6 @@
 {
   "name": "orcs-of-kor",
-  "color": "red",
+  "color": "#FF0000",
   "effects": [
     {
       "name": "terrain-battle-modifier",

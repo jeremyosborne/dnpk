@@ -1,6 +1,6 @@
 {
   "name": "grey-dwarves",
-  "color": "orange",
+  "color": "#FFA500",
   "effects": [
     {
       "name": "terrain-battle-modifier",

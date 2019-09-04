@@ -1,6 +1,6 @@
 {
   "name": "lord-bane",
-  "color": "black",
+  "color": "#000000",
   "effects": [
     {
       "name": "terrain-battle-modifier",

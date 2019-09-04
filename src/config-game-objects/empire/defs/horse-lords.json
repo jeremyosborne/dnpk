@@ -1,6 +1,6 @@
 {
   "name": "horse-lords",
-  "color": "blue",
+  "color": "#0000FF",
   "effects": [
     {
       "name": "terrain-battle-modifier",

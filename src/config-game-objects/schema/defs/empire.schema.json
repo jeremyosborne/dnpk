@@ -11,7 +11,7 @@
     },
     "color": {
       "default": "black",
-      "description": "Default color of the empire. Hex or known color name.",
+      "description": "Hex color of the empire.",
       "type": "string"
     },
     "effects": {
