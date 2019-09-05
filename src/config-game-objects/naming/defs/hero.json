@@ -1,4 +1,5 @@
 {
+  "documentation": "Generic list of hero names, assuming heroes are mercenaries and will fight for the highest bidder.",
   "name": "hero",
   "namings": [
     "Roger Orcfinger",

@@ -5,6 +5,10 @@
   "type": "object",
   "description": "A set of strings used for naming in game entities.",
   "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
     "name": {
       "description": "Grouping of these naming strings. This property was in existence and standard before it clashed uncomfortably in this context.",
       "type": "string"

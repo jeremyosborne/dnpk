@@ -4,11 +4,11 @@ Define the structure, relationships, and validations for user configurable game 
 
 Schemas are not intended to be user writeable but should be made available, and readable, to users who wish to validate their own configuration modifications.
 
-Schemas are, unfortunately from the way I've seen from my usage, a bit monolithic (due to the way I'm building relationships via references) and so are grouped all together vs. taking the more modular, plug-and-play approac the rest of the app attempts to make.
+Together all the schemas define the configurable model, and due to the way we load and manage schemas in the game, we keep all of the schemas together here.
 
 ## Rules
 
 * `defs` folder:
     * flat (no subfolders)
-    * all files ending in `.schema.json` are treated as schema definiitions and will be loaded
-    * filename should match the distinct portion fo the `$id`
+    * all files ending in `.schema.json` are treated as schema definitions and will be loaded
+    * filename must match the distinct portion fo the `$id` (human friendly housekeeping rule imposed by code)
