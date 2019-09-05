@@ -11,7 +11,7 @@ const showGroup = (group, empire) => {
   console.log(`${chalk.hex(empire.color)(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
   console.log(`${chalk.hex(empire.color)(group.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
-    info.push(`${sprintf('%-17s', gameObjects.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
+    info.push(`${sprintf('%-17s', gameObjects.common.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
     return info
   }, []).join('\n'))}`)
 }
@@ -19,7 +19,7 @@ const showGroup = (group, empire) => {
 // mutates object passed in
 const heroEquipRandom = (a, empire) => {
   const eq = gameObjects.equippable.create.random()
-  console.log(chalk.hex(empire.color)(`Equipping ${gameObjects.name(a)} with ${gameObjects.name(eq)}`))
+  console.log(chalk.hex(empire.color)(`Equipping ${gameObjects.common.name(a)} with ${gameObjects.common.name(eq)}`))
   gameObjects.army.do.equip(a, eq)
 
   return a
@@ -33,6 +33,8 @@ export const main = async () => {
   await configGameObjects.load()
 
   console.log(t('Battle prototype'))
+
+  console.log(t('Using ruleset: {rules}', {rules: gameObjects.rules.nameDefault()}))
 
   const armyTypes = gameObjects.army.dir()
   console.log(t('Armies available:'))
@@ -99,19 +101,19 @@ export const main = async () => {
     // Top of the stack current battle.
     const attacker = attackers[0]
     const attackerColor = player1.empire.color
-    const attackerName = `${chalk.hex(attackerColor)(gameObjects.name(attacker))}`
+    const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
     const attackerStrength = Math.min(9, gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
     const defenderColor = player2.empire.color
-    const defenderName = `${chalk.hex(defenderColor)(gameObjects.name(defender))}`
+    const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
     const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
     console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attackerStrength + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defenderStrength + ')')}`)
 
     while (attacker.health && defender.health) {
-      const attackerRoll = d(10)
+      const attackerRoll = d.standard()
       const attackerHit = attackerRoll > defenderStrength
-      const defenderRoll = d(10)
+      const defenderRoll = d.standard()
       const defenderHit = defenderRoll > attackerStrength
       // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
 

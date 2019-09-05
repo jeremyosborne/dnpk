@@ -8,6 +8,9 @@
 import * as army from './army' // eslint-disable-line import/first
 export {army}
 
+import * as common from './common' // eslint-disable-line import/first
+export {common}
+
 import * as effect from './effect' // eslint-disable-line import/first
 export {effect}
 
@@ -20,8 +23,8 @@ export {equippable}
 import * as naming from './naming' // eslint-disable-line import/first
 export {naming}
 
-import {name} from './name' // eslint-disable-line import/first
-export {name}
+import * as rules from './rules' // eslint-disable-line import/first
+export {rules}
 
 import * as terrain from './terrain' // eslint-disable-line import/first
 export {terrain}

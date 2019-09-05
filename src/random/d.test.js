@@ -1,0 +1,25 @@
+import * as configGameObjects from 'config-game-objects'
+import d from './d'
+
+describe('d', () => {
+  it('returns expected random values', () => {
+    // Assume multiple calls and tests over time will eventually find problems.
+    const val = d(10)
+    expect(val >= 1).toEqual(true)
+    expect(val <= 10).toEqual(true)
+    expect(val === Math.floor(val)).toEqual(true)
+  })
+
+  describe('d.standard()', () => {
+    beforeEach(async () => {
+      // Need game rules to test this.
+      await configGameObjects.load()
+    })
+    it('works', async () => {
+      const val = d.standard()
+      expect(val >= 0).toEqual(true)
+      expect(val <= 10).toEqual(true)
+      expect(val === Math.floor(val)).toEqual(true)
+    })
+  })
+})

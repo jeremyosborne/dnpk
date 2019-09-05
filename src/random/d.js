@@ -1,3 +1,4 @@
+import * as gameObjects from 'game-objects'
 import {randint} from './randint'
 
 /**
@@ -5,10 +6,20 @@ import {randint} from './randint'
  *
  * @param {number} max upper bounds
  *
- * @return {number}
+ * @return {number} value of the dice roll.
  */
 export const d = (max) => {
   return randint(1, max)
 }
 
 export default d
+
+/**
+ * Simulate a standard dice roll, between 1 and the maximum standard dice
+ * size declared in the game rules.
+ *
+ * @return {number} value of the dice roll.
+ */
+d.standard = () => {
+  return randint(1, gameObjects.rules.get('diceStandardMax'))
+}
