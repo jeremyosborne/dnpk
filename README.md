@@ -25,6 +25,8 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * via [debug](https://github.com/visionmedia/debug)
     * Modular scoping.
     * Namespace of all `debug` module name labels must be prefixed with `dnpk/`.
+* Runtime configuration
+    * see `config-runtime` for docs.
 * Semantics
     * Names and naming conventions are of first class importance.
     * Singular objects and type definitions should have singular names: `army` not `armies`.
@@ -32,11 +34,13 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Attribute value calculations assume some relative `effective` value being computed and returned as a result. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.
         * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit.
 
-## Configuration options
+## Runtime configuration options
 
 [Configuration is assumed to be passed from the environment.](https://12factor.net/config)
 
-* Set `DEBUG=[some glob expression]` to manage which [debug](https://www.npmjs.com/package/debug) messages are shown.
-* All application modules should namespace their debugging with `dnpk/` to aid with ignoring third party module messages. `DEBUG=dnpk/*` should capture just the messages reported from this application.
+Modules the make use of runtime configuration settings should list those within their module docs under the `## Runtime configuration options` heading.
+
+### Configuration options that are not module specific
+
+* Set `DEBUG=dnpk/*` to show all logging messages specific to this application.
 * `NODE_PATH=src` must be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
-* `RULES_NAME_DEFAULT=classic` can be used to switch the default set of rules governing game mechanics.

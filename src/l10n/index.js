@@ -1,3 +1,4 @@
+import * as configRuntime from 'config-runtime'
 import i18next from 'i18next'
 
 /**
@@ -37,7 +38,7 @@ export const init = () => Promise.resolve()
     returnEmptyString: false,
 
     // true report "missing values", false do not report missing values.
-    debug: process.env.I18N_DEBUG,
+    debug: configRuntime.get('I18N_DEBUG'),
   }))
 
 /**

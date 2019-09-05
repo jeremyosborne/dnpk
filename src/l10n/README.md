@@ -14,6 +14,6 @@
     * `i18next-conv` converts the `l10n/**/translation.json` files to `l10n/**/translation.po` files.
     * TODO: when translation begin, see what works better for management: `.po` files or has the world grown to accept `.json` files?
 
-## Configuration options
+## Runtime configuration options
 
 * `I18N_DEBUG` - Boolean. If exists, will provide "this or that string is missing translations."

@@ -1,8 +1,9 @@
+import * as configRuntime from 'config-runtime'
 import debug from 'debug'
 
 const logger = debug('game-objects/rules')
 
-let NAME_DEFAULT = process.env.RULES_NAME_DEFAULT || 'classic'
+let NAME_DEFAULT = configRuntime.get('RULES_NAME_DEFAULT') || 'classic'
 
 /**
  * Get or set the `name` of the rules currently being used in the game.
