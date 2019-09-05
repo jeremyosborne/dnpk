@@ -2,8 +2,8 @@
   "$id": "https://jeremyosborne.com/dnpk/empire.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "empire",
-  "type": "object",
   "description": "Defines a distinct empire.",
+  "type": "object",
   "properties": {
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",

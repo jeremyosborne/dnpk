@@ -7,6 +7,7 @@ import debug from 'debug'
 import effect from './effect'
 import equippable from './equippable'
 import empire from './empire'
+import rules from './rules'
 import _ from 'lodash'
 import naming from './naming'
 import path from 'path'
@@ -26,6 +27,7 @@ export const types = {
   empire,
   equippable,
   naming,
+  rules,
   terrain,
 }
 
@@ -73,17 +75,17 @@ export const dir = (type) => types[type].dir()
  * Due to the importance and necessity of this module, this is required for
  * proper operation and is assumed to be performed on app startup.
  *
+ * @param {object} args as associative array. Meant to mirror what is passable
+ * to the `load` function.
  * @param {boolean} force if set to true, will ignore cache and reload.
  *
  * @return {Promise} resolves on successful load rejects on any load failures.
  */
-export const load = async function ({force = false} = {}) {
-  // Schemas shouldn't actually need to be loaded first.
-  await schema.load({force})
-  await types.army.load({force})
-  await types.effect.load({force})
-  await types.empire.load({force})
-  await types.equippable.load({force})
-  await types.naming.load({force})
-  await types.terrain.load({force})
+export const load = async function (args) {
+  // Load schemas first so we don't ever have to think about load order when
+  // validating relationship references between different type definitions.
+  // Shouldn't be necessary at the time of writing, but one thing less to think
+  // about later.
+  await schema.load(args)
+  await Promise.all(_.keys(types).map((t) => types[t].load(args)))
 }

@@ -1,0 +1,41 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/rules.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "rules",
+  "description": "Optionally configurable rules for game mechanics, unit availability, economics, etc.",
+  "type": "object",
+  "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
+    "diceStandard": {
+      "description": "The number of sides available on the standard die used when generating most of the psuedo-random dice rolls in-game.",
+      "default": 10,
+      "minimum": 2,
+      "type": "integer"
+    },
+    "name": {
+      "description": "Rule sets need a distinct name and should say something about the rules defined within.",
+      "type": "string"
+    },
+    "unitStrengthMax": {
+      "description": "After all bonuses are considered, cap the effective strength of an army at this value. It should be at least one less than the maximum value rolled by a standard dice.",
+      "default": 9,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "unitStrengthMin": {
+      "description": "After all strength modifications are considered, provide a floor for the effective strength below which an army unit won't fall.",
+      "default": 0,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "type": {
+      "enum": ["rules"],
+      "default": "rules",
+      "description": "duck typing",
+      "type": "string"
+    }
+  }
+}

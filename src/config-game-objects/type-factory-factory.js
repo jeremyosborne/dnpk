@@ -7,7 +7,11 @@ const path = require('path')
 const logger = debug('dnpk/config-game-objects')
 
 /**
- * Build a type factory for in game data types: armies, types, etc.
+ * Build a type factory for in reading in the user configurable game data type
+ * definitions like armies, terrain, equippables, etc.
+ *
+ * Import this method and call to build your factory method for the particular
+ * type definitions (see existing code for examples).
  *
  * @param {string} DEFS_DIR directory holding the type defs.
  * @param {string} MODULE_NAME name of the module providing the factory.
