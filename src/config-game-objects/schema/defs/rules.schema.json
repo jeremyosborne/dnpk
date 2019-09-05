@@ -9,7 +9,7 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
-    "diceStandard": {
+    "diceStandardMax": {
       "description": "The number of sides available on the standard die used when generating most of the psuedo-random dice rolls in-game.",
       "default": 10,
       "minimum": 2,
@@ -18,6 +18,12 @@
     "name": {
       "description": "Rule sets need a distinct name and should say something about the rules defined within.",
       "type": "string"
+    },
+    "heroesMax": {
+      "description": "Maximum number of heroes each empire is allowed to have at any one time.",
+      "default": 5,
+      "minimum": 0,
+      "type": "integer"
     },
     "unitStrengthMax": {
       "description": "After all bonuses are considered, cap the effective strength of an army at this value. It should be at least one less than the maximum value rolled by a standard dice.",

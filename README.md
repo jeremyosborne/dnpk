@@ -39,3 +39,4 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 * Set `DEBUG=[some glob expression]` to manage which [debug](https://www.npmjs.com/package/debug) messages are shown.
 * All application modules should namespace their debugging with `dnpk/` to aid with ignoring third party module messages. `DEBUG=dnpk/*` should capture just the messages reported from this application.
 * `NODE_PATH=src` must be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
+* `RULES_NAME_DEFAULT=classic` can be used to switch the default set of rules governing game mechanics.
