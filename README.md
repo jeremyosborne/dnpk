@@ -28,11 +28,11 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 * Runtime configuration
     * see `config-runtime` for docs.
 * Semantics
-    * Names and naming conventions are of first class importance.
+    * Names and naming conventions are important. Be nice to your fellow human looking at this code.
     * Singular objects and type definitions should have singular names: `army` not `armies`.
-    * Plural forms indicate groups of objects: arrays, sets, queues, lists, bags, etc.
+    * Groups of objects should have plural names: arrays, sets, queues, lists, bags, etc.: `armies` not `army`.
     * Attribute value calculations assume some relative `effective` value being computed and returned as a result. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.
-        * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit.
+        * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit (assuming a function call like that should ever be necessary to make due to obscure property access).
 
 ## Runtime configuration options
 
