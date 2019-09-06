@@ -87,13 +87,11 @@ export const main = async () => {
 
   console.log(t('Battle prototype'))
 
-  console.log(t('Using ruleset: {rules}', {rules: gameObjects.rules.nameDefault()}))
+  console.log(t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()}))
 
   // const armyTypes = gameObjects.army.dir()
   // console.log(t('Armies available:'))
   // console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
-
-  console.log('')
 
   // Create 2 groups of armies and their leaders.
 
@@ -113,14 +111,14 @@ export const main = async () => {
   // Create the defending group battle structure.
   const defenders = gameObjects.army.group.sort(_.cloneDeep(player2.group))
 
-  console.log('\n\n\nBattle commencing between\n')
+  console.log('\nBattle commencing between\n')
 
   // Who is fighting who.
   empireTitle(player1.empire)
-  console.log(chalk.hex(player1.empire.color)(showGroup(attackers, player1.empire)))
+  console.log(chalk.hex(player1.empire.color)(showGroup(attackers)))
   console.log('\nvs.\n')
   empireTitle(player2.empire)
-  console.log(chalk.hex(player2.empire.color)(showGroup(defenders, player2.empire)))
+  console.log(chalk.hex(player2.empire.color)(showGroup(defenders)))
 
   // While both groups still have units, keep going.
   const attackerCasualties = []
@@ -129,6 +127,7 @@ export const main = async () => {
     // Top of the stack current battle.
     const attacker = attackers[0]
     const attackerColor = player1.empire.color
+
     const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
     const attackerStrength = Math.min(9, gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
@@ -136,53 +135,64 @@ export const main = async () => {
     const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
     const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
-    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attackerStrength + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defenderStrength + ')')}`)
+    // Event: battle-round-start
+    // {attacker, attackerHealth, attackerStrength, defender, defenderHealth, defenderStrength}
+    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attackerStrength + ')')} ${chalk.hex(attackerColor)('(health:' + attacker.health + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defenderStrength + ')')} ${chalk.hex(defenderColor)('(health:' + defender.health + ')')}`)
 
     while (attacker.health && defender.health) {
       const attackerRoll = d.standard()
       const attackerHit = attackerRoll > defenderStrength
       const defenderRoll = d.standard()
       const defenderHit = defenderRoll > attackerStrength
-      // console.log('attackerHit: %s, defenderHit: %s', attackerHit, defenderHit)
 
       if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
-        console.log(`${attackerName} (${attackerRoll}) and ${defenderName} (${defenderRoll}) draw no blood.`)
+        // Event: battle-round-draw
+        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
+        console.log(`${attackerName} (roll: ${attackerRoll}) and ${defenderName} (roll: ${defenderRoll}) draw no blood.`)
       } else if (attackerHit) {
-        console.log(`${attackerName} (${attackerRoll}) ${chalk.hex('#AA0000')('wounds')} ${defenderName} (${defenderRoll}).`)
+        // Event: battle-round-damage
+        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
+        console.log(`${attackerName} (roll: ${attackerRoll}) ${chalk.hex('#AA0000')('wounds')} ${defenderName} (roll: ${defenderRoll}).`)
         defender.health -= 1
       } else {
-        console.log(`${defenderName} (${defenderRoll}) ${chalk.hex('#AA0000')('wounds')} ${attackerName} (${attackerRoll}).`)
+        // Event: battle-round-damage
+        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
+        console.log(`${attackerName} (roll: ${attackerRoll}) ${chalk.hex('#AA0000')('wounded by')} ${defenderName} (roll: ${defenderRoll}).`)
         attacker.health -= 1
       }
     }
 
+    // Event: battle-round-end
+    // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
     if (attacker.health <= 0) {
-      console.log(`${defenderName} ${chalk.hex('#AA0000')('slays')} ${attackerName}.`)
-      // TODO: Handle casualties.
+      console.log(`${attackerName} ${chalk.hex('#AA0000')('slain by')} ${defenderName}.`)
       attackerCasualties.push(attackers.shift())
     }
     if (defender.health <= 0) {
       console.log(`${attackerName} ${chalk.hex('#AA0000')('slays')} ${defenderName}.`)
-      // TODO: Handle casualties.
       defenderCasualties.push(defenders.shift())
     }
   }
 
   console.log('\n\nBattle Results!')
 
+  const casualtyReport = ({survivors, casualties}) => {
+    console.log(`# casualties: ${casualties.length}: ${_.map(casualties, (a) => gameObjects.common.name(a)).join(', ')}`)
+    console.log(`# group remaining: ${survivors.length}: ${_.map(survivors, (a) => gameObjects.common.name(a)).join(', ')}`)
+  }
+
   // Here attackers and defenders are the mutated copies of the group, not the original.
   empireTitle(player1.empire)
-  console.log('# casualties:', attackerCasualties.length)
-  console.log('# group remaining:', attackers.length)
+  casualtyReport({survivors: attackers, casualties: attackerCasualties})
   empireTitle(player2.empire)
-  console.log('# casualties:', defenderCasualties.length)
-  console.log('# group remaining:', defenders.length)
+  casualtyReport({survivors: defenders, casualties: defenderCasualties})
 
   if (attackers.length) {
     console.log(`The ${chalk.hex(player1.empire.color)(player1.empire.name)} empire wins the battle!`)
-  }
-  if (defenders.length) {
+  } else if (defenders.length) {
     console.log(`The ${chalk.hex(player2.empire.color)(player2.empire.name)} empire wins the battle!`)
+  } else {
+    console.log("All armies are dead. This shouldn't be possible to reach.")
   }
 
   // Return the battle group structure + statistics.

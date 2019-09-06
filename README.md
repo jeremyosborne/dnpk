@@ -47,5 +47,6 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
+- [ ] Add terrain for battle, including terrain bonuses to total army group bonus.
 - [ ] Play around with more formal player object structuring, which seems like is just the glue of the empire plus army groups plus economic state.
 - [ ] Play around with more formal army group structuring. Also need to settle on a name, it's either `group[s]` or `armyGroup[s]` in the code.
