@@ -6,23 +6,50 @@ import _ from 'lodash'
 import {d} from 'random'
 import {sprintf} from 'sprintf-js'
 
-const showGroup = (group, empire) => {
+/**
+ * Take an army group and return text information about the group.
+ *
+ * @param {object[]} group of armies
+ *
+ * @return {string} multi-line, slightly formatted, plain text diagnostic
+ * information about the army group.
+ */
+const showGroup = (group) => {
   const strengthModifier = gameObjects.army.group.strengthModifier(group)
-  console.log(`${chalk.hex(empire.color)(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
-  console.log(`${chalk.hex(empire.color)(group.reduce((info, army) => {
+  const info = []
+  // Overall group information.
+  info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
+
+  // Information about each unit in the army.
+  group.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
 
     info.push(`${sprintf('%-17s', gameObjects.common.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
 
-    if (gameObjects.army.is.hero(army) && army.equipment.length) {
-      // Display the hero's inventory.
-      info.push('Equipment: ' + _.map(army.equipment, (eq) => {
+    if (army.effects.length) {
+      // Display army effects.
+      info.push('  Effects: ' + _.map(army.effects, (eff) => {
+        if (eff.name === 'terrain-battle-modifier') {
+          // Terrain modifiers have embedded meta data that gets missed when
+          // displaying only the effect name.
+          return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.name')}`
+        } else {
+          return gameObjects.common.name(eff)
+        }
+      }).join(', '))
+    }
+
+    if (army.equipment.length) {
+      // Display army inventory.
+      info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
         return gameObjects.common.name(eq)
       }).join(', '))
     }
 
     return info
-  }, []).join('\n'))}`)
+  }, info)
+
+  return info.join('\n')
 }
 
 // mutates object passed in
@@ -90,10 +117,10 @@ export const main = async () => {
 
   // Who is fighting who.
   empireTitle(player1.empire)
-  showGroup(attackers, player1.empire)
-  console.log('vs.')
+  console.log(chalk.hex(player1.empire.color)(showGroup(attackers, player1.empire)))
+  console.log('\nvs.\n')
   empireTitle(player2.empire)
-  showGroup(defenders, player2.empire)
+  console.log(chalk.hex(player2.empire.color)(showGroup(defenders, player2.empire)))
 
   // While both groups still have units, keep going.
   const attackerCasualties = []
