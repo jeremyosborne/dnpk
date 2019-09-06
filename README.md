@@ -44,3 +44,8 @@ Modules the make use of runtime configuration settings should list those within 
 
 * Set `DEBUG=dnpk/*` to show all logging messages specific to this application.
 * `NODE_PATH=src` must be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
+
+## TODO
+
+- [ ] Play around with more formal player object structuring, which seems like is just the glue of the empire plus army groups plus economic state.
+- [ ] Play around with more formal army group structuring. Also need to settle on a name, it's either `group[s]` or `armyGroup[s]` in the code.
