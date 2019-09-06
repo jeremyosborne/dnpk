@@ -11,21 +11,47 @@ const showGroup = (group, empire) => {
   console.log(`${chalk.hex(empire.color)(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))}`)
   console.log(`${chalk.hex(empire.color)(group.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
+
     info.push(`${sprintf('%-17s', gameObjects.common.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
+
+    if (gameObjects.army.is.hero(army) && army.equipment.length) {
+      // Display the hero's inventory.
+      info.push('Equipment: ' + _.map(army.equipment, (eq) => {
+        return gameObjects.common.name(eq)
+      }).join(', '))
+    }
+
     return info
   }, []).join('\n'))}`)
 }
 
 // mutates object passed in
-const heroEquipRandom = (a, empire) => {
+const armyEquipRandom = (a) => {
   const eq = gameObjects.equippable.create.random()
-  console.log(chalk.hex(empire.color)(`Equipping ${gameObjects.common.name(a)} with ${gameObjects.common.name(eq)}`))
   gameObjects.army.do.equip(a, eq)
-
   return a
 }
 
 const empireTitle = (empire) => console.log(chalk.hex(empire.color)(t('{{empire.name}}', {empire})))
+
+const testPlayerCreate = ({
+  groupSize = 8,
+} = {}) => {
+  // These test players are meant for battle simulation and each receive
+  // one group.
+  const group = _.times(groupSize, gameObjects.army.create.random)
+  // Equip heroes with items.
+  _.filter(group, gameObjects.army.is.hero)
+    .forEach((a) => {
+      a.nameInstance = gameObjects.naming.create({name: 'hero'})
+      armyEquipRandom(a)
+    })
+
+  return {
+    empire: gameObjects.empire.create.random(),
+    group,
+  }
+}
 
 // int main(void)
 export const main = async () => {
@@ -36,42 +62,17 @@ export const main = async () => {
 
   console.log(t('Using ruleset: {rules}', {rules: gameObjects.rules.nameDefault()}))
 
-  const armyTypes = gameObjects.army.dir()
-  console.log(t('Armies available:'))
-  console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
-
-  // Create 2 groups of armies.
+  // const armyTypes = gameObjects.army.dir()
+  // console.log(t('Armies available:'))
+  // console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
 
   console.log('')
 
-  const player1 = {
-    empire: gameObjects.empire.create.random(),
-    group: _.times(8, gameObjects.army.create.random)
-  }
-  empireTitle(player1.empire)
-  // Equip heroes with items.
-  _.filter(player1.group, gameObjects.army.is.hero)
-    .forEach((a) => {
-      a.nameInstance = gameObjects.naming.create({name: 'hero'})
-      heroEquipRandom(a, player1.empire)
-    })
-  showGroup(player1.group, player1.empire)
-
-  console.log('')
+  // Create 2 groups of armies and their leaders.
 
   // Not deduping empires right now. That's fine, we can have infighting.
-  const player2 = {
-    empire: gameObjects.empire.create.random(),
-    group: _.times(8, gameObjects.army.create.random)
-  }
-  empireTitle(player2.empire)
-  // Equip heroes with items.
-  _.filter(player2.group, gameObjects.army.is.hero)
-    .forEach((a) => {
-      a.nameInstance = gameObjects.naming.create({name: 'hero'})
-      heroEquipRandom(a, player2.empire)
-    })
-  showGroup(player2.group, player2.empire)
+  const player1 = testPlayerCreate()
+  const player2 = testPlayerCreate()
 
   // Engage the 2 groups in battle.
 
