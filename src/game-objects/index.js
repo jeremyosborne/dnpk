@@ -26,5 +26,8 @@ export {naming}
 import * as rules from './rules' // eslint-disable-line import/first
 export {rules}
 
+import * as player from './player' // eslint-disable-line import/first
+export {player}
+
 import * as terrain from './terrain' // eslint-disable-line import/first
 export {terrain}

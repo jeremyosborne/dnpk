@@ -4,24 +4,25 @@ import * as gameObjects from 'game-objects'
 import {init as l10nInit, t} from 'l10n'
 import _ from 'lodash'
 import {d} from 'random'
+import * as simulation from 'simulation'
 import {sprintf} from 'sprintf-js'
 
 /**
  * Take an army group and return text information about the group.
  *
- * @param {object[]} group of armies
+ * @param {object[]} armyGroup of armies
  *
  * @return {string} multi-line, slightly formatted, plain text diagnostic
  * information about the army group.
  */
-const showGroup = (group) => {
-  const strengthModifier = gameObjects.army.group.strengthModifier(group)
+const showGroup = (armyGroup) => {
+  const strengthModifier = gameObjects.army.group.strengthModifier(armyGroup)
   const info = []
   // Overall group information.
   info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
 
   // Information about each unit in the army.
-  group.reduce((info, army) => {
+  armyGroup.reduce((info, army) => {
     const strength = gameObjects.army.strength(army)
 
     info.push(`${sprintf('%-17s', gameObjects.common.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
@@ -52,33 +53,7 @@ const showGroup = (group) => {
   return info.join('\n')
 }
 
-// mutates object passed in
-const armyEquipRandom = (a) => {
-  const eq = gameObjects.equippable.create.random()
-  gameObjects.army.do.equip(a, eq)
-  return a
-}
-
-const empireTitle = (empire) => console.log(chalk.hex(empire.color)(t('{{empire.name}}', {empire})))
-
-const testPlayerCreate = ({
-  groupSize = 8,
-} = {}) => {
-  // These test players are meant for battle simulation and each receive
-  // one group.
-  const group = _.times(groupSize, gameObjects.army.create.random)
-  // Equip heroes with items.
-  _.filter(group, gameObjects.army.is.hero)
-    .forEach((a) => {
-      a.nameInstance = gameObjects.naming.create({name: 'hero'})
-      armyEquipRandom(a)
-    })
-
-  return {
-    empire: gameObjects.empire.create.random(),
-    group,
-  }
-}
+const empireTitle = (empire) => console.log(chalk.hex(empire.color)(gameObjects.common.name(empire)))
 
 // int main(void)
 export const main = async () => {
@@ -96,8 +71,8 @@ export const main = async () => {
   // Create 2 groups of armies and their leaders.
 
   // Not deduping empires right now. That's fine, we can have infighting.
-  const player1 = testPlayerCreate()
-  const player2 = testPlayerCreate()
+  const player1 = simulation.create.playerRandom()
+  const player2 = simulation.create.playerRandom()
 
   // Engage the 2 groups in battle.
 
@@ -106,10 +81,10 @@ export const main = async () => {
   // battle and applying permanent changes. Ideally this allows for a later rules
   // extensions where battle "kills" can be translated to "downed" or "injured"
   // or "captured" or "routed" units.
-  const attackers = gameObjects.army.group.sort(_.cloneDeep(player1.group))
+  const attackers = gameObjects.army.group.sort(_.cloneDeep(player1.armyGroups[0]))
 
   // Create the defending group battle structure.
-  const defenders = gameObjects.army.group.sort(_.cloneDeep(player2.group))
+  const defenders = gameObjects.army.group.sort(_.cloneDeep(player2.armyGroups[0]))
 
   console.log('\nBattle commencing between\n')
 
@@ -178,7 +153,7 @@ export const main = async () => {
 
   const casualtyReport = ({survivors, casualties}) => {
     console.log(`# casualties: ${casualties.length}: ${_.map(casualties, (a) => gameObjects.common.name(a)).join(', ')}`)
-    console.log(`# group remaining: ${survivors.length}: ${_.map(survivors, (a) => gameObjects.common.name(a)).join(', ')}`)
+    console.log(`# in group remaining: ${survivors.length}: ${_.map(survivors, (a) => gameObjects.common.name(a)).join(', ')}`)
   }
 
   // Here attackers and defenders are the mutated copies of the group, not the original.
