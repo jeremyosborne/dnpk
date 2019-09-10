@@ -5,53 +5,7 @@ import {init as l10nInit, t} from 'l10n'
 import _ from 'lodash'
 import {d} from 'random'
 import * as simulation from 'simulation'
-import {sprintf} from 'sprintf-js'
-
-/**
- * Take an army group and return text information about the group.
- *
- * @param {object[]} armyGroup of armies
- *
- * @return {string} multi-line, slightly formatted, plain text diagnostic
- * information about the army group.
- */
-const showGroup = (armyGroup) => {
-  const strengthModifier = gameObjects.army.group.strengthModifier(armyGroup)
-  const info = []
-  // Overall group information.
-  info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
-
-  // Information about each unit in the army.
-  armyGroup.reduce((info, army) => {
-    const strength = gameObjects.army.strength(army)
-
-    info.push(`${sprintf('%-17s', gameObjects.common.name(army))} ${sprintf('Str: %-3s', army.strength)} (Eff Str: ${strength}) (Battle Str: ${Math.min(9, strength + strengthModifier)})`)
-
-    if (army.effects.length) {
-      // Display army effects.
-      info.push('  Effects: ' + _.map(army.effects, (eff) => {
-        if (eff.name === 'terrain-battle-modifier') {
-          // Terrain modifiers have embedded meta data that gets missed when
-          // displaying only the effect name.
-          return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.name')}`
-        } else {
-          return gameObjects.common.name(eff)
-        }
-      }).join(', '))
-    }
-
-    if (army.equipment.length) {
-      // Display army inventory.
-      info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
-        return gameObjects.common.name(eq)
-      }).join(', '))
-    }
-
-    return info
-  }, info)
-
-  return info.join('\n')
-}
+import * as ui from 'ui'
 
 const empireTitle = (empire) => console.log(chalk.hex(empire.color)(gameObjects.common.name(empire)))
 
@@ -90,10 +44,10 @@ export const main = async () => {
 
   // Who is fighting who.
   empireTitle(player1.empire)
-  console.log(chalk.hex(player1.empire.color)(showGroup(attackers)))
+  console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(attackers)))
   console.log('\nvs.\n')
   empireTitle(player2.empire)
-  console.log(chalk.hex(player2.empire.color)(showGroup(defenders)))
+  console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(defenders)))
 
   // While both groups still have units, keep going.
   const attackerCasualties = []
@@ -104,11 +58,11 @@ export const main = async () => {
     const attackerColor = player1.empire.color
 
     const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
-    const attackerStrength = Math.min(9, gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
+    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
     const defenderColor = player2.empire.color
     const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
-    const defenderStrength = Math.min(9, gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
+    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
     // Event: battle-round-start
     // {attacker, attackerHealth, attackerStrength, defender, defenderHealth, defenderStrength}

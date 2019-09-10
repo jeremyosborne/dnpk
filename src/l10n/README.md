@@ -3,7 +3,7 @@
 * In most circumstances, English should act as both key and default value for the English language (English key is fallback for English value).
     * English can optionally always be keyed, e.g. for really long content like in game help text.
 * The `t()` function is reserved for translation strings, and is easier to write than `i18next.t`, although that works, too.
-* Dependencies:
+* Third Party Dependencies:
     * [i18next](https://www.i18next.com/) localization library.
     * [i18next-parser](https://github.com/i18next/i18next-parser) extracts translations.
         * PROBLEM: output loses context from where the key string came from. This can probably be solved.
@@ -17,3 +17,8 @@
 ## Runtime configuration options
 
 * `I18N_DEBUG` - Boolean. If exists, will provide "this or that string is missing translations."
+
+## Dev Notes
+
+* Module (and members) are a singleton within the app space, due to reliance on i18next which is a singleton.
+* Module requires an async `.load()` call before the module is used.

@@ -12,6 +12,8 @@ export const armyRandom = () => {
     // Equip heroes with an item.
     const eq = gameObjects.equippable.create.random()
     gameObjects.army.do.equip(army, eq)
+    // Give a name to the hero.
+    army.nameInstance = gameObjects.naming.create({name: 'hero'})
   }
   return army
 }

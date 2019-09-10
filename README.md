@@ -11,6 +11,9 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 * Graphics
     * Core game mechanics should be usable without graphics.
 * Importing and module structure
+    * Prefer named exports and `import * as blah from 'blah'` vs. default exports.
+        * Exception: when adhering to a one function / object per file structure, be kind and export the one object as default, too.
+        * Exception: React Components should export their augmented component (e.g. redux connected) as default, and their unconnected component as a named export.
     * Intermodule, prefer: `import * as l10n from 'l10n'` vs. `import * as l10n from '../../l10n'`
     * Intramodule, prefer: `import * as './submodule'`
 * Languages

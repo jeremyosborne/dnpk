@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import {strengthBounded} from '../rules'
 
 /**
  * Calculates the effective strength of an individual army.
@@ -26,10 +27,11 @@ export const strength = _.flow([
     return {army, strength}
   },
 
-  // TODO: cap the strength.
-
   // Reduce to just the result we want.
-  ({army, strength}) => strength,
+  // At no time should an individual army unit be above 9 on its own so it should
+  // be safe to cap it here as this isn't an unbounded modifier but a stat that
+  // has in game constraints.
+  ({army, strength}) => strengthBounded(strength),
 ])
 
 export default strength

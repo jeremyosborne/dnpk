@@ -32,4 +32,12 @@ describe('rules', () => {
       expect(rules.nameDefault()).toEqual(TEST_TYPE_VALID)
     })
   })
+
+  describe('.strengthBounded() -> assuming classic rules are loaded', () => {
+    it('caps strength values', () => {
+      expect(rules.strengthBounded(10)).toEqual(9)
+      expect(rules.strengthBounded(5)).toEqual(5)
+      expect(rules.strengthBounded(-2)).toEqual(0)
+    })
+  })
 })
