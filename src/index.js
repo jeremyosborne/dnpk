@@ -7,6 +7,20 @@ import {d} from 'random'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
 
+/**
+ * Simulate a battle and return the results and battle report.
+ *
+ * Does not mutate input.
+ *
+ * @param {object[]} attackers an army-group
+ * @param {object} attackerPlayer player attackers are associated with, needed
+ * for empire reference.
+ * @param {object[]} defenders an army-group
+ * @param {object} defenderPlayer player defenders are associated with, needed
+ * for empire reference.
+ *
+ * @return {object} outcome and a battle report delivered as a list of events.
+ */
 const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
   // Clone the attacking and defending groups. Battle can mutate the objects, but reports/events
   // out the results. The caller is responsible for handling the results of the
@@ -19,21 +33,29 @@ const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
   // While both groups still have units, keep going.
   const attackerCasualties = []
   const defenderCasualties = []
+  // What happened during this battle.
+  const events = []
   while (attackers.length && defenders.length) {
     // Top of the stack current battle.
     const attacker = attackers[0]
-    const attackerColor = attackerPlayer.empire.color
-
-    const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
     const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
-    const defenderColor = defenderPlayer.empire.color
-    const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
     const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
-    // Event: battle-round-start
-    // {attacker, attackerHealth, attackerStrength, defender, defenderHealth, defenderStrength}
-    console.log(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attackerStrength + ')')} ${chalk.hex(attackerColor)('(health:' + attacker.health + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defenderStrength + ')')} ${chalk.hex(defenderColor)('(health:' + defender.health + ')')}`)
+    events.push({
+      attacker: {
+        ref: _.clone(attacker),
+        health: attacker.health,
+        strength: attackerStrength,
+      },
+      defender: {
+        ref: _.clone(defender),
+        health: defender.health,
+        strength: defenderStrength,
+      },
+      name: 'battle-round-start',
+      type: 'event'
+    })
 
     while (attacker.health && defender.health) {
       const attackerRoll = d.standard()
@@ -42,35 +64,112 @@ const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
       const defenderHit = defenderRoll > attackerStrength
 
       if ((attackerHit && defenderHit) || (!attackerHit && !defenderHit)) {
-        // Event: battle-round-draw
-        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
-        console.log(`${attackerName} (roll: ${attackerRoll}) and ${defenderName} (roll: ${defenderRoll}) draw no blood.`)
+        // With these classic mechanic assumptions, each round can only ever have
+        // 3 outcomes: a draw, attacker damages defender for 1 health, defender
+        // damages attacker for 1 health.
+        // No simultaneous damage. If we want to expand the rules, the attacker
+        // and defender event metadata will probably also need to be expanded
+        // and the event types should probably become more generically named.
+        events.push({
+          attacker: {
+            ref: _.clone(attacker),
+            health: attacker.health,
+            roll: attackerRoll,
+            strength: attackerStrength,
+          },
+          defender: {
+            ref: _.clone(defender),
+            health: defender.health,
+            roll: defenderRoll,
+            strength: defenderStrength,
+          },
+          name: 'battle-round-no-damage',
+          type: 'event'
+        })
       } else if (attackerHit) {
-        // Event: battle-round-damage
-        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
-        console.log(`${attackerName} (roll: ${attackerRoll}) ${chalk.hex('#AA0000')('wounds')} ${defenderName} (roll: ${defenderRoll}).`)
         defender.health -= 1
+        events.push({
+          attacker: {
+            ref: _.clone(attacker),
+            health: attacker.health,
+            roll: attackerRoll,
+            strength: attackerStrength,
+          },
+          defender: {
+            ref: _.clone(defender),
+            health: defender.health,
+            roll: defenderRoll,
+            strength: defenderStrength,
+          },
+          name: 'battle-round-advantage-attacker',
+          type: 'event'
+        })
       } else {
-        // Event: battle-round-damage
-        // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
-        console.log(`${attackerName} (roll: ${attackerRoll}) ${chalk.hex('#AA0000')('wounded by')} ${defenderName} (roll: ${defenderRoll}).`)
         attacker.health -= 1
+        events.push({
+          attacker: {
+            ref: _.clone(attacker),
+            health: attacker.health,
+            roll: attackerRoll,
+            strength: attackerStrength,
+          },
+          defender: {
+            ref: _.clone(defender),
+            health: defender.health,
+            roll: defenderRoll,
+            strength: defenderStrength,
+          },
+          name: 'battle-round-advantage-defender',
+          type: 'event'
+        })
       }
     }
 
-    // Event: battle-round-end
-    // {attacker, attackerHealth, attackerHit, attackerRoll, attackerStrength, defender, defenderHealth, defenderHit, defenderRoll, defenderStrength}
     if (attacker.health <= 0) {
-      console.log(`${attackerName} ${chalk.hex('#AA0000')('slain by')} ${defenderName}.`)
       attackerCasualties.push(attackers.shift())
+      events.push({
+        attacker: {
+          ref: _.clone(attacker),
+          health: attacker.health,
+          strength: attackerStrength,
+        },
+        defender: {
+          ref: _.clone(defender),
+          health: defender.health,
+          strength: defenderStrength,
+        },
+        name: 'battle-round-win-defender',
+        type: 'event'
+      })
     }
     if (defender.health <= 0) {
-      console.log(`${attackerName} ${chalk.hex('#AA0000')('slays')} ${defenderName}.`)
       defenderCasualties.push(defenders.shift())
+      events.push({
+        attacker: {
+          ref: _.clone(attacker),
+          health: attacker.health,
+          strength: attackerStrength,
+        },
+        defender: {
+          ref: _.clone(defender),
+          health: defender.health,
+          strength: defenderStrength,
+        },
+        name: 'battle-round-win-attacker',
+        type: 'event'
+      })
     }
   }
 
-  return {attackers, attackerCasualties, defenders, defenderCasualties}
+  return {
+    attackerCasualties,
+    attackerPlayer,
+    attackers,
+    defenderCasualties,
+    defenderPlayer,
+    defenders,
+    events,
+  }
 }
 
 // int main(void)
@@ -103,12 +202,20 @@ export const main = async () => {
   console.log(ui.text.empire.title(player2))
   console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(player2.armyGroups[0])))
 
-  const {attackers, attackerCasualties, defenders, defenderCasualties} = battle({
+  const {
+    attackers,
+    attackerCasualties,
+    defenders,
+    defenderCasualties,
+    events: battleEvents,
+  } = battle({
     attackers: player1.armyGroups[0],
     attackerPlayer: player1,
     defenders: player2.armyGroups[0],
     defenderPlayer: player2,
   })
+
+  console.log(ui.text.battleReport({attackerPlayer: player1, defenderPlayer: player2, events: battleEvents}))
 
   console.log('\n\nBattle Results!')
 
