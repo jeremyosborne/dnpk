@@ -1,7 +1,7 @@
 import {strength as strengthArmy} from '../army'
 // grrr... it feels like while I'm probably the one at fault, dependency resolution in
 // babel is brittle when there is even a hair of a circular import happening.
-import {strengthModifier as strengthModifierArmyGroup} from '../army/group'
+import {strengthModifier as strengthModifierArmyGroup} from '../army-group'
 import {strengthBounded} from '../rules'
 import {strengthModifier as strengthModifierTerrain} from '../terrain'
 

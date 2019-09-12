@@ -1,4 +1,3 @@
-
 //
 // Public API.
 //
@@ -7,6 +6,9 @@
 
 import * as army from './army' // eslint-disable-line import/first
 export {army}
+
+import * as armyGroup from './army-group' // eslint-disable-line import/first
+export {armyGroup}
 
 import * as common from './common' // eslint-disable-line import/first
 export {common}

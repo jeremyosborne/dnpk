@@ -12,7 +12,7 @@ import {sprintf} from 'sprintf-js'
  * information about the army group.
  */
 export const armyGroup = (armyGroup) => {
-  const strengthModifier = gameObjects.army.group.strengthModifier(armyGroup)
+  const strengthModifier = gameObjects.armyGroup.strengthModifier(armyGroup)
   const info = []
   // Overall group information.
   info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))

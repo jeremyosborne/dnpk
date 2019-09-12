@@ -35,10 +35,10 @@ export const main = async () => {
   // battle and applying permanent changes. Ideally this allows for a later rules
   // extensions where battle "kills" can be translated to "downed" or "injured"
   // or "captured" or "routed" units.
-  const attackers = gameObjects.army.group.sort(_.cloneDeep(player1.armyGroups[0]))
+  const attackers = gameObjects.armyGroup.sort(_.cloneDeep(player1.armyGroups[0]))
 
   // Create the defending group battle structure.
-  const defenders = gameObjects.army.group.sort(_.cloneDeep(player2.armyGroups[0]))
+  const defenders = gameObjects.armyGroup.sort(_.cloneDeep(player2.armyGroups[0]))
 
   console.log('\nBattle commencing between\n')
 
@@ -58,11 +58,11 @@ export const main = async () => {
     const attackerColor = player1.empire.color
 
     const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
-    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.army.group.strengthModifier(attackers) + gameObjects.army.strength(attacker))
+    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
     const defenderColor = player2.empire.color
     const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
-    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.army.group.strengthModifier(defenders) + gameObjects.army.strength(defender))
+    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
     // Event: battle-round-start
     // {attacker, attackerHealth, attackerStrength, defender, defenderHealth, defenderStrength}

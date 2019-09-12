@@ -1,4 +1,4 @@
-import strength from '../strength'
+import * as army from '../army'
 import _ from 'lodash'
 
 /**
@@ -52,7 +52,7 @@ export const strengthModifier = _.flow([
     const heroes = _.filter(group, (army) => _.some(army.effects, (effect) => effect.name === 'hero'))
 
     modifier += _.reduce(heroes, (heroBonus, hero) => {
-      const heroStrength = strength(hero)
+      const heroStrength = army.strength(hero)
       if (heroStrength >= 4 && heroStrength <= 6) {
         return heroBonus + 1
       } else if (heroStrength >= 7 && heroStrength <= 8) {

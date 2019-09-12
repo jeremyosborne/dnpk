@@ -1,7 +1,6 @@
 // @flow
 import _ from 'lodash'
-import * as is from '../is'
-import strength from '../strength'
+import * as army from '../army'
 
 /**
  * Sort a group into a battle ready formation.
@@ -17,10 +16,10 @@ import strength from '../strength'
 export const sort = (group) => _.sortBy(group, [
   // Brave heroes lead from the rear!
   // sortBy is ascending order, so armies that are heroes will get sorted to end.
-  (army) => is.hero(army) ? 1 : 0,
+  (a) => army.is.hero(a) ? 1 : 0,
   // We want weaker armies before the uniform strength bonus is supplied to
   // be first in the list.
-  strength,
+  army.strength,
 ])
 
 export default sort
