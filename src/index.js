@@ -7,8 +7,6 @@ import {d} from 'random'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
 
-const empireTitle = (empire) => console.log(chalk.hex(empire.color)(gameObjects.common.name(empire)))
-
 const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
   // Clone the attacking and defending groups. Battle can mutate the objects, but reports/events
   // out the results. The caller is responsible for handling the results of the
@@ -99,10 +97,10 @@ export const main = async () => {
   console.log('\nBattle commencing between\n')
 
   // Who is fighting who.
-  empireTitle(player1.empire)
+  console.log(ui.text.empire.title(player1))
   console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(player1.armyGroups[0])))
   console.log('\nvs.\n')
-  empireTitle(player2.empire)
+  console.log(ui.text.empire.title(player2))
   console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(player2.armyGroups[0])))
 
   const {attackers, attackerCasualties, defenders, defenderCasualties} = battle({
@@ -120,9 +118,9 @@ export const main = async () => {
   }
 
   // Here attackers and defenders are the mutated copies of the group, not the original.
-  empireTitle(player1.empire)
+  console.log(ui.text.empire.title(player1))
   casualtyReport({survivors: attackers, casualties: attackerCasualties})
-  empireTitle(player2.empire)
+  console.log(ui.text.empire.title(player2))
   casualtyReport({survivors: defenders, casualties: defenderCasualties})
 
   if (attackers.length) {
