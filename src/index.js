@@ -9,45 +9,14 @@ import * as ui from 'ui'
 
 const empireTitle = (empire) => console.log(chalk.hex(empire.color)(gameObjects.common.name(empire)))
 
-// int main(void)
-export const main = async () => {
-  await l10nInit()
-  await configGameObjects.load()
-
-  console.log(t('Battle prototype'))
-
-  console.log(t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()}))
-
-  // const armyTypes = gameObjects.army.dir()
-  // console.log(t('Armies available:'))
-  // console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
-
-  // Create 2 groups of armies and their leaders.
-
-  // Not deduping empires right now. That's fine, we can have infighting.
-  const player1 = simulation.create.playerRandom()
-  const player2 = simulation.create.playerRandom()
-
-  // Engage the 2 groups in battle.
-
+const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
   // Clone the attacking and defending groups. Battle can mutate the objects, but reports/events
   // out the results. The caller is responsible for handling the results of the
   // battle and applying permanent changes. Ideally this allows for a later rules
   // extensions where battle "kills" can be translated to "downed" or "injured"
   // or "captured" or "routed" units.
-  const attackers = gameObjects.armyGroup.sort(_.cloneDeep(player1.armyGroups[0]))
-
-  // Create the defending group battle structure.
-  const defenders = gameObjects.armyGroup.sort(_.cloneDeep(player2.armyGroups[0]))
-
-  console.log('\nBattle commencing between\n')
-
-  // Who is fighting who.
-  empireTitle(player1.empire)
-  console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(attackers)))
-  console.log('\nvs.\n')
-  empireTitle(player2.empire)
-  console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(defenders)))
+  attackers = gameObjects.armyGroup.sort(_.cloneDeep(attackers))
+  defenders = gameObjects.armyGroup.sort(_.cloneDeep(defenders))
 
   // While both groups still have units, keep going.
   const attackerCasualties = []
@@ -55,12 +24,12 @@ export const main = async () => {
   while (attackers.length && defenders.length) {
     // Top of the stack current battle.
     const attacker = attackers[0]
-    const attackerColor = player1.empire.color
+    const attackerColor = attackerPlayer.empire.color
 
     const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker))}`
     const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers) + gameObjects.army.strength(attacker))
     const defender = defenders[0]
-    const defenderColor = player2.empire.color
+    const defenderColor = defenderPlayer.empire.color
     const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender))}`
     const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders) + gameObjects.army.strength(defender))
 
@@ -103,6 +72,46 @@ export const main = async () => {
     }
   }
 
+  return {attackers, attackerCasualties, defenders, defenderCasualties}
+}
+
+// int main(void)
+export const main = async () => {
+  await l10nInit()
+  await configGameObjects.load()
+
+  console.log(t('Battle prototype'))
+
+  console.log(t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()}))
+
+  // const armyTypes = gameObjects.army.dir()
+  // console.log(t('Armies available:'))
+  // console.log(chalk.yellow(_.sortBy(armyTypes).join('\n')))
+
+  // Create 2 groups of armies and their leaders.
+
+  // Not deduping empires right now. That's fine, we can have infighting.
+  const player1 = simulation.create.playerRandom()
+  const player2 = simulation.create.playerRandom()
+
+  // Engage the 2 groups in battle.
+
+  console.log('\nBattle commencing between\n')
+
+  // Who is fighting who.
+  empireTitle(player1.empire)
+  console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(player1.armyGroups[0])))
+  console.log('\nvs.\n')
+  empireTitle(player2.empire)
+  console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(player2.armyGroups[0])))
+
+  const {attackers, attackerCasualties, defenders, defenderCasualties} = battle({
+    attackers: player1.armyGroups[0],
+    attackerPlayer: player1,
+    defenders: player2.armyGroups[0],
+    defenderPlayer: player2,
+  })
+
   console.log('\n\nBattle Results!')
 
   const casualtyReport = ({survivors, casualties}) => {
@@ -124,7 +133,7 @@ export const main = async () => {
     console.log("All armies are dead. This shouldn't be possible to reach.")
   }
 
-  // Return the battle group structure + statistics.
+  // TODO: merge the results of the battle back into the source of truth for the players.
 }
 
 if (require.main === module) {

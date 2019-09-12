@@ -52,3 +52,12 @@ Modules the make use of runtime configuration settings should list those within 
 
 - [ ] Add terrain for battle, including terrain bonuses to total army group bonus.
 - [ ] Play around with more formal player object structuring, which seems like is just the glue of the empire plus army groups plus economic state.
+
+## Ideas
+
+- [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
+- [ ] Rules where instead of losing a battle fully, one group can route.
+- [ ] Prisoners.
+- [ ] Terrain modifications beyond cities and towers, like traps and fires.
+- [ ] Injuries for fighting in a battle.
+- [ ] Experience for a fighting group.
