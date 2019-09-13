@@ -13,6 +13,7 @@ import {d} from 'random'
  * @param {object} defenders data for the defenders.
  * @param {object[]} defenders.armyGroup the defending units.
  * @param {object} defenders.empire the defending empire.
+ * @param {object} terrain where the battle is taking place.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
@@ -26,8 +27,9 @@ import {d} from 'random'
  * @property {object} defenders.empire reference to the empire passsed in.
  * @property {object[]} defenders.survivors copies of army units that have survived the battle.
  * @property {object[]} events play by play of the battle for humans or things that like data events.
+ * @property {object} terrain reference to the terrain argument.
  */
-export const battle = ({attackers, defenders}) => {
+export const battle = ({attackers, defenders, terrain}) => {
   // Clone the attacking and defending object...
   attackers = _.clone(attackers)
   defenders = _.clone(defenders)
@@ -50,9 +52,19 @@ export const battle = ({attackers, defenders}) => {
     const attacker = attackers.survivors[0]
     // Calculate strength modifier from the original group, which should not
     // be modified during battle.
-    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers.armyGroup) + gameObjects.army.strength(attacker))
+    const attackerStrength = gameObjects.common.strength({
+      army: attacker,
+      armyGroup: attackers.armyGroup,
+      empire: attackers.empire,
+      terrain,
+    })
     const defender = defenders.survivors[0]
-    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders.armyGroup) + gameObjects.army.strength(defender))
+    const defenderStrength = gameObjects.common.strength({
+      army: defender,
+      armyGroup: defenders.armyGroup,
+      empire: defenders.empire,
+      terrain,
+    })
 
     events.push({
       attacker: {

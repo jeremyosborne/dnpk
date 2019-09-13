@@ -50,7 +50,8 @@ export const main = async () => {
     defenders: {
       armyGroup: player2.armyGroups[0],
       empire: player2.empire,
-    }
+    },
+    terrain,
   })
 
   console.log(ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))

@@ -23,7 +23,7 @@ export const strengthModifier = _.flow([
 
   // Check for empire opinion of terrain.
   ({army, empire, modifier, terrain}) => {
-    if (empire) {
+    if (empire && terrain) {
       modifier += _.reduce(empire.effects, (terrainModifier, effect) => {
         // We assume nested structure `metadata.name` is required for terrain.
         if (effect.name === 'terrain-battle-modifier' && effect.metadata.name === terrain.name) {
@@ -43,7 +43,7 @@ export const strengthModifier = _.flow([
 
   // Check for army opinion of terrain.
   ({army, empire, modifier, terrain}) => {
-    if (army) {
+    if (army && terrain) {
       modifier += _.reduce(army.effects, (terrainModifier, effect) => {
         // We assume nested structure `metadata.name` is required for terrain.
         if (effect.name === 'terrain-battle-modifier' && effect.metadata.name === terrain.name) {

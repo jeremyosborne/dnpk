@@ -12,6 +12,8 @@ import {sprintf} from 'sprintf-js'
  * information about the army group.
  */
 export const armyGroup = (armyGroup) => {
+  // Sort to make things prettier.
+  armyGroup = gameObjects.armyGroup.sort(armyGroup)
   const strengthModifier = gameObjects.armyGroup.strengthModifier(armyGroup)
   const info = []
   // Overall group information.
@@ -19,6 +21,7 @@ export const armyGroup = (armyGroup) => {
 
   // Information about each unit in the army.
   armyGroup.reduce((info, army) => {
+    // Needed to calculate any accumulated strength modifications on the individual army.
     const strength = gameObjects.army.strength(army)
 
     info.push(`${sprintf('%-17s', gameObjects.common.name(army))} Str: ${strength} (${gameObjects.rules.strengthBounded(strength + strengthModifier)})`)
