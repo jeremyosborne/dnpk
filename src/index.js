@@ -12,35 +12,52 @@ import * as ui from 'ui'
  *
  * Does not mutate input.
  *
- * @param {object[]} attackers an army-group
- * @param {object} attackerPlayer player attackers are associated with, needed
- * for empire reference.
- * @param {object[]} defenders an army-group
- * @param {object} defenderPlayer player defenders are associated with, needed
- * for empire reference.
+ * @param {object} attackers data for the aggressors.
+ * @param {object[]} attackers.armyGroup the aggressors armies.
+ * @param {object} attackers.empire aggressor empire.
+ * @param {object} defenders data for the defenders.
+ * @param {object[]} defenders.armyGroup the defending units.
+ * @param {object} defenders.empire the defending empire.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
+ * @property {object} attackers clone of the argument.
+ * @property {object[]} attackers.armyGroup reference to the army group passed in.
+ * @property {object[]} attackers.casualties copies of army units destroyed.
+ * @property {object} attackers.empire reference to the empire passsed in.
+ * @property {object[]} attackers.survivors copies of army units that have survived the battle.
+ * @property {object} defenders clone of the argument.
+ * @property {object[]} defenders.armyGroup reference to the army group passed in.
+ * @property {object[]} defenders.casualties copies of army units destroyed.
+ * @property {object} defenders.empire reference to the empire passsed in.
+ * @property {object[]} defenders.survivors copies of army units that have survived the battle.
+ * @property {object[]} events play by play of the battle for humans or things that like data events.
  */
-const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
-  // Clone the attacking and defending groups. Battle can mutate the objects, but reports/events
-  // out the results. The caller is responsible for handling the results of the
-  // battle and applying permanent changes. Ideally this allows for a later rules
-  // extensions where battle "kills" can be translated to "downed" or "injured"
-  // or "captured" or "routed" units.
-  attackers = gameObjects.armyGroup.sort(_.cloneDeep(attackers))
-  defenders = gameObjects.armyGroup.sort(_.cloneDeep(defenders))
+const battle = ({attackers, defenders}) => {
+  // Clone the attacking and defending object...
+  attackers = _.clone(attackers)
+  defenders = _.clone(defenders)
+  // ...and then clone the army groups so we can mutate them into the final results
+  // returned. The caller is responsible for committing the results or ignoring
+  // them. Ideally this allows for a later rules extensions where battle "kills"
+  // can be translated to "downed" or "injured" or "captured" or "routed" units.
+  // A bit morbid, but allows our cloned input to just become output as anyone
+  // not dead is a survior.
+  attackers.survivors = gameObjects.armyGroup.sort(_.cloneDeep(attackers.armyGroup))
+  attackers.casualties = []
+  defenders.survivors = gameObjects.armyGroup.sort(_.cloneDeep(defenders.armyGroup))
+  defenders.casualties = []
+  // Track What happened during this battle.
+  const events = []
 
   // While both groups still have units, keep going.
-  const attackerCasualties = []
-  const defenderCasualties = []
-  // What happened during this battle.
-  const events = []
-  while (attackers.length && defenders.length) {
+  while (attackers.survivors.length && defenders.survivors.length) {
     // Top of the stack current battle.
-    const attacker = attackers[0]
-    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers) + gameObjects.army.strength(attacker))
-    const defender = defenders[0]
-    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders) + gameObjects.army.strength(defender))
+    const attacker = attackers.survivors[0]
+    // Calculate strength modifier from the original group, which should not
+    // be modified during battle.
+    const attackerStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(attackers.armyGroup) + gameObjects.army.strength(attacker))
+    const defender = defenders.survivors[0]
+    const defenderStrength = gameObjects.rules.strengthBounded(gameObjects.armyGroup.strengthModifier(defenders.armyGroup) + gameObjects.army.strength(defender))
 
     events.push({
       attacker: {
@@ -126,7 +143,8 @@ const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
     }
 
     if (attacker.health <= 0) {
-      attackerCasualties.push(attackers.shift())
+      // Shift out your dead.
+      attackers.casualties.push(attackers.survivors.shift())
       events.push({
         attacker: {
           ref: _.clone(attacker),
@@ -143,7 +161,7 @@ const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
       })
     }
     if (defender.health <= 0) {
-      defenderCasualties.push(defenders.shift())
+      defenders.casualties.push(defenders.survivors.shift())
       events.push({
         attacker: {
           ref: _.clone(attacker),
@@ -162,11 +180,7 @@ const battle = ({attackers, attackerPlayer, defenders, defenderPlayer}) => {
   }
 
   return {
-    attackerCasualties,
-    attackerPlayer,
     attackers,
-    defenderCasualties,
-    defenderPlayer,
     defenders,
     events,
   }
@@ -204,41 +218,24 @@ export const main = async () => {
 
   const {
     attackers,
-    attackerCasualties,
     defenders,
-    defenderCasualties,
     events: battleEvents,
   } = battle({
-    attackers: player1.armyGroups[0],
-    attackerPlayer: player1,
-    defenders: player2.armyGroups[0],
-    defenderPlayer: player2,
+    attackers: {
+      armyGroup: player1.armyGroups[0],
+      empire: player1.empire,
+    },
+    defenders: {
+      armyGroup: player2.armyGroups[0],
+      empire: player2.empire,
+    }
   })
 
-  console.log(ui.text.battleReport({attackerPlayer: player1, defenderPlayer: player2, events: battleEvents}))
+  console.log(ui.text.battleReport({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))
 
-  console.log('\n\nBattle Results!')
+  console.log('\n\n' + t('Battle Results!'))
 
-  const casualtyReport = ({survivors, casualties}) => {
-    console.log(`# casualties: ${casualties.length}: ${_.map(casualties, (a) => gameObjects.common.name(a)).join(', ')}`)
-    console.log(`# in group remaining: ${survivors.length}: ${_.map(survivors, (a) => gameObjects.common.name(a)).join(', ')}`)
-  }
-
-  // Here attackers and defenders are the mutated copies of the group, not the original.
-  console.log(ui.text.empire.title(player1))
-  casualtyReport({survivors: attackers, casualties: attackerCasualties})
-  console.log(ui.text.empire.title(player2))
-  casualtyReport({survivors: defenders, casualties: defenderCasualties})
-
-  if (attackers.length) {
-    console.log(`The ${chalk.hex(player1.empire.color)(player1.empire.name)} empire wins the battle!`)
-  } else if (defenders.length) {
-    console.log(`The ${chalk.hex(player2.empire.color)(player2.empire.name)} empire wins the battle!`)
-  } else {
-    console.log("All armies are dead. This shouldn't be possible to reach.")
-  }
-
-  // TODO: merge the results of the battle back into the source of truth for the players.
+  console.log(ui.text.battleResults({attackers, defenders}))
 }
 
 if (require.main === module) {

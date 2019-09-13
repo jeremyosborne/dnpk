@@ -4,22 +4,19 @@ import * as gameObjects from 'game-objects'
 /**
  * Transform battle events into a string of text.
  *
- * @param {object} attackerPlayer used to colorize attacker output.
- * @param {object} defenderPlayer used to colorize defender output.
+ * @param {object} attackerColor used to colorize attacker output.
+ * @param {object} defenderColor used to colorize defender output.
  * @param {object[]} events list of battle events.
  * @param {string} violenceColor optional color used for violent messages.
  *
  * @return {string} multi-line output of the battle, potentially quite lengthy.
  */
 export const battleReport = ({
-  attackerPlayer,
-  defenderPlayer,
+  attackerColor = '#CCCCCC',
+  defenderColor = '#FFFFFF',
   events,
   violenceColor = '#AA0000',
 }) => {
-  const attackerColor = attackerPlayer.empire.color
-  const defenderColor = defenderPlayer.empire.color
-
   const info = []
 
   events.forEach((ev) => {
