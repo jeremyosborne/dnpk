@@ -51,11 +51,11 @@ export const main = async () => {
     }
   })
 
-  console.log(ui.text.battleReport({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))
+  console.log(ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))
 
   console.log('\n\n' + t('Battle Results!'))
 
-  console.log(ui.text.battleResults({attackers, defenders}))
+  console.log(ui.text.battle.results({attackers, defenders}))
 }
 
 if (require.main === module) {
