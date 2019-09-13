@@ -24,6 +24,7 @@ export const main = async () => {
   // Not deduping empires right now. That's fine, we can have infighting.
   const player1 = simulation.create.playerRandom()
   const player2 = simulation.create.playerRandom()
+  const terrain = gameObjects.terrain.create.random()
 
   // Engage the 2 groups in battle.
 
@@ -35,6 +36,7 @@ export const main = async () => {
   console.log('\nvs.\n')
   console.log(ui.text.empire.title(player2))
   console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(player2.armyGroups[0])))
+  console.log(`\n on terrain: ${gameObjects.common.name(terrain)}`)
 
   const {
     attackers,
