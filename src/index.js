@@ -1,6 +1,5 @@
 import {battle} from 'battle'
 import * as configGameObjects from 'config-game-objects'
-import chalk from 'chalk'
 import * as gameObjects from 'game-objects'
 import {init as l10nInit, t} from 'l10n'
 import * as simulation from 'simulation'
@@ -28,13 +27,13 @@ export const main = async () => {
 
   // Engage the 2 groups in battle.
 
-  console.log('\nBattle commencing between\n')
-  console.log(ui.text.empire.title(player1))
-  console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(player1.armyGroups[0])))
+  console.log(`\nBattle commencing on terrain (${gameObjects.common.name(terrain)}), between:`)
+  console.log('')
+  ui.text.empire.title(player1)
+  ui.text.armyGroup({armyGroup: player1.armyGroups[0]})
   console.log('\nvs.\n')
-  console.log(ui.text.empire.title(player2))
-  console.log(chalk.hex(player2.empire.color)(ui.text.armyGroup(player2.armyGroups[0])))
-  console.log(`\n on terrain: ${gameObjects.common.name(terrain)}`)
+  ui.text.empire.title(player2)
+  ui.text.armyGroup({armyGroup: player2.armyGroups[0]})
 
   const {
     attackers,
@@ -54,11 +53,13 @@ export const main = async () => {
 
   console.log('\n\n')
 
-  console.log(ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))
+  ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents})
 
   console.log('\n\n')
 
-  console.log(ui.text.battle.results({attackers, defenders}))
+  ui.text.battle.results({attackers, defenders})
+
+  console.log('\n\n')
 }
 
 if (require.main === module) {

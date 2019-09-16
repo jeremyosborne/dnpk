@@ -1,6 +1,7 @@
 import * as gameObjects from 'game-objects'
 import _ from 'lodash'
 import {t} from 'l10n'
+import out from './out'
 import {sprintf} from 'sprintf-js'
 
 /**
@@ -11,7 +12,7 @@ import {sprintf} from 'sprintf-js'
  * @return {string} multi-line, slightly formatted, plain text diagnostic
  * information about the army group.
  */
-export const armyGroup = (armyGroup) => {
+export const string = ({armyGroup}) => {
   // Sort to make things prettier.
   armyGroup = gameObjects.armyGroup.sort(armyGroup)
   const strengthModifier = gameObjects.armyGroup.strengthModifier(armyGroup)
@@ -51,5 +52,15 @@ export const armyGroup = (armyGroup) => {
 
   return info.join('\n')
 }
+
+/**
+ * Direct-to-out wrapper. See `string`.
+ */
+export const armyGroup = (...args) => out(string(...args))
+
+/**
+ * Convenience. See `string`.
+ */
+armyGroup.string = string
 
 export default armyGroup

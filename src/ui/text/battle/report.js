@@ -1,8 +1,7 @@
 import chalk from 'chalk'
-import * as textEmpire from './empire'
 import * as gameObjects from 'game-objects'
 import {t} from 'l10n'
-import _ from 'lodash'
+import out from '../out'
 
 /**
  * Transform battle events into a string of text.
@@ -14,7 +13,7 @@ import _ from 'lodash'
  *
  * @return {string} multi-line output of the battle, potentially quite lengthy.
  */
-export const report = ({
+export const string = ({
   attackerColor = '#CCCCCC',
   defenderColor = '#FFFFFF',
   events,
@@ -55,50 +54,14 @@ export const report = ({
   return info.join('\n')
 }
 
-const casualtyReport = ({survivors, casualties}) => {
-  return t('survivors ({{survivors.length}}) {{survivors.names}}\ncasualties ({{casualties.length}}) {{casualties.names}}', {
-    survivors: {
-      length: survivors.length,
-      names: _.map(survivors, (a) => gameObjects.common.name(a)).join(', '),
-    },
-    casualties: {
-      length: casualties.length,
-      names: _.map(casualties, (a) => gameObjects.common.name(a)).join(', '),
-    }
-  })
-}
+/**
+ * Direct-to-out wrapper. See `string`.
+ */
+export const report = (...args) => out(string(...args))
 
 /**
- * Take the output from a `battle()` and display just the results.
- *
- * @param {object} attackers data for the aggressors.
- * @param {object[]} attackers.casualties the dead attackers.
- * @param {object} attackers.empire aggressor empire.
- * @param {object[]} attackers.survivors the aggressors surviving armies.
- * @param {object[]} defenders.casualties the dead defenders.
- * @param {object} defenders.empire defending empire.
- * @param {object[]} defenders.survivors the defenders surviving armies.
- *
- * @return {string}
+ * Convenience. See `string`.
  */
-export const results = ({attackers, defenders}) => {
-  const info = [t('Battle Results!')]
+report.string = string
 
-  info.push(textEmpire.title(attackers.empire))
-  info.push(casualtyReport(attackers))
-  info.push(textEmpire.title(defenders.empire))
-  info.push(casualtyReport(defenders))
-
-  // Built in to assume highlander rules and that, as the warning suggests, there
-  // actually must be one winner.
-  if (attackers.survivors.length || defenders.survivors.length) {
-    const name = attackers.survivors.length
-      ? chalk.hex(attackers.empire.color)(attackers.empire.name)
-      : chalk.hex(defenders.empire.color)(defenders.empire.name)
-    info.push(t('The {{name}} empire wins the battle!', {name}))
-  } else {
-    info.push(t("WARNING: All armies are dead. This shouldn't be possible."))
-  }
-
-  return info.join('\n')
-}
+export default report
