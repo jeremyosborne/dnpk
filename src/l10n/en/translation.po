@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-09-16T22:29:41.452Z\n"
-"PO-Revision-Date: 2019-09-16T22:29:41.452Z\n"
+"POT-Creation-Date: 2019-09-16T22:35:38.156Z\n"
+"PO-Revision-Date: 2019-09-16T22:35:38.156Z\n"
 
 msgid "...{{wounded}}: {{attacker.name}}"
 msgstr ""
@@ -44,42 +44,66 @@ msgid "Battle Results!"
 msgstr ""
 
 msgid "cavalry"
-msgstr ""
+msgstr "Cavalry"
 
 msgid "demon"
-msgstr ""
+msgstr "Demon"
 
 msgid "devil"
-msgstr ""
+msgstr "Devil"
 
 msgid "dragon"
-msgstr ""
+msgstr "Dragon"
 
 msgid "dwarf"
+msgstr "Dwarf"
+
+msgid "elvallie"
 msgstr ""
 
 msgid "elven-archer"
-msgstr ""
+msgstr "Elven Archer"
 
 msgid "giant"
+msgstr "Giant"
+
+msgid "grey-dwarves"
 msgstr ""
 
 msgid "griffin"
-msgstr ""
+msgstr "Griffin"
 
 msgid "heavy-infantry"
-msgstr ""
+msgstr "Heavy Infantry"
 
 msgid "hero"
+msgstr "Hero"
+
+msgid "horse-lords"
 msgstr ""
 
 msgid "light-infantry"
+msgstr "Light Infantry"
+
+msgid "lord-bane"
+msgstr ""
+
+msgid "orcs-of-kor"
 msgstr ""
 
 msgid "pegasus"
+msgstr "Pegasus"
+
+msgid "selentines"
+msgstr ""
+
+msgid "sirians"
 msgstr ""
 
 msgid "slain"
+msgstr ""
+
+msgid "storm-giants"
 msgstr ""
 
 msgid ""
@@ -91,7 +115,7 @@ msgid "The {{name}} empire wins the battle!"
 msgstr ""
 
 msgid "undead"
-msgstr ""
+msgstr "Undead"
 
 msgid "Using ruleset: {{rules}}"
 msgstr ""
@@ -100,10 +124,10 @@ msgid "WARNING: All armies are dead. This shouldn't be possible."
 msgstr ""
 
 msgid "wizard"
-msgstr ""
+msgstr "Wizard"
 
 msgid "wolf-rider"
-msgstr ""
+msgstr "Wolf Rider"
 
 msgid "wounded"
 msgstr ""

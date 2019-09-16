@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"POT-Creation-Date: 2019-09-16T22:29:41.453Z\n"
-"PO-Revision-Date: 2019-09-16T22:29:41.453Z\n"
+"POT-Creation-Date: 2019-09-16T22:35:38.156Z\n"
+"PO-Revision-Date: 2019-09-16T22:35:38.156Z\n"
 
 msgid "...{{wounded}}: {{attacker.name}}"
 msgstr ""
@@ -58,10 +58,16 @@ msgstr ""
 msgid "dwarf"
 msgstr ""
 
+msgid "elvallie"
+msgstr ""
+
 msgid "elven-archer"
 msgstr ""
 
 msgid "giant"
+msgstr ""
+
+msgid "grey-dwarves"
 msgstr ""
 
 msgid "griffin"
@@ -73,13 +79,31 @@ msgstr ""
 msgid "hero"
 msgstr ""
 
+msgid "horse-lords"
+msgstr ""
+
 msgid "light-infantry"
+msgstr ""
+
+msgid "lord-bane"
+msgstr ""
+
+msgid "orcs-of-kor"
 msgstr ""
 
 msgid "pegasus"
 msgstr ""
 
+msgid "selentines"
+msgstr ""
+
+msgid "sirians"
+msgstr ""
+
 msgid "slain"
+msgstr ""
+
+msgid "storm-giants"
 msgstr ""
 
 msgid ""
