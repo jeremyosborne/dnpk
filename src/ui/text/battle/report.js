@@ -42,7 +42,7 @@ export const string = ({
       info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
       info.push(t('...{{wounded}}: {{defender.name}}', {attacker, defender, wounded}))
     } else if (ev.name === 'battle-round-advantage-defender') {
-      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) wounded by {{defender.name}} (roll: {{defender.roll}}).', {attacker, defender}))
+      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
       info.push(t('...{{wounded}}: {{attacker.name}}', {attacker, defender, wounded}))
     } else if (ev.name === 'battle-round-win-defender') {
       info.push(t('{{slain}}: {{attacker.name}}', {attacker, defender, slain}))

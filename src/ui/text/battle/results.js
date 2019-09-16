@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import * as textEmpire from '../empire'
 import * as gameObjects from 'game-objects'
 import {t} from 'l10n'
@@ -43,8 +42,8 @@ export const string = ({attackers, defenders}) => {
   // actually must be one winner.
   if (attackers.survivors.length || defenders.survivors.length) {
     const name = attackers.survivors.length
-      ? chalk.hex(attackers.empire.color)(attackers.empire.name)
-      : chalk.hex(defenders.empire.color)(defenders.empire.name)
+      ? textEmpire.title.string(attackers.empire)
+      : textEmpire.title.string(defenders.empire)
     info.push(t('The {{name}} empire wins the battle!', {name}))
   } else {
     info.push(t("WARNING: All armies are dead. This shouldn't be possible."))

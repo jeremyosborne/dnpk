@@ -1,13 +1,12 @@
 import debug from 'debug'
-import flag from '../flag'
-import * as gameObjects from 'game-objects'
+import plainFlag from '../flag'
 import _ from 'lodash'
 import out from '../out'
 
 const logger = debug('dnpk/ui/text/empire')
 
 /**
- * Display the empire name.
+ * Display just the flag of an empire.
  *
  * Versatile function that attempts to do the right thing depending on input.
  *
@@ -18,22 +17,21 @@ const logger = debug('dnpk/ui/text/empire')
  */
 export const string = (data) => {
   const empire = _.get(data, 'empire') || data
-  const name = gameObjects.common.name(empire)
-  if (!name) {
-    logger('warning, called title() with incompatible data param of:', data)
+  if (!_.get(empire, 'color')) {
+    logger('warning, called flag() with incompatible data param of:', data)
   }
 
-  return `${name} ${flag.string(empire)}`
+  return `${plainFlag.string(empire)}`
 }
 
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const title = (...args) => out(string(...args))
+export const flag = (...args) => out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-title.string = string
+flag.string = string
 
-export default title
+export default flag
