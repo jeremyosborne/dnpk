@@ -63,3 +63,4 @@ Modules the make use of runtime configuration settings should list those within 
 - [ ] Terrain modifications beyond cities and towers, like traps and fires.
 - [ ] Injuries for fighting in a battle.
 - [ ] Experience for a fighting group.
+- [ ] In that very far future where there might be a modder, include how to import additional translations for modded data.

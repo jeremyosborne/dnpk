@@ -5,8 +5,34 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-09-16T04:14:26.374Z\n"
-"PO-Revision-Date: 2019-09-16T04:14:26.374Z\n"
+"POT-Creation-Date: 2019-09-16T22:29:41.452Z\n"
+"PO-Revision-Date: 2019-09-16T22:29:41.452Z\n"
+
+msgid "...{{wounded}}: {{attacker.name}}"
+msgstr ""
+
+msgid "...{{wounded}}: {{defender.name}}"
+msgstr ""
+
+msgid "...draw no blood."
+msgstr ""
+
+msgid ""
+"{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: "
+"{{defender.roll}})..."
+msgstr ""
+
+msgid ""
+"{{attacker.name}} (str: {{attacker.strength}}) (health: "
+"{{attacker.health}}) vs. {{defender.name}} (str: {{defender.strength}}) "
+"(health: {{defender.health}})"
+msgstr ""
+
+msgid "{{slain}}: {{attacker.name}}"
+msgstr ""
+
+msgid "{{slain}}: {{defender.name}}"
+msgstr ""
 
 msgid "Army group bonus: {{bonus}}"
 msgstr ""
@@ -17,6 +43,45 @@ msgstr ""
 msgid "Battle Results!"
 msgstr ""
 
+msgid "cavalry"
+msgstr ""
+
+msgid "demon"
+msgstr ""
+
+msgid "devil"
+msgstr ""
+
+msgid "dragon"
+msgstr ""
+
+msgid "dwarf"
+msgstr ""
+
+msgid "elven-archer"
+msgstr ""
+
+msgid "giant"
+msgstr ""
+
+msgid "griffin"
+msgstr ""
+
+msgid "heavy-infantry"
+msgstr ""
+
+msgid "hero"
+msgstr ""
+
+msgid "light-infantry"
+msgstr ""
+
+msgid "pegasus"
+msgstr ""
+
+msgid "slain"
+msgstr ""
+
 msgid ""
 "survivors ({{survivors.length}}) {{survivors.names}}\n"
 "casualties ({{casualties.length}}) {{casualties.names}}"
@@ -25,5 +90,20 @@ msgstr ""
 msgid "The {{name}} empire wins the battle!"
 msgstr ""
 
+msgid "undead"
+msgstr ""
+
 msgid "Using ruleset: {{rules}}"
+msgstr ""
+
+msgid "WARNING: All armies are dead. This shouldn't be possible."
+msgstr ""
+
+msgid "wizard"
+msgstr ""
+
+msgid "wolf-rider"
+msgstr ""
+
+msgid "wounded"
 msgstr ""

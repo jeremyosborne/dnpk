@@ -1,3 +1,5 @@
+import {t} from 'l10n'
+
 /**
  * Return the effective name of any object which is visual friendly.
  *
@@ -7,6 +9,6 @@
  *
  * @return {string} preferred name for this object
  */
-export const name = (o) => o.nameInstance || o.name
+export const name = (o) => o.nameInstance || t(o.name) || o.name
 
 export default name
