@@ -29,8 +29,6 @@ export const main = async () => {
   // Engage the 2 groups in battle.
 
   console.log('\nBattle commencing between\n')
-
-  // Who is fighting who.
   console.log(ui.text.empire.title(player1))
   console.log(chalk.hex(player1.empire.color)(ui.text.armyGroup(player1.armyGroups[0])))
   console.log('\nvs.\n')
@@ -54,9 +52,11 @@ export const main = async () => {
     terrain,
   })
 
+  console.log('\n\n')
+
   console.log(ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events: battleEvents}))
 
-  console.log('\n\n' + t('Battle Results!'))
+  console.log('\n\n')
 
   console.log(ui.text.battle.results({attackers, defenders}))
 }

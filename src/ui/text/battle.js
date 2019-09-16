@@ -23,21 +23,32 @@ export const report = ({
   const info = []
 
   events.forEach((ev) => {
-    const {attacker, defender, name} = ev
-    const attackerName = `${chalk.hex(attackerColor)(gameObjects.common.name(attacker.ref))}`
-    const defenderName = `${chalk.hex(defenderColor)(gameObjects.common.name(defender.ref))}`
-    if (name === 'battle-round-start') {
-      info.push(`\n${attackerName} ${chalk.hex(attackerColor)('(str:' + attacker.strength + ')')} ${chalk.hex(attackerColor)('(health:' + attacker.health + ')')} vs. ${defenderName} ${chalk.hex(defenderColor)('(str:' + defender.strength + ')')} ${chalk.hex(defenderColor)('(health:' + defender.health + ')')}`)
-    } else if (name === 'battle-round-no-damage') {
-      info.push(`${attackerName} (roll: ${attacker.roll}) and ${defenderName} (roll: ${defender.roll}) draw no blood.`)
-    } else if (name === 'battle-round-advantage-attacker') {
-      info.push(`${attackerName} (roll: ${attacker.roll}) ${chalk.hex(violenceColor)('wounds')} ${defenderName} (roll: ${defender.roll}).`)
-    } else if (name === 'battle-round-advantage-defender') {
-      info.push(`${attackerName} (roll: ${attacker.roll}) ${chalk.hex(violenceColor)('wounded by')} ${defenderName} (roll: ${defender.roll}).`)
-    } else if (name === 'battle-round-win-defender') {
-      info.push(`${attackerName} ${chalk.hex(violenceColor)('slain by')} ${defenderName}.`)
-    } else if (name === 'battle-round-win-attacker') {
-      info.push(`${attackerName} ${chalk.hex(violenceColor)('slays')} ${defenderName}.`)
+    const attacker = {
+      ...ev.attacker,
+      name: `${chalk.hex(attackerColor)(gameObjects.common.name(ev.attacker.ref))}`,
+    }
+    const defender = {
+      ...ev.defender,
+      name: `${chalk.hex(defenderColor)(gameObjects.common.name(ev.defender.ref))}`,
+    }
+    const wounded = chalk.hex(violenceColor)(t('wounded'))
+    const slain = chalk.hex(violenceColor)(t('slain'))
+    if (ev.name === 'battle-round-start') {
+      info.push('')
+      info.push(t('{{attacker.name}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
+    } else if (ev.name === 'battle-round-no-damage') {
+      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
+      info.push(t('...draw no blood.'))
+    } else if (ev.name === 'battle-round-advantage-attacker') {
+      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
+      info.push(t('...{{wounded}}: {{defender.name}}', {attacker, defender, wounded}))
+    } else if (ev.name === 'battle-round-advantage-defender') {
+      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) wounded by {{defender.name}} (roll: {{defender.roll}}).', {attacker, defender}))
+      info.push(t('...{{wounded}}: {{attacker.name}}', {attacker, defender, wounded}))
+    } else if (ev.name === 'battle-round-win-defender') {
+      info.push(t('{{slain}}: {{attacker.name}}', {attacker, defender, slain}))
+    } else if (ev.name === 'battle-round-win-attacker') {
+      info.push(t('{{slain}}: {{defender.name}}', {attacker, defender, slain}))
     }
   })
 
@@ -71,7 +82,7 @@ const casualtyReport = ({survivors, casualties}) => {
  * @return {string}
  */
 export const results = ({attackers, defenders}) => {
-  const info = []
+  const info = [t('Battle Results!')]
 
   info.push(textEmpire.title(attackers.empire))
   info.push(casualtyReport(attackers))
@@ -86,7 +97,7 @@ export const results = ({attackers, defenders}) => {
       : chalk.hex(defenders.empire.color)(defenders.empire.name)
     info.push(t('The {{name}} empire wins the battle!', {name}))
   } else {
-    info.push("WARNING: All armies are dead. This shouldn't be possible.")
+    info.push(t("WARNING: All armies are dead. This shouldn't be possible."))
   }
 
   return info.join('\n')
