@@ -8,6 +8,8 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * blocks and modules should [do one thing well](https://en.wikipedia.org/wiki/Unix_philosophy).
     * should be testable.
     * will be refactored, it's just a question of when.
+    * should support and conform to interfaces, intentionally designed ones and those that arise.
+    * should opt for labeled arguments via object as first arg, with dependency injection and configuration as second argument.
 * Graphics
     * Core game mechanics should be usable without graphics.
 * Importing and module structure
