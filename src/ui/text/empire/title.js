@@ -1,7 +1,6 @@
 import debug from 'debug'
 import flag from '../flag'
 import * as gameObjects from 'game-objects'
-import _ from 'lodash'
 import out from '../out'
 
 const logger = debug('dnpk/ui/text/empire')
@@ -16,11 +15,10 @@ const logger = debug('dnpk/ui/text/empire')
  *
  * @return {string}
  */
-export const string = (data) => {
-  const empire = _.get(data, 'empire') || data
+export const string = ({empire}) => {
   const name = gameObjects.common.name(empire)
   if (!name) {
-    logger('warning, called title() with incompatible data param of:', data)
+    logger('warning, called title() with incompatible data param of:', empire)
   }
 
   return `${name} ${flag.string(empire)}`

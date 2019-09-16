@@ -8,17 +8,13 @@ const logger = debug('dnpk/ui/text/empire')
 /**
  * Display just the flag of an empire.
  *
- * Versatile function that attempts to do the right thing depending on input.
- *
- * @param {object} data something that implements either `empire` or `player`
- * structure.
+ * @param {object} empire or something that implements `color`.
  *
  * @return {string}
  */
-export const string = (data) => {
-  const empire = _.get(data, 'empire') || data
+export const string = ({empire}) => {
   if (!_.get(empire, 'color')) {
-    logger('warning, called flag() with incompatible data param of:', data)
+    logger('warning, called flag() with incompatible data param of:', empire)
   }
 
   return `${plainFlag.string(empire)}`

@@ -1,13 +1,16 @@
 import chalk from 'chalk'
 import * as gameObjects from 'game-objects'
 import {t} from 'l10n'
+import _ from 'lodash'
 import out from '../out'
 
 /**
  * Transform battle events into a string of text.
  *
- * @param {object} attackerColor used to colorize attacker output.
- * @param {object} defenderColor used to colorize defender output.
+ * @param {object} [attackerColor='#CCCCCC'] default used to colorize attacker output.
+ * @param {object} attackers the blob of data returned from a battle.
+ * @param {object} [defenderColor='#FFFFFF'] default used to colorize defender output.
+ * @param {object} defenders the blob of defender data returned from a battle.
  * @param {object[]} events list of battle events.
  * @param {string} violenceColor optional color used for violent messages.
  *
@@ -15,11 +18,18 @@ import out from '../out'
  */
 export const string = ({
   attackerColor = '#CCCCCC',
+  attackers,
   defenderColor = '#FFFFFF',
+  defenders,
   events,
   violenceColor = '#AA0000',
 }) => {
   const info = []
+
+  // If attackers or defenders is passed in as metadata, opt to grab the color
+  // from there vs. the default attackerColor.
+  attackerColor = _.get(attackers, 'empire.color') || attackerColor
+  defenderColor = _.get(defenders, 'empire.color') || defenderColor
 
   events.forEach((ev) => {
     const attacker = {
