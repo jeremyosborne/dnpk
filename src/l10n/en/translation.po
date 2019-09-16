@@ -5,14 +5,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-08-26T20:39:08.842Z\n"
-"PO-Revision-Date: 2019-08-26T20:39:08.842Z\n"
-
-msgid "Armies available:"
-msgstr ""
+"POT-Creation-Date: 2019-09-16T04:14:26.374Z\n"
+"PO-Revision-Date: 2019-09-16T04:14:26.374Z\n"
 
 msgid "Army group bonus: {{bonus}}"
 msgstr ""
 
 msgid "Battle prototype"
+msgstr ""
+
+msgid "Battle Results!"
+msgstr ""
+
+msgid ""
+"survivors ({{survivors.length}}) {{survivors.names}}\n"
+"casualties ({{casualties.length}}) {{casualties.names}}"
+msgstr ""
+
+msgid "The {{name}} empire wins the battle!"
+msgstr ""
+
+msgid "Using ruleset: {{rules}}"
 msgstr ""

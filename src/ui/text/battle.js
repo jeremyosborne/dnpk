@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import * as textEmpire from './empire'
 import * as gameObjects from 'game-objects'
+import {t} from 'l10n'
 import _ from 'lodash'
 
 /**
@@ -44,8 +45,16 @@ export const report = ({
 }
 
 const casualtyReport = ({survivors, casualties}) => {
-  return `${survivors.length} survivors${survivors.length ? ': ' + _.map(survivors, (a) => gameObjects.common.name(a)).join(', ') : ''}
-${casualties.length} casualties${casualties.length ? ': ' + _.map(casualties, (a) => gameObjects.common.name(a)).join(', ') : ''}`
+  return t('survivors ({{survivors.length}}) {{survivors.names}}\ncasualties ({{casualties.length}}) {{casualties.names}}', {
+    survivors: {
+      length: survivors.length,
+      names: _.map(survivors, (a) => gameObjects.common.name(a)).join(', '),
+    },
+    casualties: {
+      length: casualties.length,
+      names: _.map(casualties, (a) => gameObjects.common.name(a)).join(', '),
+    }
+  })
 }
 
 /**
@@ -71,12 +80,13 @@ export const results = ({attackers, defenders}) => {
 
   // Built in to assume highlander rules and that, as the warning suggests, there
   // actually must be one winner.
-  if (attackers.survivors.length) {
-    info.push(`The ${chalk.hex(attackers.empire.color)(attackers.empire.name)} empire wins the battle!`)
-  } else if (defenders.survivors.length) {
-    info.push(`The ${chalk.hex(defenders.empire.color)(defenders.empire.name)} empire wins the battle!`)
+  if (attackers.survivors.length || defenders.survivors.length) {
+    const name = attackers.survivors.length
+      ? chalk.hex(attackers.empire.color)(attackers.empire.name)
+      : chalk.hex(defenders.empire.color)(defenders.empire.name)
+    info.push(t('The {{name}} empire wins the battle!', {name}))
   } else {
-    info.push("All armies are dead. WARNING: This shouldn't be possible to reach.")
+    info.push("WARNING: All armies are dead. This shouldn't be possible.")
   }
 
   return info.join('\n')

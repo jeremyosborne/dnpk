@@ -1,4 +1,3 @@
-// @flow
 import * as configGameObjects from 'config-game-objects'
 import dir from './dir'
 import _ from 'lodash'
@@ -11,7 +10,7 @@ import uuid from 'uuid/v1'
  *
  * @return {object} new army instance.
  */
-export const create = ({name}: {name: string}) => {
+export const create = ({name}) => {
   const army = configGameObjects.create({name, type: 'army'})
 
   // All objects get a unique id.
