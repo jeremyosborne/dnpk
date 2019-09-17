@@ -7,7 +7,7 @@ import * as gameObjects from 'game-objects'
  *
  * @return {number} the constrained value of the strength.
  */
-export const strengthBounded = (strength) => {
+export const strengthBounded = (strength = 0) => {
   return Math.max(gameObjects.rules.get('unitStrengthMin'), Math.min(strength, gameObjects.rules.get('unitStrengthMax')))
 }
 

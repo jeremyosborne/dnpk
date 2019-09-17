@@ -10,7 +10,8 @@ import {strengthBounded} from '../rules'
  */
 export const strength = _.flow([
   // Transform object for pipeline.
-  (army) => ({army, strength: army.strength || 0}),
+  // For the initial strength, prefer lower bounds determined by game rules.
+  (army) => ({army, strength: army.strength || strengthBounded(-Infinity)}),
 
   // Check for strength effects on items.
   ({army, strength}) => {

@@ -13,7 +13,7 @@
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src babel-node src/index.js",
     "start-debug": "NODE_PATH=src DEBUG=* babel-node src/index.js",
-    "test": "NODE_PATH=src jest --coverage"
+    "test": "NODE_PATH=src jest --config .jest.config.js"
   },
   "husky": {
     "hooks": {
