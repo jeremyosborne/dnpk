@@ -1,7 +1,7 @@
 import * as configGameObjects from 'config-game-objects'
 import d from './d'
 
-describe('d', () => {
+describe('random.d', () => {
   it('returns expected random values', () => {
     // Assume multiple calls and tests over time will eventually find problems.
     const val = d(10)
@@ -10,7 +10,7 @@ describe('d', () => {
     expect(val === Math.floor(val)).toEqual(true)
   })
 
-  describe('d.standard()', () => {
+  describe('.standard()', () => {
     beforeEach(async () => {
       // Need game rules to test this.
       await configGameObjects.load()

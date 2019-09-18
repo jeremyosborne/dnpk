@@ -1,7 +1,7 @@
 import {seed} from './random'
 import randint from './randint'
 
-describe('randint', () => {
+describe('random.randint', () => {
   it('returns expected random values', () => {
     // Assume multiple calls and tests over time will eventually find problems.
     const val = randint(-10, 10)

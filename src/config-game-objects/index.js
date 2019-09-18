@@ -54,6 +54,10 @@ export const create = ({name, type}) => {
   // object.
   const {valid, errors, object} = schema.validate({object: baseInstance, type})
   if (!valid) {
+    // The following is only reachable in the case where the on disk file is
+    // invalid. At the time of writing we are not (yet) doing DI for data sources
+    // and so this code is hard to test. This comment is the reason for why
+    // this remains uncovered.
     throw new Error(`No invalid types allowed: type: ${type}, name: ${name}, errors: ${errors}`)
   }
   return object

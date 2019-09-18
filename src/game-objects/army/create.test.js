@@ -21,4 +21,10 @@ describe('game-objects.army.create', () => {
   it('breaks on bad name', () => {
     expect(() => army.create({name: TEST_TYPE_INVALID})).toThrow()
   })
+
+  describe('.random()', () => {
+    it('works', () => {
+      expect(army.create.random().type).toEqual('army')
+    })
+  })
 })
