@@ -7,7 +7,8 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
 * Code
     * blocks and modules should [do one thing well](https://en.wikipedia.org/wiki/Unix_philosophy).
     * should be testable.
-        * First round of testing is unit-ish, aiming for 100% line coverage.
+        * First round of testing is unit-like, aiming for 100% line coverage.
+        * Each file should have a test file associated with it. Helps to visualize what is covered and what is not.
     * will be refactored, it's just a question of when.
     * should support and conform to interfaces, intentionally designed ones and those that arise.
     * should opt for labeled arguments via object as first arg, with labeled dependency injection and configuration via object as second argument.

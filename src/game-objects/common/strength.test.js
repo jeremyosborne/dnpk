@@ -20,6 +20,17 @@ describe('game-objects.common.strength', () => {
     army,
   ]
   const terrain = {name: 'forest'}
+  const empire = {
+    effects: [
+      {
+        name: 'terrain-battle-modifier',
+        magnitude: 1,
+        metadata: {
+          name: 'forest'
+        }
+      },
+    ]
+  }
 
   beforeEach(async () => {
     // load dependencies, needed for strengthBoundary.
@@ -36,7 +47,12 @@ describe('game-objects.common.strength', () => {
   })
 
   it('works with army and army-group and terrain', () => {
-    // Due to terrain bonus, now being calculated, terrain negates the group bonus.
+    // Due to terrain modifier, now being calculated, terrain negates the group bonus.
     expect(testModule.strength({army, armyGroup, terrain})).toEqual(3)
+  })
+
+  it('works with army and army-group and terrain and empire', () => {
+    // And finally adding in the empire negates the negations and we're net 0.
+    expect(testModule.strength({army, armyGroup, terrain, empire})).toEqual(4)
   })
 })

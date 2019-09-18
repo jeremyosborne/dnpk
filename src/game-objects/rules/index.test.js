@@ -1,20 +1,7 @@
-import * as testMod from './'
-import * as configGameObjects from 'config-game-objects'
-
-// Assume we'll always have this distinct type...
-const TEST_TYPE_VALID = 'classic'
-// ...and never this one.
-// const TEST_TYPE_INVALID = 'fake'
+import * as publicApi from './'
 
 describe('game-objects.rules', () => {
-  beforeEach(async () => {
-    // load dependencies...
-    await configGameObjects.load()
-  })
-
-  describe('.nameDefault()', () => {
-    it('returns expected default value', () => {
-      expect(testMod.nameDefault()).toEqual(TEST_TYPE_VALID)
-    })
+  it('does not export named references to null', () => {
+    Object.keys(publicApi).map((key) => expect(!!publicApi[key]).toEqual(true))
   })
 })
