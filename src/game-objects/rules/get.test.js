@@ -6,15 +6,18 @@ const TEST_TYPE_VALID = 'classic'
 // ...and never this one.
 // const TEST_TYPE_INVALID = 'fake'
 
-describe('game-objects.rules', () => {
+describe('game-objects.rules.get', () => {
   beforeEach(async () => {
     // load dependencies...
     await configGameObjects.load()
   })
 
-  describe('.nameDefault()', () => {
-    it('returns expected default value', () => {
-      expect(testMod.nameDefault()).toEqual(TEST_TYPE_VALID)
+  describe('.get()', () => {
+    it('returns a value for an expected rule', () => {
+      // Default rule set should carry it's own `name`.
+      expect(testMod.get('name')).toEqual(TEST_TYPE_VALID)
+      // Explicit rule set
+      expect(testMod.get(TEST_TYPE_VALID, 'name')).toEqual(TEST_TYPE_VALID)
     })
   })
 })
