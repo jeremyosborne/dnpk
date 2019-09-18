@@ -1,15 +1,13 @@
 import * as army from './'
 import * as configGameObjects from 'config-game-objects'
 
-describe('army', () => {
+describe('game-objects.army.dir', () => {
   beforeEach(async () => {
     // load dependencies...
     await configGameObjects.load()
   })
 
-  describe('.dir()', () => {
-    it('works', () => {
-      expect(army.dir().length > 0).toEqual(true)
-    })
+  it('works', () => {
+    expect(army.dir().length > 0).toEqual(true)
   })
 })

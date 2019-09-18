@@ -19,7 +19,7 @@ export const sort = (group) => _.sortBy(group, [
   (a) => army.is.hero(a) ? 1 : 0,
   // We want weaker armies before the uniform strength bonus is supplied to
   // be first in the list.
-  army.strength,
+  (a) => army.strength,
 ])
 
 export default sort

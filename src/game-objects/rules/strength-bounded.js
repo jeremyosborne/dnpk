@@ -1,4 +1,11 @@
+import debug from 'debug'
 import * as gameObjects from 'game-objects'
+
+const logger = debug('game-objects/rules/strength-bounded')
+
+// Classic values.
+const DEFAULT_MIN_STRENGTH = 0
+const DEFAULT_MAX_STRENGTH = 9
 
 /**
  * Make sure a strength value is valid within the rule set.
@@ -8,7 +15,19 @@ import * as gameObjects from 'game-objects'
  * @return {number} the constrained value of the strength.
  */
 export const strengthBounded = (strength = 0) => {
-  return Math.max(gameObjects.rules.get('unitStrengthMin'), Math.min(strength, gameObjects.rules.get('unitStrengthMax')))
+  let strengthMin = gameObjects.rules.get('unitStrengthMin')
+  if (typeof minStrength !== 'number') {
+    strengthMin = DEFAULT_MIN_STRENGTH
+    logger('WARNING: non-number rule for unitStrengthMin, defaulting to classic of', strengthMin)
+  }
+
+  let strengthMax = gameObjects.rules.get('unitStrengthMax')
+  if (typeof minStrength !== 'number') {
+    strengthMax = DEFAULT_MAX_STRENGTH
+    logger('WARNING: non-number rule for unitStrengthMax, defaulting to classic of', strengthMax)
+  }
+
+  return Math.max(strengthMin, Math.min(strength, strengthMax))
 }
 
 export default strengthBounded

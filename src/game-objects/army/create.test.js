@@ -6,21 +6,19 @@ const TEST_TYPE_VALID = 'light-infantry'
 // ...and never this one.
 const TEST_TYPE_INVALID = 'fake'
 
-describe('army', () => {
+describe('game-objects.army.create', () => {
   beforeEach(async () => {
     // load dependencies...
     await configGameObjects.load()
   })
 
-  describe('.create()', () => {
-    it('works', () => {
-      const instance = army.create({name: TEST_TYPE_VALID})
-      expect(typeof instance.id === 'string').toEqual(true)
-      expect(instance.type).toEqual('army')
-    })
+  it('works', () => {
+    const instance = army.create({name: TEST_TYPE_VALID})
+    expect(typeof instance.id === 'string').toEqual(true)
+    expect(instance.type).toEqual('army')
+  })
 
-    it('breaks on bad name', () => {
-      expect(() => army.create({name: TEST_TYPE_INVALID})).toThrow()
-    })
+  it('breaks on bad name', () => {
+    expect(() => army.create({name: TEST_TYPE_INVALID})).toThrow()
   })
 })
