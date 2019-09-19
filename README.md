@@ -55,7 +55,6 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Play around with more formal player object structuring, which seems like is just the glue of the empire plus army groups plus economic state.
 - [ ] For text-out color formatting, see: https://www.i18next.com/translation-function/formatting
 
 ## Ideas
