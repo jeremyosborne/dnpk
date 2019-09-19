@@ -28,7 +28,7 @@ export const strength = ({army, armyGroup, empire, terrain}) => {
   }
 
   let strength = strengthArmy(army)
-  strength += strengthModifierArmyGroup(armyGroup)
+  strength += strengthModifierArmyGroup({armyGroup})
   strength += strengthModifierTerrain({army, empire, terrain})
 
   return strengthBounded(strength)

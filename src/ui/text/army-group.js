@@ -15,7 +15,7 @@ import {sprintf} from 'sprintf-js'
 export const string = ({armyGroup}) => {
   // Sort to make things prettier.
   armyGroup = gameObjects.armyGroup.sort(armyGroup)
-  const strengthModifier = gameObjects.armyGroup.strengthModifier(armyGroup)
+  const strengthModifier = gameObjects.armyGroup.strengthModifier({armyGroup})
   const info = []
   // Overall group information.
   info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
