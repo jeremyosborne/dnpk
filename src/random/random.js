@@ -48,9 +48,8 @@ export const seed = {
   /**
    * Seed the pseudo-random number generator.
    *
-   * @param {number} [sz=Date.now()] non-zero integer used as seed #1.
-   * @param {number} [sw=Date.now() / 29] non-zero integer used as seed #2. Corresponds
-   * to index 1 of the array returned by getSeed.
+   * @param {number} [sz=Date.now()] non-zero integer used as seedz.
+   * @param {number} [sw=Date.now() / 29] non-zero integer used as seedw.
    *
    * @see getSeed
    */

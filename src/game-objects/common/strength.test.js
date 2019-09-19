@@ -55,4 +55,8 @@ describe('game-objects.common.strength', () => {
     // And finally adding in the empire negates the negations and we're net 0.
     expect(testModule.strength({army, armyGroup, terrain, empire})).toEqual(4)
   })
+
+  it('throws an error if no army is passed', () => {
+    expect(() => testModule.strength({})).toThrow()
+  })
 })

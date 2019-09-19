@@ -37,6 +37,13 @@ module.exports = ({
   let _cache = {}
 
   /**
+   * Resets the cache.
+   */
+  const clear = () => {
+    _cache = {}
+  }
+
+  /**
    * Return a list of the `name`s of the object definitions we have loaded.
    *
    * @return {string[]}
@@ -105,6 +112,7 @@ module.exports = ({
 
   // Public API for the type factory factory.
   return {
+    clear,
     dir,
     get,
     load,

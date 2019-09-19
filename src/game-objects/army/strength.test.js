@@ -30,6 +30,17 @@ describe('game-objects.army.strength', () => {
               magnitude: 4,
             }
           ]
+        },
+        {
+          name: 'sword of blah',
+          effects: [
+            {
+              name: 'strength',
+              // In general, this should not even be valid, but we can confirm
+              // that this won't give us a NaN style of result.
+              magnitude: null
+            }
+          ]
         }
       ]
     }

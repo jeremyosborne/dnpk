@@ -14,5 +14,12 @@ describe('random.random', () => {
       // Calling random will change the seed.
       expect(testMod.seed.get()).toEqual({seedz: 5, seedw: 5})
     })
+
+    it('seeds to now when called without args', () => {
+      testMod.seed.set()
+      const seed = testMod.seed.get()
+      expect(typeof seed.seedz === 'number').toEqual(true)
+      expect(typeof seed.seedw === 'number').toEqual(true)
+    })
   })
 })

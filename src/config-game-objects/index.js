@@ -32,6 +32,11 @@ export const types = {
 }
 
 /**
+ * Clear all type caches.
+ */
+export const clear = () => _.forIn(types, (t) => t.clear())
+
+/**
  * Build the prototype of a particular type.
  *
  * @param {string} name the unique name of the object, equivalent to the `name`
