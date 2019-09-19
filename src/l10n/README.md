@@ -16,7 +16,7 @@
 
 ## Runtime configuration options
 
-* `I18N_DEBUG` - Boolean. If exists, will provide "this or that string is missing translations."
+* `I18NEXT_DEBUG` - Boolean. If exists, will provide "this or that string is missing translations" from `i18next`.
 
 ## Dev Notes
 

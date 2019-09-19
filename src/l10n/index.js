@@ -4,28 +4,25 @@ import i18next from 'i18next'
 /**
  * Call this on app start up.
  *
+ * @param {object} args as dictionary
+ * @param {string} [args.lng] default language and translations to load
+ * @param {object} config
+ * @param {string} [config.I18NEXT_DEBUG_KEY] what key to inspect on the runtime config
+ * dictionary for whether or not we'll run the underlying i18next in debug mode.
+ *
  * @return {Promise}
  */
-export const init = () => Promise.resolve()
-  .then(() => {
-    //
-    // Provide runtime configuration...
-    // ...yes this is hardcoded for now (famous last words).
-    //
-    const lng = 'en'
-
-    return {
-      lng,
-      resources: {
-        en: {
-          translation: require(`./${lng}/translation.json`)
-        }
+export const init = async ({lng = 'en'} = {}, {I18NEXT_DEBUG_KEY = 'I18NEXT_DEBUG'} = {}) => {
+  const config = {
+    lng,
+    resources: {
+      [lng]: {
+        translation: require(`./${lng}/translation.json`)
       }
     }
-  })
-  .then((options) => i18next.init({
-    ...options,
+  }
 
+  await i18next.init({
     // allow keys to be phrases having `:`, `.`
     // which equates to write phrases in english, fallback to english.
     nsSeparator: false,
@@ -38,8 +35,11 @@ export const init = () => Promise.resolve()
     returnEmptyString: false,
 
     // true report "missing values", false do not report missing values.
-    debug: configRuntime.get('I18N_DEBUG'),
-  }))
+    debug: configRuntime.get(I18NEXT_DEBUG_KEY),
+
+    ...config,
+  })
+}
 
 /**
  * Import and as _the_ translation function, since _() has a legacy in JavaScript
