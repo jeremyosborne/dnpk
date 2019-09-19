@@ -7,5 +7,5 @@ By design, all values returned from this modules should be assumed to be `string
 ## Dev Notes
 
 * Module (and members) are a singleton within the app space, due to internal state.
-* When running simulations in Node.js this will wrap `process.env`.
-* When running in a browser, this will look for an object on `window.DNPK_RUNTIME_CONFIGURATION`.
+* Prefers `process.env`.
+* Secondarily will look for a global `DNPK_RUNTIME_CONFIGURATION`.

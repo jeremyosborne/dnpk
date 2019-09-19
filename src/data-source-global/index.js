@@ -4,19 +4,19 @@
  * @return {boolean} true if it exists, false if not.
  */
 export const exists = () => {
-  return typeof window !== 'undefined'
+  // Global must always exist in JavaScript.
+  return true
 }
 
 /**
- * Return the data source as an object (associative array), or null if
- * it doesn't exist.
+ * Return the data source as an object (associative array).
  *
- * @return {object} or null if it does not exist.
+ * @return {object}
  */
 export const get = () => {
-  try {
+  if (typeof window !== 'undefined') {
     return window
-  } catch (err) {
-    return null
+  } else {
+    return global
   }
 }

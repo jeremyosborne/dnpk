@@ -1,4 +1,5 @@
-import assert from 'assert'
+import * as dataSourceGlobal from 'data-source-global'
+import * as dataSourceProcessEnv from 'data-source-process-env'
 import debug from 'debug'
 
 const logger = debug('dnpk/config-runtime')
@@ -24,30 +25,30 @@ export const dataSource = {
    *
    * @return {object} the configuration object
    */
-  get: () => {
+  get: ({
+    // DI
+    dataSourceGlobal: dsGlobal = dataSourceGlobal,
+    dataSourceProcessEnv: dsProcessEnv = dataSourceProcessEnv,
+  } = {}) => {
     if (DATA_SOURCE) {
       return DATA_SOURCE
     } else {
       logger('First call. Determining DATA_SOURCE.')
 
-      try {
-        DATA_SOURCE = process.env
-        // Only counts if it exists.
-        assert(DATA_SOURCE)
-        logger('process.env available, must be node.js.')
+      if (dsProcessEnv.exists()) {
+        DATA_SOURCE = dsProcessEnv.get()
+        logger('using process.env.')
         return DATA_SOURCE
-      } catch (err) {
-        logger('no process.env')
       }
 
-      try {
-        DATA_SOURCE = window.DNPK_RUNTIME_CONFIGURATION
-        // Only counts if it exists.
-        assert(DATA_SOURCE)
-        logger('window.DNPK_RUNTIME_CONFIGURATION available, must be a browser.')
-        return DATA_SOURCE
-      } catch (err) {
-        logger('no window.DNPK_RUNTIME_CONFIGURATION')
+      if (dsGlobal.exists()) {
+        DATA_SOURCE = dsGlobal.get().DNPK_RUNTIME_CONFIGURATION
+        // Do a double check to make sure this is truthy.
+        if (DATA_SOURCE) {
+          logger('using global DNPK_RUNTIME_CONFIGURATION.')
+          return DATA_SOURCE
+        }
+        // else fall through ...
       }
 
       logger('WARNING: could not find a runtime config object, defaulting to empty object with no external defaults set.')
@@ -74,6 +75,9 @@ export const dataSource = {
  * @param {string} key from which to return a value.
  * @return {string|undefined} value if set or undefined.
  */
-export const get = (key) => {
-  return dataSource.get()[key]
+export const get = (key, {
+  // DI
+  dataSource: ds = dataSource
+} = {}) => {
+  return ds.get()[key]
 }
