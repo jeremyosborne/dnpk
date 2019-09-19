@@ -5,6 +5,11 @@ import debug from 'debug'
 const logger = debug('dnpk/config-runtime')
 
 /**
+ * Key we use to access our configuration from the global.
+ */
+export const DNPK_RUNTIME_CONFIGURATION_KEY = 'DNPK_RUNTIME_CONFIGURATION'
+
+/**
  * Reference to the current runtime configuration object.
  *
  * This will be set and cached after first call to the data source.
@@ -35,20 +40,24 @@ export const dataSource = {
     } else {
       logger('First call. Determining DATA_SOURCE.')
 
-      if (dsProcessEnv.exists()) {
-        DATA_SOURCE = dsProcessEnv.get()
-        logger('using process.env.')
-        return DATA_SOURCE
-      }
-
+      // We want you to use process.env, but if you're modifying the global,
+      // you must want us to prefer that configuration. And process.env has become
+      // ubiquitous due to modern build tools, so it will often always exist
+      // and no longer semantically means "this is node code not browser code."
       if (dsGlobal.exists()) {
-        DATA_SOURCE = dsGlobal.get().DNPK_RUNTIME_CONFIGURATION
-        // Do a double check to make sure this is truthy.
+        DATA_SOURCE = dsGlobal.get()[DNPK_RUNTIME_CONFIGURATION_KEY]
+        // Unlike process.env, this is a total opt in.
         if (DATA_SOURCE) {
           logger('using global DNPK_RUNTIME_CONFIGURATION.')
           return DATA_SOURCE
         }
         // else fall through ...
+      }
+
+      if (dsProcessEnv.exists()) {
+        DATA_SOURCE = dsProcessEnv.get()
+        logger('using process.env.')
+        return DATA_SOURCE
       }
 
       logger('WARNING: could not find a runtime config object, defaulting to empty object with no external defaults set.')

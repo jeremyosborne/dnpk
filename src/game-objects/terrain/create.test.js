@@ -22,4 +22,10 @@ describe('game-objects.terrain.create', () => {
   it('breaks on bad name', () => {
     expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
   })
+
+  describe('.random()', () => {
+    it('works', () => {
+      expect(testMod.create.random().type).toEqual('terrain')
+    })
+  })
 })

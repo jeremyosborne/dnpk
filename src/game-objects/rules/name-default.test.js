@@ -12,7 +12,12 @@ describe('game-objects.rules.name-default', () => {
     await configGameObjects.load()
   })
 
-  it('returns expected default value', () => {
+  it('returns expected default value when called as a getter', () => {
     expect(testMod.nameDefault()).toEqual(TEST_TYPE_VALID)
+  })
+
+  it('changes the default when used as a setter', () => {
+    testMod.nameDefault('hello')
+    expect(testMod.nameDefault()).toEqual('hello')
   })
 })

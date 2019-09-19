@@ -2,10 +2,12 @@
 
 Provides environment agnostic access to run time configuration passed into the application via the environment.
 
-By design, all values returned from this modules should be assumed to be `strings` or `undefined` due to how env-vars are passed from the environment to the running process. Modules making use of any run time configuration must perform their own type casting if needed.
-
 ## Dev Notes
 
 * Module (and members) are a singleton within the app space, due to internal state.
-* Prefers `process.env`.
-* Secondarily will look for a global `DNPK_RUNTIME_CONFIGURATION`.
+* Configuration keys are `SCREAMING_SNAKE_CASE`.
+* Any set configuration value is assumed to be returned as `string` and must be type cast by the caller.
+    * This is to cut down on cute code interpreting value passing from a shell.
+    * Keys acting as flags should pass in 1 when set and not be passed when unset.
+* Prefers the rarer and more likely intentionally set `globalThis.DNPK_RUNTIME_CONFIGURATION`.
+* Secondarily prefers `process.env`, although this is the preferred method for passing in runtime vars and should be used in most cases.

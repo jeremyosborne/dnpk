@@ -1,5 +1,6 @@
+import * as testModule from './strength-modifier'
 import * as configGameObjects from 'config-game-objects'
-import * as testModule from './'
+import _ from 'lodash'
 
 describe('game-objects.terrain.strength-modifier', () => {
   const army = {
@@ -33,21 +34,43 @@ describe('game-objects.terrain.strength-modifier', () => {
     await configGameObjects.load()
   })
 
-  it('has a default return', () => {
-    // Terrain needs association, right now no terrain modifiers strength by itself.
-    // This could eventually change.
-    expect(testModule.strengthModifier({terrain})).toEqual(0)
+  describe('strengthModifierTerrainEmpire', () => {
+    it('logs oddities', () => {
+      const logger = jest.fn()
+      const oddEmpire = _.cloneDeep(empire)
+      delete oddEmpire.effects[0].magnitude
+      testModule.strengthModifierTerrainEmpire({empire: oddEmpire, terrain}, {logger})
+      expect(logger.mock.calls.length > 0).toEqual(true)
+    })
   })
 
-  it('works with terrain and army', () => {
-    expect(testModule.strengthModifier({army, terrain})).toEqual(-1)
+  describe('strengthModifierTerrainArmy', () => {
+    it('logs oddities', () => {
+      const logger = jest.fn()
+      const oddArmy = _.cloneDeep(army)
+      delete oddArmy.effects[0].magnitude
+      testModule.strengthModifierTerrainArmy({army: oddArmy, terrain}, {logger})
+      expect(logger.mock.calls.length > 0).toEqual(true)
+    })
   })
 
-  it('works with terrain and empire', () => {
-    expect(testModule.strengthModifier({empire, terrain})).toEqual(1)
-  })
+  describe('strengthModifier', () => {
+    it('has a default return', () => {
+      // Terrain needs association, right now no terrain modifiers strength by itself.
+      // This could eventually change.
+      expect(testModule.strengthModifier({terrain})).toEqual(0)
+    })
 
-  it('works with army and empire and terrain', () => {
-    expect(testModule.strengthModifier({army, empire, terrain})).toEqual(0)
+    it('works with terrain and army', () => {
+      expect(testModule.strengthModifier({army, terrain})).toEqual(-1)
+    })
+
+    it('works with terrain and empire', () => {
+      expect(testModule.strengthModifier({empire, terrain})).toEqual(1)
+    })
+
+    it('works with army and empire and terrain', () => {
+      expect(testModule.strengthModifier({army, empire, terrain})).toEqual(0)
+    })
   })
 })

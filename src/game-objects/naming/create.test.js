@@ -1,4 +1,4 @@
-import * as naming from './'
+import * as testMod from './'
 import * as configGameObjects from 'config-game-objects'
 
 // Assume we'll always have this distinct type...
@@ -13,11 +13,17 @@ describe('game-objects.naming.create', () => {
   })
 
   it('works', () => {
-    const instance = naming.create({name: TEST_TYPE_VALID})
+    const instance = testMod.create({name: TEST_TYPE_VALID})
     expect(typeof instance === 'string').toEqual(true)
   })
 
   it('breaks on bad name', () => {
-    expect(() => naming.create({name: TEST_TYPE_INVALID})).toThrow()
+    expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
+  })
+
+  describe('.random()', () => {
+    it('works', () => {
+      expect(typeof testMod.create.random() === 'string').toEqual(true)
+    })
   })
 })

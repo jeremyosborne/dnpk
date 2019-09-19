@@ -51,6 +51,28 @@ describe('config-runtime', () => {
         expect(dataSourceProcessEnv.get.mock.calls.length > 0).toEqual(false)
         expect(cachedConfig).toEqual(fakeGlobal.DNPK_RUNTIME_CONFIGURATION)
       })
+
+      it('fails softly if no global config is available', () => {
+        const dataSourceGlobal = {
+          // Barring armageddon, there's always a global, but the global might
+          // not contain our config dictionary.
+          exists: jest.fn(() => true),
+          get: jest.fn(() => ({})),
+        }
+        const dataSourceProcessEnv = {
+          exists: jest.fn(() => false),
+          get: jest.fn(() => null),
+        }
+
+        const cachedConfig = testMod.dataSource.get({dataSourceGlobal, dataSourceProcessEnv})
+
+        // Since global always exists, it always has a chance to be called before
+        // being inspected.
+        expect(dataSourceGlobal.get.mock.calls.length > 0).toEqual(true)
+        expect(dataSourceProcessEnv.get.mock.calls.length > 0).toEqual(false)
+        // Should still return an empty object to prevent barfing on key access.n
+        expect(cachedConfig).toEqual({})
+      })
     })
 
     describe('.set()', () => {
