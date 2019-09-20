@@ -26,5 +26,10 @@ describe('game-objects.army.create', () => {
     it('works', () => {
       expect(testMod.create.random().type).toEqual('army')
     })
+
+    it("it breaks if things aren't loaded", () => {
+      configGameObjects.clear()
+      expect(() => testMod.create.random()).toThrow()
+    })
   })
 })

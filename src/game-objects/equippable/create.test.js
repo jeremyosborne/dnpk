@@ -26,5 +26,10 @@ describe('game-objects.equippable.create', () => {
     it('works', () => {
       expect(testMod.create.random().type).toEqual('equippable')
     })
+
+    it("it breaks if things aren't loaded", () => {
+      configGameObjects.clear()
+      expect(() => testMod.create.random()).toThrow()
+    })
   })
 })

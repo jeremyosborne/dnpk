@@ -45,6 +45,26 @@ describe('game-objects.army-group.strength-modifier', () => {
     })
   })
 
+  describe('strengthModifierEquippableCommand', () => {
+    it('handles a magnitude null command object', () => {
+      const armyHero = {
+        name: 'hero',
+        strength: 4,
+        effects: [
+          {name: 'hero'}
+        ],
+        equipment: [
+          {effects: [{name: 'command'}]}
+        ]
+      }
+
+      // No NaN.
+      expect(testModule.strengthModifierEquippableCommand({armyGroup: [
+        armyHero,
+      ]})).toEqual(0)
+    })
+  })
+
   describe('strengthModifier', () => {
     it('works', () => {
       expect(testModule.strengthModifier({armyGroup})).toEqual(4)

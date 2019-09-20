@@ -42,6 +42,10 @@ describe('game-objects.terrain.strength-modifier', () => {
       testModule.strengthModifierTerrainEmpire({empire: oddEmpire, terrain}, {logger})
       expect(logger.mock.calls.length > 0).toEqual(true)
     })
+
+    it('filters correctly on terrain name', () => {
+      expect(testModule.strengthModifierTerrainEmpire({empire, terrain: {name: 'the office'}})).toEqual(0)
+    })
   })
 
   describe('strengthModifierTerrainArmy', () => {

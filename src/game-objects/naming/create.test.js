@@ -25,5 +25,10 @@ describe('game-objects.naming.create', () => {
     it('works', () => {
       expect(typeof testMod.create.random() === 'string').toEqual(true)
     })
+
+    it("it breaks if things aren't loaded", () => {
+      configGameObjects.clear()
+      expect(() => testMod.create.random()).toThrow()
+    })
   })
 })

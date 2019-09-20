@@ -23,6 +23,7 @@ export const create = ({name}) => {
 
   // instantiate equippables (should be rare to non-existent in most game play)
   army.equipment = _.map(army.equipment, (eq) => {
+    // The following line is not testable until we DI the configGameObjects.
     return _.merge(configGameObjects.create({name: eq.name, type: 'equippable'}), eq)
   })
 

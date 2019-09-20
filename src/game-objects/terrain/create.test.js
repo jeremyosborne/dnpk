@@ -27,5 +27,10 @@ describe('game-objects.terrain.create', () => {
     it('works', () => {
       expect(testMod.create.random().type).toEqual('terrain')
     })
+
+    it("it breaks if things aren't loaded", () => {
+      configGameObjects.clear()
+      expect(() => testMod.create.random()).toThrow()
+    })
   })
 })

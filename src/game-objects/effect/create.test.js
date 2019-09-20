@@ -26,5 +26,10 @@ describe('game-objects.effect.create', () => {
     it('works', () => {
       expect(testMod.create.random().type).toEqual('effect')
     })
+
+    it("it breaks if things aren't loaded", () => {
+      configGameObjects.clear()
+      expect(() => testMod.create.random()).toThrow()
+    })
   })
 })
