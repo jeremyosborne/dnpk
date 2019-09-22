@@ -41,24 +41,25 @@ export const string = ({
       ...ev.defender,
       name: `${chalk.hex(defenderColor)(gameObjects.common.name(ev.defender.ref))}`,
     }
-    const wounded = chalk.hex(violenceColor)(t('wounded'))
-    const slain = chalk.hex(violenceColor)(t('slain'))
-    if (ev.name === 'battle-round-start') {
+    const woundedText = chalk.hex(violenceColor)(t('wounded'))
+    const slainText = chalk.hex(violenceColor)(t('slain'))
+    if (ev.name === 'battle:round:start') {
       info.push('')
       info.push(t('{{attacker.name}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
-    } else if (ev.name === 'battle-round-no-damage') {
+    } else if (ev.name === 'battle:round:violence') {
       info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
-      info.push(t('...draw no blood.'))
-    } else if (ev.name === 'battle-round-advantage-attacker') {
-      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
-      info.push(t('...{{wounded}}: {{defender.name}}', {attacker, defender, wounded}))
-    } else if (ev.name === 'battle-round-advantage-defender') {
-      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
-      info.push(t('...{{wounded}}: {{attacker.name}}', {attacker, defender, wounded}))
-    } else if (ev.name === 'battle-round-win-defender') {
-      info.push(t('{{slain}}: {{attacker.name}}', {attacker, defender, slain}))
-    } else if (ev.name === 'battle-round-win-attacker') {
-      info.push(t('{{slain}}: {{defender.name}}', {attacker, defender, slain}))
+      if (attacker.damaged || defender.damaged) {
+        // Assumption: no simultaneous damage allowed.
+        info.push(t('...{{woundedText}}: {{wounded.name}}', {woundedText, wounded: attacker.damaged ? attacker : defender}))
+      } else {
+        info.push(t('...draw no blood.'))
+      }
+    } else if (ev.name === 'battle:round:end') {
+      // Someone has zero health here.
+      info.push(t('{{slainText}}: {{slain.name}}', {slain: attacker.health === 0 ? attacker : defender, slainText}))
+    } else {
+      // No translation since this should never happen in a real game and is for bug fixing only.
+      info.push(`WARNING: fall through due to unrecognized event name: ${ev.name}; found on event: ${JSON.stringify(ev)}`)
     }
   })
 

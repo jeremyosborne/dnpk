@@ -18,6 +18,12 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Use [esdoc](https://esdoc.org/) style to document functions.
         * Output lives in `docs/src` and is `.gitignore`d.
     * As the code matures, and where it makes sense, move stable types to [flow](https://flow.org/) types and interfaces and document the types, decreasing the amount of detailed oriented `esdoc` style documentation a function or type needs.
+* Events
+    * `type='event'` field required to be consistent with other duck typing.
+    * `name` field of event is assumed to be tokenized (vs. having arbitrary `subName` style of object naming hierarchies).
+        * Split naming hierarchy by `:` character.
+        * Event naming hierarchy is most to least significant after splitting (reverse dns).
+    * The remaining fields on the event object are not reserved and are to be implemented as needed to describe significant information.
 * Graphics
     * Core game mechanics should be usable without graphics.
 * Importing and module structure
