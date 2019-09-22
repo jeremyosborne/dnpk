@@ -66,7 +66,7 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] For text-out color formatting, see: https://www.i18next.com/translation-function/formatting
+- [ ] Add colorization as an i18next text formatter, see: https://www.i18next.com/translation-function/formatting
 
 ## Ideas
 
