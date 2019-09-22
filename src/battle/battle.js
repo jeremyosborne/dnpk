@@ -7,13 +7,14 @@ import {d} from 'random'
  *
  * Does not mutate input.
  *
- * @param {object} attackers data for the aggressors.
- * @param {object[]} attackers.armyGroup the aggressors armies.
- * @param {object} attackers.empire aggressor empire.
- * @param {object} defenders data for the defenders.
- * @param {object[]} defenders.armyGroup the defending units.
- * @param {object} defenders.empire the defending empire.
- * @param {object} terrain where the battle is taking place.
+ * @param {object} args as dictionary
+ * @param {object} args.attackers data for the aggressors.
+ * @param {object[]} args.attackers.armyGroup the aggressors armies.
+ * @param {object} args.attackers.empire aggressor empire.
+ * @param {object} args.defenders data for the defenders.
+ * @param {object[]} args.defenders.armyGroup the defending units.
+ * @param {object} args.defenders.empire the defending empire.
+ * @param {object} args.terrain where the battle is taking place.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.

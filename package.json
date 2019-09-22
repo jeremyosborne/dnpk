@@ -1,15 +1,15 @@
 {
   "name": "dnpk",
   "version": "0.0.1",
-  "description": "blah blah blah",
+  "description": "modifiable turn based game + game engine in the spirit of the original Warlords by SSG",
   "main": "src/index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "doc-gen": "esdoc",
-    "i18n-extract": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
+    "esdoc": "esdoc",
     "flow": "flow `# flow does not respect NODE_PATH, path alias handled in .flowconfig`",
+    "i18n": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src babel-node src/index.js",
     "start-debug": "NODE_PATH=src DEBUG=* babel-node src/index.js",

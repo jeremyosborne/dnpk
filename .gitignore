@@ -22,5 +22,6 @@ public/*.*
 # code coverage data
 coverage
 
-# Autodoc (via esdoc)
-docs-src
+# esdoc output
+docs/src/**/*.*
+!docs/src/.gitkeep

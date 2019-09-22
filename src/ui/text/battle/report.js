@@ -7,12 +7,13 @@ import out from '../out'
 /**
  * Transform battle events into a string of text.
  *
- * @param {object} [attackerColor='#CCCCCC'] default used to colorize attacker output.
- * @param {object} attackers the blob of data returned from a battle.
- * @param {object} [defenderColor='#FFFFFF'] default used to colorize defender output.
- * @param {object} defenders the blob of defender data returned from a battle.
- * @param {object[]} events list of battle events.
- * @param {string} violenceColor optional color used for violent messages.
+ * @param {object} args as dictionary
+ * @param {object} [args.attackerColor='#CCCCCC'] default used to colorize attacker output.
+ * @param {object} args.attackers the blob of data returned from a battle.
+ * @param {object} [args.defenderColor='#FFFFFF'] default used to colorize defender output.
+ * @param {object} args.defenders the blob of defender data returned from a battle.
+ * @param {object[]} args.events list of battle events.
+ * @param {string} [args.violenceColor='#AA0000'] optional color used for violent messages.
  *
  * @return {string} multi-line output of the battle, potentially quite lengthy.
  */

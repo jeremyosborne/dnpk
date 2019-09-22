@@ -39,9 +39,10 @@ export const clear = () => _.forIn(types, (t) => t.clear())
 /**
  * Build the prototype of a particular type.
  *
- * @param {string} name the unique name of the object, equivalent to the `name`
+ * @param {object} args as dictionary
+ * @param {string} args.name the unique name of the object, equivalent to the `name`
  * field of the definition.
- * @param {string} type the category of the type: `army`, `effect`, etc.
+ * @param {string} args.type the category of the type: `army`, `effect`, etc.
  *
  * @return {object} provide a ready to go copy of the basic type, from which in
  * game objects can modify and operate on freely.
@@ -86,7 +87,6 @@ export const dir = (type) => types[type].dir()
  *
  * @param {object} args as associative array. Meant to mirror what is passable
  * to the `load` function.
- * @param {boolean} force if set to true, will ignore cache and reload.
  *
  * @return {Promise} resolves on successful load rejects on any load failures.
  */
