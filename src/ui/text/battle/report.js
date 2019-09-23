@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import * as gameObjects from 'game-objects'
 import {t} from 'l10n'
 import _ from 'lodash'
@@ -35,28 +34,40 @@ export const string = ({
   events.forEach((ev) => {
     const attacker = {
       ...ev.attacker,
-      name: `${chalk.hex(attackerColor)(gameObjects.common.name(ev.attacker.ref))}`,
+      // rewrite name to support colorize formatter.
+      name: {
+        color: attackerColor,
+        label: gameObjects.common.name(ev.attacker.ref),
+      },
     }
     const defender = {
       ...ev.defender,
-      name: `${chalk.hex(defenderColor)(gameObjects.common.name(ev.defender.ref))}`,
+      // rewrite name to support colorize formatter.
+      name: {
+        color: defenderColor,
+        label: gameObjects.common.name(ev.defender.ref),
+      }
     }
-    const woundedText = chalk.hex(violenceColor)(t('wounded'))
-    const slainText = chalk.hex(violenceColor)(t('slain'))
     if (ev.name === 'battle:round:start') {
       info.push('')
-      info.push(t('{{attacker.name}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
+      info.push(t('{{attacker.name, colorize}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name, colorize}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
     } else if (ev.name === 'battle:round:violence') {
-      info.push(t('{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...', {attacker, defender}))
+      info.push(t('{{attacker.name, colorize}} (roll: {{attacker.roll}}) and {{defender.name, colorize}} (roll: {{defender.roll}})...', {attacker, defender}))
       if (attacker.damaged || defender.damaged) {
         // Assumption: no simultaneous damage allowed.
-        info.push(t('...{{woundedText}}: {{wounded.name}}', {woundedText, wounded: attacker.damaged ? attacker : defender}))
+        info.push(t('...{{woundedLabel, colorize}}: {{woundedName, colorize}}', {
+          woundedLabel: {color: violenceColor, label: 'wounded'},
+          woundedName: attacker.damaged ? attacker.name : defender.name
+        }))
       } else {
         info.push(t('...draw no blood.'))
       }
     } else if (ev.name === 'battle:round:end') {
       // Someone has zero health here.
-      info.push(t('{{slainText}}: {{slain.name}}', {slain: attacker.health === 0 ? attacker : defender, slainText}))
+      info.push(t('{{slainLabel, colorize}}: {{slainName, colorize}}', {
+        slainLabel: {color: violenceColor, label: 'slain'},
+        slainName: attacker.health === 0 ? attacker.name : defender.name
+      }))
     } else {
       // No translation since this should never happen in a real game and is for bug fixing only.
       info.push(`WARNING: fall through due to unrecognized event name: ${ev.name}; found on event: ${JSON.stringify(ev)}`)

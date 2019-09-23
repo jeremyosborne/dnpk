@@ -27,7 +27,7 @@ import {d as _d} from 'random'
  * @param {object} args.terrain where the battle is taking place.
  *
  * @param {object} config as dictionary
- * @param {function} d implements dice with required `d.standard()` method.
+ * @param {function} config.nd implements dice with required `d.standard()` method.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.

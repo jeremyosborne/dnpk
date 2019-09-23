@@ -66,7 +66,9 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Add colorization as an i18next text formatter, see: https://www.i18next.com/translation-function/formatting
+- [ ] Add command line tools for running simple tests and keeping state between tests.
+    - [ ] see: https://www.twilio.com/blog/how-to-build-a-cli-with-node-js
+    - [ ] see: https://github.com/oclif/oclif
 
 ## Ideas
 
@@ -77,3 +79,4 @@ Modules the make use of runtime configuration settings should list those within 
 - [ ] Injuries for fighting in a battle.
 - [ ] Experience for a fighting group.
 - [ ] In that very far future where there might be a modder, include how to import additional translations for modded data.
+- [ ] Experiment with [blessed](https://github.com/chjj/blessed) for terminal GUIs.

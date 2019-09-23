@@ -1,15 +1,16 @@
-import chalk from 'chalk'
+import {t} from 'l10n'
 import out from './out'
 
 /**
  * Generate a flag character.
  *
  * @param {string} args params as arguments.
- * @param {String} [args.color='#FFFFFF'] Color of the flag to show.
+ * @param {string} [args.color='#FFFFFF'] color of the flag to show.
+ * @param {string} [args.label='\u2691'] symbol used to represent the flag
  *
  * @return {string} colorized unicode flag.
  */
-export const string = ({color = '#FFFFFF'} = {}) => chalk.hex(color)('\u2691')
+export const string = ({label = '\u2691', color = '#FFFFFF'} = {}) => t('{{flag, colorize}}', {flag: {label, color}})
 
 /**
  * Direct-to-out wrapper. See `string`.
