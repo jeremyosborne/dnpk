@@ -1,7 +1,13 @@
+//
+// For saving files, use https://github.com/sindresorhus/env-paths
+//
+
 // import {battle} from 'battle'
 import * as configGameObjects from 'config-game-objects'
 import {prompt} from 'enquirer'
 import * as gameObjects from 'game-objects'
+import hitReturnToContinue from './hit-return-to-continue'
+import mockBattle from './mock-battle'
 import {init as l10nInit, t} from 'l10n'
 import _ from 'lodash'
 // import * as simulation from 'simulation'
@@ -14,27 +20,21 @@ export const createPlayer = async () => {
     name: 'empire',
     choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire), value: empire})),
   })
+
   const {confirmed} = await prompt({
     type: 'confirm',
     initial: true,
     name: 'confirmed',
     message: `Do you wish to rule the empire of ${t(empire)}.`,
   })
+
   if (confirmed) {
-    await prompt({
-      type: 'input',
-      message: `You now rule ${t(empire)}. Hit return to continue.`,
-    })
+    await hitReturnToContinue(`You now rule ${t(empire)}. Hit return to continue.`)
     //
     // TODO: Store the empire value.
     //
-    return mainMenu
   } else {
-    await prompt({
-      type: 'input',
-      message: 'Input ignored. Hit return for the main menu.',
-    })
-    return mainMenu
+    await hitReturnToContinue('Input ignored. Hit return for the main menu.')
   }
 }
 
@@ -49,8 +49,8 @@ export const mainMenu = async () => {
       next: () => console.log('TODO: view current player'),
     },
     3: {
-      message: 'Run a random battle.',
-      next: () => console.log('TODO: salvage the code that lives in the current index.js')
+      message: 'Run a random, mock battle.',
+      next: mockBattle,
     },
     4: {
       message: 'Quit',
@@ -60,27 +60,18 @@ export const mainMenu = async () => {
 
   const answer = await prompt({
     type: 'select',
-    message: 'Main Menu',
+    message: 'DNPK Testing Grounds: Main Menu',
     name: 'action',
     // Map our action object into enquirer friendly action objects that don't
     // like functions.
     choices: _.map(actions, ({message}, name) => ({name, message})),
   })
 
-  const next = _.get(actions, `${answer.action}.next`)
-  if (typeof next === 'function') {
-    return next
-  } else {
-    return () => {
-      console.log('Invalid choice. Please try again.')
-      console.log()
-      return mainMenu()
-    }
-  }
+  return _.get(actions, `${answer.action}.next`)
 }
 
 // int main(void)
-export const main = async () => {
+export const main = async ({defaultState = mainMenu} = {}) => {
   await l10nInit()
   await configGameObjects.load()
 
@@ -89,15 +80,10 @@ export const main = async () => {
   // write our own signal listeners but assume theirs are running since this
   // is mainly a REPL.
   try {
-    let next = () => {
-      console.log(t('Dark Nights of the Plague King Testing Grounds'))
-      console.log()
-      return mainMenu()
-    }
-
-    while (next) {
+    let next = defaultState
+    while (true) {
       console.clear()
-      next = await next()
+      next = await next() || defaultState
     }
   } catch (err) {
     console.log('something happened, terminating. Error:', err)
