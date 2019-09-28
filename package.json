@@ -11,7 +11,7 @@
     "flow": "flow `# flow does not respect NODE_PATH, path alias handled in .flowconfig`",
     "i18n": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
-    "start": "NODE_PATH=src babel-node src/index.js",
+    "start": "NODE_PATH=src babel-node src/testing-grounds",
     "start-debug": "NODE_PATH=src DEBUG=* babel-node src/index.js",
     "test": "NODE_PATH=src jest --config .jest.config.js"
   },
@@ -65,6 +65,8 @@
     "ajv": "^6.10.2",
     "chalk": "^2.4.2",
     "debug": "^4.1.1",
+    "enquirer": "^2.3.2",
+    "env-paths": "^2.2.0",
     "i18next": "^17.0.11",
     "lodash": "^4.17.15",
     "sprintf-js": "^1.1.2",
