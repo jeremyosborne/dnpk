@@ -20,3 +20,8 @@ export const set = (data) => {
     ...data,
   }
 }
+
+// per ES spec, data structure should be JSON friendly.
+export const toJSON = () => {
+  return _cache
+}

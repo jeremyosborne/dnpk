@@ -10,25 +10,29 @@ import {t} from 'l10n'
 // import _ from 'lodash'
 
 export const createProtagonist = async () => {
-  const {empire} = await prompt({
-    type: 'select',
-    message: 'choose your empire',
+  let {empire} = await prompt({
+    // Deal with strings only in the prompt, not objects.
+    choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire)})),
+    message: t('Choose your empire'),
     name: 'empire',
-    choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire), value: empire})),
+    type: 'select',
   })
 
+  // string -> object
+  empire = gameObjects.empire.create({name: empire})
+
   const {confirmed} = await prompt({
-    type: 'confirm',
     initial: true,
+    message: t('Do you wish to rule the empire of {{empire, commonName}}?', {empire}),
     name: 'confirmed',
-    message: `Do you wish to rule the empire of ${t(empire)}.`,
+    type: 'confirm',
   })
 
   if (confirmed) {
     dataSourceGame.protagonist.set({empire})
-    await hitReturnToContinue(`You now rule ${t(empire)}. Hit return to continue.`)
+    await hitReturnToContinue(t('You now rule {{empire, commonName}}. Hit return to continue.', {empire}))
   } else {
-    await hitReturnToContinue('Input ignored. Hit return for the main menu.')
+    await hitReturnToContinue(t('Input ignored. Hit return for the main menu.'))
   }
 }
 

@@ -1,5 +1,5 @@
 //
-// For saving files, use https://github.com/sindresorhus/env-paths
+// For data we want to save, see: https://github.com/sindresorhus/env-paths
 //
 
 import * as configGameObjects from 'config-game-objects'

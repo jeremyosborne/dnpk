@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import * as configRuntime from 'config-runtime'
+import * as gameObjects from 'game-objects'
 import i18next from 'i18next'
 import _ from 'lodash'
 
@@ -22,6 +23,11 @@ export const _formatters = {
       // assume string
       return value
     }
+  },
+  // callable: {{someGameObject, commonName}}
+  // tries to display the best name possible.
+  commonName: (value, format, lng) => {
+    return gameObjects.common.name(value)
   }
 }
 
