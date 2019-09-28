@@ -2,51 +2,26 @@
 // For saving files, use https://github.com/sindresorhus/env-paths
 //
 
-// import {battle} from 'battle'
 import * as configGameObjects from 'config-game-objects'
+import createProtagonist from './create-protagonist'
 import {prompt} from 'enquirer'
-import * as gameObjects from 'game-objects'
-import hitReturnToContinue from './hit-return-to-continue'
-import mockBattle from './mock-battle'
-import {init as l10nInit, t} from 'l10n'
+import {
+  init as l10nInit,
+  // t,
+} from 'l10n'
 import _ from 'lodash'
-// import * as simulation from 'simulation'
-// import * as ui from 'ui'
-
-export const createPlayer = async () => {
-  const {empire} = await prompt({
-    type: 'select',
-    message: 'choose your empire',
-    name: 'empire',
-    choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire), value: empire})),
-  })
-
-  const {confirmed} = await prompt({
-    type: 'confirm',
-    initial: true,
-    name: 'confirmed',
-    message: `Do you wish to rule the empire of ${t(empire)}.`,
-  })
-
-  if (confirmed) {
-    await hitReturnToContinue(`You now rule ${t(empire)}. Hit return to continue.`)
-    //
-    // TODO: Store the empire value.
-    //
-  } else {
-    await hitReturnToContinue('Input ignored. Hit return for the main menu.')
-  }
-}
+import mockBattle from './mock-battle'
+import viewProtagonist from './view-protagonist'
 
 export const mainMenu = async () => {
   const actions = {
     1: {
-      message: 'Make a new player',
-      next: createPlayer,
+      message: 'Make a new protagonist',
+      next: createProtagonist,
     },
     2: {
-      message: 'View current player',
-      next: () => console.log('TODO: view current player'),
+      message: 'View current protagonist',
+      next: viewProtagonist,
     },
     3: {
       message: 'Run a random, mock battle.',
