@@ -1,5 +1,3 @@
-import * as gameObjects from 'game-objects'
-
 /**
  * Player object, if one has been created.
  * @type {object}
@@ -16,7 +14,6 @@ export const get = () => {
 
 export const set = (data) => {
   _cache = {
-    ...gameObjects.player.create(),
     ...data,
   }
 }

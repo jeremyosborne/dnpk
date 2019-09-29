@@ -4,6 +4,7 @@
 
 import * as configGameObjects from 'config-game-objects'
 import createProtagonist from './create-protagonist'
+import * as dataSourceGame from './data-source-game'
 import {prompt} from 'enquirer'
 import {
   init as l10nInit,
@@ -50,6 +51,9 @@ export const main = async ({defaultState = mainMenu} = {}) => {
   await l10nInit()
   await configGameObjects.load()
 
+  // load any of our specific testing-ground data.
+  await dataSourceGame.read()
+
   // try/catch to handle ctrl-c and other program escapes since enquirer needs
   // to do some flavor of magic to intercept and handle key presses, we don't
   // write our own signal listeners but assume theirs are running since this
@@ -57,7 +61,7 @@ export const main = async ({defaultState = mainMenu} = {}) => {
   try {
     let next = defaultState
     while (true) {
-      console.clear()
+      // console.clear()
       next = await next() || defaultState
     }
   } catch (err) {

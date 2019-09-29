@@ -29,7 +29,9 @@ export const createProtagonist = async () => {
   })
 
   if (confirmed) {
-    dataSourceGame.protagonist.set({empire})
+    // XXX: This does a full create, and we probably don't want to always do that
+    // if the player already exists.
+    dataSourceGame.protagonist.set({...gameObjects.player.create(), empire})
     await hitReturnToContinue(t('You now rule {{empire, commonName}}. Hit return to continue.', {empire}))
   } else {
     await hitReturnToContinue(t('Input ignored. Hit return for the main menu.'))
