@@ -1,10 +1,14 @@
 import debug from 'debug'
-import dataSourceUserData from '../data-source-user-data'
+import * as io from 'io'
 
 import * as protagonist from './protagonist'
 export {protagonist}
 
 const logger = debug('dnpk/testing-grounds/data-source-game')
+
+export const remove = async () => {
+
+}
 
 /**
  * Save the game state to disk.
@@ -13,7 +17,7 @@ const logger = debug('dnpk/testing-grounds/data-source-game')
  */
 export const write = async () => {
   // I'm sure there's a more elegant way to do this that I will figure out later.
-  await dataSourceUserData.write('protagonist.json', protagonist)
+  await io.write('protagonist', protagonist)
 }
 
 /**
@@ -24,8 +28,8 @@ export const write = async () => {
  */
 export const read = async () => {
   try {
-    protagonist.set(await dataSourceUserData.read('protagonist.json'))
+    protagonist.set(await io.read('protagonist'))
   } catch (err) {
-    logger('could not read user data protagonist.json')
+    logger('could not read user data `protagonist`.')
   }
 }
