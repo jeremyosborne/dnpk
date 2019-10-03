@@ -1,14 +1,14 @@
 import {battle} from 'battle'
 import * as gameObjects from 'game-objects'
 import hitReturnToContinue from './hit-return-to-continue'
-import {t} from 'l10n'
+import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
 
 export const mockBattle = async () => {
-  console.log(t('Mock battle'))
+  out.t('Mock battle')
 
-  console.log(t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()}))
+  out.t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()})
 
   // Not deduping empires right now. That's fine, we can have infighting.
   const player1 = simulation.create.playerRandom()
@@ -17,11 +17,11 @@ export const mockBattle = async () => {
 
   // Engage the 2 groups in battle.
 
-  console.log(`\nBattle commencing on terrain (${gameObjects.common.name(terrain)}), between:`)
-  console.log('')
+  out(`\nBattle commencing on terrain (${gameObjects.common.name(terrain)}), between:`)
+  out('')
   ui.text.empire.title(player1)
   ui.text.armyGroup({armyGroup: player1.armyGroups[0]})
-  console.log('\nvs.\n')
+  out('\nvs.\n')
   ui.text.empire.title(player2)
   ui.text.armyGroup({armyGroup: player2.armyGroups[0]})
 
@@ -41,15 +41,15 @@ export const mockBattle = async () => {
     terrain,
   })
 
-  console.log('\n\n')
+  out('\n\n')
 
   ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events})
 
-  console.log('\n\n')
+  out('\n\n')
 
   ui.text.battle.results({attackers, defenders})
 
-  console.log('\n\n')
+  out('\n\n')
 
   await hitReturnToContinue()
 }

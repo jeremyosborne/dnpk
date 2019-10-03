@@ -7,7 +7,7 @@ export {protagonist}
 const logger = debug('dnpk/testing-grounds/data-source-game')
 
 export const remove = async () => {
-
+  await io.remove('testing-grounds/protagonist')
 }
 
 /**
@@ -16,8 +16,7 @@ export const remove = async () => {
  * @return {Promise}
  */
 export const write = async () => {
-  // I'm sure there's a more elegant way to do this that I will figure out later.
-  await io.write('protagonist', protagonist)
+  await io.write('testing-grounds/protagonist', protagonist)
 }
 
 /**
@@ -28,8 +27,8 @@ export const write = async () => {
  */
 export const read = async () => {
   try {
-    protagonist.set(await io.read('protagonist'))
+    protagonist.set(await io.read('testing-grounds/protagonist'))
   } catch (err) {
-    logger('could not read user data `protagonist`.')
+    logger("Could not read user data `protagonist`, perhaps it's intentionally empty?")
   }
 }

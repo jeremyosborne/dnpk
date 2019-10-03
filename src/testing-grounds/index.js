@@ -3,52 +3,46 @@
 //
 
 import * as configGameObjects from 'config-game-objects'
-import createProtagonist from './create-protagonist'
-import * as dataSourceGame from './data-source-game'
+import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
-import {
-  init as l10nInit,
-  // t,
-} from 'l10n'
+import * as l10n from 'l10n'
 import _ from 'lodash'
-import mockBattle from './mock-battle'
-import viewProtagonist from './view-protagonist'
+import mockBattle from 'mock-battle'
+import out from 'out'
+import protagonist from 'protagonist'
 
 export const mainMenu = async () => {
-  const actions = {
-    1: {
-      message: 'Make a new protagonist',
-      next: createProtagonist,
+  const actions = [
+    {
+      message: 'Protagonist options',
+      next: protagonist,
     },
-    2: {
-      message: 'View current protagonist',
-      next: viewProtagonist,
-    },
-    3: {
-      message: 'Run a random, mock battle.',
+    {
+      message: 'Run a randomized, mock battle',
       next: mockBattle,
     },
-    4: {
+    {
       message: 'Quit',
       next: () => process.exit(0),
     },
-  }
+  ]
 
   const answer = await prompt({
     type: 'select',
     message: 'DNPK Testing Grounds: Main Menu',
     name: 'action',
-    // Map our action object into enquirer friendly action objects that don't
-    // like functions.
-    choices: _.map(actions, ({message}, name) => ({name, message})),
+    // Map our action objects into enquirer friendly action objects that don't
+    // like functions for `value`s...
+    choices: _.map(actions, ({message}, index) => ({name: _.toString(index), message})),
   })
 
-  return _.get(actions, `${answer.action}.next`)
+  // ...look up the action function from the response.
+  return _.get(actions, `[${answer.action}].next`)
 }
 
 // int main(void)
 export const main = async ({defaultState = mainMenu} = {}) => {
-  await l10nInit()
+  await l10n.init()
   await configGameObjects.load()
 
   // load any of our specific testing-ground data.
@@ -65,7 +59,7 @@ export const main = async ({defaultState = mainMenu} = {}) => {
       next = await next() || defaultState
     }
   } catch (err) {
-    console.log('something happened, terminating. Error:', err)
+    out('something happened, terminating. Error:', err)
   }
 }
 

@@ -1,8 +1,14 @@
+import * as gameObjects from 'game-objects'
+
 /**
  * Player object, if one has been created.
  * @type {object}
  */
 let _cache = null
+
+export const create = () => {
+  _cache = gameObjects.player.create()
+}
 
 export const exists = () => {
   return !!_cache

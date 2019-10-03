@@ -13,6 +13,11 @@ const logger = debug('dnpk/config-game-objects')
  * Import this method and call to build your factory method for the particular
  * type definitions (see existing code for examples).
  *
+ * This needs a rethink before just trying to plug in the newer `io` module.
+ * This was built too heavily with direct `fs` access in mind, as well as allowing
+ * the files to be located wherever on disk for modding, so heavy reliance on
+ * this code managing the root file path.
+ *
  * @param {string} DEFS_DIR directory holding the type defs.
  * @param {string} MODULE_NAME name of the module providing the factory.
  *
