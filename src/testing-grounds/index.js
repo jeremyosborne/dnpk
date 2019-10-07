@@ -10,19 +10,26 @@ import _ from 'lodash'
 import mockBattle from 'mock-battle'
 import out from 'out'
 import protagonist from 'protagonist'
+import violenceMonteCarlo from 'violence-monte-carlo'
+
+const {t} = l10n
 
 export const mainMenu = async () => {
   const actions = [
     {
-      message: 'Protagonist options',
+      message: t('Protagonist options'),
       next: protagonist,
     },
     {
-      message: 'Run a randomized, mock battle',
+      message: t('Violence (monte carlo)'),
+      next: violenceMonteCarlo,
+    },
+    {
+      message: t('Run a randomized, mock battle'),
       next: mockBattle,
     },
     {
-      message: 'Quit',
+      message: t('Quit'),
       next: () => process.exit(0),
     },
   ]
@@ -55,7 +62,7 @@ export const main = async ({defaultState = mainMenu} = {}) => {
   try {
     let next = defaultState
     while (true) {
-      // console.clear()
+      console.clear()
       next = await next() || defaultState
     }
   } catch (err) {

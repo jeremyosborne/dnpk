@@ -1,7 +1,3 @@
-//
-// For saving files, use https://github.com/sindresorhus/env-paths
-//
-
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjects from 'game-objects'

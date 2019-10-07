@@ -24,7 +24,7 @@ export const violence = ({
   defender,
 }, {
   d = _d.standard,
-}) => {
+} = {}) => {
   const results = {
     attacker: {
       roll: d(),
