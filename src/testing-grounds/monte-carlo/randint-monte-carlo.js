@@ -5,6 +5,10 @@ import _ from 'lodash'
 import out from 'out'
 import {randint} from 'random'
 
+const validate = {
+  isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+}
+
 export const randintMonteCarlo = async () => {
   const {max, min, times} = await prompt([
     {
@@ -12,21 +16,21 @@ export const randintMonteCarlo = async () => {
       message: t('minimum value'),
       name: 'min',
       type: 'numeral',
-      validate: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+      validate: validate.isInteger,
     },
     {
       initial: 10,
       message: t('maximum value'),
       name: 'max',
       type: 'numeral',
-      validate: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+      validate: validate.isInteger,
     },
     {
       initial: 10000,
-      message: t('Number of times to run the test'),
+      message: t('Number of times to run test'),
       name: 'times',
       type: 'numeral',
-      validate: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+      validate: validate.isInteger,
     }
   ])
 

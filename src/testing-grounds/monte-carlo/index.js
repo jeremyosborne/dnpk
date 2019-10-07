@@ -1,7 +1,8 @@
 import dStandard from './d-standard-monte-carlo'
 import {prompt} from 'enquirer'
 import _ from 'lodash'
-import randintMonteCarl from './randint-monte-carlo'
+import randintMonteCarlo from './randint-monte-carlo'
+import randomMonteCarlo from './random-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
 
 export const menu = async () => {
@@ -17,7 +18,14 @@ export const menu = async () => {
     {
       message: 'randint() - test pseudo random values returned from core randint',
       next: async () => {
-        await randintMonteCarl()
+        await randintMonteCarlo()
+        return menu
+      }
+    },
+    {
+      message: 'random() - test pseudo random values returned from core random',
+      next: async () => {
+        await randomMonteCarlo()
         return menu
       }
     },

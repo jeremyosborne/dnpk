@@ -6,14 +6,18 @@ import _ from 'lodash'
 import out from 'out'
 import {d} from 'random'
 
+const validate = {
+  isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+}
+
 export const dStandardMonteCarlo = async () => {
   const {times} = await prompt([
     {
       initial: 10000,
-      message: t('Number of times to run the test (> 0)'),
+      message: t('Number of times to run test'),
       name: 'times',
       type: 'numeral',
-      validate: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+      validate: validate.isInteger,
     }
   ])
 

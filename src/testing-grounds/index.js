@@ -30,17 +30,17 @@ export const mainMenu = async () => {
     },
     {
       message: t('Quit'),
-      next: () => process.exit(0),
+      next: () => process.exit(0)
     },
   ]
 
   const answer = await prompt({
-    type: 'select',
-    message: 'DNPK Testing Grounds: Main Menu',
-    name: 'action',
     // Map our action objects into enquirer friendly action objects that don't
     // like functions for `value`s...
     choices: _.map(actions, ({message}, index) => ({name: _.toString(index), message})),
+    message: 'DNPK Testing Grounds: Main Menu',
+    name: 'action',
+    type: 'select',
   })
 
   // ...look up the action function from the response.
@@ -66,7 +66,16 @@ export const main = async ({defaultState = mainMenu} = {}) => {
       next = await next() || defaultState
     }
   } catch (err) {
-    out('something happened, terminating. Error:', err)
+    if (!err) {
+      // Ctrl-c is a default keybinding, and there is no error thrown, something
+      // here is probably the result of a SIGINT equivalent.
+      // see: https://github.com/enquirer/enquirer/blob/master/index.d.ts#L12
+      // see: https://github.com/enquirer/enquirer#-key-bindings
+      out('Exiting...')
+    } else {
+      // ...else something bad probably happened.
+      out('Something happened, terminating. Error:', err)
+    }
   }
 }
 

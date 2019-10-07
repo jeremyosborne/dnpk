@@ -5,27 +5,31 @@ import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
 
+const validate = {
+  isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.'),
+  isIntegerBounded: (min, max) => (value) => (_.isInteger(value) && value >= min && value <= max) ? true : t(`value must be an integer where >= ${min} value <= ${max}`),
+}
+
 export const violenceMonteCarlo = async () => {
-  const validate = (value) => (_.isInteger(value) && value >= 0 && value <= 9) ? true : t('Value must be an integer >= 0 and <= 9')
   const {attackerStrength, defenderStrength, times} = await prompt([
     {
       message: t('Strength of attacker (between 0 and 9)'),
       name: 'attackerStrength',
       type: 'numeral',
-      validate,
+      validate: validate.isIntegerBounded(0, 9),
     },
     {
       message: t('Strength of defender (between 0 and 9)'),
       name: 'defenderStrength',
       type: 'numeral',
-      validate,
+      validate: validate.isIntegerBounded(0, 9),
     },
     {
       initial: 10000,
-      message: t('Number of times to run the test (> 0)'),
+      message: t('Number of times to run test'),
       name: 'times',
       type: 'numeral',
-      validate: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
+      validate: validate.isInteger,
     }
   ])
 
