@@ -10,7 +10,7 @@ import _ from 'lodash'
 import mockBattle from 'mock-battle'
 import out from 'out'
 import protagonist from 'protagonist'
-import violenceMonteCarlo from 'violence-monte-carlo'
+import monteCarlo from 'monte-carlo'
 
 const {t} = l10n
 
@@ -21,8 +21,8 @@ export const mainMenu = async () => {
       next: protagonist,
     },
     {
-      message: t('Violence (monte carlo)'),
-      next: violenceMonteCarlo,
+      message: t('Monte carlo'),
+      next: monteCarlo,
     },
     {
       message: t('Run a randomized, mock battle'),

@@ -1,11 +1,11 @@
-import {violence} from 'battle'
+import {violence as _violence} from 'battle'
 import {prompt} from 'enquirer'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
 
-export const create = async () => {
+export const violenceMonteCarlo = async () => {
   const validate = (value) => (_.isInteger(value) && value >= 0 && value <= 9) ? true : t('Value must be an integer >= 0 and <= 9')
   const {attackerStrength, defenderStrength, times} = await prompt([
     {
@@ -29,7 +29,7 @@ export const create = async () => {
     }
   ])
 
-  const counts = _.times(times, () => violence({attacker: {strength: attackerStrength}, defender: {strength: defenderStrength}}))
+  const counts = _.times(times, () => _violence({attacker: {strength: attackerStrength}, defender: {strength: defenderStrength}}))
     .reduce((counters, result) => {
       // Assumes classic rules where only 1 can be damaged.
       if (result.attacker.damaged) {
@@ -58,4 +58,4 @@ export const create = async () => {
   await hitReturnToContinue()
 }
 
-export default create
+export default violenceMonteCarlo
