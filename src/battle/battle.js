@@ -3,6 +3,60 @@ import _ from 'lodash'
 import {d as _d} from 'random'
 
 /**
+ * Calculate the results of violence between two units.
+ *
+ * This function determines who has hit who and who has damaged who.
+ *
+ * @param {object} attacker must implement `.strength`.
+ * @param {object} defender must implement `.strength`.
+ *
+ * @param {object} config as dictionary
+ * @param {function} config.d the die to use for combat. Classic rules indicate
+ * a `standard` die.
+ *
+ * @return {object} results of the violence, returning `attacker` and `defender`
+ * objects containing the raw value that the army `roll`ed, whether that roll
+ * constituted a `hit` against the opposition, and whether or not the army is
+ * `damaged` due to the violence,
+ */
+export const violence = ({
+  attacker,
+  defender,
+}, {
+  d = _d.standard,
+}) => {
+  const results = {
+    attacker: {
+      roll: d(),
+      damaged: false,
+    },
+    defender: {
+      roll: d(),
+      damaged: false,
+    }
+  }
+
+  results.attacker.hit = results.attacker.roll > defender.strength
+  results.defender.hit = results.defender.roll > attacker.strength
+
+  // With these classic mechanic assumptions, each round can only ever have
+  // 3 outcomes:
+  //
+  // - attacker damages defender (for 1 health)
+  // - defender damages attacker (for 1 health)
+  // - a draw, no damage
+  //
+  // No simultaneous damage in classic rules.
+  if (results.attacker.hit && !results.defender.hit) {
+    results.defender.damaged = true
+  } else if (!results.attacker.hit && results.defender.hit) {
+    results.attacker.damaged = true
+  }
+
+  return results
+}
+
+/**
  * Simulate a battle and return the results.
  *
  * Does not mutate input. Caller must commit te results of the battle to the
@@ -27,7 +81,8 @@ import {d as _d} from 'random'
  * @param {object} args.terrain where the battle is taking place.
  *
  * @param {object} config as dictionary
- * @param {function} config.nd implements dice with required `d.standard()` method.
+ * @param {function} config.d the die to use for combat. Classic rules indicate
+ * a `standard` die.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
@@ -43,7 +98,7 @@ import {d as _d} from 'random'
  * @property {object[]} events play by play of the battle for humans or things that like data events.
  * @property {object} terrain reference to the terrain argument.
  */
-export const battle = ({attackers, defenders, terrain}, {d = _d} = {}) => {
+export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) => {
   // Clone the attacking and defending object...
   attackers = _.cloneDeep(attackers)
   defenders = _.cloneDeep(defenders)
@@ -100,37 +155,31 @@ export const battle = ({attackers, defenders, terrain}, {d = _d} = {}) => {
       // an injury on an army, but it is violence.
       // The violence continues until morale improves... I mean someone has
       // no health.
+      const {
+        attacker: attackerResults,
+        defender: defenderResults,
+      } = violence({attacker, defender}, {d})
 
-      const attackerRoll = d.standard()
-      const attackerHit = attackerRoll > defenderStrength
-      const defenderRoll = d.standard()
-      const defenderHit = defenderRoll > attackerStrength
-
-      // With these classic mechanic assumptions, each round can only ever have
-      // 3 outcomes: a draw, attacker damages defender for 1 health, defender
-      // damages attacker for 1 health.
-      // No simultaneous damage. If we want to expand the rules, the attacker
-      // and defender event metadata will probably also need to be expanded
-      // and the event types should probably become more generically named.
-      if (attackerHit && !defenderHit) {
-        defender.health -= 1
-      } else if (!attackerHit && defenderHit) {
+      if (attackerResults.damaged) {
         attacker.health -= 1
+      }
+      if (defenderResults.damaged) {
+        defender.health -= 1
       }
 
       events.push({
         attacker: {
-          ref: _.clone(attacker),
-          damaged: !(attackerHit && !defenderHit),
+          // Provides `damaged`, `hit`, `roll`
+          ...attackerResults,
           health: attacker.health,
-          roll: attackerRoll,
+          ref: _.clone(attacker),
           strength: attackerStrength,
         },
         defender: {
-          ref: _.clone(defender),
-          damaged: !(!attackerHit && defenderHit),
+          // Provides `damaged`, `hit`, `roll`
+          ...defenderResults,
           health: defender.health,
-          roll: defenderRoll,
+          ref: _.clone(defender),
           strength: defenderStrength,
         },
         name: 'battle:round:violence',
@@ -139,10 +188,11 @@ export const battle = ({attackers, defenders, terrain}, {d = _d} = {}) => {
     }
 
     // The round is over. Someone has died, and we ~bring~ shift out the dead
-    // survivors into the casualties before starting the next round.
+    // from survivors into the casualties before starting the next round.
     if (attacker.health <= 0) {
       attackers.casualties.push(attackers.survivors.shift())
-    } else if (defender.health <= 0) {
+    }
+    if (defender.health <= 0) {
       defenders.casualties.push(defenders.survivors.shift())
     }
     events.push({
