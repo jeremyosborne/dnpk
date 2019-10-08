@@ -7,4 +7,4 @@ This module provides the interchange between files on some disk and the game.
 ## Dev Notes
 
 * Module (and members) are a singleton within the app space, due to internal state.
-* Module requires an async `.load()` call before the module is used.
+* Module requires an async `.read()` call before the module is used.

@@ -18,15 +18,20 @@ const logger = debug('dnpk/config-game-objects')
  * the files to be located wherever on disk for modding, so heavy reliance on
  * this code managing the root file path.
  *
- * @param {string} DEFS_DIR directory holding the type defs.
- * @param {string} MODULE_NAME name of the module providing the factory.
+ * @param {string} MODULE_NAME name of the module providing the factory, which
+ * also equates to the `folder` containing defs.
  *
  * @return {object} returns public api for the type factory.
  */
 module.exports = ({
-  DEFS_DIR,
   MODULE_NAME,
-}) => {
+}, {
+  // For an installable game, these files will get moved to the user directory.
+  // For a server based game, these files will be loaded. Either way, we'll
+  // eventually need to move to the `io` module, which will also mean the `io`
+  // module will need to be made more flexible.
+  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../data-sources/game-objects')
+} = {}) => {
   /**
    * This module has or has not been loaded at least one time.
    *
@@ -80,6 +85,8 @@ module.exports = ({
       return false
     }
 
+    const DEFS_DIR = path.join(DEFS_KEY_ROOT, MODULE_NAME)
+
     // For data checking.
     const typeFiles = await fs.readdir(DEFS_DIR)
 
@@ -97,6 +104,8 @@ module.exports = ({
     return Promise.all(loading).then((typeDefs) => {
       _cache = typeDefs.reduce((typeDefs, {typeDef, typeFilePath}) => {
         logger(`${MODULE_NAME}: Reading ${typeFilePath} into set of types.`)
+        // This check should be moved to an external process or script that
+        // can be run independently on the data / used as a data test.
         if (typeDef.name !== /([^/]*)\.json$/.exec(typeFilePath)[1]) {
           logger(`${MODULE_NAME}: Warning: filename ${typeFilePath} out of sync with provided $id ${typeDef.name}.`)
         }

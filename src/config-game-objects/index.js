@@ -14,8 +14,7 @@ import path from 'path'
 import schema from './schema'
 import terrain from './terrain'
 
-const MODULE_DIR = path.resolve(__dirname)
-const MODULE_NAME = path.basename(MODULE_DIR)
+const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/${MODULE_NAME}`)
 
 logger('This module assumes an async call to provided `.load()` method before running the game.')

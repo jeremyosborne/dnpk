@@ -7,9 +7,7 @@ const ajv = new Ajv({
   useDefaults: true
 })
 
-const MODULE_DIR = path.resolve(__dirname)
-const MODULE_NAME = path.basename(MODULE_DIR)
-const DEFS_DIR = path.join(MODULE_DIR, 'defs')
+const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/config-game-objects/${MODULE_NAME}`)
 
 /**
@@ -31,11 +29,19 @@ let LOADED = false
  *
  * @throw {Error}
  */
-const load = async function ({force = false} = {}) {
+const load = async function ({force = false} = {}, {
+  // For an installable game, these files will get moved to the user directory.
+  // For a server based game, these files will be loaded. Either way, we'll
+  // eventually need to move to the `io` module, which will also mean the `io`
+  // module will need to be made more flexible.
+  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../../data-sources/game-objects')
+} = {}) {
   if (LOADED && !force) {
     logger('Already loaded, call to load ignored.')
     return false
   }
+
+  const DEFS_DIR = path.join(DEFS_KEY_ROOT, MODULE_NAME)
 
   LOADED = true
 
