@@ -31,7 +31,7 @@ describe('game-objects.terrain.strength-modifier', () => {
 
   beforeEach(async () => {
     // load dependencies, needed for strengthBoundary.
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   describe('strengthModifierTerrainEmpire', () => {

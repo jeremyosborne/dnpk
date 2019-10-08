@@ -28,7 +28,7 @@ describe('game-objects.army-group.strength-modifier', () => {
   beforeEach(async () => {
     // load dependencies, needed for rules for strength boundary when calculating
     // hero effective strength.
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   describe('strengthModifierHero', () => {

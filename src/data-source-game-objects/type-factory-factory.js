@@ -79,7 +79,7 @@ module.exports = ({
    *
    * @return {Promise} resolves on correct loading
    */
-  const load = async function ({force = false} = {}) {
+  const read = async function ({force = false} = {}) {
     if (LOADED && !force) {
       logger('Already loaded, call to load ignored.')
       return false
@@ -129,6 +129,6 @@ module.exports = ({
     clear,
     dir,
     get,
-    load,
+    read,
   }
 }

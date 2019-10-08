@@ -4,7 +4,7 @@ import * as dataSourceGameObjects from 'data-source-game-objects'
 describe('game-objects.army.dir', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('works', () => {

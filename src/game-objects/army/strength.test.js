@@ -8,7 +8,7 @@ const ASSUMED_STRENGTH_MINIMUM = 0
 describe('game-objects.army.strength', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('works', () => {

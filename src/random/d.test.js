@@ -13,7 +13,7 @@ describe('random.d', () => {
   describe('.standard()', () => {
     beforeEach(async () => {
       // Need game rules to test this.
-      await dataSourceGameObjects.load()
+      await dataSourceGameObjects.read()
     })
     it('works', async () => {
       const val = d.standard()

@@ -4,7 +4,7 @@ import * as dataSourceGameObjects from 'data-source-game-objects'
 describe('game-objects.rules.strengthBounded', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('plays nice with nulls to prevent NaNs', () => {

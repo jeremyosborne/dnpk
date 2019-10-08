@@ -9,7 +9,7 @@ const TEST_TYPE_INVALID = 'fake'
 describe('game-objects.equippable.create', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('works', () => {

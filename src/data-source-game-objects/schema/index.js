@@ -29,7 +29,7 @@ let LOADED = false
  *
  * @throw {Error}
  */
-const load = async function ({force = false} = {}, {
+const read = async function ({force = false} = {}, {
   // For an installable game, these files will get moved to the user directory.
   // For a server based game, these files will be loaded. Either way, we'll
   // eventually need to move to the `io` module, which will also mean the `io`
@@ -114,7 +114,7 @@ const validate = ({object, type}) => {
 export default {
   ajv,
   isLoaded,
-  load,
+  read,
   schemaId,
   validate,
 }

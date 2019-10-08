@@ -89,11 +89,11 @@ export const dir = (type) => types[type].dir()
  *
  * @return {Promise} resolves on successful load rejects on any load failures.
  */
-export const load = async function (args) {
+export const read = async function (args) {
   // Load schemas first so we don't ever have to think about load order when
   // validating relationship references between different type definitions.
   // Shouldn't be necessary at the time of writing, but one thing less to think
   // about later.
-  await schema.load(args)
-  await Promise.all(_.keys(types).map((t) => types[t].load(args)))
+  await schema.read(args)
+  await Promise.all(_.keys(types).map((t) => types[t].read(args)))
 }

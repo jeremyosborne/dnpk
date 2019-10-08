@@ -9,7 +9,7 @@ const TEST_TYPE_VALID = 'classic'
 describe('game-objects.rules.get', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   describe('.get()', () => {

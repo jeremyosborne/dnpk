@@ -34,7 +34,7 @@ describe('game-objects.common.strength', () => {
 
   beforeEach(async () => {
     // load dependencies, needed for strengthBoundary.
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('works with just an army', () => {

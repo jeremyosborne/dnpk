@@ -9,7 +9,7 @@ const TEST_TYPE_VALID = 'classic'
 describe('game-objects.rules.name-default', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.load()
+    await dataSourceGameObjects.read()
   })
 
   it('returns expected default value when called as a getter', () => {
