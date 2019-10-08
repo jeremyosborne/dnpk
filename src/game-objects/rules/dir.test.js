@@ -1,10 +1,10 @@
 import * as testMod from './'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 
 describe('game-objects.rules.dir', () => {
   beforeEach(async () => {
     // load dependencies...
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('works', () => {

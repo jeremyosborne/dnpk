@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import dir from './dir'
 import _ from 'lodash'
 
@@ -14,7 +14,7 @@ import _ from 'lodash'
  * @return {string} new name for your unit.
  */
 export const create = ({name}) => {
-  const {namings} = configGameObjects.create({name, type: 'naming'})
+  const {namings} = dataSourceGameObjects.create({name, type: 'naming'})
 
   return _.sample(namings)
 }

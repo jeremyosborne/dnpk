@@ -2,7 +2,7 @@ import * as testMod from './'
 
 describe('game-objects.player.armyGroups', () => {
   beforeEach(async () => {
-    // player does not have dependencies on config-game-objects
+    // player does not have dependencies on data-source-game-objects
   })
 
   describe('.add', () => {

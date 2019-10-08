@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import _ from 'lodash'
 
 import * as testModule from './strength-modifier'
@@ -28,7 +28,7 @@ describe('game-objects.army-group.strength-modifier', () => {
   beforeEach(async () => {
     // load dependencies, needed for rules for strength boundary when calculating
     // hero effective strength.
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   describe('strengthModifierHero', () => {

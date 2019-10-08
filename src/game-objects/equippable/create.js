@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import dir from './dir'
 import _ from 'lodash'
 import uuid from 'uuid/v1'
@@ -11,11 +11,11 @@ import uuid from 'uuid/v1'
  * @return {object} new army instance.
  */
 export const create = ({name}) => {
-  const equippable = configGameObjects.create({name, type: 'equippable'})
+  const equippable = dataSourceGameObjects.create({name, type: 'equippable'})
   equippable.id = uuid()
   // Instantiate effects, if any.
   equippable.effects = _.map(equippable.effects, (eff) => {
-    return _.merge(configGameObjects.create({name: eff.name, type: 'effect'}), eff)
+    return _.merge(dataSourceGameObjects.create({name: eff.name, type: 'effect'}), eff)
   })
   // no reason to have this in game
   delete equippable.documentation

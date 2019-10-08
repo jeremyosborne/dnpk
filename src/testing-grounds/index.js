@@ -2,7 +2,7 @@
 // For data we want to save, see: https://github.com/sindresorhus/env-paths
 //
 
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
@@ -50,7 +50,7 @@ export const mainMenu = async () => {
 // int main(void)
 export const main = async ({defaultState = mainMenu} = {}) => {
   await l10n.init()
-  await configGameObjects.load()
+  await dataSourceGameObjects.load()
 
   // load any of our specific testing-ground data.
   await dataSourceGame.read()

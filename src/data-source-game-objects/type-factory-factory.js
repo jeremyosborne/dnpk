@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const _ = require('lodash')
 const path = require('path')
 
-const logger = debug('dnpk/config-game-objects')
+const logger = debug('dnpk/data-source-game-objects')
 
 /**
  * Build a type factory for in reading in the user configurable game data type

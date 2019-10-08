@@ -1,5 +1,5 @@
 import * as testModule from './strength-modifier'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import _ from 'lodash'
 
 describe('game-objects.terrain.strength-modifier', () => {
@@ -31,7 +31,7 @@ describe('game-objects.terrain.strength-modifier', () => {
 
   beforeEach(async () => {
     // load dependencies, needed for strengthBoundary.
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   describe('strengthModifierTerrainEmpire', () => {

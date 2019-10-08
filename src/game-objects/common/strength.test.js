@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import * as testModule from './'
 
 describe('game-objects.common.strength', () => {
@@ -34,7 +34,7 @@ describe('game-objects.common.strength', () => {
 
   beforeEach(async () => {
     // load dependencies, needed for strengthBoundary.
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('works with just an army', () => {

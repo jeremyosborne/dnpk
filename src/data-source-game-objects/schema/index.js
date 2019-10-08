@@ -8,7 +8,7 @@ const ajv = new Ajv({
 })
 
 const MODULE_NAME = path.basename(path.resolve(__dirname))
-const logger = debug(`dnpk/config-game-objects/${MODULE_NAME}`)
+const logger = debug(`dnpk/data-source-game-objects/${MODULE_NAME}`)
 
 /**
  * This module has or has not been loaded at least one time.

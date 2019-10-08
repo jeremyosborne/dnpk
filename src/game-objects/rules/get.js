@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import nameDefault from './name-default'
 import _ from 'lodash'
 
@@ -23,7 +23,7 @@ export const get = (...args) => {
     ruleSetName = args[0]
   }
 
-  return _.get(configGameObjects.types.rules.get(ruleSetName), ruleAttr)
+  return _.get(dataSourceGameObjects.types.rules.get(ruleSetName), ruleAttr)
 }
 
 export default get

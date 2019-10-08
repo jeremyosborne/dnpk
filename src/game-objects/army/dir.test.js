@@ -1,10 +1,10 @@
 import * as army from './'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 
 describe('game-objects.army.dir', () => {
   beforeEach(async () => {
     // load dependencies...
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('works', () => {

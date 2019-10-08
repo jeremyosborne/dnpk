@@ -1,10 +1,10 @@
 import * as testMod from './'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 
 describe('game-objects.rules.strengthBounded', () => {
   beforeEach(async () => {
     // load dependencies...
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('plays nice with nulls to prevent NaNs', () => {
@@ -19,7 +19,7 @@ describe('game-objects.rules.strengthBounded', () => {
   })
 
   it('has classic defaults if rules are not loaded', () => {
-    configGameObjects.clear()
+    dataSourceGameObjects.clear()
     expect(testMod.strengthBounded(10)).toEqual(9)
     expect(testMod.strengthBounded(5)).toEqual(5)
     expect(testMod.strengthBounded(-2)).toEqual(0)

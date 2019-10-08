@@ -1,5 +1,5 @@
 import * as testMod from './'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 
 // Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'classic'
@@ -9,7 +9,7 @@ const TEST_TYPE_VALID = 'classic'
 describe('game-objects.rules.name-default', () => {
   beforeEach(async () => {
     // load dependencies...
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('returns expected default value when called as a getter', () => {

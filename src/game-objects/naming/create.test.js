@@ -1,5 +1,5 @@
 import * as testMod from './'
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 
 // Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'hero'
@@ -9,7 +9,7 @@ const TEST_TYPE_INVALID = 'fake'
 describe('game-objects.naming.create', () => {
   beforeEach(async () => {
     // load dependencies...
-    await configGameObjects.load()
+    await dataSourceGameObjects.load()
   })
 
   it('works', () => {
@@ -27,7 +27,7 @@ describe('game-objects.naming.create', () => {
     })
 
     it("it breaks if things aren't loaded", () => {
-      configGameObjects.clear()
+      dataSourceGameObjects.clear()
       expect(() => testMod.create.random()).toThrow()
     })
   })

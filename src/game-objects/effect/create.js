@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import dir from './dir'
 import _ from 'lodash'
 import uuid from 'uuid/v1'
@@ -11,7 +11,7 @@ import uuid from 'uuid/v1'
  * @return {object} new army instance.
  */
 export const create = ({name}) => {
-  const effect = configGameObjects.create({name, type: 'effect'})
+  const effect = dataSourceGameObjects.create({name, type: 'effect'})
 
   // All objects get a unique id.
   effect.id = uuid()

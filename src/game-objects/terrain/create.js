@@ -1,4 +1,4 @@
-import * as configGameObjects from 'config-game-objects'
+import * as dataSourceGameObjects from 'data-source-game-objects'
 import dir from './dir'
 import _ from 'lodash'
 
@@ -10,7 +10,7 @@ import _ from 'lodash'
  * @return {object} new terrain instance.
  */
 export const create = ({name}) => {
-  const terrain = configGameObjects.create({name, type: 'terrain'})
+  const terrain = dataSourceGameObjects.create({name, type: 'terrain'})
 
   // TODO: Terrain should get coordinates as an id?
 
