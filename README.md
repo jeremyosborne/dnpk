@@ -52,6 +52,11 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Groups of objects should have plural names: arrays, sets, queues, lists, bags, etc.: `armies` not `army`.
     * Attribute value calculations assume some relative `effective` value being computed and returned as a result. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.
         * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit (assuming a function call like that should ever be necessary to make due to obscure property access).
+    * Naming conventions to use:
+        * `get` -> synchronous method to retrieve keyed data from application memory, similar to `_.get`.
+        * `read` -> asynchronous function that retrieves data from a source outside of the application and, on success, stores the read data in memory.
+        * `set` -> synchronous method to modify keyed data in application memory, similar to `_.set`.
+        * `write` -> asynchronous function that pushes data from the application to a source outside of the application and, on success, is assumed to have successfully stored the data elsewhere.
 
 ## Runtime configuration options
 

@@ -32,21 +32,23 @@ export const _formatters = {
 }
 
 /**
- * Call this on app start up.
+ * Call this on app start up to populate the cache with the necessary
+ * translation strings.
  *
  * @param {object} args as dictionary
  * @param {string} [args.lng='en'] default language and language resources to use
  * @param {string} [args.ns='translation'] default namespace
  * @param {...object} [args.restConfig] any additional key/value pair overrides
- * that will be passed directly to `i18next.init()`.
+ * that will be passed directly to `i18next.read()`.
+ *
  * @param {object} config as dictionary of DI utilities (makes testing easier).
  * @param {function} [config.isDebug] function used to determine if we're in
  * debug mode or not, if not explicitly overridden with `args.debug`.
- * @param {function} [config.init] wrapper method for `i18next.init`.
+ * @param {function} [config.read] wrapper method for `i18next.read`.
  *
  * @return {Promise}
  */
-export const init = async (
+export const read = async (
   {
     lng = 'en',
     ns = 'translation',
@@ -55,10 +57,10 @@ export const init = async (
   {
     formatters = _formatters,
     isDebug = () => dataSourceConfig.get(I18NEXT_DEBUG_KEY),
-    init = (...args) => i18next.init(...args),
+    read = (...args) => i18next.init(...args),
   } = {}
 ) => {
-  await init({
+  await read({
     // default namespace to use.
     defaultNS: ns,
 

@@ -49,7 +49,7 @@ export const mainMenu = async () => {
 
 // int main(void)
 export const main = async ({defaultState = mainMenu} = {}) => {
-  await l10n.init()
+  await l10n.read()
   await dataSourceGameObjects.read()
 
   // load any of our specific testing-ground data.
