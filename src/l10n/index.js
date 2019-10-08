@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import * as configRuntime from 'config-runtime'
+import * as dataSourceConfig from 'data-source-config'
 import * as gameObjects from 'game-objects'
 import i18next from 'i18next'
 import _ from 'lodash'
@@ -54,7 +54,7 @@ export const init = async (
   } = {},
   {
     formatters = _formatters,
-    isDebug = () => configRuntime.get(I18NEXT_DEBUG_KEY),
+    isDebug = () => dataSourceConfig.get(I18NEXT_DEBUG_KEY),
     init = (...args) => i18next.init(...args),
   } = {}
 ) => {

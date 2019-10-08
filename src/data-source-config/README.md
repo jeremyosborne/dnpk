@@ -1,6 +1,6 @@
-# Run time configuration
+# Configuration
 
-Provides environment agnostic access to run time configuration passed into the application via the environment.
+Provides environment agnostic access to built time and run time configuration.
 
 ## Dev Notes
 

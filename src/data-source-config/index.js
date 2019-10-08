@@ -2,7 +2,7 @@ import * as dataSourceGlobal from 'data-source-global'
 import * as dataSourceProcessEnv from 'data-source-process-env'
 import debug from 'debug'
 
-const logger = debug('dnpk/config-runtime')
+const logger = debug('dnpk/data-source-config')
 
 /**
  * Key we use to access our configuration from the global.

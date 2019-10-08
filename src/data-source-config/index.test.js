@@ -1,6 +1,6 @@
 import * as testMod from './'
 
-describe('config-runtime', () => {
+describe('data-source-config', () => {
   it('does not export named references to null', () => {
     Object.keys(testMod).map((key) => expect(!!testMod[key]).toEqual(true))
   })
