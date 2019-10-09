@@ -52,7 +52,7 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Groups of objects should have plural names: arrays, sets, queues, lists, bags, etc.: `armies` not `army`.
     * Attribute value calculations assume some relative `effective` value being computed and returned as a result. A `base` prefix should be used to find attribute values on entities that are not modified within expected context.
         * Example: `army.strength(someArmy)` would return the value of that army's effective strength with all relative things considered, where as `army.strengthBase(someArmy)` would return the base, unmodified value of that unit (assuming a function call like that should ever be necessary to make due to obscure property access).
-    * Naming conventions to use:
+    * Naming conventions in use:
         * `clear` -> synchronous function to remove cached data from application memory.
         * `get` -> synchronous function to retrieve keyed data from application memory, similar to `_.get`.
         * `read` -> asynchronous function that retrieves data from a source outside of the application and, on success, stores the read data in memory.
@@ -74,9 +74,7 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Add command line tools for running simple tests and keeping state between tests.
-    - [ ] see: https://www.twilio.com/blog/how-to-build-a-cli-with-node-js
-    - [ ] see: https://github.com/oclif/oclif
+- [ ] Find a JavaScript lib like numpy/scipy.
 
 ## Ideas
 
