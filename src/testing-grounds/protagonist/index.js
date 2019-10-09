@@ -1,3 +1,4 @@
+import armies from './armies'
 import create from './create'
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
@@ -26,10 +27,20 @@ export const menu = async () => {
       },
     },
     {
-      message: 'Return to main menu',
+      message: 'Main menu',
       next: () => null
     }
   ]
+
+  if (protagonist) {
+    actions.unshift({
+      message: 'Manage armies',
+      next: async () => {
+        await armies()
+        return menu
+      },
+    })
+  }
 
   const answer = await prompt({
     type: 'select',

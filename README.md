@@ -74,6 +74,7 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
+- [ ] Somewhat reasonable, random army (random encounter) generation, see: `src/testing-grounds/protagonist/armies.js`
 - [ ] Find a JavaScript lib like numpy/scipy.
 
 ## Ideas
