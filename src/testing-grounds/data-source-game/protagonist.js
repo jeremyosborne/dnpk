@@ -13,6 +13,10 @@ export class Protagonist {
    */
   _cache = null
 
+  clear = () => {
+    this._cache = null
+  }
+
   create = () => {
     this._cache = gameObjects.player.create()
   }
@@ -48,18 +52,18 @@ export class Protagonist {
     io = _io,
   } = {}) => {
     await io.remove(dataKey)
+    this.clear()
   }
 
   set = (data) => {
     this._cache = {
+      ...this._cache,
       ...data,
     }
   }
 
   save = async (data) => {
-    this._cache = {
-      ...data,
-    }
+    this.set(data)
     await this.write()
   }
 

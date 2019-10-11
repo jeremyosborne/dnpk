@@ -26,9 +26,8 @@ export const create = async () => {
   if (confirmed) {
     if (!dataSourceGame.protagonist.exists()) {
       dataSourceGame.protagonist.create()
-    } else {
-      dataSourceGame.protagonist.save({empire})
     }
+    dataSourceGame.protagonist.save({empire})
     await hitReturnToContinue(t('You now rule {{empire, commonName}}. Hit return to continue.', {empire}))
   } else {
     await hitReturnToContinue(t('Input ignored. Hit return for the main menu.'))

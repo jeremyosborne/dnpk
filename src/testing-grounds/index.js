@@ -8,9 +8,10 @@ import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
 import _ from 'lodash'
 import mockBattle from 'mock-battle'
+import monteCarlo from 'monte-carlo'
 import out from 'out'
 import protagonist from 'protagonist'
-import monteCarlo from 'monte-carlo'
+import removeGameData from 'remove-game-data'
 
 const {t} = l10n
 
@@ -27,6 +28,10 @@ export const mainMenu = async () => {
     {
       message: t('Run a randomized, mock battle'),
       next: mockBattle,
+    },
+    {
+      message: t('Remove existing game data'),
+      next: removeGameData,
     },
     {
       message: t('Quit'),

@@ -71,7 +71,7 @@ export const read = async (dataPath, {
  */
 export const remove = async (dataPath, {
   genPath = _genPath,
-  removeFile = del,
+  removeFile = (...args) => del(...args, {force: true}),
 } = {}) => {
   return removeFile(genPath(dataPath))
 }
