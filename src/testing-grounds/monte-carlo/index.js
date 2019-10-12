@@ -3,6 +3,7 @@ import {prompt} from 'enquirer'
 import _ from 'lodash'
 import randintMonteCarlo from './randint-monte-carlo'
 import randomMonteCarlo from './random-monte-carlo'
+import sampleWeightedMonteCarlo from './sample-weighted-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
 
 export const menu = async () => {
@@ -26,6 +27,13 @@ export const menu = async () => {
       message: 'random() - test pseudo random values returned from core random',
       next: async () => {
         await randomMonteCarlo()
+        return menu
+      }
+    },
+    {
+      message: 'sampleWeightedMonteCarlo() - test weighted sample function',
+      next: async () => {
+        await sampleWeightedMonteCarlo()
         return menu
       }
     },
