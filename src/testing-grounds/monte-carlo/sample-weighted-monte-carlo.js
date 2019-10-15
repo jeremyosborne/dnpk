@@ -45,7 +45,7 @@ export const sampleWeightedMonteCarlo = async () => {
     // in number, out array of numbers
     ({weights, times}) => sampleWeighted({
       choices: ['item 1', 'item 2', 'item 3'],
-      pick: times,
+      size: times,
       weight: (o) => weights[o]
     }),
     // in array of choices, out dictionary of counts per choice

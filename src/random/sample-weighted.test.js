@@ -5,7 +5,7 @@ describe('random.sample-weighted', () => {
     expect(testMod.sampleWeighted({choices: [1, 2]}).length).toEqual(1)
     expect(testMod.sampleWeighted({
       choices: [1, 2],
-      pick: 2,
+      size: 2,
     }).length).toEqual(2)
   })
 

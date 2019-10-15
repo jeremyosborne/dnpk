@@ -5,7 +5,7 @@ import _randint from './randint'
  * Linear scan method for choosing items from an array of items.
  *
  * @param {object[]} choices set of objects to choose from.
- * @param {number} [pick=1] how many items to pick.
+ * @param {number} [size=1] how many items to pick.
  * @param {function} weight receives each object and returns a relative, integer
  * weight compared to the other choices in the list.
  *
@@ -13,7 +13,7 @@ import _randint from './randint'
  */
 export const sampleWeighted = ({
   choices = [],
-  pick = 1,
+  size = 1,
   weight = () => 1,
 } = {}, {
   randint = _randint
@@ -21,7 +21,7 @@ export const sampleWeighted = ({
   const choicesWeight = _.map(choices, weight)
   const totalWeight = _.sum(choicesWeight)
   const picks = []
-  _.times(pick, () => {
+  _.times(size, () => {
     let r = randint(1, totalWeight)
     for (let i = 0; i < choicesWeight.length; i++) {
       r -= choicesWeight[i]
@@ -30,7 +30,7 @@ export const sampleWeighted = ({
         return
       }
     }
-    throw new Error(`sampleWeighted fell through with choices: ${choices}; pick: ${pick}; weight: ${weight}`)
+    throw new Error(`sampleWeighted fell through with choices: ${choices}; size: ${size}; weight: ${weight}`)
   })
   return picks
 }

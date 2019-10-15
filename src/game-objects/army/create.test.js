@@ -32,4 +32,27 @@ describe('game-objects.army.create', () => {
       expect(() => testMod.create.random()).toThrow()
     })
   })
+
+  describe('.random.weighted()', () => {
+    it('works', () => {
+      expect(testMod.create.random.weighted().type).toEqual('army')
+    })
+
+    it("it breaks if things aren't loaded", () => {
+      dataSourceGameObjects.clear()
+      expect(() => testMod.create.random.weighted()).toThrow()
+    })
+  })
+
+  describe('.sampleWeighted()', () => {
+    it('works', () => {
+      expect(testMod.sampleWeighted().length > 0).toEqual(true)
+      expect(testMod.sampleWeighted()[0].type).toEqual('army')
+    })
+
+    it("it breaks if things aren't loaded", () => {
+      dataSourceGameObjects.clear()
+      expect(() => testMod.sampleWeighted()).toThrow()
+    })
+  })
 })

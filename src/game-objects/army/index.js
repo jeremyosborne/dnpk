@@ -1,4 +1,7 @@
-export {create} from './create'
+export {
+  create,
+  sampleWeighted,
+} from './create'
 export {dir} from './dir'
 // because reserved words
 import * as doAction from './do' // eslint-disable-line import/first
