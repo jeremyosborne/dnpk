@@ -1,5 +1,4 @@
 import * as army from '../army'
-import _ from 'lodash'
 // import uuid from 'uuid/v1'
 
 /**
@@ -27,27 +26,30 @@ export default create
  * Create a random army-group picked from the currently available list of valid
  * armies.
  *
- * @return {object} new army instance.
+ * @param {object} args
+ * @param {number} [size=8] size of the army-group returned.
  *
- * @throw {Error} if there appear to be no armies loaded.
+ * @return {object[]} army instances in an army-group.
  */
 create.random = ({size = 8} = {}) => {
-  const names = army.dir()
-  if (!names.length) {
-    throw new Error('armyGroup.create.random: no army names available. Did you load the armies before calling this method?')
-  }
-
-  return _.sampleSize(army.dir(), size).map((name) => army.create({name}))
+  const armies = army.create.random({size})
+  // Compensate for the fact that an army-group of size === 1 is valid but the
+  // behavior of the create function defaults as a single object factory.
+  return Array.isArray(armies) ? armies : [armies]
 }
 
 /**
  * Create a randomized army-group from a the set of armies with weighting rules
  * applied to the choice.
  *
- * Better armies will appear less often in the group.
+ * @param {object} args
+ * @param {number} [size=8] size of the army-group returned.
  *
- * @return {object} a single, weighted-random chosen army
+ * @return {object[]} army instances in an army-group.
  */
 create.random.weighted = ({size = 8} = {}) => {
-  return army.sampleWeighted({size})
+  const armies = army.create.random.weighted({size})
+  // Compensate for the fact that an army-group of size === 1 is valid but the
+  // behavior of the create function defaults as a single object factory.
+  return Array.isArray(armies) ? armies : [armies]
 }

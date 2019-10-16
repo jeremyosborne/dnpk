@@ -18,41 +18,43 @@ describe('game-objects.army.create', () => {
     expect(instance.type).toEqual('army')
   })
 
-  it('breaks on bad name', () => {
+  it('throws on bad name', () => {
     expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
   })
 
   describe('.random()', () => {
     it('works', () => {
+      // No array by default.
       expect(testMod.create.random().type).toEqual('army')
+      // As array if size > 1.
+      expect(testMod.create.random({size: 2}).length).toEqual(2)
     })
 
-    it("it breaks if things aren't loaded", () => {
+    it("it throws if things aren't loaded", () => {
       dataSourceGameObjects.clear()
       expect(() => testMod.create.random()).toThrow()
+    })
+
+    it('it throws if size < 1', () => {
+      expect(() => testMod.create.random({size: 0})).toThrow()
     })
   })
 
   describe('.random.weighted()', () => {
     it('works', () => {
+      // No array by default.
       expect(testMod.create.random.weighted().type).toEqual('army')
+      // As array if size > 1.
+      expect(testMod.create.random.weighted({size: 2}).length).toEqual(2)
     })
 
-    it("it breaks if things aren't loaded", () => {
+    it("it throws if things aren't loaded", () => {
       dataSourceGameObjects.clear()
       expect(() => testMod.create.random.weighted()).toThrow()
     })
-  })
 
-  describe('.sampleWeighted()', () => {
-    it('works', () => {
-      expect(testMod.sampleWeighted().length > 0).toEqual(true)
-      expect(testMod.sampleWeighted()[0].type).toEqual('army')
-    })
-
-    it("it breaks if things aren't loaded", () => {
-      dataSourceGameObjects.clear()
-      expect(() => testMod.sampleWeighted()).toThrow()
+    it('it throws if size < 1', () => {
+      expect(() => testMod.create.random.weighted({size: 0})).toThrow()
     })
   })
 })

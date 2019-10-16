@@ -16,6 +16,9 @@ describe('game-objects.armyGroup.create', () => {
     it('works', () => {
       expect(testMod.create.random().length).toEqual(8)
       expect(testMod.create.random()[0].type).toEqual('army')
+
+      // It also works with size and returns an array if size === 1
+      expect(testMod.create.random({size: 1}).length).toEqual(1)
     })
 
     it("it breaks if things aren't loaded", () => {
@@ -28,6 +31,9 @@ describe('game-objects.armyGroup.create', () => {
     it('works', () => {
       expect(testMod.create.random.weighted().length).toEqual(8)
       expect(testMod.create.random.weighted()[0].type).toEqual('army')
+
+      // It also works with size and returns an array if size === 1
+      expect(testMod.create.random.weighted({size: 1}).length).toEqual(1)
     })
 
     it("it breaks if things aren't loaded", () => {
