@@ -1,6 +1,6 @@
 import {battle} from 'battle'
 import * as gameObjects from 'game-objects'
-import hitReturnToContinue from './hit-return-to-continue'
+import hitReturnToContinue from 'hit-return-to-continue'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'

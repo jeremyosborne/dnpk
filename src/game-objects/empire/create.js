@@ -27,15 +27,22 @@ export default create
 /**
  * Create a random empire picked from the currently available list of valid entities.
  *
- * @return {object} new empire instance.
+ * @param {object} args
+ * @param {object} args.exclude keys with truthy values will be excluded from the
+ * potential set from which we sample.
  *
+ * @return {object} new empire instance.
  * @throw {Error} if there appear to be no empires loaded.
  */
-create.random = () => {
-  const name = _.sample(dir())
-  if (!name) {
-    throw new Error('empire.create.random: no empire names available. Did you load the empire before calling this method?')
+create.random = ({
+  exclude = {},
+} = {}) => {
+  const names = _.filter(dir(), (name) => !exclude[name])
+  if (!names.length) {
+    throw new Error('empire.create.random: no empire names available. Did you load the empire before calling this method, or did you exclude too many?')
   }
+
+  const name = _.sample(names)
 
   return create({name})
 }

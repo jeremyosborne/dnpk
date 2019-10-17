@@ -24,11 +24,14 @@ export const _formatters = {
       return value
     }
   },
-  // callable: {{someGameObject, commonName}}
-  // tries to display the best name possible.
+
+  // callable: {{someGameObject, commonNames}}
+  // tries to display the best name of an object, or the best names as a human
+  // list for an array of objects.
   commonName: (value, format, lng) => {
-    return gameObjects.common.name(value)
-  }
+    const values = Array.isArray(value) ? value : [value]
+    return _.map(values, (v) => gameObjects.common.name(v)).join(', ')
+  },
 }
 
 /**

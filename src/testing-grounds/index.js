@@ -7,6 +7,7 @@ import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
 import _ from 'lodash'
+import meatGrinder from 'meat-grinder'
 import mockBattle from 'mock-battle'
 import monteCarlo from 'monte-carlo'
 import out from 'out'
@@ -20,6 +21,10 @@ export const mainMenu = async () => {
     {
       message: t('Protagonist options'),
       next: protagonist,
+    },
+    {
+      message: t('Venture into the meat grinder'),
+      next: meatGrinder,
     },
     {
       message: t('Monte carlo'),

@@ -24,6 +24,8 @@ export const army = async () => {
 
   if (confirmed) {
     armyGroup = gameObjects.armyGroup.create.random.weighted()
+    // Helps to keep the group sorted for display purposes.
+    armyGroup = gameObjects.armyGroup.sort(armyGroup)
 
     out.t('army created:')
     ui.text.armyGroup({armyGroup})
