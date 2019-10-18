@@ -1,8 +1,9 @@
-const assert = require('assert')
-const debug = require('debug')
-const fs = require('fs').promises
-const _ = require('lodash')
-const path = require('path')
+import assert from 'assert'
+import debug from 'debug'
+import {promises as fs} from 'fs'
+import _ from 'lodash'
+import moddablesKeyRoot from './moddables-key-root'
+import path from 'path'
 
 const logger = debug('dnpk/data-source-moddables')
 
@@ -18,19 +19,20 @@ const logger = debug('dnpk/data-source-moddables')
  * the files to be located wherever on disk for modding, so heavy reliance on
  * this code managing the root file path.
  *
- * @param {string} MODULE_NAME name of the module providing the factory, which
+ * @param {object} args
+ * @param {string} args.MODULE_NAME name of the module providing the factory, which
  * also equates to the `folder` containing defs.
+ *
+ * @param {object} config
+ * @param {string} config.KEY_ROOT the key root-path for where our moddables can
+ * be located and retrieved from.
  *
  * @return {object} returns public api for the type factory.
  */
 module.exports = ({
   MODULE_NAME,
 }, {
-  // For an installable game, these files will get moved to the user directory.
-  // For a server based game, these files will be loaded. Either way, we'll
-  // eventually need to move to the `io` module, which will also mean the `io`
-  // module will need to be made more flexible.
-  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../data-sources/moddables')
+  KEY_ROOT = moddablesKeyRoot(),
 } = {}) => {
   /**
    * This module has or has not been loaded at least one time.
@@ -85,7 +87,7 @@ module.exports = ({
       return false
     }
 
-    const DEFS_DIR = path.join(DEFS_KEY_ROOT, MODULE_NAME)
+    const DEFS_DIR = path.join(KEY_ROOT, MODULE_NAME)
 
     // For data checking.
     const typeFiles = await fs.readdir(DEFS_DIR)

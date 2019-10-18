@@ -1,6 +1,7 @@
 import Ajv from 'ajv'
 import debug from 'debug'
 import {promises as fs} from 'fs'
+import moddablesKeyRoot from '../moddables-key-root'
 import path from 'path'
 
 const ajv = new Ajv({
@@ -20,8 +21,13 @@ let LOADED = false
 /**
  * Call to load schemas from disk.
  *
- * @param {boolean} force if true, will reload items from disk even if already
+ * @param {object} args
+ * @param {boolean} [args.force] if true, will reload items from disk even if already
  * flagged as loaded.
+ *
+ * @param {object} config
+ * @param {string} config.KEY_ROOT the key root-path for where our moddables can
+ * be located and retrieved from.
  *
  * @return {Promise} resolves if schemas with true if schemas were loaded successfully,
  * false if schemas were intentionally not loaded, and rejects with error if something
@@ -30,18 +36,14 @@ let LOADED = false
  * @throw {Error}
  */
 const read = async function ({force = false} = {}, {
-  // For an installable game, these files will get moved to the user directory.
-  // For a server based game, these files will be loaded. Either way, we'll
-  // eventually need to move to the `io` module, which will also mean the `io`
-  // module will need to be made more flexible.
-  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../../data-sources/moddables')
+  KEY_ROOT = moddablesKeyRoot(),
 } = {}) {
   if (LOADED && !force) {
     logger('Already loaded, call to load ignored.')
     return false
   }
 
-  const DEFS_DIR = path.join(DEFS_KEY_ROOT, MODULE_NAME)
+  const DEFS_DIR = path.join(KEY_ROOT, MODULE_NAME)
 
   LOADED = true
 
