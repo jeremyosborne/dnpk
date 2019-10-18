@@ -1,10 +1,10 @@
 import * as testMod from './'
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 describe('randomWeightedArmies', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.read()
+    await dataSourceModdables.read()
   })
 
   it('works', () => {
@@ -13,7 +13,7 @@ describe('randomWeightedArmies', () => {
   })
 
   it("it breaks if things aren't loaded", () => {
-    dataSourceGameObjects.clear()
+    dataSourceModdables.clear()
     expect(() => testMod.randomWeightedArmies()).toThrow()
   })
 })

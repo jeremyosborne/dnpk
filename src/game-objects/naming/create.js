@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 import _ from 'lodash'
 
 /**
@@ -13,7 +13,7 @@ import _ from 'lodash'
  * @return {string} new name for your unit.
  */
 export const create = ({name}) => {
-  const {namings} = dataSourceGameObjects.create({name, type: 'naming'})
+  const {namings} = dataSourceModdables.create({name, type: 'naming'})
 
   return _.sample(namings)
 }

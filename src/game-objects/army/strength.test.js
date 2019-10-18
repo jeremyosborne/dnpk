@@ -1,5 +1,5 @@
 import * as army from './'
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 // This is likely to break, put it visibly in one spot.
 const ASSUMED_STRENGTH_MAXIMUM = 9
@@ -8,7 +8,7 @@ const ASSUMED_STRENGTH_MINIMUM = 0
 describe('game-objects.army.strength', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.read()
+    await dataSourceModdables.read()
   })
 
   it('works', () => {

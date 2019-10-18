@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 /**
  * Return a new terrain instance.
@@ -8,7 +8,7 @@ import * as dataSourceGameObjects from 'data-source-game-objects'
  * @return {object} new terrain instance.
  */
 export const create = ({name}) => {
-  const terrain = dataSourceGameObjects.create({name, type: 'terrain'})
+  const terrain = dataSourceModdables.create({name, type: 'terrain'})
 
   // TODO: Terrain should get coordinates as an id?
 

@@ -1,10 +1,10 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 /**
  * List of `name`s of loaded equippables.
  *
  * @return {string[]} List of unique names.
  */
-export const dir = () => dataSourceGameObjects.dir('equippable')
+export const dir = () => dataSourceModdables.dir('equippable')
 
 export default dir

@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 import uuid from 'uuid/v1'
 
 /**
@@ -9,7 +9,7 @@ import uuid from 'uuid/v1'
  * @return {object} new army instance.
  */
 export const create = ({name}) => {
-  const effect = dataSourceGameObjects.create({name, type: 'effect'})
+  const effect = dataSourceModdables.create({name, type: 'effect'})
 
   // All objects get a unique id.
   effect.id = uuid()

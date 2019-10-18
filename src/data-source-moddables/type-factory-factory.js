@@ -4,7 +4,7 @@ const fs = require('fs').promises
 const _ = require('lodash')
 const path = require('path')
 
-const logger = debug('dnpk/data-source-game-objects')
+const logger = debug('dnpk/data-source-moddables')
 
 /**
  * Build a type factory for in reading in the user configurable game data type
@@ -30,7 +30,7 @@ module.exports = ({
   // For a server based game, these files will be loaded. Either way, we'll
   // eventually need to move to the `io` module, which will also mean the `io`
   // module will need to be made more flexible.
-  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../data-sources/game-objects')
+  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../data-sources/moddables')
 } = {}) => {
   /**
    * This module has or has not been loaded at least one time.

@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 import d from './d'
 
 describe('random.d', () => {
@@ -13,7 +13,7 @@ describe('random.d', () => {
   describe('.standard()', () => {
     beforeEach(async () => {
       // Need game rules to test this.
-      await dataSourceGameObjects.read()
+      await dataSourceModdables.read()
     })
     it('works', async () => {
       const val = d.standard()

@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 import uuid from 'uuid/v1'
 
 /**
@@ -9,7 +9,7 @@ import uuid from 'uuid/v1'
  * @return {object} new empire instance.
  */
 export const create = ({name}) => {
-  const empire = dataSourceGameObjects.create({name, type: 'empire'})
+  const empire = dataSourceModdables.create({name, type: 'empire'})
 
   // All objects get a unique id.
   empire.id = uuid()

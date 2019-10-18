@@ -1,10 +1,6 @@
 import * as testMod from './'
 
 describe('game-objects.player.armyGroups', () => {
-  beforeEach(async () => {
-    // player does not have dependencies on data-source-game-objects
-  })
-
   describe('.add', () => {
     it('works as expected', () => {
       const testPlayer = testMod.create()

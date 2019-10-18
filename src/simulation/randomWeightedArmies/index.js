@@ -1,4 +1,4 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 import * as gameObjects from 'game-objects'
 import _ from 'lodash'
 import * as randomModule from 'random'
@@ -34,7 +34,7 @@ export const randomWeightedArmies = ({
     weight: (name) => {
       // We need information provided by the refs to determine the weight of the indvidual
       // army.
-      const a = dataSourceGameObjects.types.army.get(name)
+      const a = dataSourceModdables.types.army.get(name)
 
       // Heroes lowest weight.
       if (gameObjects.army.is.hero(a)) {

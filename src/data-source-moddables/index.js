@@ -1,5 +1,5 @@
 //
-// data-source-game-objects Public API
+// Public API
 //
 
 import army from './army'

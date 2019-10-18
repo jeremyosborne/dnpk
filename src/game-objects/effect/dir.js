@@ -1,10 +1,10 @@
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 /**
  * List of `name`s of loaded effects.
  *
  * @return {string[]} List of unique names.
  */
-export const dir = () => dataSourceGameObjects.dir('effect')
+export const dir = () => dataSourceModdables.dir('effect')
 
 export default dir

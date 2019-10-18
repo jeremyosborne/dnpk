@@ -1,5 +1,5 @@
 import * as testMod from './'
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 // Assume we'll always have this distinct type...
 const TEST_NAME_VALID = 'road'
@@ -9,7 +9,7 @@ const TEST_NAME_INVALID = 'fake'
 describe('game-objects.terrain.create', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.read()
+    await dataSourceModdables.read()
   })
 
   it('works', () => {

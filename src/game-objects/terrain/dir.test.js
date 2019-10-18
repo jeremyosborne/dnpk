@@ -1,10 +1,10 @@
 import * as terrain from './'
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 describe('game-objects.terrain.dir', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.read()
+    await dataSourceModdables.read()
   })
 
   it('works', () => {

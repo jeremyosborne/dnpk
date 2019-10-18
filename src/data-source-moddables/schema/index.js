@@ -8,7 +8,7 @@ const ajv = new Ajv({
 })
 
 const MODULE_NAME = path.basename(path.resolve(__dirname))
-const logger = debug(`dnpk/data-source-game-objects/${MODULE_NAME}`)
+const logger = debug(`dnpk/data-source-moddables/${MODULE_NAME}`)
 
 /**
  * This module has or has not been loaded at least one time.
@@ -34,7 +34,7 @@ const read = async function ({force = false} = {}, {
   // For a server based game, these files will be loaded. Either way, we'll
   // eventually need to move to the `io` module, which will also mean the `io`
   // module will need to be made more flexible.
-  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../../data-sources/game-objects')
+  DEFS_KEY_ROOT = path.resolve(path.resolve(__dirname), '../../../data-sources/moddables')
 } = {}) {
   if (LOADED && !force) {
     logger('Already loaded, call to load ignored.')

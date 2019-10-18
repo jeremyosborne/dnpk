@@ -1,5 +1,5 @@
 import * as testMod from './'
-import * as dataSourceGameObjects from 'data-source-game-objects'
+import * as dataSourceModdables from 'data-source-moddables'
 
 // Assume we'll always have this distinct type...
 const TEST_TYPE_VALID = 'army'
@@ -10,7 +10,7 @@ const TEST_TYPE_INVALID = 'fake'
 describe('simulation.createRandom()', () => {
   beforeEach(async () => {
     // load dependencies...
-    await dataSourceGameObjects.read()
+    await dataSourceModdables.read()
   })
 
   it('works', () => {
@@ -24,7 +24,7 @@ describe('simulation.createRandom()', () => {
   })
 
   it("it breaks if things aren't loaded", () => {
-    dataSourceGameObjects.clear()
+    dataSourceModdables.clear()
     expect(() => testMod.createRandom()).toThrow()
   })
 })
