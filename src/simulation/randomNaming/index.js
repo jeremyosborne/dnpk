@@ -17,7 +17,7 @@ import _ from 'lodash'
  */
 export const randomNaming = ({
   exclude = {},
-  name = 'hero',
+  name = 'army',
 } = {}) => {
   // Full names should be returned as an array of strings in the `namings` prop.
   let {namings} = dataSourceModdables.types.naming.get(name)
