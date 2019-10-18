@@ -18,7 +18,7 @@ export const armyRandom = () => {
     const equippable = simulation.createRandom({type: 'equippable'})
     gameObjects.army.do.equip({army, equippable})
     // Give a name to the hero.
-    army.nameInstance = gameObjects.naming.create({name: 'hero'})
+    army.nameInstance = simulation.randomNaming({name: 'hero'})
   }
   return army
 }

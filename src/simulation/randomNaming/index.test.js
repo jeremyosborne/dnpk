@@ -6,18 +6,18 @@ const TEST_NAME_VALID = 'hero'
 // ...and never this one.
 const TEST_NAME_INVALID = 'fake'
 
-describe('game-objects.naming.create', () => {
+describe('randomNaming', () => {
   beforeEach(async () => {
     // load dependencies...
     await dataSourceModdables.read()
   })
 
   it('works', () => {
-    const instance = testMod.create({name: TEST_NAME_VALID})
+    const instance = testMod.randomNaming({name: TEST_NAME_VALID})
     expect(typeof instance === 'string').toEqual(true)
   })
 
   it('breaks on bad name', () => {
-    expect(() => testMod.create({name: TEST_NAME_INVALID})).toThrow()
+    expect(() => testMod.randomNaming({name: TEST_NAME_INVALID})).toThrow()
   })
 })
