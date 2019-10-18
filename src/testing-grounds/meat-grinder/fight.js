@@ -1,8 +1,8 @@
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
-import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
 import out from 'out'
+import * as simulation from 'simulation'
 import * as ui from 'ui'
 
 export const fight = async () => {
@@ -11,16 +11,16 @@ export const fight = async () => {
   const protagonistEmpire = protagonist.empire
   const protagonistArmyGroup = protagonist.armyGroups[0]
 
-  const antagonistEmpire = gameObjects.empire.create.random({
+  const antagonistEmpire = simulation.createRandom({
     exclude: {
       [protagonist.empire.name]: true,
-    }
+    },
+    type: 'empire',
   })
   // TODO: size relative to the protagonist army-group size and strength.
-  const antagonistArmyGroup = gameObjects.armyGroup.sort(
-    gameObjects.armyGroup.create.random.weighted({size: 4})
-  )
-  const terrain = gameObjects.terrain.create.random()
+  const antagonistArmyGroup = simulation.createRandomWeightedArmyGroup({size: 4})
+  // TODO: exclude water, mountains, etc....
+  const terrain = simulation.createRandom({type: 'terrain'})
 
   // Engage the 2 groups in battle.
 

@@ -21,40 +21,4 @@ describe('game-objects.army.create', () => {
   it('throws on bad name', () => {
     expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
   })
-
-  describe('.random()', () => {
-    it('works', () => {
-      // No array by default.
-      expect(testMod.create.random().type).toEqual('army')
-      // As array if size > 1.
-      expect(testMod.create.random({size: 2}).length).toEqual(2)
-    })
-
-    it("it throws if things aren't loaded", () => {
-      dataSourceGameObjects.clear()
-      expect(() => testMod.create.random()).toThrow()
-    })
-
-    it('it throws if size < 1', () => {
-      expect(() => testMod.create.random({size: 0})).toThrow()
-    })
-  })
-
-  describe('.random.weighted()', () => {
-    it('works', () => {
-      // No array by default.
-      expect(testMod.create.random.weighted().type).toEqual('army')
-      // As array if size > 1.
-      expect(testMod.create.random.weighted({size: 2}).length).toEqual(2)
-    })
-
-    it("it throws if things aren't loaded", () => {
-      dataSourceGameObjects.clear()
-      expect(() => testMod.create.random.weighted()).toThrow()
-    })
-
-    it('it throws if size < 1', () => {
-      expect(() => testMod.create.random.weighted({size: 0})).toThrow()
-    })
-  })
 })

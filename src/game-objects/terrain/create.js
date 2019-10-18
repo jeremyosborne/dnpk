@@ -1,6 +1,4 @@
 import * as dataSourceGameObjects from 'data-source-game-objects'
-import dir from './dir'
-import _ from 'lodash'
 
 /**
  * Return a new terrain instance.
@@ -21,19 +19,3 @@ export const create = ({name}) => {
 }
 
 export default create
-
-/**
- * Create a random terrain picked from the currently available list of valid entities.
- *
- * @return {object} new terrain instance.
- *
- * @throw {Error} if there appear to be no terrain loaded.
- */
-create.random = () => {
-  const name = _.sample(dir())
-  if (!name) {
-    throw new Error('terrain.create.random: no terrain names available. Did you load the terrain before calling this method?')
-  }
-
-  return create({name})
-}

@@ -20,15 +20,4 @@ describe('game-objects.naming.create', () => {
   it('breaks on bad name', () => {
     expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
   })
-
-  describe('.random()', () => {
-    it('works', () => {
-      expect(typeof testMod.create.random() === 'string').toEqual(true)
-    })
-
-    it("it breaks if things aren't loaded", () => {
-      dataSourceGameObjects.clear()
-      expect(() => testMod.create.random()).toThrow()
-    })
-  })
 })

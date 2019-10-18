@@ -1,5 +1,4 @@
 import * as dataSourceGameObjects from 'data-source-game-objects'
-import dir from './dir'
 import _ from 'lodash'
 
 /**
@@ -20,19 +19,3 @@ export const create = ({name}) => {
 }
 
 export default create
-
-/**
- * Create a random name picked from the entire set of names.
- *
- * @return {string} a new name
- *
- * @throw {Error} if there appear to be no naming groups loaded.
- */
-create.random = () => {
-  const name = _.sample(dir())
-  if (!name) {
-    throw new Error('empire.create.random: no empire names available. Did you load the empire before calling this method?')
-  }
-
-  return create({name})
-}

@@ -1,2 +1,3 @@
-import * as create from './create' // eslint-disable-line import/first
-export {create}
+export {createRandom} from './createRandom'
+export {createRandomWeightedArmyGroup} from './createRandomWeightedArmyGroup'
+export {randomWeightedArmies} from './randomWeightedArmies'
