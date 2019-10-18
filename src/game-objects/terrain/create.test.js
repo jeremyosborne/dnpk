@@ -2,9 +2,9 @@ import * as testMod from './'
 import * as dataSourceGameObjects from 'data-source-game-objects'
 
 // Assume we'll always have this distinct type...
-const TEST_TYPE_VALID = 'road'
+const TEST_NAME_VALID = 'road'
 // ...and never this one.
-const TEST_TYPE_INVALID = 'fake'
+const TEST_NAME_INVALID = 'fake'
 
 describe('game-objects.terrain.create', () => {
   beforeEach(async () => {
@@ -13,13 +13,13 @@ describe('game-objects.terrain.create', () => {
   })
 
   it('works', () => {
-    const instance = testMod.create({name: TEST_TYPE_VALID})
+    const instance = testMod.create({name: TEST_NAME_VALID})
     // Terrain does not have an id, at least right now.
     // expect(typeof instance.id === 'string').toEqual(true)
     expect(instance.type).toEqual('terrain')
   })
 
   it('breaks on bad name', () => {
-    expect(() => testMod.create({name: TEST_TYPE_INVALID})).toThrow()
+    expect(() => testMod.create({name: TEST_NAME_INVALID})).toThrow()
   })
 })

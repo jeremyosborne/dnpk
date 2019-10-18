@@ -2,9 +2,9 @@ import * as testMod from './'
 import * as dataSourceGameObjects from 'data-source-game-objects'
 
 // Assume we'll always have this distinct type...
-const TEST_TYPE_VALID = 'classic'
+const TEST_NAME_VALID = 'classic'
 // ...and never this one.
-// const TEST_TYPE_INVALID = 'fake'
+// const TEST_NAME_INVALID = 'fake'
 
 describe('game-objects.rules.name-default', () => {
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe('game-objects.rules.name-default', () => {
   })
 
   it('returns expected default value when called as a getter', () => {
-    expect(testMod.nameDefault()).toEqual(TEST_TYPE_VALID)
+    expect(testMod.nameDefault()).toEqual(TEST_NAME_VALID)
   })
 
   it('changes the default when used as a setter', () => {
