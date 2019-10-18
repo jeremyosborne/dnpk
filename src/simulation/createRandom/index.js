@@ -27,7 +27,6 @@ export const createRandom = ({
   typeBlacklist = [
     'armyGroup',
     'common',
-    'naming',
     'rules',
   ],
 } = {}) => {
