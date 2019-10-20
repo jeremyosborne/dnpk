@@ -1,9 +1,7 @@
-import {strength as strengthArmy} from '../army'
-// grrr... it feels like while I'm probably the one at fault, dependency resolution in
-// babel is brittle when there is even a hair of a circular import happening.
-import {strengthModifier as strengthModifierArmyGroup} from '../army-group'
+import armyStrength from './army'
+import armyGroupStrengthModifier from './army-group'
 import {strengthBounded} from 'game-rules'
-import {strengthModifier as strengthModifierTerrain} from '../terrain'
+import terrainStrengthModifier from './terrain'
 
 /**
  * Calculate the effective strength given all inputs, and cap based on game rules.
@@ -27,9 +25,11 @@ export const strength = ({army, armyGroup, empire, terrain}) => {
     throw new Error('At minimum you need to pass `army` as strength calculation is relative to that.')
   }
 
-  let strength = strengthArmy(army)
-  strength += strengthModifierArmyGroup({armyGroup})
-  strength += strengthModifierTerrain({army, empire, terrain})
+  let strength = armyStrength({army})
+  strength += armyGroupStrengthModifier({armyGroup})
+  strength += terrainStrengthModifier({army, empire, terrain})
 
   return strengthBounded(strength)
 }
+
+export default strength

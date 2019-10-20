@@ -4,6 +4,7 @@ import _ from 'lodash'
 import {t} from 'l10n'
 import out from './out'
 import {sprintf} from 'sprintf-js'
+import * as simulation from 'simulation'
 
 /**
  * Take an army group and return text information about the group.
@@ -16,7 +17,7 @@ import {sprintf} from 'sprintf-js'
 export const string = ({armyGroup}) => {
   // Sort to make things prettier.
   armyGroup = gameObjects.armyGroup.sort(armyGroup)
-  const strengthModifier = gameObjects.armyGroup.strengthModifier({armyGroup})
+  const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup})
   const info = []
   // Overall group information.
   info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
@@ -24,7 +25,7 @@ export const string = ({armyGroup}) => {
   // Information about each unit in the army.
   armyGroup.reduce((info, army) => {
     // Needed to calculate any accumulated strength modifications on the individual army.
-    const strength = gameObjects.army.strength(army)
+    const strength = simulation.strength.army.strength({army})
 
     info.push(`${sprintf('%-17s', gameObjects.common.name(army))} Str: ${strength} (${gameRules.strengthBounded(strength + strengthModifier)})`)
 

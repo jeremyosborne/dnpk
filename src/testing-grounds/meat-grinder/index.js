@@ -12,7 +12,6 @@
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import fight from './fight'
-import * as gameObjects from 'game-objects'
 import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'

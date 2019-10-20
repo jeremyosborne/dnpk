@@ -43,7 +43,7 @@ export const randomWeightedArmies = ({
 
       // Individual army strength determines how an army is chosen and we make sure
       // everything has a higher chance of being picked over a hero.
-      const strength = gameObjects.army.strength(a)
+      const strength = a.strength
       return 10 - strength + 2 * (10 - strength)
     }
   })

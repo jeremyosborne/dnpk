@@ -1,9 +1,8 @@
+import * as testModule from './army-group'
 import * as dataSourceModdables from 'data-source-moddables'
 import _ from 'lodash'
 
-import * as testModule from './strength-modifier'
-
-describe('game-objects.army-group.strength-modifier', () => {
+describe('strength.army-group', () => {
   // Hero by itself should supply +1
   // Equipment with command modifier should add +1
   // total: +2

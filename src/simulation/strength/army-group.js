@@ -1,4 +1,4 @@
-import * as army from '../army'
+import * as army from './army'
 import _ from 'lodash'
 
 /**
@@ -79,7 +79,7 @@ export const strengthModifierHero = ({armyGroup}) => {
   return _.reduce(heroes, (heroBonus, hero) => {
     // Needs to include battle items, which are applied to individual strength
     // and can effect total bonus to army group.
-    const heroStrength = army.strength(hero)
+    const heroStrength = army.strength({army: hero})
     if (heroStrength >= 4 && heroStrength <= 6) {
       return heroBonus + 1
     } else if (heroStrength >= 7 && heroStrength <= 8) {

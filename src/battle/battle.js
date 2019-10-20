@@ -1,6 +1,7 @@
 import * as gameObjects from 'game-objects'
 import _ from 'lodash'
 import {d as _d} from 'random'
+import strength from 'simulation/strength'
 
 /**
  * Calculate the results of violence between two units.
@@ -121,14 +122,14 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
     const attacker = attackers.survivors[0]
     // Calculate strength modifier from the original group, which should not
     // be modified during battle.
-    const attackerStrength = gameObjects.common.strength({
+    const attackerStrength = strength({
       army: attacker,
       armyGroup: attackers.armyGroup,
       empire: attackers.empire,
       terrain,
     })
     const defender = defenders.survivors[0]
-    const defenderStrength = gameObjects.common.strength({
+    const defenderStrength = strength({
       army: defender,
       armyGroup: defenders.armyGroup,
       empire: defenders.empire,

@@ -1,7 +1,7 @@
 import * as dataSourceConfig from 'data-source-config'
 import debug from 'debug'
 
-const logger = debug('game-rules')
+const logger = debug('dnpk/game-rules')
 
 let NAME_DEFAULT = dataSourceConfig.get('RULES_NAME_DEFAULT') || 'classic'
 
