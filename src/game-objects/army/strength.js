@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {strengthBounded} from '../rules'
+import {strengthBounded} from 'game-rules'
 
 /**
  * Calculates the effective strength of an individual army.

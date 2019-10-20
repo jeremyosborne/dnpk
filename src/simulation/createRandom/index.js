@@ -27,7 +27,6 @@ export const createRandom = ({
   typeBlacklist = [
     'armyGroup',
     'common',
-    'rules',
   ],
 } = {}) => {
   const typeModule = _.includes(typeBlacklist, type) ? null : gameObjects[type]

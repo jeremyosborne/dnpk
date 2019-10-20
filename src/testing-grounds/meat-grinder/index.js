@@ -13,6 +13,7 @@ import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import fight from './fight'
 import * as gameObjects from 'game-objects'
+import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
@@ -33,7 +34,7 @@ export const menu = async () => {
   }
 
   out.t('Empire: {{empire, commonName}}', protagonist)
-  out.t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()})
+  out.t('Using ruleset: {{rules}}', {rules: gameRules.nameDefault()})
   out.t('Flag: {{flag}}', {flag: ui.text.empire.flag.string(protagonist)})
   out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
 

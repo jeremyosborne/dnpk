@@ -1,7 +1,7 @@
 import * as testMod from './'
 import * as dataSourceModdables from 'data-source-moddables'
 
-describe('game-objects.rules.dir', () => {
+describe('game-rules.dir', () => {
   beforeEach(async () => {
     // load dependencies...
     await dataSourceModdables.read()

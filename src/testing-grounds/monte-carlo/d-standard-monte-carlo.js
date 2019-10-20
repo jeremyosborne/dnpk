@@ -1,5 +1,5 @@
-import * as gameObjects from 'game-objects'
 import {prompt} from 'enquirer'
+import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
@@ -37,7 +37,7 @@ export const dStandardMonteCarlo = async () => {
   out('Distribution of results for d.standard()')
   // This isn't actually defined in the configurable rules...
   out('Minimum defined by rules:', 1)
-  out('Maximum defined by rules:', gameObjects.rules.get('diceStandardMax'))
+  out('Maximum defined by rules:', gameRules.get('diceStandardMax'))
   out(`Total # of rolls: ${times}`)
   _.forEach(counters, (counter) => {
     out(`${counter.roll}: ${counter.count} (${_.round(counter.count / times, 2)})`)

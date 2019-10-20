@@ -1,7 +1,7 @@
 import * as testMod from './'
 import * as dataSourceModdables from 'data-source-moddables'
 
-describe('game-objects.rules.strengthBounded', () => {
+describe('game-rules.strengthBounded', () => {
   beforeEach(async () => {
     // load dependencies...
     await dataSourceModdables.read()

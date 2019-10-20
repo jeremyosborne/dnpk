@@ -14,6 +14,7 @@ export const create = () => {
   const armyGroup = []
 
   armyGroup.id = uuid()
+  armyGroup.type = 'army-group'
 
   return armyGroup
 }

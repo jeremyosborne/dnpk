@@ -1,5 +1,6 @@
 import {battle} from 'battle'
 import * as gameObjects from 'game-objects'
+import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
 import out from 'out'
@@ -48,7 +49,7 @@ export const playerRandom = ({
 export const mockBattle = async () => {
   out.t('Mock battle')
 
-  out.t('Using ruleset: {{rules}}', {rules: gameObjects.rules.nameDefault()})
+  out.t('Using ruleset: {{rules}}', {rules: gameRules.nameDefault()})
 
   // Not deduping empires right now. That's fine, we can have infighting.
   const player1 = playerRandom()

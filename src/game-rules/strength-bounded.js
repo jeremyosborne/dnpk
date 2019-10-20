@@ -1,7 +1,7 @@
 import debug from 'debug'
 import rulesGet from './get'
 
-const logger = debug('game-objects/rules/strength-bounded')
+const logger = debug('game-rules/strength-bounded')
 
 // Classic values.
 const DEFAULT_MIN_STRENGTH = 0

@@ -74,10 +74,10 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Find a JavaScript lib like numpy/scipy.
 - [ ] Clean up `game-objects` so that they are the basic object data types and individual object helpers and nothing more.
     - [ ] Take a look at what interfaces I have kept consistent and formally define them so that I can move some of the tangled cross type work up a level into a factory.
     - [ ] ~`naming`~ and `rules` don't fit `game-objects`. They're something else because they're not really instantiated, they're not entities that will have a lifecycle in the game, but they are modifiable.
+- [ ] Find a JavaScript lib like numpy/scipy.
 
 ## Ideas
 

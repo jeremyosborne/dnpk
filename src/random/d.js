@@ -1,4 +1,4 @@
-import * as gameObjects from 'game-objects'
+import * as gameRules from 'game-rules'
 import {randint} from './randint'
 
 /**
@@ -21,5 +21,5 @@ export default d
  * @return {number} value of the dice roll.
  */
 d.standard = () => {
-  return randint(1, gameObjects.rules.get('diceStandardMax'))
+  return randint(1, gameRules.get('diceStandardMax'))
 }
