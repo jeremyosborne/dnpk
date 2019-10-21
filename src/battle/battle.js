@@ -8,8 +8,8 @@ import strength from 'simulation/strength'
  *
  * This function determines who has hit who and who has damaged who.
  *
- * @param {object} attacker must implement `.strength`.
- * @param {object} defender must implement `.strength`.
+ * @param {object} attacker assumed `army` like object, must implement `.strength`.
+ * @param {object} defender assumed `army` like object, must implement `.strength`.
  *
  * @param {object} config as dictionary
  * @param {function} config.d the die to use for combat. Classic rules indicate
@@ -74,10 +74,14 @@ export const violence = ({
  *
  * @param {object} args as dictionary
  * @param {object} args.attackers data for the aggressors.
- * @param {object[]} args.attackers.armyGroup the aggressors armies.
+ * @param {object|object[]} args.attackers.armyGroup the aggressors armies, which
+ * can be in an object that implements `armies` or can be a simple array of
+ * `army` types.
  * @param {object} args.attackers.empire aggressor empire.
  * @param {object} args.defenders data for the defenders.
- * @param {object[]} args.defenders.armyGroup the defending units.
+ * @param {object|object[]} args.defenders.armyGroup the defending units, which
+ * can be in an object that implements `armies` or can be a simple array of
+ * `army` types.
  * @param {object} args.defenders.empire the defending empire.
  * @param {object} args.terrain where the battle is taking place.
  *
@@ -87,12 +91,12 @@ export const violence = ({
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
- * @property {object[]} attackers.armyGroup reference to the army group passed in.
+ * @property {object|object[]} attackers.armyGroup reference to the army group passed in.
  * @property {object[]} attackers.casualties copies of army units destroyed.
  * @property {object} attackers.empire reference to the empire passsed in.
  * @property {object[]} attackers.survivors copies of army units that have survived the battle.
  * @property {object} defenders clone of the argument.
- * @property {object[]} defenders.armyGroup reference to the army group passed in.
+ * @property {object|object[]} defenders.armyGroup reference to the army group passed in.
  * @property {object[]} defenders.casualties copies of army units destroyed.
  * @property {object} defenders.empire reference to the empire passsed in.
  * @property {object[]} defenders.survivors copies of army units that have survived the battle.
@@ -109,9 +113,19 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
   // can be translated to "downed" or "injured" or "captured" or "routed" units.
   // A bit morbid, but allows our cloned input to just become output as anyone
   // not dead is a survior.
-  attackers.survivors = gameObjects.armyGroup.sort(_.cloneDeep(attackers.armyGroup))
+  attackers.survivors = gameObjects.armyGroup.sort(Array.isArray(attackers.armyGroup)
+    // is a managed list of armies participating in this battle.
+    ? _.cloneDeep(attackers.armyGroup)
+    // is an official `army-group` type.
+    : _.cloneDeep(_.get(attackers, 'armyGroup.armies')) || []
+  )
   attackers.casualties = []
-  defenders.survivors = gameObjects.armyGroup.sort(_.cloneDeep(defenders.armyGroup))
+  defenders.survivors = gameObjects.armyGroup.sort(Array.isArray(defenders.armyGroup)
+    // is a managed list of armies participating in this battle.
+    ? _.cloneDeep(defenders.armyGroup)
+    // is an official `army-group` type.
+    : _.cloneDeep(_.get(defenders, 'armyGroup.armies')) || []
+  )
   defenders.casualties = []
   // Track What happened during this battle.
   const events = []

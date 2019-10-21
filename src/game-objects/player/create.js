@@ -15,16 +15,25 @@ export const create = () => {
      * @type {object[]}
      */
     armyGroups: [],
+
     /**
      * 1:1 empire to player.
      * @type {object}
      */
     empire: null,
+
     /**
      * All instances get ids.
      * @type {string}
      */
     id: uuid(),
+
+    // future planned extension, allows for type of player, like `human`
+    // name: 'human',
+
+    // future planned extension, allows for custom names of a player
+    // nameInstance: 'n00b'
+
     /**
      * Keep with the duck-typing.
      * @type {string}

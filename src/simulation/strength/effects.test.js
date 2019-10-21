@@ -11,6 +11,7 @@ describe('strength.effects', () => {
     const effects = [
       {name: 'brawn', magnitude: 4},
       {name: 'brawn', magnitude: -2},
+      {name: 'brawn', magnitude: null}, // should never happen, but shouldn't cause an explosion.
       {name: 'command', magnitude: 1},
     ]
 

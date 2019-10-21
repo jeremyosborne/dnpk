@@ -9,21 +9,22 @@ import * as simulation from 'simulation'
 /**
  * Take an army group and return text information about the group.
  *
- * @param {object[]} armyGroup of armies
+ * @param {object|object[]} armyGroup list of armies or a formal `army-group`.
  *
  * @return {string} multi-line, slightly formatted, plain text diagnostic
  * information about the army group.
  */
 export const string = ({armyGroup}) => {
+  let armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   // Sort to make things prettier.
-  armyGroup = gameObjects.armyGroup.sort(armyGroup)
-  const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup})
+  armies = gameObjects.armyGroup.sort(armies)
+  const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup: armies})
   const info = []
   // Overall group information.
   info.push(t('Army group bonus: {{bonus}}', {bonus: strengthModifier}))
 
   // Information about each unit in the army.
-  armyGroup.reduce((info, army) => {
+  armies.reduce((info, army) => {
     // Needed to calculate any accumulated strength modifications on the individual army.
     const strength = simulation.strength.army.strength({army})
 

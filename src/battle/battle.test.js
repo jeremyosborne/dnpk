@@ -58,6 +58,9 @@ describe('battle.battle', () => {
     it('gets to contribute to the line coverage in a negative way', () => {
       // If we get any response we're good, and we make the coverage report
       // scream for attention.
+      //
+      // TODO: test native arrays of attackers/defenders along with `army-group`
+      // attackers and defenders.
       expect(!!testMod.battle({attackers: [], defenders: [], terrain: {name: 'plains'}})).toEqual(true)
     })
   })

@@ -10,7 +10,7 @@ import _ from 'lodash'
  * @param {object[]} args.armyGroup to add
  */
 export const add = ({player, armyGroup}) => {
-  if (_.indexOf(player.armyGroups, armyGroup) === -1) {
+  if (player && armyGroup && (!_.find(player.armyGroups, (ag) => ag.id === armyGroup.id))) {
     player.armyGroups.push(armyGroup)
   }
 }

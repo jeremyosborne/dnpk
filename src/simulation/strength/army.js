@@ -18,7 +18,7 @@ import _ from 'lodash'
  *
  * @return {number} the strength modifier or 0
  */
-export const strengthModifierHero = ({army}) => {
+export const strengthModifierHero = ({army = {}} = {}) => {
   if (!gameObjects.army.is.hero(army)) {
     return 0
   }
@@ -33,6 +33,34 @@ export const strengthModifierHero = ({army}) => {
   } else if (heroStrength >= 9) {
     return 3
   }
+}
+
+/**
+ * Calculates total `brawn` based modifier that an `army` type could have.
+ *
+ * @param {Object} args
+ * @param {Object} [args.army={}] the army for which to compute the modifier.
+ * @param {object} [config] configuration as dictionary
+ * @param {function[]} [config.modifierFns] which modifier functions will be
+ * used to calculate the terrain strength modifier.
+ *
+ * @return {number} brawn modifier, or 0
+ */
+export const strengthModifierBrawn = ({
+  army = {}
+} = {}, {
+  modifierFns = [
+    equipment.strengthModifierBrawn,
+    effects.strengthModifierBrawn,
+  ],
+} = {}) => {
+  return _.reduce(modifierFns, (modifier, fn) => {
+    // Due to how functions are implemented, the modifier functions expect an
+    // object that implement something, and we pass the army as the container
+    // object that implements the interface from which the strength-modifier
+    // is computed.
+    return modifier + fn(army)
+  }, 0)
 }
 
 /**
@@ -55,11 +83,9 @@ export const strengthModifierHero = ({army}) => {
  */
 export const strength = ({
   army
-}, {
+} = {}, {
   modifierFns = [
-    // Checks equipment for brawn modifiers.
-    ({army}) => equipment.strengthModifierBrawn(army),
-    ({army}) => effects.strengthModifierBrawn(army),
+    strengthModifierBrawn,
   ],
 } = {}) => {
   // Args passed to strength modifier callbacks.

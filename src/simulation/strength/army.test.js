@@ -12,6 +12,12 @@ describe('strength.army', () => {
     await dataSourceModdables.read()
   })
 
+  describe('strengthModifierBrawn', () => {
+    it('does not explode', () => {
+      expect(testModule.strengthModifierBrawn()).toEqual(0)
+    })
+  })
+
   describe('strengthModifierHero', () => {
     const armyHero = {
       name: 'hero',
@@ -34,6 +40,12 @@ describe('strength.army', () => {
       expect(testModule.strengthModifierHero({army: testHero})).toEqual(2)
       testHero.strength = 9
       expect(testModule.strengthModifierHero({army: testHero})).toEqual(3)
+      testHero.strength = 1000
+      expect(testModule.strengthModifierHero({army: testHero})).toEqual(3)
+    })
+
+    it('does not explode', () => {
+      expect(testModule.strengthModifierHero()).toEqual(0)
     })
   })
 
@@ -43,6 +55,12 @@ describe('strength.army', () => {
         strength: 4,
       }
       expect(testModule.strength({army: fakeArmy})).toEqual(4)
+    })
+
+    it('does not explode', () => {
+      // Potentially useful for aggregate functions that don't want to be tied
+      // to always reporting on the status relative to an army.
+      expect(testModule.strength()).toEqual(0)
     })
 
     it('works with equipment + effects', () => {

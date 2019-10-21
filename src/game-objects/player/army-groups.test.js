@@ -1,14 +1,14 @@
+import * as armyGroup from '../army-group'
 import * as testMod from './'
 
 describe('game-objects.player.armyGroups', () => {
   describe('.add', () => {
     it('works as expected', () => {
       const testPlayer = testMod.create()
-      // This test assumes an `armyGroup` is a plain array, which it will likely not always be.
-      const testArmyGroup = [{}]
-      testMod.armyGroups.add({player: testPlayer, testArmyGroup})
+      const testArmyGroup = armyGroup.create()
+      testMod.armyGroups.add({player: testPlayer, armyGroup: testArmyGroup})
       expect(testPlayer.armyGroups.length).toEqual(1)
-      testMod.armyGroups.add({player: testPlayer, testArmyGroup})
+      testMod.armyGroups.add({player: testPlayer, armyGroup: testArmyGroup})
       // Does not duplicate
       expect(testPlayer.armyGroups.length).toEqual(1)
     })

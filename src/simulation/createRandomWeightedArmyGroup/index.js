@@ -10,11 +10,11 @@ import randomWeightedArmies from '../randomWeightedArmies'
  * potential set from which we sample.
  * @param {number} [args.size=8] size of the army-group returned.
  *
- * @return {object[]} army instances in an army-group.
+ * @return {object} an `army-group`
  */
 export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
-  const armyGroup = names.map((name) => gameObjects.army.create({name}))
-  // Perform a UI friendly sort before returning.
+  const armies = names.map((name) => gameObjects.army.create({name}))
+  const armyGroup = gameObjects.armyGroup.create({armies})
   return gameObjects.armyGroup.sort(armyGroup)
 }

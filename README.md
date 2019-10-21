@@ -18,6 +18,12 @@ A wargame inspired by the original [Warlords game by SSG](https://en.wikipedia.o
     * Use [esdoc](https://esdoc.org/) style to document functions.
         * Output lives in `docs/src` and is `.gitignore`d.
     * As the code matures, and where it makes sense, move stable types to [flow](https://flow.org/) types and interfaces and document the types, decreasing the amount of detailed oriented `esdoc` style documentation a function or type needs.
+* Entities and Game Objects
+    * Entities are virtual people, places, and things that together create the system of the game world.
+    * Entities should always be instantiable, and should always be instantiated (no singletons).
+    * Entities should implement an `.id` property that is unique within the context of a single game.
+        * While some methods allow for data mutation, due to the fact that many methods will make defensive copies and not mutate data, the `.id` property allows for us to make quick checks via a string comparison and assert identity by `objRef1.id === objRef2.id`.
+    * Due to history, `armies` is a native array of `army` types, and `armyGroup` now stands for a formal `army-group` type.
 * Events
     * `type='event'` field required to be consistent with other duck typing.
     * `name` field of event is assumed to be tokenized (vs. having arbitrary `subName` style of object naming hierarchies).
@@ -74,14 +80,16 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Review and refactor `simulation/strength` module.
-    - [ ] Add in shrine bonuses for strength effects, which should be a permanent strength effect applied to `army.effects`.
+- [ ] Remove `game-objects.terrain.strength-modifier` since code has been successfully relocated.
+- [ ] Battle results conclusion methods (kill, promote winners, etc).
+- [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Clean up `game-objects` so that they are the basic object data types and individual object helpers and nothing more.
     - [ ] Take a look at what interfaces I have kept consistent and formally define them so that I can move some of the tangled cross type work up a level into a factory.
 - [ ] Find a JavaScript lib like numpy/scipy.
 
 ## Ideas
 
+- [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
 - [ ] Rules where instead of losing a battle fully, one group can route.
 - [ ] Prisoners.

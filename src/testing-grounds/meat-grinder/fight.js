@@ -1,9 +1,36 @@
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
+import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
+import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
+
+export const kill = ({
+  armyGroup = [],
+  casualties = [],
+}) => {
+  const casualtyMap = _.reduce(casualties, (cm, a) => {
+    cm[a.id] = true
+    return cm
+  }, {})
+  // TODO: unattach and return any equipment that the dead carried.
+  // const equipment = ....
+  let updatedArmyGroup = _.reduce(armyGroup, (uag, a) => {
+    if (!casualtyMap[a.id]) {
+      uag.push(a)
+    }
+    return uag
+  }, gameObjects.armyGroup.create())
+  // Probably no-change if previous army-group was sorted, but do it anyway.
+  updatedArmyGroup = gameObjects.armyGroup.sort(updatedArmyGroup)
+  return {
+    armyGroup: updatedArmyGroup,
+    // TODO: return equipment from fallen heroes
+    // equipment,
+  }
+}
 
 export const fight = async () => {
   // Protection against protagonist not existing should happen before we enter.
@@ -17,10 +44,17 @@ export const fight = async () => {
     },
     type: 'empire',
   })
-  // TODO: size relative to the protagonist army-group size and strength.
-  const antagonistArmyGroup = simulation.createRandomWeightedArmyGroup({size: 4})
-  // TODO: exclude water, mountains, etc....
-  const terrain = simulation.createRandom({type: 'terrain'})
+  // We want the protagonist to, in general, win the battle but lose the war.
+  const antagonistArmyGroup = simulation.createRandomWeightedArmyGroup({
+    size: Math.ceil(protagonistArmyGroup.length / 2)
+  })
+  const terrain = simulation.createRandom({
+    exclude: {
+      mountain: true,
+      water: true,
+    },
+    type: 'terrain',
+  })
 
   // Engage the 2 groups in battle.
 
@@ -61,6 +95,14 @@ export const fight = async () => {
 
   // TODO: this needs a facelift for this "idle-adventure mode"
   ui.text.battle.results({attackers, defenders})
+
+  const {armyGroup: protagonistArmyGroupUpdated} = kill({
+    armyGroup: protagonistArmyGroup,
+    casualties: attackers.casualties,
+  })
+
+  out.t('A moment of silence for your fallen: {{armyGroup, commonName}}', {armyGroup: attackers.casualties})
+  out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroupUpdated})
 
   out('\n\n')
 

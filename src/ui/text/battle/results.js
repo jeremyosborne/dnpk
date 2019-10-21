@@ -1,19 +1,11 @@
 import * as textEmpire from '../empire'
-import * as gameObjects from 'game-objects'
 import {t} from 'l10n'
-import _ from 'lodash'
 import out from '../out'
 
 const casualtyReport = ({survivors, casualties}) => {
-  return t('survivors ({{survivors.length}}) {{survivors.names}}\ncasualties ({{casualties.length}}) {{casualties.names}}', {
-    survivors: {
-      length: survivors.length,
-      names: _.map(survivors, (a) => gameObjects.common.name(a)).join(', '),
-    },
-    casualties: {
-      length: casualties.length,
-      names: _.map(casualties, (a) => gameObjects.common.name(a)).join(', '),
-    }
+  return t('survivors ({{survivors.length}}) {{survivors, commonName}}\ncasualties ({{casualties.length}}) {{casualties, commonName}}', {
+    survivors,
+    casualties,
   })
 }
 
@@ -31,7 +23,7 @@ const casualtyReport = ({survivors, casualties}) => {
  * @return {string}
  */
 export const string = ({attackers, defenders}) => {
-  const info = [t('Battle Results!')]
+  const info = [t('Battle Results')]
 
   info.push(textEmpire.title.string(attackers))
   info.push(casualtyReport(attackers))
