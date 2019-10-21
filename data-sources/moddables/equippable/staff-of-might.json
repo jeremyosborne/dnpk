@@ -3,7 +3,7 @@
   "documentation": "Boosts individual hero strength.",
   "effects": [
     {
-      "name": "strength",
+      "name": "brawn",
       "magnitude": 3
     }
   ]

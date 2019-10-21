@@ -1,5 +1,5 @@
 {
-  "name": "strength",
+  "name": "brawn",
   "documentation": "Provides an individual unit strength bonus. Duration and magnitude are considered defaults, these values will often be edited.",
   "duration": -1,
   "magnitude": 1

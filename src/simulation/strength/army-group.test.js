@@ -31,7 +31,7 @@ describe('strength.army-group', () => {
   })
 
   describe('strengthModifierHero', () => {
-    it('handles various hero strength < 4', () => {
+    it('handles various hero strength', () => {
       const testHero = _.cloneDeep(armyHero)
       testHero.strength = 3
       expect(testModule.strengthModifierHero({armyGroup: [testHero]})).toEqual(0)
