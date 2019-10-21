@@ -82,8 +82,7 @@ Modules the make use of runtime configuration settings should list those within 
 
 - [ ] Battle results conclusion methods (kill, promote winners, etc).
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
-- [ ] Clean up `game-objects` so that they are the basic object data types and individual object helpers and nothing more.
-    - [ ] Take a look at what interfaces I have kept consistent and formally define them so that I can move some of the tangled cross type work up a level into a factory.
+- [ ] What to do with `game-objects.common` and the other oddities like `game-objects.army.is.*` and `game-objects.army.do.*`.
 - [ ] Find a JavaScript lib like numpy/scipy.
 
 ## Ideas
