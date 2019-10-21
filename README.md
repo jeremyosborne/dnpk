@@ -80,7 +80,6 @@ Modules the make use of runtime configuration settings should list those within 
 
 ## TODO
 
-- [ ] Remove `game-objects.terrain.strength-modifier` since code has been successfully relocated.
 - [ ] Battle results conclusion methods (kill, promote winners, etc).
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Clean up `game-objects` so that they are the basic object data types and individual object helpers and nothing more.
