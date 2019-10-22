@@ -2,41 +2,15 @@ import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
-import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
-
-export const kill = ({
-  armyGroup = [],
-  casualties = [],
-}) => {
-  const casualtyMap = _.reduce(casualties, (cm, a) => {
-    cm[a.id] = true
-    return cm
-  }, {})
-  // TODO: unattach and return any equipment that the dead carried.
-  // const equipment = ....
-  let updatedArmyGroup = _.reduce(armyGroup, (uag, a) => {
-    if (!casualtyMap[a.id]) {
-      uag.push(a)
-    }
-    return uag
-  }, gameObjects.armyGroup.create())
-  // Probably no-change if previous army-group was sorted, but do it anyway.
-  updatedArmyGroup = gameObjects.armyGroup.sort(updatedArmyGroup)
-  return {
-    armyGroup: updatedArmyGroup,
-    // TODO: return equipment from fallen heroes
-    // equipment,
-  }
-}
 
 export const fight = async () => {
   // Protection against protagonist not existing should happen before we enter.
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
-  const protagonistArmyGroup = protagonist.armyGroups[0]
+  let protagonistArmyGroup = protagonist.armyGroups[0]
 
   const antagonistEmpire = simulation.createRandom({
     exclude: {
@@ -96,13 +70,31 @@ export const fight = async () => {
   // TODO: this needs a facelift for this "idle-adventure mode"
   ui.text.battle.results({attackers, defenders})
 
-  const {armyGroup: protagonistArmyGroupUpdated} = kill({
+  const {casualties, equipment} = gameObjects.armyGroup.kill({
     armyGroup: protagonistArmyGroup,
     casualties: attackers.casualties,
   })
 
-  out.t('A moment of silence for your fallen: {{armyGroup, commonName}}', {armyGroup: attackers.casualties})
-  out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroupUpdated})
+  if (casualties.length) {
+    out.t('A moment of silence for your fallen: {{armyGroup, commonName}}', {armyGroup: casualties})
+  } else {
+    out.t('You made it through this battle unscathed.')
+  }
+
+  if (equipment.length) {
+    out.t('You lost the following equipment {{equpiment, commonName}}', {equipment})
+  }
+  // TODO: Allow redistribution of equipment.
+
+  if (protagonistArmyGroup.armies.length) {
+    out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
+  } else {
+    out.t('You have been defeated.')
+  }
+
+  // Save the updated results.
+  protagonistArmyGroup = gameObjects.armyGroup.sort(protagonistArmyGroup)
+  await dataSourceGame.protagonist.save({armyGroups: [protagonistArmyGroup]})
 
   out('\n\n')
 
