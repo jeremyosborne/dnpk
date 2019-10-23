@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import * as dataSourceConfig from 'data-source-config'
-import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import i18next from 'i18next'
 import _ from 'lodash'
 
@@ -38,7 +38,7 @@ export const _formatters = {
     } else {
       values = [value]
     }
-    return _.map(values, (v) => gameObjects.common.name(v)).join(', ')
+    return _.map(values, (v) => gameObjectsCommon.name(v)).join(', ')
   },
 }
 

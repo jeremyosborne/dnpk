@@ -1,6 +1,7 @@
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import out from 'out'
 import * as simulation from 'simulation'
@@ -20,7 +21,7 @@ export const fight = async () => {
   })
   // We want the protagonist to, in general, win the battle but lose the war.
   const antagonistArmyGroup = simulation.createRandomWeightedArmyGroup({
-    size: Math.ceil(gameObjects.armyGroup.size(protagonistArmyGroup) / 2)
+    size: Math.ceil(gameObjectsCommon.armies.size(protagonistArmyGroup) / 2)
   })
   const terrain = simulation.createRandom({
     exclude: {
@@ -70,7 +71,7 @@ export const fight = async () => {
   // TODO: this needs a facelift for this "idle-adventure mode"
   ui.text.battle.results({attackers, defenders})
 
-  const {casualties, equipment} = gameObjects.armyGroup.do.kill({
+  const {casualties, equipment} = gameObjectsCommon.armies.kill({
     armyGroup: protagonistArmyGroup,
     casualties: attackers.casualties,
   })
@@ -86,7 +87,7 @@ export const fight = async () => {
   }
   // TODO: Allow redistribution of equipment.
 
-  if (gameObjects.armyGroup.size(protagonistArmyGroup)) {
+  if (gameObjectsCommon.armies(protagonistArmyGroup)) {
     out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
   } else {
     out.t('You have been defeated.')

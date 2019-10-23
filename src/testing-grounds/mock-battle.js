@@ -1,5 +1,6 @@
 import {battle} from 'battle'
 import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
@@ -58,7 +59,7 @@ export const mockBattle = async () => {
 
   // Engage the 2 groups in battle.
 
-  out(`\nBattle commencing on terrain (${gameObjects.common.name(terrain)}), between:`)
+  out(`\nBattle commencing on terrain (${gameObjectsCommon.name(terrain)}), between:`)
   out('')
   ui.text.empire.title(player1)
   ui.text.armyGroup({armyGroup: player1.armyGroups[0]})

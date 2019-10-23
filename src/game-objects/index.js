@@ -10,9 +10,6 @@ export {army}
 import * as armyGroup from './army-group' // eslint-disable-line import/first
 export {armyGroup}
 
-import * as common from './common' // eslint-disable-line import/first
-export {common}
-
 import * as effect from './effect' // eslint-disable-line import/first
 export {effect}
 

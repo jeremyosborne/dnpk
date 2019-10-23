@@ -19,7 +19,6 @@ const _logger = debug('dnpk/strength/terrain-strength-modifier')
 export const strengthModifierTerrainArmy = (
   {army, terrain},
   {
-    // no logging by default.
     logger = _logger
   } = {}
 ) => {

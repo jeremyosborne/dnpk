@@ -1,4 +1,4 @@
-import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from '../out'
@@ -37,7 +37,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: attackerColor,
-        label: gameObjects.common.name(ev.attacker.ref),
+        label: gameObjectsCommon.name(ev.attacker.ref),
       },
     }
     const defender = {
@@ -45,7 +45,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: defenderColor,
-        label: gameObjects.common.name(ev.defender.ref),
+        label: gameObjectsCommon.name(ev.defender.ref),
       }
     }
     if (ev.name === 'battle:round:start') {

@@ -1,6 +1,6 @@
 import debug from 'debug'
 import flag from '../flag'
-import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import out from '../out'
 
 const logger = debug('dnpk/ui/text/empire')
@@ -16,7 +16,7 @@ const logger = debug('dnpk/ui/text/empire')
  * @return {string}
  */
 export const string = ({empire}) => {
-  const name = gameObjects.common.name(empire)
+  const name = gameObjectsCommon.name(empire)
   if (!name) {
     logger('warning, called title() with incompatible data param of:', empire)
   }
