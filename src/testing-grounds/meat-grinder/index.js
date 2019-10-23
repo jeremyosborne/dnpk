@@ -12,6 +12,7 @@
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import fight from './fight'
+import * as gameObjects from 'game-objects'
 import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
@@ -27,7 +28,7 @@ export const menu = async () => {
   }
 
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
-  if (!armyGroup) {
+  if (!gameObjects.armyGroup.size(armyGroup)) {
     await hitReturnToContinue(t('You must have an army-group before participating in the meat grinder.'))
     return null
   }

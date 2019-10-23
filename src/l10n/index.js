@@ -29,7 +29,15 @@ export const _formatters = {
   // tries to display the best name of an object, or the best names as a human
   // list for an array of objects.
   commonName: (value, format, lng) => {
-    const values = Array.isArray(value) ? value : [value]
+    let values
+    if (Array.isArray(value)) {
+      values = value
+    } else if (value.armies) {
+      // Concession to the added complexity of army-groups.
+      values = value.armies
+    } else {
+      values = [value]
+    }
     return _.map(values, (v) => gameObjects.common.name(v)).join(', ')
   },
 }
