@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
  * Create a counter.
  *
@@ -83,6 +85,18 @@ export const create = (cache = {}) => {
   }
 
   /**
+   * Return a sorted list of current counts in the counter.
+   *
+   * @return {object[]} Array of {label, value} objects sorted in descending
+   * order by value. If no counts are in the counter, an empty array will be
+   * returned.
+   */
+  counter.sorted = () => {
+    const counts = _.map(cache, (value, label) => ({label, value}))
+    return _.orderBy(counts, ['value'], ['desc'])
+  }
+
+  /**
    * Decrement a value.
    *
    * @param {String} key to modify
@@ -92,6 +106,15 @@ export const create = (cache = {}) => {
   counter.subtract = (key, value = 1) => {
     const update = cache[key] - value
     cache[key] = isNaN(update) ? -value : update
+  }
+
+  /**
+   * Total of all the values currently in the counter.
+   *
+   * @return {[type]} [description]
+   */
+  counter.sum = () => {
+    return _.sum(_.values(cache)) || 0
   }
 
   /**

@@ -1,5 +1,15 @@
-import protagonist from './protagonist'
+import {killCounter, deathCounter} from './counters' // eslint-disable-line import/first
+export {killCounter, deathCounter}
+
+import protagonist from './protagonist' // eslint-disable-line import/first
 export {protagonist}
+
+// Register module here to opt into the batch loading, remove, writing, etc.
+const aggregate = [
+  deathCounter,
+  killCounter,
+  protagonist,
+]
 
 /**
  * Remove all of the testing-ground state from disk.
@@ -7,7 +17,8 @@ export {protagonist}
  * @return {Promise} [description]
  */
 export const remove = async () => {
-  await protagonist.remove()
+  const batch = Promise.all(aggregate.map((m) => m.remove()))
+  await batch
 }
 
 /**
@@ -16,7 +27,8 @@ export const remove = async () => {
  * @return {Promise}
  */
 export const write = async () => {
-  await protagonist.write()
+  const batch = Promise.all(aggregate.map((m) => m.write()))
+  await batch
 }
 
 /**
@@ -29,5 +41,6 @@ export const write = async () => {
  * @return {Promise}
  */
 export const read = async () => {
-  await protagonist.read()
+  const batch = Promise.all(aggregate.map((m) => m.read()))
+  await batch
 }

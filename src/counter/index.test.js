@@ -28,4 +28,30 @@ describe('counter', () => {
       expect(counter2.get('dog')).toEqual(0)
     })
   })
+
+  describe('sorted', () => {
+    it('organizes', () => {
+      const counter = testMod.create()
+      counter('dog')
+      counter.set('wiener dog', 10)
+      counter('cat', 2)
+      counter.set('gryphon', -2)
+      expect(counter.sorted()).toEqual([
+        {label: 'wiener dog', value: 10},
+        {label: 'cat', value: 2},
+        {label: 'dog', value: 1},
+        {label: 'gryphon', value: -2},
+      ])
+    })
+  })
+
+  describe('sum', () => {
+    it('does maths', () => {
+      const counter = testMod.create()
+      counter('dog')
+      counter('cat', 2)
+      counter.set('gryphon', -2)
+      expect(counter.sum()).toEqual(1)
+    })
+  })
 })

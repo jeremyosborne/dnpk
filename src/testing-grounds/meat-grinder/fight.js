@@ -85,13 +85,18 @@ export const fight = async () => {
   if (equipment.length) {
     out.t('You lost the following equipment {{equpiment, commonName}}', {equipment})
   }
+
   // TODO: Allow redistribution of equipment.
 
-  if (gameObjectsCommon.armies(protagonistArmyGroup)) {
+  if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
     out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
   } else {
     out.t('You have been defeated.')
   }
+
+  //
+  // TODO: tally kills and deaths.
+  //
 
   // Save the updated results.
   protagonistArmyGroup = gameObjects.armyGroup.sort(protagonistArmyGroup)

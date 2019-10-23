@@ -82,17 +82,16 @@ Modules the make use of runtime configuration settings should list those within 
 
 - [ ] Battle results conclusion methods (kill, promote winners, etc).
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
-- [ ] What to do with `game-objects.common` and the other oddities like `game-objects.army.is.*` and `game-objects.army.do.*`.
 - [ ] Find a JavaScript lib like numpy/scipy.
+- [ ] Keep stats on objects like `army` and `army-group` and `player`.
 
 ## Ideas
 
-- [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
-- [ ] Rules where instead of losing a battle fully, one group can route.
+- [ ] A battle loser can route before being totally destroyed.
 - [ ] Prisoners.
-- [ ] Terrain modifications beyond cities and towers, like traps and fires.
 - [ ] Injuries for fighting in a battle.
-- [ ] Experience for a fighting group.
+- [ ] Terrain modifications beyond cities and towers, like traps and fires.
+- [ ] Experience for an army-group, as well as individual armies. Need a way to keep this from being gamed, like maybe when a group gets renowned it can't disband and keep a bonus, adding new armies dilutes the bonus, etc.
 - [ ] In that very far future where there might be a modder, include how to import additional translations for modded data.
 - [ ] Experiment with [blessed](https://github.com/chjj/blessed) for terminal GUIs.
