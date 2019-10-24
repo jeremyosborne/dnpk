@@ -8,11 +8,15 @@ import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
 
+//
+// Run one fight from beginning to end.
+//
 export const fight = async () => {
   // Protection against protagonist not existing should happen before we enter.
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]
+  const protagonistFlag = ui.text.empire.flag.string({empire: protagonistEmpire})
 
   const antagonistEmpire = simulation.createRandom({
     exclude: {
@@ -24,6 +28,8 @@ export const fight = async () => {
   const antagonistArmyGroup = simulation.createRandomWeightedArmyGroup({
     size: Math.ceil(gameObjectsCommon.armies.size(protagonistArmyGroup) / 2)
   })
+  const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
+
   const terrain = simulation.createRandom({
     exclude: {
       mountain: true,
@@ -34,20 +40,18 @@ export const fight = async () => {
 
   // Engage the 2 groups in battle.
 
-  out('')
-  out.t('Carrying your {{flag}}, your troops march onward: {{armyGroup, commonName}}', {
-    armyGroup: protagonistArmyGroup,
-    flag: ui.text.empire.flag.string({empire: protagonistEmpire}),
+  out.t('Carrying your {{flag}}, your troops venture forth onto {{terrain, commonName}},', {
+    terrain,
+    flag: protagonistFlag,
   })
-  out.t('They venture forth into {{terrain, commonName}}.', {terrain})
-  out.t('The {{flag}} of {{empire, commonName}} flies in the distance.', {
+  out.t('your troops being ({{armyGroup, commonName}})', {armyGroup: protagonistArmyGroup})
+  out.t('The opposing forces of {{empire, commonName}} fly {{flag}} in the distance,', {
     empire: antagonistEmpire,
-    flag: ui.text.empire.flag.string({empire: antagonistEmpire}),
+    flag: antagonistFlag,
   })
-  out.t('You can make out the opposing group: {{armyGroup, commonName}}', {armyGroup: antagonistArmyGroup})
-  out.t('Both forces charge into battle!')
+  out.t('their troops being ({{armyGroup, commonName}}).', {armyGroup: antagonistArmyGroup})
 
-  await hitReturnToContinue('Hit return to see the battle results.')
+  await hitReturnToContinue('Hit return to charge into battle!')
 
   const {
     attackers,
@@ -67,10 +71,12 @@ export const fight = async () => {
 
   ui.text.battle.report({attackerColor: protagonistEmpire.color, defenderColor: antagonistEmpire.color, events})
 
-  out('\n\n')
+  out('')
 
-  // TODO: this needs a facelift for this "idle-adventure mode"
-  ui.text.battle.results({attackers, defenders})
+  out.t('{{winner}} defeats {{loser}}', attackers.survivors.length
+    ? {winner: protagonistFlag, loser: antagonistFlag}
+    : {winner: antagonistFlag, loser: protagonistFlag}
+  )
 
   const {casualties, equipment} = gameObjectsCommon.armies.kill({
     armyGroup: protagonistArmyGroup,
@@ -80,17 +86,16 @@ export const fight = async () => {
   if (casualties.length) {
     out.t('A moment of silence for your fallen: {{armyGroup, commonName}}', {armyGroup: casualties})
   } else {
-    out.t('You made it through this battle unscathed.')
+    out.t('Your troops made it through this battle unscathed.')
   }
 
   if (equipment.length) {
-    out.t('You lost the following equipment {{equpiment, commonName}}', {equipment})
+    _.forEach(equipment, (equippable) => dataSourceGame.equipmentVault.add(equippable))
+    out.t('{{equipment, commonName}} shimmer away and teleport to the equipment vault.', {equipment})
   }
 
-  // TODO: Allow redistribution of equipment. Store in the vault if dropped.
-
   if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
-    out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
+    out.t('Your ({{armyGroup, commonName}}) scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
   } else {
     out.t('You have been defeated.')
   }

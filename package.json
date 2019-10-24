@@ -58,10 +58,11 @@
     "flow-bin": "^0.106.3",
     "husky": "^4.0.0-beta.1",
     "i18next-conv": "^9.1.0",
-    "i18next-parser": "^1.0.0-beta34",
+    "i18next-parser": "^1.0.0-beta36",
     "jest": "^24.9.0"
   },
   "dependencies": {
+    "acorn": "^7.1.0",
     "ajv": "^6.10.2",
     "chalk": "^2.4.2",
     "debug": "^4.1.1",

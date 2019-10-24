@@ -13,12 +13,11 @@ import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import fight from './fight'
 import * as gameObjectsCommon from 'game-objects-common'
-import * as gameRules from 'game-rules'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
-import scores from './scores'
+import mausoleum from './mausoleum'
 import * as ui from 'ui'
 
 export const menu = async () => {
@@ -34,29 +33,28 @@ export const menu = async () => {
     return null
   }
 
-  out.t('Empire: {{empire, commonName}}', protagonist)
-  out.t('Using ruleset: {{rules}}', {rules: gameRules.nameDefault()})
-  out.t('Flag: {{flag}}', {flag: ui.text.empire.flag.string(protagonist)})
+  out.t('{{empire, commonName}} {{flag}}', {empire: protagonist.empire, flag: ui.text.empire.flag.string(protagonist)})
   out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
+  out('')
 
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: 'Fight',
+      message: t('Venture forth'),
       next: async () => {
         await fight()
         return menu
       }
     },
     {
-      message: 'Scores',
+      message: t('Pay respects at the Mausoleum'),
       next: async () => {
-        await scores()
+        await mausoleum()
         return menu
       }
     },
     {
-      message: 'Main menu',
+      message: t('Main menu'),
       next: () => null
     }
   ]
