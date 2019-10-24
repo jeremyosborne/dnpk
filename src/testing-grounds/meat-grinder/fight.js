@@ -3,6 +3,7 @@ import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
+import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
@@ -94,13 +95,20 @@ export const fight = async () => {
     out.t('You have been defeated.')
   }
 
-  //
-  // TODO: tally kills and deaths.
-  //
+  // record kills and deaths.
+  _.forEach(attackers.casualties, (dead) => {
+    dataSourceGame.deadCounter.add(dead.name)
+  })
+  _.forEach(defenders.casualties, (killed) => {
+    dataSourceGame.killCounter.add(killed.name)
+  })
 
   // Save the updated results.
   protagonistArmyGroup = gameObjects.armyGroup.sort(protagonistArmyGroup)
-  await dataSourceGame.protagonist.save({armyGroups: [protagonistArmyGroup]})
+  dataSourceGame.protagonist.set({armyGroups: [protagonistArmyGroup]})
+
+  // Write everything at once.
+  await dataSourceGame.write()
 
   out('\n\n')
 

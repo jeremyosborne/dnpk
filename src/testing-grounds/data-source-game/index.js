@@ -1,12 +1,12 @@
-import {killCounter, deathCounter} from './counters' // eslint-disable-line import/first
-export {killCounter, deathCounter}
+import {killCounter, deadCounter} from './counters' // eslint-disable-line import/first
+export {killCounter, deadCounter}
 
 import protagonist from './protagonist' // eslint-disable-line import/first
 export {protagonist}
 
 // Register module here to opt into the batch loading, remove, writing, etc.
 const aggregate = [
-  deathCounter,
+  deadCounter,
   killCounter,
   protagonist,
 ]

@@ -13,7 +13,7 @@ export class TestingGroundsCounter {
    * Cache of the counter.
    * @type {object}
    */
-  _cache = null
+  _cache = {}
 
   /**
    * Passthrough to counter.
@@ -124,4 +124,4 @@ export class TestingGroundsCounter {
 }
 
 export const killCounter = new TestingGroundsCounter('testing-grounds/kill-counter')
-export const deathCounter = new TestingGroundsCounter('testing-grounds/death-counter')
+export const deadCounter = new TestingGroundsCounter('testing-grounds/dead-counter')
