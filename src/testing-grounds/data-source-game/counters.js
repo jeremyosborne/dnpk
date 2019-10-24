@@ -25,7 +25,7 @@ export class TestingGroundsCounter {
   }
 
   clear = () => {
-    this._cache = null
+    this._cache = {}
   }
 
   create = () => {

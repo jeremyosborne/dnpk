@@ -87,7 +87,7 @@ export const fight = async () => {
     out.t('You lost the following equipment {{equpiment, commonName}}', {equipment})
   }
 
-  // TODO: Allow redistribution of equipment.
+  // TODO: Allow redistribution of equipment. Store in the vault if dropped.
 
   if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
     out.t('Surveying your remaining troops ({{armyGroup, commonName}}), you scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})

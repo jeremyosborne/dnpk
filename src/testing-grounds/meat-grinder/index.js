@@ -18,6 +18,7 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
+import scores from './scores'
 import * as ui from 'ui'
 
 export const menu = async () => {
@@ -37,8 +38,6 @@ export const menu = async () => {
   out.t('Using ruleset: {{rules}}', {rules: gameRules.nameDefault()})
   out.t('Flag: {{flag}}', {flag: ui.text.empire.flag.string(protagonist)})
   out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
-  out.t('Total army deaths: {{deaths}}', {deaths: dataSourceGame.deadCounter.sum()})
-  out.t('Total army kills: {{kills}}', {kills: dataSourceGame.killCounter.sum()})
 
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
@@ -46,6 +45,13 @@ export const menu = async () => {
       message: 'Fight',
       next: async () => {
         await fight()
+        return menu
+      }
+    },
+    {
+      message: 'Scores',
+      next: async () => {
+        await scores()
         return menu
       }
     },

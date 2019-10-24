@@ -4,9 +4,13 @@ export {killCounter, deadCounter}
 import protagonist from './protagonist' // eslint-disable-line import/first
 export {protagonist}
 
+import {equipmentVault} from './vault' // eslint-disable-line import/first
+export {equipmentVault}
+
 // Register module here to opt into the batch loading, remove, writing, etc.
 const aggregate = [
   deadCounter,
+  equipmentVault,
   killCounter,
   protagonist,
 ]
