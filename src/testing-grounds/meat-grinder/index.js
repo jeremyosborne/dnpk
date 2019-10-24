@@ -11,7 +11,7 @@
 
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
-import fight from './fight'
+import idleVenture from './idle-venture'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
@@ -40,9 +40,9 @@ export const menu = async () => {
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: t('Venture forth'),
+      message: t('Start another idle adventure'),
       next: async () => {
-        await fight()
+        await idleVenture()
         return menu
       }
     },

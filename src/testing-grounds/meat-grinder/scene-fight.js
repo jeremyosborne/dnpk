@@ -11,7 +11,7 @@ import * as ui from 'ui'
 //
 // Run one fight from beginning to end.
 //
-export const fight = async () => {
+export const sceneFight = async () => {
   // Protection against protagonist not existing should happen before we enter.
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
@@ -120,4 +120,4 @@ export const fight = async () => {
   await hitReturnToContinue()
 }
 
-export default fight
+export default sceneFight
