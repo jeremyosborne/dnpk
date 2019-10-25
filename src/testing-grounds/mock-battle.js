@@ -15,10 +15,10 @@ import * as ui from 'ui'
  */
 export const armyRandom = () => {
   const army = simulation.createRandom({type: 'army'})
-  if (gameObjects.army.is.hero(army)) {
+  if (gameObjectsCommon.effects.hasName(army, 'hero')) {
     // Equip heroes with an item.
     const equippable = simulation.createRandom({type: 'equippable'})
-    gameObjects.army.do.equip({army, equippable})
+    gameObjectsCommon.equipment.add(army, equippable)
     // Give a name to the hero.
     army.nameInstance = simulation.randomNaming({name: 'hero'})
   }

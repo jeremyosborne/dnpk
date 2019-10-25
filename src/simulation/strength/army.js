@@ -1,6 +1,6 @@
 import * as effects from './effects'
 import * as equipment from './equipment'
-import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import {strengthBounded} from 'game-rules'
 import _ from 'lodash'
 
@@ -19,7 +19,7 @@ import _ from 'lodash'
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierHero = ({army = {}} = {}) => {
-  if (!gameObjects.army.is.hero(army)) {
+  if (!gameObjectsCommon.effects.hasName(army, 'hero')) {
     return 0
   }
 

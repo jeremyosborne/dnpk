@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import * as army from '../army'
+import * as gameObjectsCommon from 'game-objects-common'
 
 /**
  * Sort a group into a battle ready formation.
@@ -19,7 +19,7 @@ export const sort = (armyGroup) => {
   armies = _.sortBy(armies, [
     // Brave heroes lead from the rear!
     // sortBy is ascending order, so armies that are heroes will get sorted to end.
-    (a) => army.is.hero(a) ? 1 : 0,
+    (a) => gameObjectsCommon.effects.hasName(a, 'hero') ? 1 : 0,
     // We want weaker armies before the uniform strength bonus is supplied to
     // be first in the list.
     (a) => a.strength,
