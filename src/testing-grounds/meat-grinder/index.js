@@ -40,7 +40,7 @@ export const menu = async () => {
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: t('Start another idle adventure'),
+      message: t('Start another idle adventure in the meat grinder'),
       next: async () => {
         await idleVenture()
         return menu

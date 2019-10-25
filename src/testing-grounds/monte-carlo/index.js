@@ -3,6 +3,7 @@ import {prompt} from 'enquirer'
 import _ from 'lodash'
 import randintMonteCarlo from './randint-monte-carlo'
 import randomMonteCarlo from './random-monte-carlo'
+import randomWeightedArmiesMonteCarlo from './random-weighted-armies-monte-carlo'
 import sampleWeightedMonteCarlo from './sample-weighted-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
 
@@ -27,6 +28,13 @@ export const menu = async () => {
       message: 'random() - test pseudo random values returned from core random',
       next: async () => {
         await randomMonteCarlo()
+        return menu
+      }
+    },
+    {
+      message: 'randomWeightedArmiesMonteCarlo() - test random army generation',
+      next: async () => {
+        await randomWeightedArmiesMonteCarlo()
         return menu
       }
     },

@@ -1,7 +1,41 @@
 import * as dataSourceModdables from 'data-source-moddables'
 import * as gameObjects from 'game-objects'
+import * as gameObjectsCommmon from 'game-objects-common'
 import _ from 'lodash'
-import * as randomModule from 'random'
+import * as random from 'random'
+
+/**
+ * Given the `name` of an army, determine its weight.
+ *
+ * @param {string} name
+ *
+ * @return {number} weighted chance this army will be chosen (higher === more often)
+ * compared to other armies.
+ */
+export const randomWeightedArmyWeighting = (name) => {
+  // We need information provided by the refs to determine the weight of the indvidual
+  // army.
+  const a = dataSourceModdables.types.army.get(name)
+
+  if (!a) {
+    throw new Error(`${name} army does not exist.`)
+  }
+
+  // Heroes have the lowest weight and will appear the least often.
+  if (gameObjectsCommmon.effects.hasName(a, 'hero')) {
+    return 1
+  }
+
+  // Individual army strength determines how an army is chosen and we make sure
+  // everything has a higher chance of being picked over a hero.
+  const strength = a.strength
+  const weight = 10 - strength + 2 * (10 - strength)
+  if (gameObjectsCommmon.effects.hasName(a, 'aerial') || gameObjectsCommmon.effects.hasName(a, 'elite')) {
+    return Math.ceil(weight / 2)
+  } else {
+    return weight
+  }
+}
 
 /**
  * Randomly choose a set of armies from a weighted set of choices.
@@ -14,6 +48,9 @@ import * as randomModule from 'random'
  * potential set from which we sample.
  * @param {number} [args.size=1] how many choices to return.
  *
+ * @param {object} [config]
+ * @param {function} [config.weight] what weighting function to use, see: random.sampleWeighted.
+ *
  * @return {string[]} a random-by-weighting list of army `name`s.
  *
  * @throw {Error} if there appear to be no armies loaded.
@@ -21,31 +58,19 @@ import * as randomModule from 'random'
 export const randomWeightedArmies = ({
   exclude = {},
   size = 1,
+} = {}, {
+  weight = randomWeightedArmyWeighting,
 } = {}) => {
   const names = _.filter(gameObjects.army.dir(), (name) => !exclude[name])
   if (!names.length) {
     throw new Error('randomWeightedArmies: no army names available. Did you load the armies before calling this method?')
   }
 
-  return randomModule.sampleWeighted({
+  return random.sampleWeighted({
     choices: names,
     size,
     // Rules for choosing random armies.
-    weight: (name) => {
-      // We need information provided by the refs to determine the weight of the indvidual
-      // army.
-      const a = dataSourceModdables.types.army.get(name)
-
-      // Heroes lowest weight.
-      if (gameObjects.army.is.hero(a)) {
-        return 1
-      }
-
-      // Individual army strength determines how an army is chosen and we make sure
-      // everything has a higher chance of being picked over a hero.
-      const strength = a.strength
-      return 10 - strength + 2 * (10 - strength)
-    }
+    weight,
   })
 }
 
