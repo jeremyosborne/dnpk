@@ -11,7 +11,7 @@
 
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
-import idleVenture from './idle-venture'
+import gameLoop from './game-loop'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
@@ -28,21 +28,21 @@ export const menu = async () => {
   }
 
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
-  if (!gameObjectsCommon.armies.size(armyGroup)) {
-    await hitReturnToContinue(t('You must have an army-group before participating in the meat grinder.'))
-    return null
-  }
 
   out.t('{{empire, commonName}} {{flag}}', {empire: protagonist.empire, flag: ui.text.empire.flag.string(protagonist)})
-  out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
+  if (gameObjectsCommon.armies.size(armyGroup)) {
+    out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
+  } else {
+    out.t('Army group: none')
+  }
   out('')
 
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: t('Start another idle adventure in the meat grinder'),
+      message: t('Enter the meat grinder'),
       next: async () => {
-        await idleVenture()
+        await gameLoop()
         return menu
       }
     },

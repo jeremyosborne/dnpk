@@ -3,6 +3,7 @@ import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
+import * as nameIndex from './name-index'
 import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
@@ -11,7 +12,7 @@ import * as ui from 'ui'
 //
 // Run one fight from beginning to end.
 //
-export const sceneFight = async () => {
+export const scene = async () => {
   // Protection against protagonist not existing should happen before we enter.
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
@@ -118,6 +119,8 @@ export const sceneFight = async () => {
   out('\n\n')
 
   await hitReturnToContinue()
+
+  return nameIndex.INTERMISSION
 }
 
-export default sceneFight
+export default scene
