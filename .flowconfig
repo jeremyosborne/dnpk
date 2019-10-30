@@ -7,8 +7,10 @@
 [lints]
 
 [options]
-# see: https://github.com/facebook/flow/issues/48#issuecomment-415389171, can't do this on the command line
-module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=src
+# see: https://github.com/facebook/flow/issues/48#issuecomment-456367938, can't do this on the command line
+module.name_mapper='^\(.*\)' -> '<PROJECT_ROOT>/src/\1'
+module.name_mapper='^\(.*\)' -> '<PROJECT_ROOT>/src/testing-grounds/\1'
+module.file_ext=.jsx
+module.file_ext=.js
 
 [strict]

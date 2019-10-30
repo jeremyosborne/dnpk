@@ -1,3 +1,4 @@
+/* @flow */
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
@@ -10,10 +11,12 @@ import * as simulation from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
+import type {NextScene} from './flow-types'
+
 //
 // Run one fight from beginning to end.
 //
-export const scene = async () => {
+export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]

@@ -7,6 +7,8 @@ import * as nameIndex from './name-index'
 import out from 'out'
 import * as wrappers from './wrappers'
 
+import type {NextScene} from './flow-types'
+
 const SHRINE_NAMES = [
   'Tlorok'
 ]
@@ -22,7 +24,7 @@ const addBlessing = (army, shrineName) => {
   gameObjectsCommon.effects.add(army, blessing)
 }
 
-export const scene = async () => {
+export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const shrineName = _.sample(SHRINE_NAMES)

@@ -1,3 +1,4 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -8,7 +9,9 @@ import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-export const scene = async () => {
+import type {NextScene} from './flow-types'
+
+export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
 
   // Give the protagonist a fresh army-group if they don't have one...

@@ -1,14 +1,3 @@
-//
-// Meat grinder: an almost idle adventure for the testing-grounds to try out
-// prose, storyboarding, rules, mechanics, and act as an old god, throwing
-// the mortals into the hell of battle.
-//
-// Flow:
-//
-// - Entry Requirement: Player must have a protagonist.
-// - Entry Requirement: Player must have an army-group.
-//
-
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import gameLoop from './game-loop'

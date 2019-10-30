@@ -3,6 +3,11 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
 import out from 'out'
 
+/**
+ * Display any (morbid) score keeping done by the meat grinder.
+ *
+ * @return {Promise}
+ */
 export const mausoleum = async () => {
   const deaths = dataSourceGame.deadCounter.sum()
   out.t('{{count}} have fallen for your cause.', {count: deaths})

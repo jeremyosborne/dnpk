@@ -1,3 +1,4 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import hitReturnToContinue from 'hit-return-to-continue'
@@ -11,7 +12,9 @@ import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-export const scene = async () => {
+import type {NextScene} from './flow-types'
+
+export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
 
   const {confirmed} = await prompt({
