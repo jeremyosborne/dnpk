@@ -6,12 +6,13 @@ import _ from 'lodash'
 import {t} from 'l10n'
 import * as nameIndex from './name-index'
 import out from 'out'
+import * as random from 'random'
 import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
+import * as wrappers from './wrappers'
 
 export const scene = async () => {
   const protagonist = dataSourceGame.protagonist.get()
-  // We (still) assume protagonist creation happens outside of the meat-grinder.
 
   const {confirmed} = await prompt({
     initial: true,
@@ -33,10 +34,26 @@ export const scene = async () => {
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
     await hitReturnToContinue()
+    return nameIndex.FIGHT
+  } else {
+    // If you have an army coming into the intermission, you have a slight chance
+    // for an alternate, non-fight route.
+    return random.sampleWeighted({
+      choices: [
+        nameIndex.FIGHT,
+        nameIndex.SHRINE,
+      ],
+      weight: (name) => {
+        const weights = {
+          [nameIndex.FIGHT]: 7,
+          [nameIndex.SHRINE]: 1,
+        }
+        return weights[name] || 1
+      }
+    })[0]
   }
-  // ...else just continue on to the first fight.
-
-  return nameIndex.FIGHT
 }
 
-export default scene
+export default _.flow([
+  wrappers.throwIfNoEmpire,
+])(scene)

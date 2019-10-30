@@ -8,12 +8,12 @@ import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
+import * as wrappers from './wrappers'
 
 //
 // Run one fight from beginning to end.
 //
 export const scene = async () => {
-  // Protection against protagonist not existing should happen before we enter.
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]
@@ -123,4 +123,7 @@ export const scene = async () => {
   return nameIndex.INTERMISSION
 }
 
-export default scene
+export default _.flow([
+  wrappers.throwIfNoEmpire,
+  wrappers.throwIfNoArmyGroup,
+])(scene)

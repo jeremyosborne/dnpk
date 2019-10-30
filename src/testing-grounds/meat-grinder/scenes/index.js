@@ -1,3 +1,4 @@
-export {scene as fight} from './fight'
-export {scene as intermission} from './intermission'
-export {scene as prereq} from './prereq'
+export {default as fight} from './fight'
+export {default as intermission} from './intermission'
+export {default as shrine} from './shrine'
+export {default as prereq} from './prereq'

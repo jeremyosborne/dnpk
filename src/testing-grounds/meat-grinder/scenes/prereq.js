@@ -6,10 +6,10 @@ import * as nameIndex from './name-index'
 import out from 'out'
 import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
+import * as wrappers from './wrappers'
 
 export const scene = async () => {
   const protagonist = dataSourceGame.protagonist.get()
-  // We (still) assume protagonist creation happens outside of the meat-grinder.
 
   // Give the protagonist a fresh army-group if they don't have one...
   let armyGroup = _.get(protagonist, 'armyGroups[0]')
@@ -27,4 +27,6 @@ export const scene = async () => {
   return nameIndex.FIGHT
 }
 
-export default scene
+export default _.flow([
+  wrappers.throwIfNoEmpire,
+])(scene)
