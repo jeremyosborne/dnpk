@@ -13,9 +13,14 @@ import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
 
-//
-// Run one fight from beginning to end.
-//
+/**
+ * Put the protagonist's army-group through one random encounter style battle:
+ *
+ *     "You're walking through the wilderness, and the DM rolls a random encounter,
+ *     and lo you are beset by wolf riders."
+ *
+ * @return {NextScene}
+ */
 export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire

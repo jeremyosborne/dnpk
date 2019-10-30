@@ -24,6 +24,11 @@ const addBlessing = (army, shrineName) => {
   gameObjectsCommon.effects.add(army, blessing)
 }
 
+/**
+ * Buff the current army-group before continuing on.
+ *
+ * @return {NextScene}
+ */
 export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')

@@ -81,6 +81,7 @@ Modules the make use of runtime configuration settings should list those within 
 ## TODO
 
 - [ ] Make the basic scenes of the meat grinder idle adventure.
+- [ ] bug: including flow types breaks esdoc.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Find a JavaScript lib like numpy/scipy.
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.

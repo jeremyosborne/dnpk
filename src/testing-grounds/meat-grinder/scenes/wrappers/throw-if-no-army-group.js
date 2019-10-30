@@ -3,7 +3,7 @@ import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 
 export const throwIfNoArmyGroup = (f) => {
-  return async () => {
+  return async (...args) => {
     const protagonist = dataSourceGame.protagonist.get()
     // Give the protagonist a fresh army-group if they don't have one...
     const armyGroup = _.get(protagonist, 'armyGroups[0]')
@@ -11,7 +11,7 @@ export const throwIfNoArmyGroup = (f) => {
       throw new Error('Error: entering a scene without an army group.')
     }
 
-    return f()
+    return f(...args)
   }
 }
 

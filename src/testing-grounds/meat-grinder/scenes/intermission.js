@@ -14,6 +14,12 @@ import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
 
+/**
+ * Originally intended to follow every battle, allowing for game branching
+ * or fixing bad results from disastrous battles.
+ *
+ * @return {NextScene}
+ */
 export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
 

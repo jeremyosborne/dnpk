@@ -11,6 +11,13 @@ import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
 
+/**
+ * This is assumed to be the first scene run, and other than things considered
+ * game-preventing (like creating a protagonist), should allow the player
+ * to ready themselves for the upcoming adventure.
+ *
+ * @return {NextScene}
+ */
 export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
 
