@@ -4,7 +4,7 @@ import * as dataSourceGame from 'data-source-game'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
-import * as sceneNames from './scene-names'
+import * as sceneChoices from './scene-choices'
 import _ from 'lodash'
 import out from 'out'
 import * as simulation from 'simulation'
@@ -123,7 +123,7 @@ export const scene = async (): NextScene => {
 
   await hitReturnToContinue()
 
-  return sceneNames.INTERMISSION
+  return sceneChoices.intermission()
 }
 
 export default _.flow([

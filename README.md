@@ -9,8 +9,8 @@ Modules that make use of runtime configuration settings should list those within
 ### Global configuration settings and options
 
 * `DEBUG=dnpk/*`: optionally set to show all logging messages specific to this application.
-* `NODE_PATH=src`: MUST an assumed be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
-    * `NODE_PATH=src:src/testing-grounds`: MUST and assumed to be supplied when running the developer focused `testing-grounds` test app.
+* `NODE_PATH=src`: MUST be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
+    * `NODE_PATH=src:src/testing-grounds`: MUST be supplied when running the developer focused `testing-grounds` test app.
 
 ## TODO
 
@@ -20,9 +20,8 @@ Modules that make use of runtime configuration settings should list those within
     - [ ] vault / equipping heroes
     - [ ] treasure items
     - [ ] city siege
-    - [ ] encounter function: focus on fights
-    - [ ] encounter function: provide a sampling of general encounters
     - [ ] encounter function: provide a sampling of only good things (rare)
+- [ ] bug: army-group: sort should place elite troops at the end, but in front of heroes.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Find a JavaScript lib like numpy/scipy.

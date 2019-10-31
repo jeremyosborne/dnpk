@@ -2,7 +2,7 @@ import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import * as sceneNames from './scene-names'
+import * as sceneChoices from './scene-choices'
 import out from 'out'
 import * as simulation from 'simulation'
 import * as wrappers from './wrappers'
@@ -38,7 +38,8 @@ export const scene = async (): NextScene => {
 
   dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-  return sceneNames.INTERMISSION
+  // Time to test out that training ;)
+  return sceneChoices.violent()
 }
 
 export default _.flow([
