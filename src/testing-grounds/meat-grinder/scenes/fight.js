@@ -28,9 +28,7 @@ export const scene = async (): NextScene => {
   const protagonistFlag = ui.text.empire.flag.string({empire: protagonistEmpire})
 
   const antagonistEmpire = simulation.createRandom({
-    exclude: {
-      [protagonist.empire.name]: true,
-    },
+    exclude: [protagonist.empire.name],
     type: 'empire',
   })
   // We want the protagonist to, in general, win the battle but lose the war.
@@ -40,10 +38,7 @@ export const scene = async (): NextScene => {
   const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
 
   const terrain = simulation.createRandom({
-    exclude: {
-      mountain: true,
-      water: true,
-    },
+    exclude: ['mountain', 'water'],
     type: 'terrain',
   })
 

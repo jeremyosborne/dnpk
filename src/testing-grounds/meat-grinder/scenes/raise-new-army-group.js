@@ -19,12 +19,17 @@ import type {NextScene} from './flow-types'
  */
 export const scene = async (): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
+
+  out('')
+
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     out.t('It\'s dangerous to go alone. Here, take this:')
   } else {
     // Really, the game shouldn't let us get here, but if it does.
     out.t('You wave a tearful goodbye to your old group, and replace them with the following:')
   }
+
+  out('')
 
   armyGroup = createRandomWeightedArmyGroup()
   ui.text.armyGroup({armyGroup})

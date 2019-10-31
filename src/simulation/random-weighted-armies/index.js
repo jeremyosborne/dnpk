@@ -44,8 +44,8 @@ export const randomWeightedArmyWeighting = (name) => {
  * rules. Convenience methods are exposed elsewhere. Recommend using those functions.
  *
  * @param {object} args
- * @param {object} [args.exclude] keys with truthy values will be excluded from the
- * potential set from which we sample.
+ * @param {array} [args.exclude] values will be excluded from the potential set
+ * from which we sample.
  * @param {number} [args.size=1] how many choices to return.
  *
  * @param {object} [config]
@@ -56,12 +56,12 @@ export const randomWeightedArmyWeighting = (name) => {
  * @throw {Error} if there appear to be no armies loaded.
  */
 export const randomWeightedArmies = ({
-  exclude = {},
+  exclude = [],
   size = 1,
 } = {}, {
   weight = randomWeightedArmyWeighting,
 } = {}) => {
-  const names = _.filter(gameObjects.army.dir(), (name) => !exclude[name])
+  const names = _.filter(gameObjects.army.dir(), (name) => !_.includes(exclude, name))
   if (!names.length) {
     throw new Error('randomWeightedArmies: no army names available. Did you load the armies before calling this method?')
   }

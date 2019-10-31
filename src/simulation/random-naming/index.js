@@ -8,20 +8,20 @@ import _ from 'lodash'
  * within the game code.
  *
  * @param {object} args
- * @param {object} [args.exclude] keys with truthy values will be excluded from the
- * potential set from which we sample.
+ * @param {array} [args.exclude] values will be excluded from the potential set
+ * from which we sample.
  * @param {string} [args.name='hero'] the grouping to pull the name from. If not
  * included, a default will always be available.
  *
  * @return {string} new naming for your unit.
  */
 export const randomNaming = ({
-  exclude = {},
+  exclude = [],
   name = 'army',
 } = {}) => {
   // Full names should be returned as an array of strings in the `namings` prop.
   let {namings} = dataSourceModdables.types.naming.get(name)
-  namings = _.filter(namings, (name) => !exclude[name])
+  namings = _.filter(namings, (name) => !_.includes(exclude, name))
   if (!namings.length) {
     throw new Error('randomNaming: no list of namings available. Did you load the objects before calling this method, or did you exclude too many?')
   }

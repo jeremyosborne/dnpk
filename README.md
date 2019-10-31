@@ -14,7 +14,6 @@ Modules that make use of runtime configuration settings should list those within
 
 ## TODO
 
-- [ ] Make `exclude` arguments in the few places they appear array based instead of object based.
 - [ ] Make the basic scenes of the meat grinder idle adventure.
     - [ ] Hero recruitment
     - [ ] special unit recruitment

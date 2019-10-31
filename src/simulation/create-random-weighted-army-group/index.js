@@ -6,8 +6,8 @@ import randomWeightedArmies from '../random-weighted-armies'
  * applied to the choice of included armies.
  *
  * @param {object} args
- * @param {object} [args.exclude] keys with truthy values will be excluded from the
- * potential set from which we sample.
+ * @param {array} [args.exclude] values will be excluded from the potential set
+ * from which we sample.
  * @param {number} [args.size=8] size of the army-group returned.
  *
  * @return {object} an `army-group`

@@ -14,12 +14,14 @@ describe('createRandomWeightedArmyGroup', () => {
   })
 
   it('works with arguments', () => {
+    const size = 30
     const armyGroup = testMod.createRandomWeightedArmyGroup({
-      exclude: {'light-infantry': true},
-      size: 4
+      exclude: ['light-infantry'],
+      size,
     })
-    expect(armyGroup.armies.length).toEqual(4)
-    // Due to random nature, we'll test over time -> infinity and assert always true.
+    expect(armyGroup.armies.length).toEqual(size)
+    // Due to random nature, we'll test over time -> infinity and assert always true
+    // over many tests means the code is fine.
     expect(_.filter(armyGroup.armies, (a) => a.name === 'light-infantry').length).toEqual(0)
   })
 })
