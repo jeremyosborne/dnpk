@@ -1,4 +1,5 @@
-import * as testMod from './'
+import * as dataSourceModdables from 'data-source-moddables'
+import testMod from './'
 
 describe('game-objects-common.effects', () => {
   const effect1 = {name: 'random', id: 'effect1'}
@@ -56,6 +57,37 @@ describe('game-objects-common.effects', () => {
       expect(testMod.size({
         effects: ['a', 3, 6]
       })).toEqual(3)
+    })
+  })
+
+  describe('blessings', () => {
+    beforeEach(async () => {
+      // blessings performs an object creation that refers to existing objects.
+      await dataSourceModdables.read()
+    })
+
+    const deityName = 'spaghetti monster'
+    const imposterName = 'not the spaghetti monster'
+    const blessing = {name: 'brawn', magnitude: 1, metadata: {name: deityName}}
+    const army = {effects: [blessing]}
+
+    describe('has', () => {
+      it('works', () => {
+        expect(testMod.blessings.has(army, deityName)).toEqual(true)
+        expect(testMod.blessings.has(army, imposterName)).toEqual(false)
+      })
+    })
+
+    describe('add', () => {
+      it('works', () => {
+        // No duplicating of blessings.
+        expect(army.effects.length).toEqual(1)
+        testMod.blessings.add(army, deityName)
+        expect(army.effects.length).toEqual(1)
+        testMod.blessings.add(army, imposterName)
+        expect(army.effects.length).toEqual(2)
+        expect(testMod.blessings.has(army, imposterName)).toEqual(true)
+      })
     })
   })
 })

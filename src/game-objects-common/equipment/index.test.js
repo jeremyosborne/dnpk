@@ -1,4 +1,4 @@
-import * as testMod from './'
+import testMod from './'
 
 describe('game-objects-common.equipment', () => {
   const equippable1 = {id: 'equippable1'}

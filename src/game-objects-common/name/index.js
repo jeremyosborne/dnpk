@@ -1,4 +1,5 @@
 import {t} from 'l10n'
+import _ from 'lodash'
 
 /**
  * Return the effective name of any object which is visual friendly.
@@ -10,7 +11,10 @@ import {t} from 'l10n'
  * @return {string} preferred name for this object
  */
 export const name = (o) => {
-  if (typeof o === 'string') {
+  if (_.isString(o)) {
+    // If we're passed a string, we assume that somewhere duriing the data
+    // processing to find a name, the name was determined before getting to
+    // this function and that we pass back the string as is.
     return o
   } else {
     return o.nameInstance || t(o.name) || t('UNKNOWN NAME')

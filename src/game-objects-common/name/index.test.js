@@ -11,5 +11,7 @@ describe('game-objects-common.name', () => {
     // `name()` is potentially affected by loaded l10n data.
     expect(testModule.name({name: 'bob'})).toEqual('bob')
     expect(testModule.name({name: 'bob', nameInstance: 'bobby'})).toEqual('bobby')
+    expect(testModule.name('bob')).toEqual('bob')
+    expect(testModule.name(new String('bob'))).toEqual(new String('bob')) // eslint-disable-line no-new-wrappers
   })
 })
