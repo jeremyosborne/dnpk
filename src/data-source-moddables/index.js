@@ -2,33 +2,46 @@
 // Public API
 //
 
-import army from './army'
 import debug from 'debug'
-import effect from './effect'
-import equippable from './equippable'
-import empire from './empire'
-import rules from './rules'
 import _ from 'lodash'
-import naming from './naming'
 import path from 'path'
+// schema module is like a type-factory, but needs its own special code.
 import schema from './schema'
-import terrain from './terrain'
+import typeFactoryFactory from './type-factory-factory'
 
 const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/${MODULE_NAME}`)
 
 logger('This module assumes an async call to provided `.load()` method before running the game.')
 
-// Associative array of types to allow more human friendly dynamic reference.
-export const types = {
-  army,
-  effect,
-  empire,
-  equippable,
-  naming,
-  rules,
-  terrain,
-}
+// Associative array of type factories to allow more human friendly dynamic
+// reference. These type factories do the barest of work to provide basic entities
+// that the other in game wrappers can use to build in game instances.
+//
+// Creating new types: add the module name of the new type to the array below as
+// long as the type fits in with the `type-factory-factory` way of doing things.
+//
+// The `schema` module is a special snowflake and does not belong here.
+export const types = _.reduce([
+  // Definitions of army units.
+  'army',
+  // Definitions of effects that can be applied to items or armies or anything else
+  // that can be effected.
+  'effect',
+  // The in game representation of the player.
+  'empire',
+  // Items that can be carried by army unites.
+  'equippable',
+  // Groups of names.
+  'naming',
+  // Modifiable game rules.
+  'rules',
+  // Makes up the world and affects fighting.
+  'terrain',
+], (t, mod) => {
+  t[mod] = typeFactoryFactory({MODULE_NAME: mod})
+  return t
+}, {})
 
 /**
  * Clear all type caches.
