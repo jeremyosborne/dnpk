@@ -1,3 +1,4 @@
+import * as gameObjects from 'game-objects'
 import _ from 'lodash'
 
 const _isStruct = (o) => {
@@ -12,7 +13,7 @@ const _effects = (o) => {
  * Does an object have an effect?
  *
  * @param {object|object[]} o requires something that implements `effects`
- * or a simple array of equippables.
+ * or a simple array of effects.
  * @param {object} effect to test for, must implement `.id`.
  *
  * @return {Boolean}
@@ -28,7 +29,7 @@ export const has = (o, effect) => {
  * Used for a `some/any` style of test, like, "Is this object a hero?"
  *
  * @param {object|object[]} o requires something that implements `effects`
- * or a simple array of equippables.
+ * or a simple array of effects.
  * @param {string} name of the effect to look for.
  *
  * @return {Boolean}
@@ -44,7 +45,7 @@ export const hasName = (o, name) => {
  * This will mutate the object.
  *
  * @param {object|object[]} o requires something that implements `effects`
- * or a simple array of equippables.
+ * or a simple array of effects.
  * @param {object} effect to add, must implement `.id`.
  */
 export const add = (o, effect) => {
@@ -65,7 +66,7 @@ export const add = (o, effect) => {
  * This will mutate the object.
  *
  * @param {object|object[]} o requires something that implements `effects`
- * or a simple array of equippables.
+ * or a simple array of effects.
  * @param {object} effect to remove, must implement `.id`.
  *
  * @return {object} the effect removed, or null if the effect wasn't effecting
@@ -90,7 +91,8 @@ export const remove = (o, effect) => {
 /**
  * Return number of effects effecting the effected.
  *
- * @param {object|object[]} o the object implementing `effects`.
+ * @param {object|object[]} o requires something that implements `effects`
+ * or a simple array of effects.
  *
  * @return {number} number of effects, or 0.
  */
@@ -100,4 +102,53 @@ export const size = (o) => {
   } else {
     return _.get(o, 'effects.length') || 0
   }
+}
+
+//
+// See `docs/blessings-and-shrines.md`.
+//
+
+/**
+ * Blessings are effects with meta data and constraints unique to the `blessing`
+ * sub-type.
+ *
+ * @type {Object}
+ */
+export const blessings = {}
+
+/**
+ * Has a particular object been granted a blessing from a particular diety?
+ *
+ * @param {object|object[]} o requires something that implements `effects`
+ * or a simple array of effects.
+ * @param {string} deity official name of the diety providing this blessing.
+ *
+ * @return {Boolean}
+ */
+blessings.has = (o, deity) => {
+  return _.some(_effects(o), (effect) => _.get(effect, `metadata.name`) === deity)
+}
+
+/**
+ * Add a blessing to a particular object if that blessing has not already been
+ * granted.
+ *
+ * @param {object|object[]} o requires something that implements `effects`
+ * or a simple array of effects.
+ * @param {string} deity official name of the diety providing this blessing.
+ *
+ * @param {object} [config]
+ * @param {String} [config.name='brawn'] the type of effect that makes up
+ * this blessing.
+ * @param {Number} [config.magnitude=1] the strength of the blessing.
+ */
+blessings.add = (o, deity, {
+  name = 'brawn',
+  magnitude = 1,
+} = {}) => {
+  const effect = gameObjects.effect.create({name})
+  effect.magnitude = magnitude
+  // Additional shrine meta-info.
+  _.set(effect, 'metadata.name', deity)
+  add(o, effect)
 }

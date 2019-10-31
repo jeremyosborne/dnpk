@@ -1,5 +1,5 @@
 import * as gameObjects from 'game-objects'
-import randomWeightedArmies from '../randomWeightedArmies'
+import randomWeightedArmies from '../random-weighted-armies'
 
 /**
  * Create a randomized army-group from a the set of armies with weighting rules

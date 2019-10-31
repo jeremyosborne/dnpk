@@ -1,47 +1,36 @@
 import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
-import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import * as sceneNames from './scene-names'
 import out from 'out'
+import * as simulation from 'simulation'
 import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
 
-const SHRINE_NAMES = [
-  'Tlorok'
-]
-
-const hasBlessing = (army, shrineName) => {
-  return _.some(_.get(army, 'effects'), (effect) => _.get(effect, `metadata.name`) === shrineName)
-}
-
-const addBlessing = (army, shrineName) => {
-  const blessing = gameObjects.effect.create({name: 'brawn'})
-  // Additional shrine meta-info.
-  _.set(blessing, 'metadata.name', shrineName)
-  gameObjectsCommon.effects.add(army, blessing)
-}
-
 /**
- * Buff the current army-group before continuing on.
+ * Buff the armies within the army-group before continuing on.
+ *
+ * Blessings come from a particular deity, and each army may receive only one
+ * blessing from a particular deity.
  *
  * @return {NextScene}
  */
 export const scene = async (): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
-  const shrineName = _.sample(SHRINE_NAMES)
+  const deity = simulation.randomNaming({name: 'deity'})
 
-  out.t('You come upon the shrine of {{shrineName}}. Your armies will be blessed.', {shrineName})
+  // Deity official names can have some funky characters.
+  out.t('You come upon the shrine of {{- deity}}. Your armies will be blessed.', {deity})
   const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   _.forEach(armies, (army) => {
-    if (hasBlessing(army, shrineName)) {
-      out.t('{{army, commonName}} already has the blessing of {{shrineName}}.', {army, shrineName})
+    if (gameObjectsCommon.effects.blessings.has(army, deity)) {
+      out.t('{{army, commonName}} already has the blessing of {{- deity}}.', {army, deity})
     } else {
-      addBlessing(army, shrineName)
-      out.t('{{army, commonName}} receives the blessing of {{shrineName}}.', {army, shrineName})
+      gameObjectsCommon.effects.blessings.add(army, deity)
+      out.t('{{army, commonName}} receives the blessing of {{- deity}}.', {army, deity})
     }
   })
 
