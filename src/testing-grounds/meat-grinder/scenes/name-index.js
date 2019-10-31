@@ -7,4 +7,5 @@
 export const FIGHT = 'fight'
 export const INTERMISSION = 'intermission'
 export const PREREQ = 'prereq'
+export const RAISE_NEW_ARMY_GROUP = 'raiseNewArmyGroup'
 export const SHRINE = 'shrine'

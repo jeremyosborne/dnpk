@@ -1,5 +1,6 @@
 import debug from 'debug'
 import * as _io from 'io'
+import _ from 'lodash'
 import * as gameObjects from 'game-objects'
 
 const _logger = debug('dnpk/testing-grounds/data-source-game')
@@ -27,6 +28,20 @@ export class Protagonist {
 
   get = () => {
     return this._cache
+  }
+
+  /**
+   * Returns the army-group of the protagonist if it exists.
+   *
+   * Addresses a common need in the `meat-grinder`.
+   *
+   * @param {number} [index=0] can choose the particular index in the array
+   * of armyGroups.
+   *
+   * @return {object} an `army-group`, if one exists.
+   */
+  getArmyGroup = (index = 0) => {
+    return _.get(this._cache, `armyGroups[${index}]`)
   }
 
   /**

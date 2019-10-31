@@ -49,8 +49,7 @@ export const scene = async (): NextScene => {
 
   dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-  // After a shrine, you're doomed to fight ;)
-  return nameIndex.FIGHT
+  return nameIndex.INTERMISSION
 }
 
 export default _.flow([
