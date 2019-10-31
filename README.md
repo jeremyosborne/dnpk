@@ -85,6 +85,8 @@ Modules the make use of runtime configuration settings should list those within 
     - [ ] special unit recruitment
     - [ ] vault / equipping heroes
     - [ ] treasure items
+    - [ ] city siege
+    - [ ] fight functions vs
 - [ ]
 - [ ] bug: including flow types breaks esdoc.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.

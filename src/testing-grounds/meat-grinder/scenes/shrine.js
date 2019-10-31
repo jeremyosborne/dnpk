@@ -3,7 +3,7 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import * as nameIndex from './name-index'
+import * as sceneNames from './scene-names'
 import out from 'out'
 import * as wrappers from './wrappers'
 
@@ -49,7 +49,7 @@ export const scene = async (): NextScene => {
 
   dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-  return nameIndex.INTERMISSION
+  return sceneNames.INTERMISSION
 }
 
 export default _.flow([

@@ -3,7 +3,7 @@ import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import * as nameIndex from './name-index'
+import * as sceneNames from './scene-names'
 import out from 'out'
 import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
@@ -32,7 +32,7 @@ export const scene = async (): NextScene => {
   dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
   await hitReturnToContinue()
 
-  return nameIndex.FIGHT
+  return sceneNames.FIGHT
 }
 
 export default _.flow([

@@ -4,7 +4,7 @@ import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import {t} from 'l10n'
-import * as nameIndex from './name-index'
+import * as sceneNames from './scene-names'
 import * as random from 'random'
 import * as wrappers from './wrappers'
 
@@ -30,19 +30,19 @@ export const scene = async (): NextScene => {
   // Give the protagonist a fresh army-group if they don't have one...
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   if (!gameObjectsCommon.armies.size(armyGroup)) {
-    return nameIndex.RAISE_NEW_ARMY_GROUP
+    return sceneNames.RAISE_NEW_ARMY_GROUP
   } else {
     // If you have an army coming into the intermission, you have a slight chance
     // for an alternate, non-fight route.
     return random.sampleWeighted({
       choices: [
-        nameIndex.FIGHT,
-        nameIndex.SHRINE,
+        sceneNames.FIGHT,
+        sceneNames.SHRINE,
       ],
       weight: (name) => {
         const weights = {
-          [nameIndex.FIGHT]: 7,
-          [nameIndex.SHRINE]: 1,
+          [sceneNames.FIGHT]: 7,
+          [sceneNames.SHRINE]: 1,
         }
         return weights[name] || 1
       }

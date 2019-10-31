@@ -2,7 +2,7 @@
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import * as nameIndex from './name-index'
+import * as sceneNames from './scene-names'
 import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
@@ -18,10 +18,10 @@ export const scene = async (): NextScene => {
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     // Give the protagonist a fresh army-group if they don't have one...
-    return nameIndex.RAISE_NEW_ARMY_GROUP
+    return sceneNames.RAISE_NEW_ARMY_GROUP
   } else {
     // ...or else it's off to battle for you.
-    return nameIndex.FIGHT
+    return sceneNames.FIGHT
   }
 }
 

@@ -5,9 +5,9 @@ The individual scenes (levels, stages, etc.), of the meat-grinder.
 ## Dev notes
 
 ```js
-// Each new scene will be listed in `name-index.js`. Please use these constants
+// Each new scene will be listed in `scene-names.js`. Please use these constants
 // for named scene transitions vs. bare strings.
-import * as nameIndex from './name-index'
+import * as sceneNames from './scene-names'
 
 // Each file defines a `scene` function, which is assumed to be async and will
 // be treated as such.
@@ -18,7 +18,7 @@ export const scene = async () => {
 
     // Various return values will be respected by the `game-loop`.
     // This is a simple "go to the named scene" when done.
-    return nameIndex.FIGHT
+    return sceneNames.FIGHT
 }
 
 // The value exported by default is the game-ready version of the scene, and is
