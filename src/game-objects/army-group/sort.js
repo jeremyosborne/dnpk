@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import * as gameObjectsCommon from 'game-objects-common'
+// Worried about circular imports with import * as simluation
+import * as strength from 'simulation/strength'
 
 /**
  * Sort a group into a battle ready formation.
@@ -19,10 +21,21 @@ export const sort = (armyGroup) => {
   armies = _.sortBy(armies, [
     // Brave heroes lead from the rear!
     // sortBy is ascending order, so armies that are heroes will get sorted to end.
-    (a) => gameObjectsCommon.effects.hasName(a, 'hero') ? 1 : 0,
+    (army) => gameObjectsCommon.effects.hasName(army, 'hero') ? 1 : 0,
+    (army) => {
+      // More special units, which also happen to provide auras, fight last.
+      return _.reduce([
+        'aerial',
+        'elite',
+      ], (specialness, effectName) => {
+        specialness += gameObjectsCommon.effects.hasName(army, effectName) ? 1 : 0
+        return specialness
+      }, 0)
+    },
     // We want weaker armies before the uniform strength bonus is supplied to
-    // be first in the list.
-    (a) => a.strength,
+    // be first in the list. We also want to include the modifications from strength
+    // items and from strength effects, but not auras.
+    (army) => strength.army.strength({army}),
   ])
 
   if (Array.isArray(armyGroup)) {
