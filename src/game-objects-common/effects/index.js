@@ -50,7 +50,7 @@ const DEFAULT_BLESSING_EFFECT_NAME = 'brawn'
 effects.blessings.has = (o, granter, {
   name = DEFAULT_BLESSING_EFFECT_NAME,
 } = {}) => {
-  return _.some(effects._attrSet(o), (effect) => _.get(effect, 'name') === name && _.get(effect, 'metadata.name') === granter)
+  return _.some(effects.get(o), (effect) => _.get(effect, 'name') === name && _.get(effect, 'metadata.name') === granter)
 }
 
 /**

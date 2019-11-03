@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import * as random from 'random'
 import * as sceneNames from './scene-names'
 
@@ -7,7 +8,7 @@ import * as sceneNames from './scene-names'
  * @return {function} that returns a valid scene name when called
  */
 export const defeat = () => () => {
-  return sceneNames.RAISE_NEW_ARMY_GROUP
+  return sceneNames.RECRUIT_NEW_ARMY_GROUP
 }
 
 /**
@@ -26,24 +27,26 @@ export const intermission = () => () => {
 /**
  * Choose a general encounter from a weighted set of potential encounters.
  *
- * This is assumed to be called in most situations.
+ * This is assumed to be called in most situations and should provide the
+ * "normal" outcome for a next-scene, sometimes violent, sometimes not.
  *
  * @return {function} that returns a valid scene name when called
  */
 export const generalEncounter = () => () => {
-  // If you have an army coming into the intermission, you have a slight chance
-  // for an alternate, non-fight route.
+  const weightedChoices = {
+    [sceneNames.FIGHT]: 7,
+    [sceneNames.RECRUIT_HERO]: 1,
+    [sceneNames.SHRINE]: 1,
+  }
+
   return random.sampleWeighted({
-    choices: [
-      sceneNames.FIGHT,
-      sceneNames.SHRINE,
-    ],
+    choices: _.keys(weightedChoices),
     weight: (name) => {
-      const weights = {
-        [sceneNames.FIGHT]: 7,
-        [sceneNames.SHRINE]: 1,
+      const weight = weightedChoices[name]
+      if (!weight) {
+        throw new Error(`generalEncounter: You forgot to add a weight for ${name}`)
       }
-      return weights[name] || 1
+      return weight
     }
   })[0]
 }

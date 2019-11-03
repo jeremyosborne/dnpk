@@ -1,4 +1,3 @@
-import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import * as gameRules from 'game-rules'
 import _ from 'lodash'
@@ -18,7 +17,7 @@ import * as simulation from 'simulation'
 export const string = ({armyGroup}) => {
   let armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   // Sort to make things prettier.
-  armies = gameObjects.armyGroup.sort(armies)
+  armies = gameObjectsCommon.armies.sort(armies)
   const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup: armies})
   const info = []
   // Overall group information.

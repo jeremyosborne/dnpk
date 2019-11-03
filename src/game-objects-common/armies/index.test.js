@@ -73,4 +73,42 @@ describe('game-objects-common.armies', () => {
       expect(out.equipment.length).toEqual(1)
     })
   })
+
+  describe('sort', () => {
+    const armies = [
+      {name: 'hero', id: '1', strength: 3, effects: [{name: 'hero'}]},
+      {name: 'pegasus', id: '2', strength: 3, effects: [{name: 'aerial'}]},
+      {name: 'dragon', id: '3', strength: 3, effects: [{name: 'aerial'}, {name: 'elite'}]},
+      {name: 'light-infantry', id: '4', strength: 4},
+      {name: 'light-infantry', id: '5', strength: 4, effects: [{name: 'brawn', modifier: 1}]},
+      {name: 'light-infantry', id: '6', strength: 2},
+    ]
+
+    it('works with an army-group', () => {
+      const armyGroup = {armies}
+      const sortedArmyGroup = testMod.sort(armyGroup)
+
+      // Canon fodder in the front, stronger behind, heroes in the back even if
+      // hero has less strength.
+      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('6')
+      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('4')
+      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('5')
+      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('2')
+      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('3')
+      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('1')
+    })
+
+    it('works with a simple list of armies', () => {
+      const sortedArmyGroup = testMod.sort(armies)
+
+      // Canon fodder in the front, stronger behind, heroes in the back even if
+      // hero has less strength.
+      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('6')
+      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('4')
+      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('5')
+      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('2')
+      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('3')
+      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('1')
+    })
+  })
 })

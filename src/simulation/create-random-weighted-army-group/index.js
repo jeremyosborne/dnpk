@@ -1,4 +1,5 @@
 import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import randomWeightedArmies from '../random-weighted-armies'
 
 /**
@@ -16,5 +17,5 @@ export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
   const armies = names.map((name) => gameObjects.army.create({name}))
   const armyGroup = gameObjects.armyGroup.create({armies})
-  return gameObjects.armyGroup.sort(armyGroup)
+  return gameObjectsCommon.armies.sort(armyGroup)
 }

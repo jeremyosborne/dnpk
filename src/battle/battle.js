@@ -1,4 +1,4 @@
-import * as gameObjects from 'game-objects'
+import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import {d as _d} from 'random'
 import strength from 'simulation/strength'
@@ -113,19 +113,9 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
   // can be translated to "downed" or "injured" or "captured" or "routed" units.
   // A bit morbid, but allows our cloned input to just become output as anyone
   // not dead is a survior.
-  attackers.survivors = gameObjects.armyGroup.sort(Array.isArray(attackers.armyGroup)
-    // is a managed list of armies participating in this battle.
-    ? _.cloneDeep(attackers.armyGroup)
-    // is an official `army-group` type.
-    : _.cloneDeep(_.get(attackers, 'armyGroup.armies')) || []
-  )
+  attackers.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(attackers.armyGroup))
   attackers.casualties = []
-  defenders.survivors = gameObjects.armyGroup.sort(Array.isArray(defenders.armyGroup)
-    // is a managed list of armies participating in this battle.
-    ? _.cloneDeep(defenders.armyGroup)
-    // is an official `army-group` type.
-    : _.cloneDeep(_.get(defenders, 'armyGroup.armies')) || []
-  )
+  defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
   defenders.casualties = []
   // Track What happened during this battle.
   const events = []

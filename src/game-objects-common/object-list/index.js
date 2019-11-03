@@ -26,6 +26,7 @@ export const create = ({
    * This occurs less and less as the code matures.
    *
    * @param {object|object[]} o object to test
+   *
    * @return {Boolean} true if this is not an array, false if it is.
    */
   const _isStruct = (o) => {
@@ -38,9 +39,10 @@ export const create = ({
    * the work of finding the set for us.
    *
    * @param {object|object[]} o object to test
+   *
    * @return {object[]} the attribute set we should work with.
    */
-  const _attrSet = (o) => {
+  const _objectList = (o) => {
     return _isStruct(o) ? _.get(o, attrPath) : o
   }
 
@@ -49,8 +51,8 @@ export const create = ({
    *
    * This will mutate the object.
    *
-   * @param {object|object[]} o requires something that implements `effects`
-   * or a simple array of effects.
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
    * @param {object} effect to add, must implement `.id`.
    */
   const add = (o, effect) => {
@@ -58,11 +60,24 @@ export const create = ({
       return
     }
 
-    const effects = _attrSet(o)
+    const effects = _objectList(o)
     effects.push(effect)
     if (_isStruct(o)) {
       o.effects = effects
     }
+  }
+
+  /**
+   * Get the underlying array, when you want to work directly with the object.
+   *
+   * @param {object|object[]} o object to test
+   * @param {number} [index] if included, return the element at index
+   *
+   * @return {object[]} the attribute set we should work with.
+   */
+  const get = (o, index) => {
+    const objectList = _objectList(o)
+    return _.isNumber(index) ? objectList[index] : objectList
   }
 
   /**
@@ -75,7 +90,7 @@ export const create = ({
    * @return {Boolean}
    */
   const has = (o, effect) => {
-    const effects = _attrSet(o)
+    const effects = _objectList(o)
     return !!_.find(effects, (e) => e.id === effect.id)
   }
 
@@ -91,7 +106,7 @@ export const create = ({
    * @return {Boolean}
    */
   const hasName = (o, name) => {
-    const effects = _attrSet(o)
+    const effects = _objectList(o)
     return !!_.find(effects, (e) => e.name === name)
   }
 
@@ -112,7 +127,7 @@ export const create = ({
       return
     }
 
-    const effects = _attrSet(o)
+    const effects = _objectList(o)
     // It's illegal to reference the same army twice in an array, so we assume
     // there can be only 1 in the list of armies at a time.
     const removed = _.remove(effects, (e) => e.id === effect.id)[0]
@@ -142,10 +157,11 @@ export const create = ({
   return {
     // Be nice to devs extending the API...
     _isStruct,
-    _attrSet,
+    _objectList,
 
     // ...and assume this is the generally used public API.
     add,
+    get,
     has,
     hasName,
     remove,

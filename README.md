@@ -15,7 +15,7 @@ Modules that make use of runtime configuration settings should list those within
 ## TODO
 
 - [ ] Make the basic scenes of the meat grinder idle adventure.
-    - [ ] Hero recruitment
+    - [ ] regular unit recruitment
     - [ ] special unit recruitment
     - [ ] vault / equipping heroes
     - [ ] treasure items

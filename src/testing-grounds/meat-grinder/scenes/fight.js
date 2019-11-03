@@ -1,7 +1,6 @@
 /* @flow */
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
-import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as sceneChoices from './scene-choices'
@@ -113,7 +112,7 @@ export const scene = async (): NextScene => {
   })
 
   // Save the updated results.
-  protagonistArmyGroup = gameObjects.armyGroup.sort(protagonistArmyGroup)
+  protagonistArmyGroup = gameObjectsCommon.armies.sort(protagonistArmyGroup)
   dataSourceGame.protagonist.set({armyGroups: [protagonistArmyGroup]})
 
   // Write everything at once.
