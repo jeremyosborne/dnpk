@@ -9,8 +9,8 @@ Modules that make use of runtime configuration settings should list those within
 ### Global configuration settings and options
 
 * `DEBUG=dnpk/*`: optionally set to show all logging messages specific to this application.
-* `NODE_PATH=src`: MUST be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
-    * `NODE_PATH=src:src/testing-grounds`: MUST be supplied when running the developer focused `testing-grounds` test app.
+* `NODE_PATH=src/core`: MUST be applied to the environment of all executables (app, tests, etc.) using this application or modules within this application to allow a "local module" style of importing vs. the horrendously brittle `../../../` relative path reference to other modules.
+    * `NODE_PATH=src/core:src/testing-grounds`: MUST be supplied when running the developer focused `testing-grounds` test app.
 
 ## TODO
 

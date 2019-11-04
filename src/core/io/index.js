@@ -11,7 +11,7 @@ import path from 'path'
  */
 export const _rootPathFileSystem = () => {
   // see: https://github.com/sindresorhus/env-paths#suffix
-  return envPaths(require('../../package.json').name).data
+  return envPaths(require('../../../package.json').name).data
 }
 
 /**

@@ -1,5 +1,5 @@
 {
-  "source": "./src",
+  "source": "./src/core",
   "destination": "./docs/src",
   "plugins": [
     {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}},

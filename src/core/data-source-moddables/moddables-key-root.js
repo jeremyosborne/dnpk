@@ -8,6 +8,6 @@ import path from 'path'
  * module will need to be made more flexible.
  * @return {string}
  */
-export const moddablesKeyRoot = () => path.resolve(path.resolve(__dirname), '../../data-sources/moddables')
+export const moddablesKeyRoot = () => path.resolve(path.resolve(__dirname), '../../../data-sources/moddables')
 
 export default moddablesKeyRoot

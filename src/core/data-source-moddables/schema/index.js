@@ -8,7 +8,7 @@ const ajv = new Ajv({
   useDefaults: true
 })
 
-const MODULE_NAME = path.basename(path.resolve(__dirname))
+const MODULE_NAME = 'schema'
 const logger = debug(`dnpk/data-source-moddables/${MODULE_NAME}`)
 
 /**
