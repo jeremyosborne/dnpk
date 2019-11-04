@@ -8,8 +8,9 @@ import strength from 'simulation/strength'
  *
  * This function determines who has hit who and who has damaged who.
  *
- * @param {object} attacker assumed `army` like object, must implement `.strength`.
- * @param {object} defender assumed `army` like object, must implement `.strength`.
+ * @param {object} args
+ * @param {object} args.attacker assumed `army` like object, must implement `.strength`.
+ * @param {object} args.defender assumed `army` like object, must implement `.strength`.
  *
  * @param {object} config as dictionary
  * @param {function} config.d the die to use for combat. Classic rules indicate

@@ -7,12 +7,12 @@
     "doc": "docs"
   },
   "scripts": {
-    "esdoc": "esdoc",
+    "esdoc": "NODE_PATH=src:src/testing-grounds esdoc",
     "flow": "flow `# flow does not respect NODE_PATH, path alias handled in .flowconfig`",
     "l10n": "i18next 'src/**/*.{js,jsx}' -c src/l10n/i18next-parser.config.js && node src/l10n/json-to-po.js `# Extracts translation strings from code and pushes updates to .json and .po files.`",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "start": "NODE_PATH=src:src/testing-grounds babel-node src/testing-grounds",
-    "test": "NODE_PATH=src jest --config .jest.config.js"
+    "test": "NODE_PATH=src:src/testing-grounds jest --config .jest.config.js"
   },
   "husky": {
     "hooks": {

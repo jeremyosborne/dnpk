@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -9,7 +8,7 @@ import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-import type {NextScene} from './flow-types'
+// import type {NextScene} from './flow-types'
 
 /**
  * You will be granted a new army group if you wind up here, and should you
@@ -17,7 +16,7 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async (): NextScene => {
+export const scene = async () => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
 
   out('')

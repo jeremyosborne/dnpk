@@ -8,7 +8,7 @@ import * as simulation from 'simulation'
 import terrainGenerator from './terrain-generator'
 import * as wrappers from './wrappers'
 
-import type {NextScene} from './flow-types'
+// import type {NextScene} from './flow-types'
 
 /**
  * Buff the armies within the army-group before continuing on.
@@ -18,7 +18,7 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}): NextScene => {
+export const scene = async ({turn}) => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const deity = simulation.randomNaming({name: 'deity'})

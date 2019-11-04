@@ -4,8 +4,9 @@ import * as random from 'random'
 /**
  * Generate random terrain name at a specific 2d coordinate.
  *
- * @param {number} x coordinate
- * @param {number} y coordinate
+ * @param {object} args
+ * @param {number} args.x coordinate
+ * @param {number} args.y coordinate
  *
  * @return {string} terrain name
  */
@@ -36,8 +37,9 @@ export const name = ({x, y}) => {
 /**
  * Generate random terrain object at a specific 2d coordinate.
  *
- * @param {number} x coordinate
- * @param {number} y coordinate
+ * @param {object} args
+ * @param {number} args.x coordinate
+ * @param {number} args.y coordinate
  *
  * @return {object} terrain
  */

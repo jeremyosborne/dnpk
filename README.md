@@ -26,8 +26,8 @@ Modules that make use of runtime configuration settings should list those within
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Find a JavaScript lib like numpy/scipy.
 - [ ] Explicitly version the schemas used in the moddables.
+- [ ] Try turning flow back on now that esdoc is "fixed".
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
-- [ ] bug: including flow types breaks esdoc.
 
 ## Ideas
 

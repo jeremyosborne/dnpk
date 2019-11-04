@@ -4,10 +4,14 @@ import _randint from './randint'
 /**
  * Linear scan method for choosing items from an array of items.
  *
- * @param {object[]} choices set of objects to choose from.
- * @param {number} [size=1] how many items to pick.
- * @param {function} weight receives each object and returns a relative, integer
+ * @param {object} args
+ * @param {object[]} args.choices set of objects to choose from.
+ * @param {number} [args.size=1] how many items to pick.
+ * @param {function} args.weight receives each object and returns a relative, integer
  * weight compared to the other choices in the list.
+ *
+ * @param {object} config
+ * @param {function} randint
  *
  * @return {object[]} the object(s) picked.
  */

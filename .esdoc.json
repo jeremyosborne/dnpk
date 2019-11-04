@@ -4,6 +4,7 @@
   "plugins": [
     {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}},
     {"name": "esdoc-external-nodejs-plugin", "option": {"enable": true}},
-    {"name": "esdoc-standard-plugin"}
+    {"name": "esdoc-standard-plugin"},
+    {"name": "esdoc-type-inference-plugin", "option": {"enable": false}}
   ]
 }

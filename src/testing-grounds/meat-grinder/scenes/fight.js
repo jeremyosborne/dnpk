@@ -1,4 +1,3 @@
-/* @flow */
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -11,7 +10,7 @@ import terrainGenerator from './terrain-generator'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-import type {NextScene} from './flow-types'
+// import type {NextScene} from './flow-types'
 
 /**
  * Put the protagonist's army-group through one random encounter style battle:
@@ -21,7 +20,7 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}): NextScene => {
+export const scene = async ({turn}) => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]

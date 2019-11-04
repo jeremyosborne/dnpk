@@ -10,6 +10,8 @@ import _ from 'lodash'
  *
  * If called with two arguments, first argument is the name of the rule set,
  * second argument is the rule to be returned.
+ *
+ * @param {...*} args variable set of arguments.
  */
 export const get = (...args) => {
   let ruleAttr
