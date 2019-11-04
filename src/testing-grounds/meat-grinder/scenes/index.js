@@ -1,6 +1,6 @@
 //
 // Publicly available scenes. The named exports are important and must match
-// those found in the `scene-names.js`.
+// the values found in `scene-names.js`.
 //
 
 export {default as fight} from './fight'

@@ -5,6 +5,7 @@ import _ from 'lodash'
 import * as sceneChoices from './scene-choices'
 import out from 'out'
 import * as simulation from 'simulation'
+import terrainGenerator from './terrain-generator'
 import * as wrappers from './wrappers'
 
 import type {NextScene} from './flow-types'
@@ -17,13 +18,14 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async (): NextScene => {
+export const scene = async ({turn}): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const deity = simulation.randomNaming({name: 'deity'})
+  const terrain = terrainGenerator(turn)
 
   // Deity official names can have some funky characters.
-  out.t('You come upon the shrine of {{- deity}}. Your armies will be blessed.', {deity})
+  out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain, commonName}}. Your armies will be blessed.', {deity, terrain})
   const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   _.forEach(armies, (army) => {
     if (gameObjectsCommon.effects.blessings.has(army, deity)) {

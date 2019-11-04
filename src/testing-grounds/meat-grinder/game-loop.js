@@ -22,9 +22,14 @@ export const gameLoop = async () => {
   //
   const queue = [scenes.prereq]
 
+  const gameHistory = {turn: 0}
+
   while (queue.length) {
+    gameHistory.turn += 1
+
     const scene = queue.shift()
-    let next = await scene()
+    let next = await scene(gameHistory)
+
     if (typeof next === 'function') {
       next = await next()
     }

@@ -9,6 +9,7 @@ import out from 'out'
 import * as random from 'random'
 import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
+import terrainGenerator from './terrain-generator'
 // import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
@@ -20,7 +21,7 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async (): NextScene => {
+export const scene = async ({turn}): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 
@@ -29,6 +30,8 @@ export const scene = async (): NextScene => {
     : heroes.length < gameRules.get('heroesMax')
       ? random.randint(1, heroes.length * 2) === 1
       : false
+
+  const terrain = terrainGenerator(turn)
 
   if (canHazHero) {
     // Create a hero and add to the army group.
@@ -40,7 +43,7 @@ export const scene = async (): NextScene => {
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-    out.t('You come upon a clearing where {{army, commonName}} is training.', {army})
+    out.t('You come upon {{terrain, commonName}} where {{army, commonName}} is training.', {army, terrain})
     out.t('{{army, commonName}} joins your ranks, eager to bring glory to your empire.', {army})
     await hitReturnToContinue()
 
@@ -49,7 +52,7 @@ export const scene = async (): NextScene => {
   } else {
     // Head back to the intermission for another shot after a short message about
     // coming upon a clearing with nothing there.
-    out.t('You come upon a clearing. It is peaceful. After a moments rest, you move on.')
+    out.t('You come upon {{terrain, commonName}}. It is peaceful. After a moments rest, you move on.', {terrain})
     await hitReturnToContinue()
     return sceneChoices.intermission()
   }

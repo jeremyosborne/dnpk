@@ -3,10 +3,11 @@ import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
-import * as sceneChoices from './scene-choices'
 import _ from 'lodash'
 import out from 'out'
+import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
+import terrainGenerator from './terrain-generator'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
@@ -20,7 +21,7 @@ import type {NextScene} from './flow-types'
  *
  * @return {NextScene}
  */
-export const scene = async (): NextScene => {
+export const scene = async ({turn}): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]
@@ -36,10 +37,7 @@ export const scene = async (): NextScene => {
   })
   const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
 
-  const terrain = simulation.createRandom({
-    exclude: ['mountain', 'water'],
-    type: 'terrain',
-  })
+  const terrain = terrainGenerator(turn)
 
   // Engage the 2 groups in battle.
 

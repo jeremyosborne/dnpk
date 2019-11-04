@@ -12,6 +12,7 @@
     "import/no-unresolved": ["error"],
     "comma-dangle": ["error", "only-multiline"],
     "object-curly-spacing": ["error", "never"],
+    "yoda": ["off"],
   },
   "settings": {
     "import/resolver": {

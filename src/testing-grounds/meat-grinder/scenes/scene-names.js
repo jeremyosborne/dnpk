@@ -3,6 +3,8 @@
 // of scenes, use this as the name lookup for all official scene names and for
 // scene transitions.
 //
+// The values must match the named exports of each scene, see index.js.
+//
 
 export const FIGHT = 'fight'
 export const INTERMISSION = 'intermission'
