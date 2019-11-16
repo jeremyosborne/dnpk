@@ -2,6 +2,7 @@
   "name": "dnpk",
   "version": "0.0.1",
   "description": "modifiable turn based game + game engine in the spirit of the original Warlords by SSG",
+  "private": "true",
   "main": "src/index.js",
   "directories": {
     "doc": "docs"
