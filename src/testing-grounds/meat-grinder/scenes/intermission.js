@@ -10,7 +10,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * Follows every significant scene, and decides path to take based on game

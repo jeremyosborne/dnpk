@@ -7,14 +7,13 @@ import _ from 'lodash'
 import out from 'out'
 import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
-import terrainGenerator from './terrain-generator'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * Put the protagonist's army-group through one random encounter style battle:
@@ -22,7 +21,7 @@ import type {
  *     "The DM rolls for a random encounter,
  *         and lo you are beset by wolf riders."
  */
-export const scene = async ({turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}: GameState): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]
@@ -37,8 +36,6 @@ export const scene = async ({turn}: GameState): NextScene => {
     size: Math.ceil(gameObjectsCommon.armies.size(protagonistArmyGroup) / 2)
   })
   const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
-
-  const terrain = terrainGenerator(turn)
 
   // Engage the 2 groups in battle.
 

@@ -1,8 +1,8 @@
 // @flow
 import _ from 'lodash'
 import * as scenes from './scenes'
-
-import type {GameState} from './scenes/types'
+import terrainGenerator from './terrain-generator'
+import type {GameState} from './types'
 
 /**
  * Runs the meat-grinder game.
@@ -32,6 +32,7 @@ export const gameLoop = async (): Promise<any> => {
 
   while (queue.length) {
     gameHistory.turn += 1
+    gameHistory.terrain = terrainGenerator(gameHistory.turn)
 
     const scene = queue.shift()
     let next = await scene(gameHistory)

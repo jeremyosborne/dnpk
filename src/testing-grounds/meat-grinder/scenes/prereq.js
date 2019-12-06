@@ -8,7 +8,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * This is assumed to be the first scene run, and other than things considered

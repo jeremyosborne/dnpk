@@ -6,13 +6,12 @@ import _ from 'lodash'
 import * as sceneChoices from './scene-choices'
 import out from 'out'
 import * as simulation from 'simulation'
-import terrainGenerator from './terrain-generator'
 import * as wrappers from './wrappers'
 
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * Buff the armies within the army-group before continuing on.
@@ -22,11 +21,10 @@ import type {
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}: GameState): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const deity = simulation.randomNaming({name: 'deity'})
-  const terrain = terrainGenerator(turn)
 
   // Deity official names can have some funky characters.
   out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain, commonName}}. Your armies will be blessed.', {deity, terrain})

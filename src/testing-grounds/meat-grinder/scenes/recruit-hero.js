@@ -9,14 +9,13 @@ import out from 'out'
 import * as random from 'random'
 import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
-import terrainGenerator from './terrain-generator'
 // import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * You will potentially be granted a new hero, based on the number of heroes
@@ -24,7 +23,7 @@ import type {
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}: GameState): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 
@@ -33,8 +32,6 @@ export const scene = async ({turn}: GameState): NextScene => {
     : heroes.length < gameRules.get('heroesMax')
       ? random.randint(1, heroes.length * 2) === 1
       : false
-
-  const terrain = terrainGenerator(turn)
 
   if (canHazHero) {
     // Create a hero and add to the army group.

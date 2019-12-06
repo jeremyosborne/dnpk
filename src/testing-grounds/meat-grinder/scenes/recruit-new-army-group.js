@@ -12,7 +12,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * You will be granted a new army group if you wind up here, and should you

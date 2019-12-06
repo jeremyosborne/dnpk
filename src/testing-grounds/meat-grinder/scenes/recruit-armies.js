@@ -9,19 +9,18 @@ import out from 'out'
 import * as random from 'random'
 import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
-import terrainGenerator from './terrain-generator'
 // import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
 import type {
   GameState,
   NextScene,
-} from './types'
+} from '../types'
 
 /**
  * New units may join you.
  */
-export const scene = async ({turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}: GameState): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const armiesSize = gameObjectsCommon.armies.size(armyGroup)
 
@@ -31,8 +30,6 @@ export const scene = async ({turn}: GameState): NextScene => {
   const canHazArmies = armiesSize < gameRules.get('armyGroupSizeMax')
     ? true
     : random.randint(1, armiesSize * 3) < gameRules.get('armyGroupSizeMax')
-
-  const terrain = terrainGenerator(turn)
 
   if (canHazArmies) {
     const canHazHowManyArmies = armiesSize < gameRules.get('armyGroupSizeMax')
