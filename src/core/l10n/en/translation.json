@@ -37,5 +37,8 @@
   "WARNING: All armies are dead. This shouldn't be possible.": "",
   "wizard": "Wizard",
   "wolf-rider": "Wolf Rider",
-  "wounded": ""
+  "wounded": "",
+
+  "where {{armies, commonName}} is training.": "where the army ({{armies, commonName}}) is training.",
+  "where {{armies, commonName}} is training._plural": "where the armies ({{armies, commonName}}) are training."
 }

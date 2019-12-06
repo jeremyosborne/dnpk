@@ -2,7 +2,7 @@
 import _ from 'lodash'
 import * as scenes from './scenes'
 
-import type {GameState} from './scenes/flow-types'
+import type {GameState} from './scenes/types'
 
 /**
  * Runs the meat-grinder game.

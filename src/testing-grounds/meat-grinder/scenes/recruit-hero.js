@@ -16,7 +16,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './flow-types'
+} from './types'
 
 /**
  * You will potentially be granted a new hero, based on the number of heroes

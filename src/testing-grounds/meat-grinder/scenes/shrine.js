@@ -12,7 +12,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './flow-types'
+} from './types'
 
 /**
  * Buff the armies within the army-group before continuing on.

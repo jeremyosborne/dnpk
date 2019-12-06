@@ -14,7 +14,7 @@ import * as wrappers from './wrappers'
 import type {
   GameState,
   NextScene,
-} from './flow-types'
+} from './types'
 
 /**
  * Put the protagonist's army-group through one random encounter style battle:
