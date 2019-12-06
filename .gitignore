@@ -13,15 +13,6 @@ bower_components
 # Atom
 .imdone
 
-# Built application code.
-public/*.*
-!public/.gitkeep
-!public/favicon.ico
-
 # Jest
 # code coverage data
 coverage
-
-# esdoc output
-docs/src/**/*.*
-!docs/src/.gitkeep

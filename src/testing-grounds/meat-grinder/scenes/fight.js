@@ -1,3 +1,4 @@
+// @flow
 import {battle} from 'battle'
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -10,17 +11,18 @@ import terrainGenerator from './terrain-generator'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-// import type {NextScene} from './flow-types'
+import type {
+  GameState,
+  NextScene,
+} from './flow-types'
 
 /**
  * Put the protagonist's army-group through one random encounter style battle:
  *
- *     "You're walking through the wilderness, and the DM rolls a random encounter,
- *     and lo you are beset by wolf riders."
- *
- * @return {NextScene}
+ *     "The DM rolls for a random encounter,
+ *         and lo you are beset by wolf riders."
  */
-export const scene = async ({turn}) => {
+export const scene = async ({turn}: GameState): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]

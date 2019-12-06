@@ -1,3 +1,4 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -6,15 +7,16 @@ import {t} from 'l10n'
 import * as sceneChoices from './scene-choices'
 import * as wrappers from './wrappers'
 
-// import type {NextScene} from './flow-types'
+import type {
+  GameState,
+  NextScene,
+} from './flow-types'
 
 /**
  * Follows every significant scene, and decides path to take based on game
  * state.
- *
- * @return {NextScene}
  */
-export const scene = async () => {
+export const scene = async (gameState: GameState): NextScene => {
   const {confirmed} = await prompt({
     initial: true,
     message: t('Do you wish to continue in your endless quest?'),

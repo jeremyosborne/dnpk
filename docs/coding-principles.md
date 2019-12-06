@@ -20,10 +20,15 @@ If you're in the code base, or modifying data-as-code, please adhere to these va
 * The `docs` folder is for:
     * Design documentation
     * Thematic prose, background stories
-* Use [esdoc](https://esdoc.org/) style to document functions.
-    * Output lives in `docs/src` and is `.gitignore`d.
-* As the code matures, and where it makes sense, move stable types to [flow](https://flow.org/) types and interfaces and document the types, decreasing the amount of detailed oriented `esdoc` style documentation a function or type needs.
-* Entities and Game Objects
+* Documentation for programmers is also source code.
+    * It should be discovarable with the source code.
+    * It should document tribal knowledge and oddities.
+    * Use [flow](https://flow.org/) types to document data typing where types are important or nuanced.
+    * `README.md` docs provide public API docs at the module level.
+    * DEPRECATED: Use [esdoc](https://esdoc.org/) style to document functions.
+
+## Entities and Game Objects
+
 * Entities are virtual people, places, and things that together create the system of the game world.
 * Entities should always be instantiable, and should always be instantiated (no singletons).
 * Entities should implement an `.id` property that is unique within the context of a single game.

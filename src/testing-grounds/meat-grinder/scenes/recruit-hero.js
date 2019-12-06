@@ -1,3 +1,4 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjects from 'game-objects'
@@ -12,7 +13,10 @@ import terrainGenerator from './terrain-generator'
 // import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-// import type {NextScene} from './flow-types'
+import type {
+  GameState,
+  NextScene,
+} from './flow-types'
 
 /**
  * You will potentially be granted a new hero, based on the number of heroes
@@ -20,7 +24,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}) => {
+export const scene = async ({turn}: GameState): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 

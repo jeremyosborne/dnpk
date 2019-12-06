@@ -1,3 +1,4 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -8,7 +9,10 @@ import * as simulation from 'simulation'
 import terrainGenerator from './terrain-generator'
 import * as wrappers from './wrappers'
 
-// import type {NextScene} from './flow-types'
+import type {
+  GameState,
+  NextScene,
+} from './flow-types'
 
 /**
  * Buff the armies within the army-group before continuing on.
@@ -18,7 +22,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({turn}) => {
+export const scene = async ({turn}: GameState): NextScene => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const deity = simulation.randomNaming({name: 'deity'})

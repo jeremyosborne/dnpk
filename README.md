@@ -20,13 +20,12 @@ Modules that make use of runtime configuration settings should list those within
     - [ ] vault / equipping heroes
     - [ ] treasure items
     - [ ] city siege
-    - [ ] fight modification: the winner can limp along with some wounded units.
+    - [ ] fight modification: the winner can limp along with some wounded units
     - [ ] encounter function: provide a sampling of only good things (rare)
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Find a JavaScript lib like numpy/scipy.
 - [ ] Explicitly version the schemas used in the moddables.
-- [ ] Try turning flow back on now that esdoc is "fixed".
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
 
 ## Ideas

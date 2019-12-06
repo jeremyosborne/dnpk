@@ -1,5 +1,8 @@
+// @flow
 import _ from 'lodash'
 import * as scenes from './scenes'
+
+import type {GameState} from './scenes/flow-types'
 
 /**
  * Runs the meat-grinder game.
@@ -16,13 +19,16 @@ import * as scenes from './scenes'
  *
  * @return {Promise}
  */
-export const gameLoop = async () => {
+export const gameLoop = async (): Promise<any> => {
   //
   // `scenes.prereq` performs some setup and should always be the first in the queue.
   //
   const queue = [scenes.prereq]
 
-  const gameHistory = {turn: 0}
+  const gameHistory: GameState = {
+    // Gets incremented to one below.
+    turn: 0,
+  }
 
   while (queue.length) {
     gameHistory.turn += 1

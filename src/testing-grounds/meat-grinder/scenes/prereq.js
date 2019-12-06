@@ -1,10 +1,14 @@
+// @flow
 import * as dataSourceGame from 'data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import * as sceneChoices from './scene-choices'
 import * as wrappers from './wrappers'
 
-// import type {NextScene} from './flow-types'
+import type {
+  GameState,
+  NextScene,
+} from './flow-types'
 
 /**
  * This is assumed to be the first scene run, and other than things considered
@@ -13,7 +17,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async () => {
+export const scene = async (gameState: GameState): NextScene => {
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     // Give the protagonist a fresh army-group if they don't have one...
