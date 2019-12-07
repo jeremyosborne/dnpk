@@ -19,11 +19,11 @@ export const name = ({x, y}) => {
   } else if (-0.5 < value && value <= -0.2) {
     return 'marsh'
   } else if (-0.2 < value && value <= -0.1) {
-    return 'plains'
+    return 'plain'
   } else if (-0.1 < value && value <= 0.1) {
     return 'road'
   } else if (0.1 < value && value <= 0.5) {
-    return 'plains'
+    return 'plain'
   } else if (0.5 < value && value <= 1) {
     return 'forest'
   } else if (1 < value && value <= 2) {

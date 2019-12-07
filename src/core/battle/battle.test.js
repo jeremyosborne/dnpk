@@ -11,7 +11,7 @@ describe('battle.battle', () => {
     empire: {name: 'other good guys'},
   }
 
-  const terrain = {name: 'plains'}
+  const terrain = {name: 'plain'}
 
   beforeEach(async () => {
     // strength boundaries are used but we can opt for the in-code defaults

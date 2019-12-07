@@ -18,7 +18,7 @@ import type {
 } from '../types'
 
 /**
- * New units may join you.
+ * Find elite units.
  */
 export const scene = async ({terrain, turn}: GameState): NextScene => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
@@ -27,30 +27,32 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   // If your meat grinder army has less armies than the rules allow, then you
   // can get more armies. If you have more, than you can still get more, but
   // the chance of getting them is less.
-  const canHazArmies = armiesSize < gameRules.get('armyGroupSizeMax')
+  const canHazElite = armiesSize < gameRules.get('armyGroupSizeMax')
     ? true
-    : random.randint(1, armiesSize * 3) < gameRules.get('armyGroupSizeMax')
+    : random.randint(1, armiesSize * 6) < gameRules.get('armyGroupSizeMax')
 
   out.t('You travel to a {{terrain, commonName}}', {terrain})
 
-  if (canHazArmies) {
+  if (canHazElite) {
     const size = armiesSize < gameRules.get('armyGroupSizeMax')
-      // If you have less than the max, than you can potentially refill your armyGroup...
-      ? random.randint(1, gameRules.get('armyGroupSizeMax') - armiesSize)
-      // ...otherwise you can have at most 2.
-      : random.randint(1, 2)
+      // If you have less than the max, than you'll get maybe 2...
+      ? random.randint(1, 2)
+      // ...otherwise you'll get one.
+      : 1
 
-    // Create a small set of non-special armies (by excluding special armies),
+    // Create a small set of elite armies (by excluding non-elite armies),
     // and add to the army group.
     const exclude = _.filter(gameObjects.army.def(), (aDef) => {
       // non-special mans not aerial and not elite.
-      if (gameObjectsCommon.effects.hasName(aDef, 'aerial') || gameObjectsCommon.effects.hasName(aDef, 'elite')) {
+      if (!gameObjectsCommon.effects.hasName(aDef, 'elite')) {
         return true
       } else {
         return false
       }
     }).map((aDef) => aDef.name)
     const armyNames = simulation.randomWeightedArmies({
+      // Hard coded to non-aerial, non-elite armies. This should be managed by
+      // a function.
       exclude,
       size,
     })

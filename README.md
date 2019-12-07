@@ -16,7 +16,8 @@ Modules that make use of runtime configuration settings should list those within
 
 - [ ] Make the basic scenes of the meat grinder idle adventure.
     - [X] regular unit recruitment
-    - [ ] special unit recruitment
+    - [X] elite unit recruitment
+    - [X] aerial unit recruitment
     - [ ] vault / equipping heroes
     - [ ] treasure items
     - [ ] city siege

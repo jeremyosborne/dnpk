@@ -6,6 +6,8 @@
 export {default as fight} from './fight'
 export {default as intermission} from './intermission'
 export {default as prereq} from './prereq'
+export {default as recruitArmiesAerial} from './recruit-armies-aerial'
+export {default as recruitArmiesElite} from './recruit-armies-elite'
 export {default as recruitArmies} from './recruit-armies'
 export {default as recruitHero} from './recruit-hero'
 export {default as recruitNewArmyGroup} from './recruit-new-army-group'

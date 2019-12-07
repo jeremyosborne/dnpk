@@ -34,7 +34,9 @@ export const intermission = () => () => {
  */
 export const generalEncounter = () => () => {
   const weightedChoices = {
-    [sceneNames.FIGHT]: 7,
+    [sceneNames.FIGHT]: 8,
+    [sceneNames.RECRUIT_ARMIES_AERIAL]: 1,
+    [sceneNames.RECRUIT_ARMIES_ELITE]: 1,
     [sceneNames.RECRUIT_ARMIES]: 3,
     [sceneNames.RECRUIT_HERO]: 1,
     [sceneNames.SHRINE]: 1,

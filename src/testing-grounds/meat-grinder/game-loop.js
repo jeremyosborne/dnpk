@@ -27,13 +27,11 @@ export const gameLoop = async (): Promise<any> => {
 
   const gameHistory: GameState = {
     // Gets incremented to one below.
-    turn: 0,
+    turn: 1,
+    terrain: terrainGenerator(1),
   }
 
   while (queue.length) {
-    gameHistory.turn += 1
-    gameHistory.terrain = terrainGenerator(gameHistory.turn)
-
     const scene = queue.shift()
     let next = await scene(gameHistory)
 
@@ -52,6 +50,10 @@ export const gameLoop = async (): Promise<any> => {
     } else {
       throw new Error('typeof next must ultimately evaluate to a `string` pointing to a valid scene name or `null` to terminate the game loop.')
     }
+
+    // Prepare for next turn.
+    gameHistory.turn += 1
+    gameHistory.terrain = terrainGenerator(gameHistory.turn)
   }
 }
 

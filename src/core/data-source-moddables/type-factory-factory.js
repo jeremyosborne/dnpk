@@ -67,10 +67,15 @@ module.exports = ({
    *
    * @param {String} name the unique name of this type.
    *
-   * @return {object} reference or undefined if does not exist.
+   * @return {object} associative array, specific reference, or undefined if
+   * name does not exist.
    */
-  const get = (name) => {
-    return _cache[name]
+  const get = (name: ?string) => {
+    if (name) {
+      return _cache[name]
+    } else {
+      return _cache
+    }
   }
 
   /**
