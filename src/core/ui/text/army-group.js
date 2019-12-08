@@ -15,9 +15,7 @@ import * as simulation from 'simulation'
  * information about the army group.
  */
 export const string = ({armyGroup}) => {
-  let armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
-  // Sort to make things prettier.
-  armies = gameObjectsCommon.armies.sort(armies)
+  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup: armies})
   const info = []
   // Overall group information.

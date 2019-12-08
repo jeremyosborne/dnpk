@@ -42,7 +42,7 @@ export const playerRandom = ({
   const player = gameObjects.player.create()
 
   player.empire = simulation.createRandom({type: 'empire'})
-  player.armyGroups = _.times(numberOfArmyGroups, () => _.times(armyGroupSize, armyRandom))
+  player.armyGroups = _.times(numberOfArmyGroups, () => gameObjectsCommon.armies.sort(_.times(armyGroupSize, armyRandom)))
 
   return player
 }

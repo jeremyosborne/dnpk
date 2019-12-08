@@ -39,6 +39,6 @@
   "wolf-rider": "Wolf Rider",
   "wounded": "",
 
-  "where {{armies, commonName}} is training.": "where the army ({{armies, commonName}}) is training.",
-  "where {{armies, commonName}} is training._plural": "where the armies ({{armies, commonName}}) are training."
+  "{{armies, commonName}} is training here.": "({{armies, commonName}}) is training here.",
+  "{{armies, commonName}} is training here._plural": "({{armies, commonName}}) are training here."
 }

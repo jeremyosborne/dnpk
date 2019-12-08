@@ -43,8 +43,8 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-    out.t('You come upon {{terrain, commonName}} where {{army, commonName}} is training.', {army, terrain})
-    out.t('{{army, commonName}} joins your ranks, eager to bring glory to your empire.', {army})
+    out.t('{{armies, commonName}} is training here.', {armies: army, terrain, count: 1})
+    out.t('They join your ranks, eager to bring glory to your empire.')
     await hitReturnToContinue()
 
     // Give a violent next stop.
@@ -52,13 +52,14 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   } else {
     // Head back to the intermission for another shot after a short message about
     // coming upon a clearing with nothing there.
-    out.t('You come upon {{terrain, commonName}}. It is peaceful. After a moments rest, you move on.', {terrain})
+    out.t("It is peaceful here. After a moment's rest, you move on.")
     await hitReturnToContinue()
     return sceneChoices.intermission()
   }
 }
 
 export default _.flow([
+  wrappers.endlessTravelsPreamble,
   wrappers.throwIfNoEmpire,
   wrappers.throwIfNoArmyGroup,
 ])(scene)

@@ -55,22 +55,23 @@ export const create = ({
    * or a simple array.
    * @param {object} effect to add, must implement `.id`.
    */
-  const add = (o, effect) => {
-    if (has(o, effect)) {
+  const add = (o, thing) => {
+    if (has(o, thing)) {
       return
     }
 
-    const effects = _objectList(o)
-    effects.push(effect)
+    const things = _objectList(o)
+    things.push(thing)
     if (_isStruct(o)) {
-      o.effects = effects
+      o[attrPath] = things
     }
   }
 
   /**
    * Get the underlying array, when you want to work directly with the object.
    *
-   * @param {object|object[]} o object to test
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
    * @param {number} [index] if included, return the element at index
    *
    * @return {object[]} the attribute set we should work with.
@@ -83,15 +84,15 @@ export const create = ({
   /**
    * Does an object have an effect?
    *
-   * @param {object|object[]} o requires something that implements `effects`
-   * or a simple array of effects.
-   * @param {object} effect to test for, must implement `.id`.
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
+   * @param {object} thing to test for, must implement `.id`.
    *
    * @return {Boolean}
    */
-  const has = (o, effect) => {
-    const effects = _objectList(o)
-    return !!_.find(effects, (e) => e.id === effect.id)
+  const has = (o, thing) => {
+    const things = _objectList(o)
+    return !!_.find(things, (t) => t.id === thing.id)
   }
 
   /**
@@ -99,15 +100,15 @@ export const create = ({
    *
    * Used for a `some/any` style of test, like, "Is this object a hero?"
    *
-   * @param {object|object[]} o requires something that implements `effects`
-   * or a simple array of effects.
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
    * @param {string} name of the effect to look for.
    *
    * @return {Boolean}
    */
   const hasName = (o, name) => {
-    const effects = _objectList(o)
-    return !!_.find(effects, (e) => e.name === name)
+    const things = _objectList(o)
+    return !!_.find(things, (t) => t.name === name)
   }
 
   /**
@@ -115,24 +116,24 @@ export const create = ({
    *
    * This will mutate the object.
    *
-   * @param {object|object[]} o requires something that implements `effects`
-   * or a simple array of effects.
-   * @param {object} effect to remove, must implement `.id`.
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
+   * @param {object} thing to remove, must implement `.id`.
    *
-   * @return {object} the effect removed, or null if the effect wasn't effecting
-   * the object.
+   * @return {object} the thing removed, or null if the thing wasn't in
+   * the object set.
    */
-  const remove = (o, effect) => {
-    if (!has(o, effect)) {
+  const remove = (o, thing) => {
+    if (!has(o, thing)) {
       return
     }
 
-    const effects = _objectList(o)
+    const things = _objectList(o)
     // It's illegal to reference the same army twice in an array, so we assume
     // there can be only 1 in the list of armies at a time.
-    const removed = _.remove(effects, (e) => e.id === effect.id)[0]
+    const removed = _.remove(things, (t) => t.id === thing.id)[0]
     if (_isStruct(o)) {
-      o.effect = effect
+      o[attrPath] = things
     }
 
     return removed
@@ -141,8 +142,8 @@ export const create = ({
   /**
    * Return number of effects effecting the effected.
    *
-   * @param {object|object[]} o requires something that implements `effects`
-   * or a simple array of effects.
+   * @param {object|object[]} o requires something that implements the attrSet
+   * or a simple array.
    *
    * @return {number} number of effects, or 0.
    */

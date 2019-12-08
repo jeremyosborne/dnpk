@@ -31,8 +31,6 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
     ? true
     : random.randint(1, armiesSize * 3) < gameRules.get('armyGroupSizeMax')
 
-  out.t('You travel to a {{terrain, commonName}}', {terrain})
-
   if (canHazArmies) {
     const size = armiesSize < gameRules.get('armyGroupSizeMax')
       // If you have less than the max, than you can potentially refill your armyGroup...
@@ -55,7 +53,7 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
       size,
     })
     // Plurals handled in the en/translation.json.
-    out.t('where {{armies, commonName}} is training.', {armies: armyNames, count: armyNames.length})
+    out.t('{{armies, commonName}} is training here.', {armies: armyNames, count: armyNames.length})
     out.t('They join your ranks, eager to bring glory to your empire.')
 
     // Add the new armies to the army group.
@@ -74,13 +72,14 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   } else {
     // Head back to the intermission for another shot after a short message about
     // coming upon a clearing with nothing there.
-    out.t("where it is peaceful. After a moment's rest, you move on.")
+    out.t("It is peaceful here. After a moment's rest, you move on.")
     await hitReturnToContinue()
     return sceneChoices.intermission()
   }
 }
 
 export default _.flow([
+  wrappers.endlessTravelsPreamble,
   wrappers.throwIfNoEmpire,
   wrappers.throwIfNoArmyGroup,
 ])(scene)

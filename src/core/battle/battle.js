@@ -133,6 +133,7 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
       empire: attackers.empire,
       terrain,
     })
+
     const defender = defenders.survivors[0]
     const defenderStrength = strength({
       army: defender,
@@ -143,12 +144,12 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
 
     events.push({
       attacker: {
-        ref: _.clone(attacker),
+        ref: _.cloneDeep(attacker),
         health: attacker.health,
         strength: attackerStrength,
       },
       defender: {
-        ref: _.clone(defender),
+        ref: _.cloneDeep(defender),
         health: defender.health,
         strength: defenderStrength,
       },
@@ -164,7 +165,10 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
       const {
         attacker: attackerResults,
         defender: defenderResults,
-      } = violence({attacker, defender}, {d})
+      } = violence({
+        attacker: {strength: attackerStrength},
+        defender: {strength: defenderStrength},
+      }, {d})
 
       if (attackerResults.damaged) {
         attacker.health -= 1

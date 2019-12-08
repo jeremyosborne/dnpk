@@ -3,7 +3,7 @@ import * as testMod from './'
 describe('game-objects.common.object-list', () => {
   const effect1 = {name: 'random', id: 'effect1'}
   const effect2 = {name: 'blah', id: 'effect2'}
-  const attrPath = 'effects'
+  const attrPath = 'dongles'
   const api = testMod.create({attrPath})
 
   it('works with arrays', () => {

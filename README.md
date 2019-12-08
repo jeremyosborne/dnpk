@@ -23,6 +23,7 @@ Modules that make use of runtime configuration settings should list those within
     - [ ] city siege
     - [ ] fight modification: the winner can limp along with some wounded units
     - [ ] encounter function: provide a sampling of only good things (rare)
+- [X] BUG: The display of the defender health is wrong in the battle reports (and probably event), but the underlying numbers seem right. Example: Roger Orcfinger (str: 8) (health: 2) vs. Devil (str: 8) (health: 2)
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Find a JavaScript lib like numpy/scipy.
