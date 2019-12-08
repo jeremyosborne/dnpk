@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import * as dataSourceConfig from 'data-source-config'
+import * as dataSourceL10n from 'data-source-l10n'
 import * as gameObjectsCommon from 'game-objects-common'
 import i18next from 'i18next'
 import _ from 'lodash'
@@ -71,6 +72,7 @@ export const read = async (
     read = (...args) => i18next.init(...args),
   } = {}
 ) => {
+  await dataSourceL10n.read({lng, ns})
   await read({
     // default namespace to use.
     defaultNS: ns,
@@ -102,7 +104,7 @@ export const read = async (
     // resources to initialize with (if not using loading or not appending using addResourceBundle)
     resources: {
       [lng]: {
-        [ns]: require(`./${lng}/translation.json`)
+        [ns]: dataSourceL10n.get({lng, ns})
       }
     },
 

@@ -2,6 +2,10 @@
 // Configuration file for the i18next-parser which extracts the strings to be translated
 // from our code and places them in the `${language}/translation.json` files in this directory.
 //
+//
+// FIXME: I need to be moved to a tooling module and made to work with the new setup.
+//
+//
 module.exports = {
   // Key separator used in your translation keys
   contextSeparator: '_',
@@ -58,7 +62,7 @@ module.exports = {
   // Supports $LOCALE and $NAMESPACE injection
   // Supports JSON (.json) and YAML (.yml) file formats
   // Where to write the locale files relative to process.cwd()
-  output: 'src/core/l10n/$LOCALE/$NAMESPACE.json',
+  output: 'data-sources/l10n/$LOCALE/$NAMESPACE.json',
 
   // An array of globs that describe where to look for source files
   // relative to the location of the configuration file, or rely on the command line.

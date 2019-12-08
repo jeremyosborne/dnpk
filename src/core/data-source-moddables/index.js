@@ -12,7 +12,7 @@ import typeFactoryFactory from './type-factory-factory'
 const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/${MODULE_NAME}`)
 
-logger('This module assumes an async call to provided `.load()` method before running the game.')
+logger('This module assumes an async call to provided `.read()` method before running the game.')
 
 // Associative array of type factories to allow more human friendly dynamic
 // reference. These type factories do the barest of work to provide basic entities
