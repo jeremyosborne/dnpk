@@ -5,8 +5,9 @@ import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
-import out from 'out'
 import mausoleum from './mausoleum'
+import sceneTest from './scene-test'
+import out from 'out'
 import * as ui from 'ui'
 
 export const menu = async () => {
@@ -32,6 +33,13 @@ export const menu = async () => {
       message: t('Enter the meat grinder'),
       next: async () => {
         await gameLoop()
+        return menu
+      }
+    },
+    {
+      message: t('Test a specific scene of the meat grinder'),
+      next: async () => {
+        await sceneTest()
         return menu
       }
     },
