@@ -49,7 +49,7 @@ export const _formatters = {
  *
  * @param {object} args as dictionary
  * @param {string} [args.lng='en'] default language and language resources to use
- * @param {string} [args.ns='translation'] default namespace
+ * @param {string|string[]} [args.ns='translation'] default namespace
  * @param {...object} [args.restConfig] any additional key/value pair overrides
  * that will be passed directly to `i18next.read()`.
  *
@@ -72,13 +72,27 @@ export const read = async (
     read = (...args) => i18next.init(...args),
   } = {}
 ) => {
-  await dataSourceL10n.read({lng, ns})
+  // Easier to treat as array throughout.
+  ns = Array.isArray(ns) ? ns : [ns]
+  // Assume we should always be able to read the files....
+  await Promise.all(_.map(ns, (ns) => dataSourceL10n.read({lng, ns})))
+  const resources = _.reduce(ns, (r, n) => {
+    _.set(r, `${lng}.${n}`, dataSourceL10n.get({lng, ns: n}))
+    return r
+  }, {})
+
   await read({
     // default namespace to use.
-    defaultNS: ns,
+    defaultNS: ns[0],
 
+    // Explicitly set language to use.
+    lng,
     // do not load a fallback, because it'll be english by default.
     fallbackLng: false,
+
+    // string or array of namespaces to load
+    ns,
+    fallbackNS: ns,
 
     interpolation: {
       format: function (value, format, lng) {
@@ -95,18 +109,8 @@ export const read = async (
     keySeparator: false,
     nsSeparator: false,
 
-    // Explicitly set language to use.
-    lng,
-
-    // string or array of namespaces to load
-    ns,
-
     // resources to initialize with (if not using loading or not appending using addResourceBundle)
-    resources: {
-      [lng]: {
-        [ns]: dataSourceL10n.get({lng, ns})
-      }
-    },
+    resources,
 
     // allow an empty value to count as invalid (by default is true).
     returnEmptyString: false,

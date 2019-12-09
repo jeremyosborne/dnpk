@@ -1,0 +1,4 @@
+{
+  "{{armies, commonName}} is training here.": "({{armies, commonName}}) is training here.",
+  "{{armies, commonName}} is training here._plural": "({{armies, commonName}}) are training here."
+}
