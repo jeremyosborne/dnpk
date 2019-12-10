@@ -43,6 +43,8 @@ export const scene = async (gameState: GameState): NextScene => {
   return sceneChoices.violent()
 }
 
-export default _.flow([
+export default _.flowRight([
   wrappers.throwIfNoEmpire,
+  wrappers.uiGameTurn,
+  wrappers.uiTerrain,
 ])(scene)

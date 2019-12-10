@@ -27,7 +27,7 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   const deity = simulation.randomNaming({name: 'deity'})
 
   // Deity official names can have some funky characters.
-  out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain, commonName}}. Your armies will be blessed.', {deity, terrain})
+  out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain, commonName}}. Your worthy armies will be blessed.', {deity, terrain})
   const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   _.forEach(armies, (army) => {
     if (gameObjectsCommon.effects.blessings.has(army, deity)) {
@@ -46,7 +46,9 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   return sceneChoices.violent()
 }
 
-export default _.flow([
+export default _.flowRight([
   wrappers.throwIfNoEmpire,
   wrappers.throwIfNoArmyGroup,
+  wrappers.uiGameTurn,
+  // wrappers.uiTerrain, reflected in the existing description.
 ])(scene)

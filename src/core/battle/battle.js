@@ -105,15 +105,14 @@ export const violence = ({
  * @property {object} terrain reference to the terrain argument.
  */
 export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) => {
-  // Clone the attacking and defending object...
-  attackers = _.cloneDeep(attackers)
-  defenders = _.cloneDeep(defenders)
-  // ...and then clone the army groups so we can mutate them into the final results
+  // Clone the army groups so we can mutate them into the final results
   // returned. The caller is responsible for committing the results or ignoring
   // them. Ideally this allows for a later rules extensions where battle "kills"
   // can be translated to "downed" or "injured" or "captured" or "routed" units.
   // A bit morbid, but allows our cloned input to just become output as anyone
   // not dead is a survior.
+  attackers = _.cloneDeep(attackers)
+  defenders = _.cloneDeep(defenders)
   attackers.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(attackers.armyGroup))
   attackers.casualties = []
   defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))

@@ -7,10 +7,10 @@ import type {GameState} from '../../types'
 //
 // If terrain is passed in as part of the game state, display the terrain.
 //
-export const endlessTravelsPreamble = (f: (gameState: GameState) => any) => {
+export const uiTerrain = (f: (gameState: GameState) => any) => {
   return async (gameState: GameState) => {
     const {terrain} = gameState
-    if (gameState.terrain) {
+    if (terrain) {
       out.t('Your endless travels take you to a {{terrain, commonName}}.', {terrain})
     }
     // ... continue on.
@@ -18,4 +18,4 @@ export const endlessTravelsPreamble = (f: (gameState: GameState) => any) => {
   }
 }
 
-export default endlessTravelsPreamble
+export default uiTerrain

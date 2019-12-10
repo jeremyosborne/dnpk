@@ -121,7 +121,8 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   return sceneChoices.intermission()
 }
 
-export default _.flow([
-  wrappers.throwIfNoEmpire,
+export default _.flowRight([
   wrappers.throwIfNoArmyGroup,
+  wrappers.throwIfNoEmpire,
+  wrappers.uiGameTurn,
 ])(scene)

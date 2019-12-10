@@ -19,7 +19,7 @@ import type {
 export const scene = async (gameState: GameState): NextScene => {
   const {confirmed} = await prompt({
     initial: true,
-    message: t('Do you wish to continue in your endless quest?'),
+    message: t('This is a peaceful location. Do you wish to continue in your endless quest?'),
     name: 'confirmed',
     type: 'confirm',
   })
@@ -36,6 +36,8 @@ export const scene = async (gameState: GameState): NextScene => {
   }
 }
 
-export default _.flow([
+export default _.flowRight([
   wrappers.throwIfNoEmpire,
+  wrappers.uiGameTurn,
+  wrappers.uiTerrain,
 ])(scene)

@@ -26,9 +26,9 @@ export const gameLoop = async (): Promise<any> => {
   const queue = [scenes.prereq]
 
   const gameHistory: GameState = {
-    // Gets incremented to one below.
-    turn: 1,
-    terrain: terrainGenerator(1),
+    // Pre-req is considered turn 0, not a real turn.
+    turn: 0,
+    terrain: terrainGenerator(0),
   }
 
   while (queue.length) {
