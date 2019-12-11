@@ -4,11 +4,17 @@ import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 
-export const create = async () => {
+// Originally protagonist was going to maybe be more special, now it's really
+// just empire management, and the one spot where we create the `protagonist`
+// data structure.
+export const createProtagonist = async () => {
+  const protagonist = dataSourceGame.protagonist.get()
+
   let {empire} = await prompt({
     // Deal with strings only in the prompt, not objects.
     choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire)})),
-    message: t('Choose your empire'),
+    message: !protagonist ? t('Choose your empire')
+      : t('Choose a new empire (current empire: {{empire, commonName}})', {empire: protagonist.empire}),
     name: 'empire',
     type: 'select',
   })
@@ -34,4 +40,4 @@ export const create = async () => {
   }
 }
 
-export default create
+export default createProtagonist

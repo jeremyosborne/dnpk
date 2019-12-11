@@ -7,7 +7,7 @@ import out from 'out'
 import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
 
-export const army = async () => {
+export const createArmyGroup = async () => {
   // We assume that you only work with one army.
   let armyGroup = _.get(dataSourceGame.protagonist.get(), 'armyGroups[0]')
   if (armyGroup) {
@@ -35,4 +35,4 @@ export const army = async () => {
   }
 }
 
-export default army
+export default createArmyGroup

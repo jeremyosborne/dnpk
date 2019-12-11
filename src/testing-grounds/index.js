@@ -11,17 +11,12 @@ import meatGrinder from 'meat-grinder'
 import mockBattle from 'mock-battle'
 import monteCarlo from 'monte-carlo'
 import out from 'out'
-import protagonist from 'protagonist'
 import removeGameData from 'remove-game-data'
 
 const {t} = l10n
 
 export const mainMenu = async () => {
   const actions = [
-    {
-      message: t('Protagonist options'),
-      next: protagonist,
-    },
     {
       message: t('Venture into the meat grinder'),
       next: meatGrinder,

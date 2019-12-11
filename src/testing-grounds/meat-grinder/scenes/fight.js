@@ -39,17 +39,13 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
 
   // Engage the 2 groups in battle.
 
-  out.t('Carrying your {{flag}}, your troops venture forth onto {{terrain, commonName}},', {
-    terrain,
-    flag: protagonistFlag,
-  })
-  out.t('your troops being ({{armyGroup, commonName}})', {armyGroup: protagonistArmyGroup})
-  out.t('The opposing forces of {{empire, commonName}} fly {{flag}} in the distance,', {
-    empire: antagonistEmpire,
-    flag: antagonistFlag,
-  })
-  out.t('their troops being ({{armyGroup, commonName}}).', {armyGroup: antagonistArmyGroup})
-
+  out.t('The opposing forces of {{empire, commonName}} gather here.', {empire: antagonistEmpire})
+  out.t("It's a fight.")
+  out.t('')
+  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: antagonistArmyGroup, flag: antagonistFlag})
+  out.t('vs.')
+  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: protagonistArmyGroup, flag: protagonistFlag})
+  out.t('')
   await hitReturnToContinue('Hit return to charge into battle!')
 
   const {
@@ -124,5 +120,7 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
 export default _.flowRight([
   wrappers.throwIfNoArmyGroup,
   wrappers.throwIfNoEmpire,
+  wrappers.uiWhiteSpace,
   wrappers.uiGameTurn,
+  wrappers.uiTerrain,
 ])(scene)
