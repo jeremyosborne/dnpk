@@ -38,6 +38,7 @@ export const scene = async (gameState: GameState): NextScene => {
 
 export default _.flowRight([
   wrappers.throwIfNoEmpire,
+  wrappers.uiWhiteSpace,
   wrappers.uiGameTurn,
   wrappers.uiTerrain,
 ])(scene)
