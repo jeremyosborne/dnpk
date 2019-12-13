@@ -16,3 +16,6 @@ bower_components
 # Jest
 # code coverage data
 coverage
+
+# Built-code folder
+dist
