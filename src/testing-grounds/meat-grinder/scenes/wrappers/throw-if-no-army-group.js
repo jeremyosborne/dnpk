@@ -1,4 +1,4 @@
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 

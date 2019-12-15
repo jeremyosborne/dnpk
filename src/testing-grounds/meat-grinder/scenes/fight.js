@@ -1,6 +1,6 @@
 // @flow
 import {battle} from 'battle'
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
@@ -42,9 +42,9 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   out.t('The opposing forces of {{empire, commonName}} gather here.', {empire: antagonistEmpire})
   out.t("It's a fight.")
   out.t('')
-  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: antagonistArmyGroup, flag: antagonistFlag})
-  out.t('vs.')
   out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: protagonistArmyGroup, flag: protagonistFlag})
+  out.t('vs.')
+  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: antagonistArmyGroup, flag: antagonistFlag})
   out.t('')
   await hitReturnToContinue('Hit return to charge into battle!')
 

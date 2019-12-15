@@ -1,6 +1,6 @@
 import createProtagonist from './create-protagonist'
 import createArmyGroup from './create-army-group'
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import gameLoop from './game-loop'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -9,6 +9,7 @@ import _ from 'lodash'
 import mausoleum from './mausoleum'
 import sceneTest from './scene-test'
 import out from 'out'
+import removeGameData from './remove-game-data'
 import * as ui from 'ui'
 
 export const menu = async () => {
@@ -71,6 +72,10 @@ export const menu = async () => {
           await mausoleum()
           return menu
         }
+      },
+      {
+        message: t('Remove existing game data'),
+        next: removeGameData,
       },
       {
         message: t('Main menu'),

@@ -1,5 +1,5 @@
 // @flow
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'

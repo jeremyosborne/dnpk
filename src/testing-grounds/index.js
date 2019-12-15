@@ -3,7 +3,7 @@
 //
 
 import * as dataSourceModdables from 'data-source-moddables'
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
 import _ from 'lodash'
@@ -11,7 +11,6 @@ import meatGrinder from 'meat-grinder'
 import mockBattle from 'mock-battle'
 import monteCarlo from 'monte-carlo'
 import out from 'out'
-import removeGameData from 'remove-game-data'
 
 const {t} = l10n
 
@@ -28,10 +27,6 @@ export const mainMenu = async () => {
     {
       message: t('Run a randomized, mock battle'),
       next: mockBattle,
-    },
-    {
-      message: t('Remove existing game data'),
-      next: removeGameData,
     },
     {
       message: t('Quit'),

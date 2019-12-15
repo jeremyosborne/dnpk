@@ -1,4 +1,4 @@
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
 import out from 'out'

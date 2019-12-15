@@ -1,5 +1,5 @@
 // @flow
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'

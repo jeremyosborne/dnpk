@@ -18,8 +18,8 @@ Modules that make use of runtime configuration settings should list those within
     - [X] regular unit recruitment
     - [X] elite unit recruitment
     - [X] aerial unit recruitment
-    - [ ] vault / equipping heroes
-    - [ ] treasure items
+    - [ ] vault / equipping heroes (IN PROCESS...)
+    - [ ] treasure items (IN PROCESS...)
     - [ ] city siege
     - [ ] fight modification: the winner can limp along with some wounded units
     - [ ] encounter function: provide a sampling of only good things (rare)

@@ -139,7 +139,7 @@ export class Vault {
    *
    * @return {number} number of items determined to be equipped, or 0.
    */
-  size = (o) => {
+  size = () => {
     return this._cache.length || 0
   }
 }

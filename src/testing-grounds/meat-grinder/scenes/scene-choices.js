@@ -34,12 +34,14 @@ export const intermission = () => () => {
  */
 export const generalEncounter = () => () => {
   const weightedChoices = {
-    [sceneNames.FIGHT]: 8,
+    [sceneNames.ARTIFACT_SITE]: 1,
+    [sceneNames.FIGHT]: 10,
     [sceneNames.RECRUIT_ARMIES_AERIAL]: 1,
     [sceneNames.RECRUIT_ARMIES_ELITE]: 1,
-    [sceneNames.RECRUIT_ARMIES]: 3,
+    [sceneNames.RECRUIT_ARMIES]: 4,
     [sceneNames.RECRUIT_HERO]: 1,
     [sceneNames.SHRINE]: 1,
+    [sceneNames.VAULT_EQUIPPABLES]: 2,
   }
 
   return random.sampleWeighted({

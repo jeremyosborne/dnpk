@@ -1,4 +1,4 @@
-import * as dataSourceGame from 'data-source-game'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
