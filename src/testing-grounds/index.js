@@ -1,3 +1,14 @@
+//
+// Launcher for any program considered to be part of the testing-grounds.
+//
+// Programs must export a `main` function that will be run via `async main()`.
+// The program yields control back to the launcher by returning a non-function,
+// or by returning a function that will be executed next. Returning a function
+// to the launcher by a program should be avoided.
+//
+// Programs should load/manage their own assets and not assume that the
+// launcher has loaded anything.
+//
 import * as dataSourceModdables from 'data-source-moddables'
 import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
@@ -9,18 +20,22 @@ import out from 'out'
 
 const {t} = l10n
 
+//
+// Register programs in `actions` to allow them to be chosen from the main
+// menu.
+//
 export const mainMenu = async () => {
   const actions = [
     {
-      message: t('Venture into the meat grinder'),
+      message: t('Venture into the Meat Grinder'),
       next: meatGrinder,
     },
     {
-      message: t('Monte carlo'),
+      message: t('Monte carlo testing'),
       next: monteCarlo,
     },
     {
-      message: t('Run a randomized, mock battle'),
+      message: t('Mock Battle: a simple battle simulator / visual test tool'),
       next: mockBattle,
     },
     {
@@ -42,14 +57,6 @@ export const mainMenu = async () => {
   return _.get(actions, `[${answer.action}].next`)
 }
 
-//
-// Launcher for any program considered to be part of the testing-grounds.
-//
-// Each choice added to the testing grounds is considered to be a program
-// encapsulated in an async function. When it yields the main menu will be
-// displayed again until the user quits from the main menu or ctrl-c's from
-// a subroutine.
-//
 export const main = async () => {
   await l10n.read({ns: ['translation']})
   await dataSourceModdables.read()
@@ -61,7 +68,8 @@ export const main = async () => {
   try {
     let next = mainMenu
     while (true) {
-      console.clear()
+      // I'll probably switch this on and off 50 more times as I modify this test tool.
+      // console.clear()
       next = await next() || mainMenu
     }
   } catch (err) {

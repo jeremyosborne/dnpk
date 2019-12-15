@@ -1,74 +1,30 @@
-import dStandard from './d-standard-monte-carlo'
-import {prompt} from 'enquirer'
-import _ from 'lodash'
-import randintMonteCarlo from './randint-monte-carlo'
-import randomMonteCarlo from './random-monte-carlo'
-import randomWeightedArmiesMonteCarlo from './random-weighted-armies-monte-carlo'
-import sampleWeightedMonteCarlo from './sample-weighted-monte-carlo'
-import violenceMonteCarlo from './violence-monte-carlo'
+//
+// Run-it-a-bunch style of testing.
+//
+// Aids with functions and code where I don't trust my biased and tunnel visioned style
+// of unit testing.
+//
+import * as dataSourceModdables from 'data-source-moddables'
+import * as l10n from 'l10n'
+import mainMenu from './main-menu'
 
-export const menu = async () => {
-  // Sub-menu actions, other than the obvious, want to return to this menu.
-  const actions = [
-    {
-      message: 'd.standard() - test pseudo random values returned from the standard dice',
-      next: async () => {
-        await dStandard()
-        return menu
-      }
-    },
-    {
-      message: 'randint() - test pseudo random values returned from core randint',
-      next: async () => {
-        await randintMonteCarlo()
-        return menu
-      }
-    },
-    {
-      message: 'random() - test pseudo random values returned from core random',
-      next: async () => {
-        await randomMonteCarlo()
-        return menu
-      }
-    },
-    {
-      message: 'randomWeightedArmiesMonteCarlo() - test random army generation',
-      next: async () => {
-        await randomWeightedArmiesMonteCarlo()
-        return menu
-      }
-    },
-    {
-      message: 'sampleWeightedMonteCarlo() - test weighted sample function',
-      next: async () => {
-        await sampleWeightedMonteCarlo()
-        return menu
-      }
-    },
-    {
-      message: 'violence() - simulates results of a single battle round',
-      next: async () => {
-        await violenceMonteCarlo()
-        return menu
-      },
-    },
-    {
-      message: 'Return to main menu',
-      next: () => null
-    }
-  ]
+export const main = async () => {
+  // Load expected data into memory.
+  await l10n.read({ns: ['translation']})
+  await dataSourceModdables.read()
 
-  const answer = await prompt({
-    type: 'select',
-    message: 'Monte Carlo testing',
-    name: 'action',
-    // Map our action objects into enquirer friendly action objects that don't
-    // like functions for `value`s...
-    choices: _.map(actions, ({message}, index) => ({name: _.toString(index), message})),
-  })
+  let next = mainMenu
 
-  // ...look up the action function from the response.
-  return _.get(actions, `${answer.action}.next`)
+  while (next) {
+    next = await next()
+  }
 }
 
-export default menu
+export default main
+
+//
+// Launch standalone if invoked from commandline.
+//
+if (require.main === module) {
+  main()
+}

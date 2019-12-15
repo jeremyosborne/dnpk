@@ -1,99 +1,29 @@
-import {battle} from 'battle'
-import * as gameObjects from 'game-objects'
-import * as gameObjectsCommon from 'game-objects-common'
-import * as gameRules from 'game-rules'
+//
+// Run a single battle with randomized players and armies, output results,
+// and quit.
+//
+// Intended to test out the battle module, reporting, and basic text output.
+//
+import * as dataSourceModdables from 'data-source-moddables'
+import mockBattle from './mock-battle'
 import hitReturnToContinue from 'hit-return-to-continue'
-import _ from 'lodash'
-import out from 'out'
-import * as simulation from 'simulation'
-import * as ui from 'ui'
+import * as l10n from 'l10n'
 
-/**
- * Create a random army.
- *
- * @return {object} an army instance, randomly generated.
- */
-export const armyRandom = () => {
-  const army = simulation.createRandom({type: 'army'})
-  if (gameObjectsCommon.effects.hasName(army, 'hero')) {
-    // Equip heroes with an item.
-    const equippable = simulation.createRandom({type: 'equippable'})
-    gameObjectsCommon.equipment.add(army, equippable)
-    // Give a name to the hero.
-    army.nameInstance = simulation.randomNaming({name: 'hero'})
-  }
-  return army
+export const main = async () => {
+  // Load expected data into memory.
+  await l10n.read({ns: ['translation']})
+  await dataSourceModdables.read()
+
+  mockBattle()
+
+  return hitReturnToContinue()
 }
 
-/**
- * Create a random player.
- *
- * @param {object} args parameters as associative array
- * @param {number} [args.numberOfArmyGroups=1] how many army groups to create by default.
- * @param {number} [args.armyGroupSize=8] the default size of the groups generated
- * for this player.
- *
- * @return {object} a randomly generated test player.
- */
-export const playerRandom = ({
-  numberOfArmyGroups = 1,
-  armyGroupSize = 8,
-} = {}) => {
-  const player = gameObjects.player.create()
+export default main
 
-  player.empire = simulation.createRandom({type: 'empire'})
-  player.armyGroups = _.times(numberOfArmyGroups, () => gameObjectsCommon.armies.sort(_.times(armyGroupSize, armyRandom)))
-
-  return player
+//
+// Launch standalone if invoked from commandline.
+//
+if (require.main === module) {
+  main()
 }
-
-export const mockBattle = async () => {
-  out.t('Mock battle')
-
-  out.t('Using ruleset: {{rules}}', {rules: gameRules.nameDefault()})
-
-  // Not deduping empires right now. That's fine, we can have infighting.
-  const player1 = playerRandom()
-  const player2 = playerRandom()
-  const terrain = simulation.createRandom({type: 'terrain'})
-
-  // Engage the 2 groups in battle.
-
-  out(`\nBattle commencing on terrain (${gameObjectsCommon.name(terrain)}), between:`)
-  out('')
-  ui.text.empire.title(player1)
-  ui.text.armyGroup({armyGroup: player1.armyGroups[0]})
-  out('\nvs.\n')
-  ui.text.empire.title(player2)
-  ui.text.armyGroup({armyGroup: player2.armyGroups[0]})
-
-  const {
-    attackers,
-    defenders,
-    events,
-  } = battle({
-    attackers: {
-      armyGroup: player1.armyGroups[0],
-      empire: player1.empire,
-    },
-    defenders: {
-      armyGroup: player2.armyGroups[0],
-      empire: player2.empire,
-    },
-    terrain,
-  })
-
-  out('\n\n')
-
-  ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events})
-
-  out('\n\n')
-
-  ui.text.battle.results({attackers, defenders})
-
-  out('\n\n')
-
-  await hitReturnToContinue()
-}
-
-export default mockBattle

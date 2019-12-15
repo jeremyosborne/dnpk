@@ -1,106 +1,33 @@
-import createProtagonist from './create-protagonist'
-import createArmyGroup from './create-army-group'
-import * as dataSourceGame from 'meat-grinder/data-source-game'
-import {prompt} from 'enquirer'
-import gameLoop from './game-loop'
-import * as gameObjectsCommon from 'game-objects-common'
+//
+// Cookie clicker, almost-idle test game.
+//
+// Try out ideas and new rules that diverge from the core Warlords ruleset that
+// this game was based on.
+//
+import * as dataSourceModdables from 'data-source-moddables'
 import * as l10n from 'l10n'
-import _ from 'lodash'
-import mausoleum from './mausoleum'
-import sceneTest from './scene-test'
-import out from 'out'
-import removeGameData from './remove-game-data'
-import * as ui from 'ui'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
+import mainMenu from 'meat-grinder/main-menu'
 
-const {t} = l10n
-
-export const menu = async () => {
-  // load any of our specific meat-grinder data.
+export const main = async () => {
+  // Load expected data into memory.
   await l10n.read({ns: ['translation', 'meat-grinder']})
+  await dataSourceModdables.read()
+  // Game has its own datasource that we need to read in at least once.
   await dataSourceGame.read()
 
-  const protagonist = dataSourceGame.protagonist.get()
-  const armyGroup = _.get(protagonist, 'armyGroups[0]')
+  let next = mainMenu
 
-  let actions
-  if (!protagonist) {
-    // If we don't have a protagonist, then we don't display anything.
-    actions = [{
-      message: t('Create a protagonist (required for the meat grinder)'),
-      next: async () => {
-        await createProtagonist()
-        return menu
-      }
-    }]
-  } else {
-    out.t('{{empire, commonName}} {{flag}}', {empire: protagonist.empire, flag: ui.text.empire.flag.string(protagonist)})
-    if (gameObjectsCommon.armies.size(armyGroup)) {
-      out.t('Army group: {{armyGroup, commonName}}', {armyGroup})
-    } else {
-      out.t('Army group: none')
-    }
-    out('')
-
-    // Sub-menu actions, other than the obvious, want to return to this menu.
-    actions = [
-      {
-        message: t('Enter the meat grinder'),
-        next: async () => {
-          await gameLoop()
-          return menu
-        }
-      },
-      {
-        message: t('Choose a new empire.'),
-        next: async () => {
-          await createProtagonist()
-          return menu
-        }
-      },
-      {
-        message: gameObjectsCommon.armies.size(armyGroup) ? t('Choose a new army group, disbanding this one')
-          : t('Create a new army group.'),
-        next: async () => {
-          await createArmyGroup()
-          return menu
-        }
-      },
-      {
-        message: t('Test a specific scene of the meat grinder'),
-        next: async () => {
-          await sceneTest()
-          return menu
-        }
-      },
-      {
-        message: t('Pay respects at the Mausoleum'),
-        next: async () => {
-          await mausoleum()
-          return menu
-        }
-      },
-      {
-        message: t('Remove existing game data'),
-        next: removeGameData,
-      },
-      {
-        message: t('Main menu'),
-        next: () => null
-      }
-    ]
+  while (next) {
+    next = await next()
   }
-
-  const answer = await prompt({
-    type: 'select',
-    message: t('Meat grinder options'),
-    name: 'action',
-    // Map our action objects into enquirer friendly action objects that don't
-    // like functions for `value`s...
-    choices: _.map(actions, ({message}, index) => ({name: _.toString(index), message})),
-  })
-
-  // ...look up the action function from the response.
-  return _.get(actions, `${answer.action}.next`)
 }
 
-export default menu
+export default main
+
+//
+// Launch standalone if invoked from commandline.
+//
+if (require.main === module) {
+  main()
+}
