@@ -4,7 +4,7 @@ import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import gameLoop from './game-loop'
 import * as gameObjectsCommon from 'game-objects-common'
-import {t} from 'l10n'
+import * as l10n from 'l10n'
 import _ from 'lodash'
 import mausoleum from './mausoleum'
 import sceneTest from './scene-test'
@@ -12,7 +12,13 @@ import out from 'out'
 import removeGameData from './remove-game-data'
 import * as ui from 'ui'
 
+const {t} = l10n
+
 export const menu = async () => {
+  // load any of our specific meat-grinder data.
+  await l10n.read({ns: ['translation', 'meat-grinder']})
+  await dataSourceGame.read()
+
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
 

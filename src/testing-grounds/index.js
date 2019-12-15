@@ -1,9 +1,4 @@
-//
-// For data we want to save, see: https://github.com/sindresorhus/env-paths
-//
-
 import * as dataSourceModdables from 'data-source-moddables'
-import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as l10n from 'l10n'
 import _ from 'lodash'
@@ -47,23 +42,27 @@ export const mainMenu = async () => {
   return _.get(actions, `[${answer.action}].next`)
 }
 
-// int main(void)
-export const main = async ({defaultState = mainMenu} = {}) => {
-  await l10n.read({ns: ['translation', 'testing-grounds']})
+//
+// Launcher for any program considered to be part of the testing-grounds.
+//
+// Each choice added to the testing grounds is considered to be a program
+// encapsulated in an async function. When it yields the main menu will be
+// displayed again until the user quits from the main menu or ctrl-c's from
+// a subroutine.
+//
+export const main = async () => {
+  await l10n.read({ns: ['translation']})
   await dataSourceModdables.read()
-
-  // load any of our specific testing-ground data.
-  await dataSourceGame.read()
 
   // try/catch to handle ctrl-c and other program escapes since enquirer needs
   // to do some flavor of magic to intercept and handle key presses, we don't
   // write our own signal listeners but assume theirs are running since this
   // is mainly a REPL.
   try {
-    let next = defaultState
+    let next = mainMenu
     while (true) {
       console.clear()
-      next = await next() || defaultState
+      next = await next() || mainMenu
     }
   } catch (err) {
     if (!err) {
