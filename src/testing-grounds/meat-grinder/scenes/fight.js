@@ -85,7 +85,7 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   }
 
   if (equipment.length) {
-    _.forEach(equipment, (equippable) => dataSourceGame.equipmentVault.add(equippable))
+    _.forEach(equipment, (equippable) => dataSourceGame.vaultEquippables.add(equippable))
     out.t('{{equipment, commonName}} shimmer away and teleport to the equipment vault.', {equipment})
   }
 

@@ -25,7 +25,7 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
   const heroesHaveEquipment = _.some(heroes, (army) => gameObjectsCommon.equipment.size(army))
-  const vault = dataSourceGame.equipmentVault.get()
+  const vault = dataSourceGame.vaultEquippables.get()
 
   out.t('A vault-o-matic hums nearby, providing storage of and transdimensional, secure access to acquired items.')
 

@@ -57,6 +57,16 @@ export const generalEncounter = () => () => {
 }
 
 /**
+ * Created to deal with equipment redistribution in a contrived follow up scene
+ * after new equipment was acquired or equipment needed to change hands.
+ *
+ * @return {function} that returns a valid scene name when called
+ */
+export const vaultEquippables = () => () => {
+  return sceneNames.VAULT_EQUIPPABLES
+}
+
+/**
  * Choose a violent next-scene.
  *
  * @return {function} that returns a valid scene name when called
