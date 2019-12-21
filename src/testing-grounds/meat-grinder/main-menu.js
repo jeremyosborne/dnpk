@@ -78,7 +78,10 @@ export const mainMenu = async () => {
       },
       {
         message: t('Manage game data'),
-        next: gameDataManagement,
+        next: async () => {
+          await gameDataManagement()
+          return mainMenu
+        }
       },
       {
         message: t('Exit'),
