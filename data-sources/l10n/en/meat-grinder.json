@@ -3,8 +3,5 @@
   "{{armies, commonName}} is training here._plural": "({{armies, commonName}}) are training here.",
 
   "Vault contents: {{equipment, commonName}}_0": "Vault contents: none",
-  "Vault contents: {{equipment, commonName}}": "Vault contents: {{equipment, commonName}}",
-
-  "{{hero, commonName}} equipment: {{equipment, commonName}}_0": "{{hero, commonName}} equipment: none",
-  "{{hero, commonName}} equipment: {{equipment, commonName}}": "{{hero, commonName}} equipment: {{equipment, commonName}}"
+  "Vault contents: {{equipment, commonName}}": "Vault contents: {{equipment, commonName}}"
 }

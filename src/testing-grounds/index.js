@@ -27,7 +27,7 @@ const {t} = l10n
 export const mainMenu = async () => {
   const actions = [
     {
-      message: t('Venture into the Meat Grinder'),
+      message: t('Meat Grinder: an idle clicker for testing various game mechanics and ideas'),
       next: meatGrinder,
     },
     {
@@ -35,7 +35,7 @@ export const mainMenu = async () => {
       next: monteCarlo,
     },
     {
-      message: t('Mock Battle: a simple battle simulator / visual test tool'),
+      message: t('Mock Battle: a simple battle simulator and console test tool'),
       next: mockBattle,
     },
     {

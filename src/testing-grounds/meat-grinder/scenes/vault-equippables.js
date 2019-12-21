@@ -29,6 +29,12 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
 
   out.t('A vault-o-matic hums nearby, providing storage of and transdimensional, secure access to acquired items.')
 
+  //
+  // Prerequisites:
+  // Make sure that we have a vault, at least one hero, and at least one item
+  // to trade betweent the two.
+  //
+  // Any of the prereq failures will call this method to exit out.
   const carryOn = async () => {
     out.t('You carry on.')
     await hitReturnToContinue()
@@ -47,14 +53,11 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
     return carryOn()
   }
 
-  // You have at least one hero, and your heroes or vault have at least 1 item.
-  out.t('Vault contents: {{equipment, commonName}}', {equipment: vault, count: vault.length})
-  _.forEach(heroes, (hero) => {
-    out.t('{{hero, commonName}} equipment: {{equipment, commonName}}', {hero, equipment: hero.equipment, count: hero.equipment.length})
-  })
+  //
+  // Prerequisites met. You can transfer items between your heroes and vault.
+  //
 
-  hitReturnToContinue()
-
+  // Organize items that can hold equippables.
   const equippableCandidatesMap = {
     // Vault doesn't have an id at the moment so we make it act like one of the regular
     // objects with an id that should never collide.
@@ -105,51 +108,76 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
     }))
   }
 
-  //
-  // TODO: document better
-  // TODO: break into subroutines
-  // TODO: make this loop until done
-  //
+  // We will continue this loop until the user exits.
+  let stillEquipping = true
+  while (stillEquipping) {
+    // Game should limit how many heroes we have so this display shouldn't get out of hand.
+    _.forEach(equippableCandidatesMap, (container) => {
+      const equipment = gameObjectsCommon.equipment.get(container)
+      if (gameObjectsCommon.equipment.size(equipment)) {
+        out.t('{{container, commonName}}: {{equipment, commonName}}', {container, equipment})
+      } else {
+        out.t('{{container, commonName}}: no equipment', {container})
+      }
+    })
 
-  out('') // spacer
-  const {id: fromId} = await prompt({
-    type: 'select',
-    message: t('Transfer from?'),
-    name: 'id',
-    choices: equipmentCandidatesFromChoices(),
-  })
-  const from = equippableCandidatesMap[fromId]
+    out('') // spacer
+    const {action} = await prompt({
+      type: 'select',
+      message: t('Transfer equipment'),
+      name: 'action',
+      choices: [
+        {message: t('Yes, transfer equipment'), name: 'transfer'},
+        {message: t('No, carry on with the adventure'), name: 'carry-on'},
+      ],
+    })
 
-  out('') // spacer
-  const {id: equipmentId} = await prompt({
-    type: 'select',
-    message: t('Which object?'),
-    name: 'id',
-    choices: equippableCandidatesChoices(from),
-  })
-  const toTransfer = gameObjectsCommon.equipment.find(from, {id: equipmentId})
+    if (action === 'transfer') {
+      out('') // spacer
+      const {id: fromId} = await prompt({
+        type: 'select',
+        message: t('Transfer from?'),
+        name: 'id',
+        choices: equipmentCandidatesFromChoices(),
+      })
+      const from = equippableCandidatesMap[fromId]
 
-  out('') // spacer
-  const {id: toId} = await prompt({
-    type: 'select',
-    message: t('Transfer to?'),
-    name: 'id',
-    choices: equipmentCandidatesToChoices(equippableCandidatesMap[fromId]),
-  })
-  const to = equippableCandidatesMap[toId]
+      out('') // spacer
+      const {id: equipmentId} = await prompt({
+        type: 'select',
+        message: t('Which object?'),
+        name: 'id',
+        choices: equippableCandidatesChoices(from),
+      })
+      const toTransfer = gameObjectsCommon.equipment.find(from, {id: equipmentId})
 
-  // Perform the transfer.
-  gameObjectsCommon.equipment.transfer(toTransfer, from, to)
-  // Save everything as vault and armies are in different locations.
-  dataSourceGame.write()
+      out('') // spacer
+      const {id: toId} = await prompt({
+        type: 'select',
+        message: t('Transfer to?'),
+        name: 'id',
+        choices: equipmentCandidatesToChoices(equippableCandidatesMap[fromId]),
+      })
+      const to = equippableCandidatesMap[toId]
 
-  out.t('{{object, commonName}} transferred from {{from, commonName}} to {{to, commonName}}', {
-    object: toTransfer,
-    from,
-    to,
-  })
+      // Perform the transfer.
+      gameObjectsCommon.equipment.transfer(toTransfer, from, to)
+      // Save everything as vault and armies are in different locations.
+      dataSourceGame.write()
+
+      out.t('{{object, commonName}} transferred from {{from, commonName}} to {{to, commonName}}', {
+        object: toTransfer,
+        from,
+        to,
+      })
+      await hitReturnToContinue()
+    } else {
+      // We're done.
+      stillEquipping = false
+    }
+  }
+
   await hitReturnToContinue()
-
   return sceneChoices.intermission()
 }
 

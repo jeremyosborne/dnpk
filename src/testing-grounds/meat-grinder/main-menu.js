@@ -41,43 +41,43 @@ export const mainMenu = async () => {
     // Sub-menu actions, other than the obvious, want to return to this menu.
     actions = [
       {
-        message: t('Enter the meat grinder'),
+        message: t('Play: enter the meat grinder'),
         next: async () => {
           await gameLoop()
           return mainMenu
         }
       },
       {
-        message: t('Choose a new empire'),
-        next: async () => {
-          await createProtagonist()
-          return mainMenu
-        }
-      },
-      {
-        message: gameObjectsCommon.armies.size(armyGroup) ? t('Choose a new army group, disbanding this one')
-          : t('Create a new army group.'),
-        next: async () => {
-          await createArmyGroup()
-          return mainMenu
-        }
-      },
-      {
-        message: t('Test a specific scene of the meat grinder'),
-        next: async () => {
-          await sceneTest()
-          return mainMenu
-        }
-      },
-      {
-        message: t('Pay respects at the Mausoleum'),
+        message: t('Scores: pay respect to the dead at the Mausoleum'),
         next: async () => {
           await mausoleum()
           return mainMenu
         }
       },
       {
-        message: t('Manage game data'),
+        message: t('Test: run one specific scene of the meat grinder'),
+        next: async () => {
+          await sceneTest()
+          return mainMenu
+        }
+      },
+      {
+        message: t('Admin: Choose a new empire'),
+        next: async () => {
+          await createProtagonist()
+          return mainMenu
+        }
+      },
+      {
+        message: gameObjectsCommon.armies.size(armyGroup) ? t('Admin: Choose a new army group, disbanding the current one')
+          : t('Admin: Create a new army group.'),
+        next: async () => {
+          await createArmyGroup()
+          return mainMenu
+        }
+      },
+      {
+        message: t('Admin: Manage game data'),
         next: async () => {
           await gameDataManagement()
           return mainMenu
