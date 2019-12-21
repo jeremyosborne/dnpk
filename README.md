@@ -18,24 +18,23 @@ Modules that make use of runtime configuration settings should list those within
     - [X] regular unit recruitment
     - [X] elite unit recruitment
     - [X] aerial unit recruitment
+    - [X] treasure items
     - [ ] vault / equipping heroes (IN PROCESS...)
-    - [ ] treasure items (IN PROCESS...)
+        - loop until done
     - [ ] city siege
-    - [ ] fight modification: the winner can limp along with some wounded units
-    - [ ] encounter function: provide a sampling of only good things (rare)
 - [ ] If a hero with items is killed and the items are dropped, they need to be transferred to the vault.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
-- [ ] Keep stats on objects like `army` and `army-group` and `player`.
-- [ ] Find a JavaScript lib like numpy/scipy.
 - [ ] Explicitly version the schemas used in the moddables.
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
 
-## Ideas
+## Future TODO and ideas
 
+- [ ] Keep accomplishment stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
 - [ ] A battle loser can route before being totally destroyed.
 - [ ] Prisoners.
-- [ ] Injuries for fighting in a battle.
+- [ ] Boss battles.
+- [ ] Injuries for fighting in a battle. Winner may get to revive troops instead of losing everyone.
 - [ ] Terrain modifications beyond cities and towers, like traps and fires.
 - [ ] Experience for an army-group, as well as individual armies. Need a way to keep this from being gamed, like maybe when a group gets renowned it can't disband and keep a bonus, adding new armies dilutes the bonus, etc.
 - [ ] In that very far future where there might be a modder, include how to import additional translations for modded data.

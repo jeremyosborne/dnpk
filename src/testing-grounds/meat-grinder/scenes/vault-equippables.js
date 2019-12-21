@@ -106,40 +106,51 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
   }
 
   //
-  // TODO enter equipment menu.
+  // TODO: document better
+  // TODO: break into subroutines
+  // TODO: make this loop until done
   //
-  // 1) Add equipment to hero from vault.
-  // 2) Add equipment to vault from hero.
-  // 3) If more than 1 hero, take equipment from one hero, add to another.
-  //
-  // TODO: Need a quit option.
-  // Submenu to pick a hero.
-  // Submenu to pick item from either vault or hero.
-  // Transaction only happens after all choices are made and data is saved to vault and protagonist.
+
+  out('') // spacer
   const {id: fromId} = await prompt({
     type: 'select',
-    message: t('From...'),
+    message: t('Transfer from?'),
     name: 'id',
     choices: equipmentCandidatesFromChoices(),
   })
   const from = equippableCandidatesMap[fromId]
 
-  // TODO: What item is being selected from the candidate to transfer?
+  out('') // spacer
   const {id: equipmentId} = await prompt({
     type: 'select',
-    message: t('From...'),
+    message: t('Which object?'),
     name: 'id',
     choices: equippableCandidatesChoices(from),
   })
   const toTransfer = gameObjectsCommon.equipment.find(from, {id: equipmentId})
 
+  out('') // spacer
   const {id: toId} = await prompt({
     type: 'select',
-    message: t('To...'),
+    message: t('Transfer to?'),
     name: 'id',
     choices: equipmentCandidatesToChoices(equippableCandidatesMap[fromId]),
   })
   const to = equippableCandidatesMap[toId]
+
+  // Perform the transfer.
+  gameObjectsCommon.equipment.transfer(toTransfer, from, to)
+  // Save everything as vault and armies are in different locations.
+  dataSourceGame.write()
+
+  out.t('{{object, commonName}} transferred from {{from, commonName}} to {{to, commonName}}', {
+    object: toTransfer,
+    from,
+    to,
+  })
+  await hitReturnToContinue()
+
+  return sceneChoices.intermission()
 }
 
 export default _.flowRight([
