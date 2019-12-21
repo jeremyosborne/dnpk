@@ -1,11 +1,10 @@
-import * as objectList from '../object-list'
+import equipmentBase from './equipment'
+import _ from 'lodash'
+import transfer from './transfer'
 
-/**
- * Helpers for working with sets of `equipment` on an object.
- *
- * see: object-list
- */
-export const equipment = objectList.create({attrPath: 'equipment'})
+// Extend the base public object when imported from the full module.
+export const equipment = _.clone(equipmentBase)
+equipment.transfer = transfer
 
 // Exception to the usual `import * as module from 'module'` rule due to
 // usage of function factory.

@@ -27,6 +27,22 @@ describe('game-objects.common.object-list', () => {
     expect(!!api.remove(effects, effect1)).toEqual(false)
   })
 
+  describe('find', () => {
+    describe('with arrays', () => {
+      const effects = [effect2, effect1]
+      const found = api.find(effects, effect1)
+      expect(found).toEqual(effect1)
+    })
+
+    describe('with objects', () => {
+      const army = {
+        [attrPath]: [effect2, effect1],
+      }
+      const found = api.find(army, effect2)
+      expect(found).toEqual(effect2)
+    })
+  })
+
   it('works with things that implement objects', () => {
     const army = {
       [attrPath]: [],
@@ -35,17 +51,17 @@ describe('game-objects.common.object-list', () => {
     expect(api.hasName(army, 'random')).toEqual(false)
     api.add(army, effect1)
     api.add(army, effect1)
-    expect(api.has(army, effect1)).toEqual(true)
-    expect(api.hasName(army, 'random')).toEqual(true)
     expect(api.get(army).length).toEqual(1)
     expect(api.get(army, 0).id).toEqual(effect1.id)
     expect(api.has(army, effect1)).toEqual(true)
+    expect(api.has(army, effect1)).toEqual(true)
+    expect(api.hasName(army, 'random')).toEqual(true)
     api.add(army, effect2)
     expect(api.hasName(army, 'random')).toEqual(true)
     expect(api.hasName(army, 'blah')).toEqual(true)
     const removed = api.remove(army, effect1)
-    expect(api.get(army).length).toEqual(1)
     expect(removed.id).toEqual(effect1.id)
+    expect(api.get(army).length).toEqual(1)
     expect(api.has(army, effect1)).toEqual(false)
     expect(api.has(army, effect2)).toEqual(true)
     expect(!!api.remove(army, effect1)).toEqual(false)

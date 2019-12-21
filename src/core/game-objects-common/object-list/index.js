@@ -27,33 +27,33 @@ export const create = ({
    *
    * @param {object|object[]} o object to test
    *
-   * @return {Boolean} true if this is not an array, false if it is.
+   * @return {Boolean} true if this is an object, false if it is a native array.
    */
   const _isStruct = (o) => {
     return !_.isArray(o)
   }
 
   /**
-   * Retrieve the attribute set from from the object, and assume that someone
-   * handing us an array is a declaration that the caller has already done
-   * the work of finding the set for us.
+   * Retrieve the object list that we should work with.
+   *
+   * Native array friendly.
    *
    * @param {object|object[]} o object to test
    *
-   * @return {object[]} the attribute set we should work with.
+   * @return {object[]} the object list we should work with.
    */
   const _objectList = (o) => {
     return _isStruct(o) ? _.get(o, attrPath) : o
   }
 
   /**
-   * Add an effect if not already added.
+   * Add an object to the object-list if not already added.
    *
    * This will mutate the object.
    *
-   * @param {object|object[]} o requires something that implements the attrSet
-   * or a simple array.
-   * @param {object} effect to add, must implement `.id`.
+   * @param {object|object[]} o requires something that implements the attrPath
+   * or a native array.
+   * @param {object} thing to add, must implement `.id`.
    */
   const add = (o, thing) => {
     if (has(o, thing)) {
@@ -68,10 +68,26 @@ export const create = ({
   }
 
   /**
+   * Look for a particular element by id and return it if it exists.
+   *
+   * @param {object|object[]} o requires something that implements the object
+   * list at attrPath, or a native array.
+   * @param {object|string} thing to test for. If object, must implement `id`.
+   * If string, assumed to be the `id` to search for.
+   *
+   * @return {object} if found, returns the object.
+   */
+  const find = (o, thing) => {
+    const things = _objectList(o)
+    const id = _.isString(thing) ? thing : thing.id
+    return _.find(things, (t) => t.id === id)
+  }
+
+  /**
    * Get the underlying array, when you want to work directly with the object.
    *
-   * @param {object|object[]} o requires something that implements the attrSet
-   * or a simple array.
+   * @param {object|object[]} o requires something that implements the object
+   * list at attrPath, or a native array.
    * @param {number} [index] if included, return the element at index
    *
    * @return {object[]} the attribute set we should work with.
@@ -82,17 +98,17 @@ export const create = ({
   }
 
   /**
-   * Does an object have an effect?
+   * Does an object-list contain a particular object?
    *
    * @param {object|object[]} o requires something that implements the attrSet
    * or a simple array.
-   * @param {object} thing to test for, must implement `.id`.
+   * @param {object|string} thing to test for. If object, must implement `id`.
+   * If string, assumed to be the `id` to test for.
    *
    * @return {Boolean}
    */
   const has = (o, thing) => {
-    const things = _objectList(o)
-    return !!_.find(things, (t) => t.id === thing.id)
+    return !!find(o, thing)
   }
 
   /**
@@ -162,6 +178,7 @@ export const create = ({
 
     // ...and assume this is the generally used public API.
     add,
+    find,
     get,
     has,
     hasName,

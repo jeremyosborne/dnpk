@@ -23,6 +23,7 @@ Modules that make use of runtime configuration settings should list those within
     - [ ] city siege
     - [ ] fight modification: the winner can limp along with some wounded units
     - [ ] encounter function: provide a sampling of only good things (rare)
+- [ ] If a hero with items is killed and the items are dropped, they need to be transferred to the vault.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Keep stats on objects like `army` and `army-group` and `player`.
 - [ ] Find a JavaScript lib like numpy/scipy.
