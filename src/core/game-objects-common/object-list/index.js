@@ -34,13 +34,13 @@ export const create = ({
   }
 
   /**
-   * Retrieve the object list that we should work with.
+   * Retrieve the object-list that we should work with.
    *
    * Native array friendly.
    *
    * @param {object|object[]} o object to test
    *
-   * @return {object[]} the object list we should work with.
+   * @return {object[]} the object-list we should work with.
    */
   const _objectList = (o) => {
     return _isStruct(o) ? _.get(o, attrPath) : o
@@ -84,13 +84,13 @@ export const create = ({
   }
 
   /**
-   * Get the underlying array, when you want to work directly with the object.
+   * Get the underlying array, when you want to work directly with the objec-list.
    *
-   * @param {object|object[]} o requires something that implements the object
-   * list at attrPath, or a native array.
-   * @param {number} [index] if included, return the element at index
+   * @param {object|object[]} o requires something that implements the object-list
+   * at attrPath, or a native array.
+   * @param {number} [index] if included, return the element at index.
    *
-   * @return {object[]} the attribute set we should work with.
+   * @return {object[]} the object-list we should work with.
    */
   const get = (o, index) => {
     const objectList = _objectList(o)
@@ -112,13 +112,13 @@ export const create = ({
   }
 
   /**
-   * Does the object have a particular `name` of effect?
+   * Does the object-list have a particularly `name`d object?
    *
    * Used for a `some/any` style of test, like, "Is this object a hero?"
    *
-   * @param {object|object[]} o requires something that implements the attrSet
+   * @param {object|object[]} o requires something that implements the object-list
    * or a simple array.
-   * @param {string} name of the effect to look for.
+   * @param {string} name of the object to look for within the object-list.
    *
    * @return {Boolean}
    */
@@ -128,12 +128,12 @@ export const create = ({
   }
 
   /**
-   * Remove an effect if effected.
+   * Remove an object from the object-list if contained.
    *
-   * This will mutate the object.
+   * This will mutate the object-list.
    *
-   * @param {object|object[]} o requires something that implements the attrSet
-   * or a simple array.
+   * @param {object|object[]} o requires something that implements the object-list
+   * or a native array.
    * @param {object} thing to remove, must implement `.id`.
    *
    * @return {object} the thing removed, or null if the thing wasn't in
@@ -145,23 +145,27 @@ export const create = ({
     }
 
     const things = _objectList(o)
-    // It's illegal to reference the same army twice in an array, so we assume
-    // there can be only 1 in the list of armies at a time.
+    // It's against coding norms to reference the same object more than once within the
+    // same object list, so we assume there can be only 1 in the list of armies at a time.
     const removed = _.remove(things, (t) => t.id === thing.id)[0]
     if (_isStruct(o)) {
       o[attrPath] = things
     }
 
+    // Return the item removed as the input might be a partial object used
+    // to identify the original, and the caller might want the original
+    // reference of the object to remove.
     return removed
   }
 
   /**
-   * Return number of effects effecting the effected.
+   * Return number of objects within the object-list.
    *
-   * @param {object|object[]} o requires something that implements the attrSet
-   * or a simple array.
+   * @param {object|object[]} o requires something that implements the object-list
+   * or a native array.
    *
-   * @return {number} number of effects, or 0.
+   * @return {number} number of items in the object-list, or 0 for any other type of
+   * object.
    */
   const size = (o) => {
     if (_.isArray(o)) {
