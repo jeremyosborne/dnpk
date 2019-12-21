@@ -97,10 +97,10 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
 
   // record kills and deaths.
   _.forEach(attackers.casualties, (dead) => {
-    dataSourceGame.deadCounter.add(dead.name)
+    dataSourceGame.counterDead.add(dead.name)
   })
   _.forEach(defenders.casualties, (killed) => {
-    dataSourceGame.killCounter.add(killed.name)
+    dataSourceGame.counterKills.add(killed.name)
   })
 
   // Save the updated results.

@@ -1,19 +1,21 @@
-import {killCounter, deadCounter} from './counters' // eslint-disable-line import/first
-export {killCounter, deadCounter}
+import _ from 'lodash'
+
+import {counterKills, counterDead} from './counters' // eslint-disable-line import/first
+export {counterKills, counterDead}
 
 import protagonist from './protagonist' // eslint-disable-line import/first
 export {protagonist}
 
-import {vaultEquippables} from './vault' // eslint-disable-line import/first
+import {vaultEquippables} from './vaults' // eslint-disable-line import/first
 export {vaultEquippables}
 
 // Register module here to opt into the batch loading, remove, writing, etc.
-const aggregate = [
-  deadCounter,
+export const dataSources = {
+  counterDead,
+  counterKills,
   vaultEquippables,
-  killCounter,
   protagonist,
-]
+}
 
 /**
  * Remove all of the testing-ground state from disk.
@@ -21,7 +23,7 @@ const aggregate = [
  * @return {Promise} [description]
  */
 export const remove = async () => {
-  const batch = Promise.all(aggregate.map((m) => m.remove()))
+  const batch = Promise.all(_.map(dataSources, (ds) => ds.remove()))
   await batch
 }
 
@@ -31,7 +33,7 @@ export const remove = async () => {
  * @return {Promise}
  */
 export const write = async () => {
-  const batch = Promise.all(aggregate.map((m) => m.write()))
+  const batch = Promise.all(_.map(dataSources, (ds) => ds.write()))
   await batch
 }
 
@@ -45,6 +47,6 @@ export const write = async () => {
  * @return {Promise}
  */
 export const read = async () => {
-  const batch = Promise.all(aggregate.map((m) => m.read()))
+  const batch = Promise.all(_.map(dataSources, (ds) => ds.read()))
   await batch
 }

@@ -9,7 +9,7 @@ import _ from 'lodash'
 import mausoleum from './mausoleum'
 import sceneTest from './scene-test'
 import out from 'out'
-import removeGameData from './remove-game-data'
+import gameDataManagement from './game-data-management'
 import * as ui from 'ui'
 
 //
@@ -48,7 +48,7 @@ export const mainMenu = async () => {
         }
       },
       {
-        message: t('Choose a new empire.'),
+        message: t('Choose a new empire'),
         next: async () => {
           await createProtagonist()
           return mainMenu
@@ -77,8 +77,8 @@ export const mainMenu = async () => {
         }
       },
       {
-        message: t('Remove existing game data'),
-        next: removeGameData,
+        message: t('Manage game data'),
+        next: gameDataManagement,
       },
       {
         message: t('Exit'),

@@ -144,4 +144,4 @@ export class Vault {
   }
 }
 
-export const vaultEquippables = new Vault('testing-grounds/equipment-vault')
+export const vaultEquippables = new Vault('testing-grounds/vault-equippables')

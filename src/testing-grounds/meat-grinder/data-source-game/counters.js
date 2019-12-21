@@ -123,5 +123,5 @@ export class TestingGroundsCounter {
   }
 }
 
-export const killCounter = new TestingGroundsCounter('testing-grounds/kill-counter')
-export const deadCounter = new TestingGroundsCounter('testing-grounds/dead-counter')
+export const counterKills = new TestingGroundsCounter('testing-grounds/counter-kills')
+export const counterDead = new TestingGroundsCounter('testing-grounds/counter-dead')

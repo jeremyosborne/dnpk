@@ -9,10 +9,10 @@ import out from 'out'
  * @return {Promise}
  */
 export const mausoleum = async () => {
-  const deaths = dataSourceGame.deadCounter.sum()
+  const deaths = dataSourceGame.counterDead.sum()
   out.t('{{count}} have fallen for your cause.', {count: deaths})
   if (deaths) {
-    const deads = _.slice(dataSourceGame.deadCounter.sorted())
+    const deads = _.slice(dataSourceGame.counterDead.sorted())
     out.t('Numbering your dead:')
     _.forEach(deads, (d) => {
       out.t('\t{{label}}: {{value}}', d)
@@ -21,10 +21,10 @@ export const mausoleum = async () => {
 
   out('')
 
-  const kills = dataSourceGame.killCounter.sum()
+  const kills = dataSourceGame.counterKills.sum()
   out.t('{{count}} have been vanquished by your forces.', {count: kills})
   if (kills) {
-    const killeds = _.slice(dataSourceGame.deadCounter.sorted())
+    const killeds = _.slice(dataSourceGame.counterDead.sorted())
     out.t('Numbering your fallen foes:')
     _.forEach(killeds, (k) => {
       out.t('\t{{label}}: {{value}}', k)
