@@ -31,6 +31,12 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
 
   out.t('{{artifact, commonName}} lies on the ground.', {artifact})
 
+  // DEBUG: Return early while working on other code.
+  out.t('Lacking any heroic armies able to pick up the artifact, eldritch tendrils zap the artifact to your vault-o-matic.')
+  const vault = dataSourceGame.equipmentVault.get()
+  gameObjectsCommon.add(vault, artifact)
+  console.log('DEBUG: serialized vault contents:', vault)
+
   if (!heroes.length) {
     out.t('Lacking any heroic armies able to pick up the artifact, eldritch tendrils zap the artifact to your vault-o-matic.')
     //
