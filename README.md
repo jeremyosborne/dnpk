@@ -19,9 +19,10 @@ Modules that make use of runtime configuration settings should list those within
     - [X] elite unit recruitment
     - [X] aerial unit recruitment
     - [X] treasure items
-    - [ ] vault / equipping heroes (IN PROCESS...)
-        - loop until done
-    - [ ] city siege
+    - [X] vault / equipping heroes
+    - [ ] fight: large number of weak enemies
+    - [ ] fight: tough hero + entourage
+    - [ ] fight: city siege (huge number of random enemies with city bonus)
 - [ ] If a hero with items is killed and the items are dropped, they need to be transferred to the vault.
 - [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Explicitly version the schemas used in the moddables.
@@ -29,6 +30,7 @@ Modules that make use of runtime configuration settings should list those within
 
 ## Future TODO and ideas
 
+- [ ] Add cosmetics to armies and items: elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
 - [ ] Keep accomplishment stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
 - [ ] A battle loser can route before being totally destroyed.
