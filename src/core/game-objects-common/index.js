@@ -1,4 +1,7 @@
 export {armies} from './armies'
+export {create} from './create'
+export {def} from './def'
+export {dir} from './dir'
 export {effects} from './effects'
 export {equipment} from './equipment'
 export {name} from './name'

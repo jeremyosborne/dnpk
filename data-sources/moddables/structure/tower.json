@@ -1,0 +1,5 @@
+{
+  "documentation": "Fortification buildable on terrain, providing good defense.",
+  "defense": 2,
+  "name": "tower"
+}

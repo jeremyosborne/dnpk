@@ -36,6 +36,8 @@ export const types = _.reduce([
   'naming',
   // Modifiable game rules.
   'rules',
+  // Buildings, towers, defenses, places to buy units, etc.
+  'structure',
   // Makes up the world and affects fighting.
   'terrain',
 ], (t, mod) => {

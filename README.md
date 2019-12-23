@@ -23,7 +23,9 @@ Modules that make use of runtime configuration settings should list those within
     - [X] fight: large number of weak enemies
     - [X] fight: tough hero + entourage
     - [ ] fight: city siege (huge number of random enemies with city bonus)
-        - [ ] structures as a basic type (fortification, buildings... other words that work...)
+        - [X] structures as a basic type (fortification, buildings... other words that work...)
+        - [ ] structures affect strength calculations
+        - [ ] structures passable to battle, and then affect strength calculations
 
 ## Future TODO and ideas
 

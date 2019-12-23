@@ -22,5 +22,8 @@ export {equippable}
 import * as player from './player' // eslint-disable-line import/first
 export {player}
 
+import * as structure from './structure' // eslint-disable-line import/first
+export {structure}
+
 import * as terrain from './terrain' // eslint-disable-line import/first
 export {terrain}

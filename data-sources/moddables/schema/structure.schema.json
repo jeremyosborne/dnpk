@@ -1,0 +1,23 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/structure.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "structure",
+  "description": "Basic structure information.",
+  "type": "object",
+  "properties": {
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
+    "name": {
+      "description": "Descriptive, unique name for this structure.",
+      "type": "string"
+    },
+    "type": {
+      "enum": ["structure"],
+      "default": "structure",
+      "description": "duck typing",
+      "type": "string"
+    }
+  }
+}
