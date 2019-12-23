@@ -7,6 +7,7 @@
 
 export const ARTIFACT_SITE = 'artifactSite'
 export const FIGHT = 'fight'
+export const FIGHT_HORDE = 'fightHorde'
 export const INTERMISSION = 'intermission'
 export const PREREQ = 'prereq'
 export const RECRUIT_HERO = 'recruitHero'

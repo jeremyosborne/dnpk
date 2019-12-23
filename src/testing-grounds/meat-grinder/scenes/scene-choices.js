@@ -35,7 +35,9 @@ export const intermission = () => () => {
 export const generalEncounter = () => () => {
   const weightedChoices = {
     [sceneNames.ARTIFACT_SITE]: 1,
-    [sceneNames.FIGHT]: 10,
+    // Keeping violence to 50% of the potential choices by weight.
+    [sceneNames.FIGHT]: 9,
+    [sceneNames.FIGHT_HORDE]: 3,
     [sceneNames.RECRUIT_ARMIES_AERIAL]: 1,
     [sceneNames.RECRUIT_ARMIES_ELITE]: 1,
     [sceneNames.RECRUIT_ARMIES]: 4,
@@ -72,5 +74,19 @@ export const vaultEquippables = () => () => {
  * @return {function} that returns a valid scene name when called
  */
 export const violent = () => () => {
-  return sceneNames.FIGHT
+  const weightedChoices = {
+    [sceneNames.FIGHT]: 3,
+    [sceneNames.FIGHT_HORDE]: 1,
+  }
+
+  return random.sampleWeighted({
+    choices: _.keys(weightedChoices),
+    weight: (name) => {
+      const weight = weightedChoices[name]
+      if (!weight) {
+        throw new Error(`violent: You forgot to add a weight for ${name}`)
+      }
+      return weight
+    }
+  })[0]
 }

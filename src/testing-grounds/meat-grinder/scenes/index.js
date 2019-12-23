@@ -5,6 +5,7 @@
 
 export {default as artifactSite} from './artifact-site'
 export {default as fight} from './fight'
+export {default as fightHorde} from './fight-horde'
 export {default as intermission} from './intermission'
 export {default as prereq} from './prereq'
 export {default as recruitArmiesAerial} from './recruit-armies-aerial'

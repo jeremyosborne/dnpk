@@ -20,16 +20,16 @@ Modules that make use of runtime configuration settings should list those within
     - [X] aerial unit recruitment
     - [X] treasure items
     - [X] vault / equipping heroes
-    - [ ] fight: large number of weak enemies
+    - [X] fight: large number of weak enemies
     - [ ] fight: tough hero + entourage
     - [ ] fight: city siege (huge number of random enemies with city bonus)
-- [ ] If a hero with items is killed and the items are dropped, they need to be transferred to the vault.
-- [ ] Add base costs + upkeep (1/2 cost per turn) for armies.
-- [ ] Explicitly version the schemas used in the moddables.
-- [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
 
 ## Future TODO and ideas
 
+- [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
+    - [ ] Better yet, come up with a way of managing the strings for now that works for our needs and drop the automatic parsing.
+- [ ] Explicitly version the schemas used in the moddables.
+- [ ] Add production base costs + upkeep (1/2 cost per turn) for armies.
 - [ ] Add cosmetics to armies and items: elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
 - [ ] Keep accomplishment stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
