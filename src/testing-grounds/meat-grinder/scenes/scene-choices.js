@@ -35,9 +35,13 @@ export const intermission = () => () => {
 export const generalEncounter = () => () => {
   const weightedChoices = {
     [sceneNames.ARTIFACT_SITE]: 1,
-    // Keeping violence to 50% of the potential choices by weight.
+
+    // Keep violence to ~50% of the potential choices by weight.
+    // see: violent()
     [sceneNames.FIGHT]: 9,
+    [sceneNames.FIGHT_FALLEN_HERO]: 1,
     [sceneNames.FIGHT_HORDE]: 3,
+
     [sceneNames.RECRUIT_ARMIES_AERIAL]: 1,
     [sceneNames.RECRUIT_ARMIES_ELITE]: 1,
     [sceneNames.RECRUIT_ARMIES]: 4,
@@ -75,8 +79,10 @@ export const vaultEquippables = () => () => {
  */
 export const violent = () => () => {
   const weightedChoices = {
-    [sceneNames.FIGHT]: 3,
-    [sceneNames.FIGHT_HORDE]: 1,
+    // see: generalEncounter()
+    [sceneNames.FIGHT]: 4,
+    [sceneNames.FIGHT_FALLEN_HERO]: 1,
+    [sceneNames.FIGHT_HORDE]: 2,
   }
 
   return random.sampleWeighted({

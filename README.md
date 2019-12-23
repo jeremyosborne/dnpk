@@ -21,11 +21,14 @@ Modules that make use of runtime configuration settings should list those within
     - [X] treasure items
     - [X] vault / equipping heroes
     - [X] fight: large number of weak enemies
-    - [ ] fight: tough hero + entourage
+    - [X] fight: tough hero + entourage
     - [ ] fight: city siege (huge number of random enemies with city bonus)
+        - [ ] structures as a basic type (fortification, buildings... other words that work...)
 
 ## Future TODO and ideas
 
+- [ ] Meat Grinder: Record distance traveled before dying.
+- [ ] Meat Grinder: Make the intermission a menu system allowing access to various things.
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
     - [ ] Better yet, come up with a way of managing the strings for now that works for our needs and drop the automatic parsing.
 - [ ] Explicitly version the schemas used in the moddables.
