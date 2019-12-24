@@ -26,7 +26,7 @@ describe('strength.army', () => {
         {name: 'hero'}
       ],
       equipment: [
-        {effects: [{name: 'command', magnitude: 1}]}
+        {effects: [{name: 'brawn-aura', magnitude: 1}]}
       ]
     }
 

@@ -43,7 +43,7 @@ export const strengthModifierElite = ({armyGroup = []} = {}) => {
 }
 
 /**
- * Calculate the strength modifier from equipped command items.
+ * Calculate the strength modifier from equipped brawn-aura items.
  *
  * @param {object} args
  * @param {object|object[]} [args.armyGroup=[]] either a formal `army-group` that implements
@@ -51,10 +51,10 @@ export const strengthModifierElite = ({armyGroup = []} = {}) => {
  *
  * @return {number} the strength modifier or 0
  */
-export const strengthModifierEquippableCommand = ({armyGroup = []} = {}) => {
+export const strengthModifierEquippableBrawnAura = ({armyGroup = []} = {}) => {
   const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   return _.reduce(armies, (strengthModifier, army) => {
-    return strengthModifier + equipment.strengthModifierCommand(army)
+    return strengthModifier + equipment.strengthModifierBrawnAura(army)
   }, 0)
 }
 
@@ -92,7 +92,7 @@ export const strengthModifier = (
     modifierFns = [
       strengthModifierElite,
       strengthModifierAerial,
-      strengthModifierEquippableCommand,
+      strengthModifierEquippableBrawnAura,
       strengthModifierHero,
     ],
   } = {}

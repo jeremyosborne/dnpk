@@ -1,6 +1,0 @@
-{
-  "name": "command",
-  "documentation": "Provides a bonus to the entire group the army is part of. Duration and magnitude are considered defaults, these values will often be edited.",
-  "duration": -1,
-  "magnitude": 1
-}

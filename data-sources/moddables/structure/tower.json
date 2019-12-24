@@ -1,5 +1,10 @@
 {
+  "name": "tower",
   "documentation": "Fortification buildable on terrain, providing good defense.",
-  "defense": 2,
-  "name": "tower"
+  "effects": [
+    {
+      "name": "brawn-aura",
+      "magnitude": 1
+    }
+  ]
 }

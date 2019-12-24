@@ -8,7 +8,7 @@ describe('strength.equipment', () => {
       effects: [
         {name: 'brawn', magnitude: 4},
         {name: 'brawn', magnitude: -2},
-        {name: 'command', magnitude: 1},
+        {name: 'brawn-aura', magnitude: 1},
       ]
     }
   ]
@@ -20,15 +20,15 @@ describe('strength.equipment', () => {
 
   describe('strengthModifierBrawn', () => {
     it('works', () => {
-      // 4 - 2 + (0 ignores the command effect) = 2
+      // 4 - 2 + 0 + (ignores the brawn-aura effect) = 2
       expect(testModule.strengthModifierBrawn({equipment})).toEqual(2)
     })
   })
 
-  describe('strengthModifierCommand', () => {
+  describe('strengthModifierStrengthModifierAura', () => {
     it('works', () => {
-      // (0 ignores brawn), 1 = 1
-      expect(testModule.strengthModifierCommand({equipment})).toEqual(1)
+      // (0 ignores brawn) + 1 = 1
+      expect(testModule.strengthModifierBrawnAura({equipment})).toEqual(1)
     })
   })
 })

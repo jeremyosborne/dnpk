@@ -3,7 +3,7 @@
   "documentation": "Boosts strength of army group.",
   "effects": [
     {
-      "name": "command",
+      "name": "brawn-aura",
       "magnitude": 2
     }
   ]

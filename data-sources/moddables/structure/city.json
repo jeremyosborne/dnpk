@@ -1,5 +1,10 @@
 {
+  "name": "city",
   "documentation": "Fortification providing defense to units within. City squares next to each other considered the same city.",
-  "defense": 1,
-  "name": "city"
+  "effects": [
+    {
+      "name": "brawn-aura",
+      "magnitude": 1
+    }
+  ]
 }

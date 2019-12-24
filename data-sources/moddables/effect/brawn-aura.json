@@ -1,0 +1,6 @@
+{
+  "name": "brawn-aura",
+  "documentation": "Provides a strength modifier to the entire group the army is part of, including the army providing it. Duration and magnitude are considered defaults, these values will often be edited.",
+  "duration": -1,
+  "magnitude": 1
+}

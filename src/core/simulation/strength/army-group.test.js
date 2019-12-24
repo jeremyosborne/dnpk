@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 describe('strength.army-group', () => {
   // Hero by itself should supply +1
-  // Equipment with command modifier should add +1
+  // Equipment with brawn-aura should add +1
   // total: +2
   const armyHero = {
     name: 'hero',
@@ -13,7 +13,7 @@ describe('strength.army-group', () => {
       {name: 'hero'}
     ],
     equipment: [
-      {effects: [{name: 'command', magnitude: 1}]}
+      {effects: [{name: 'brawn-aura', magnitude: 1}]}
     ]
   }
   const armies = [
@@ -45,12 +45,6 @@ describe('strength.army-group', () => {
     })
   })
 
-  describe('strengthModifierEquippableCommand', () => {
-    it('does not explode', () => {
-      expect(testModule.strengthModifierEquippableCommand()).toEqual(0)
-    })
-  })
-
   describe('strengthModifierHero', () => {
     it('handles various hero strength', () => {
       const testHero = _.cloneDeep(armyHero)
@@ -75,8 +69,12 @@ describe('strength.army-group', () => {
     })
   })
 
-  describe('strengthModifierEquippableCommand', () => {
-    it('handles a magnitude null command object', () => {
+  describe('strengthModifierEquippableBrawnAura', () => {
+    it('does not explode', () => {
+      expect(testModule.strengthModifierEquippableBrawnAura()).toEqual(0)
+    })
+
+    it('handles a magnitude null brawn-aura object', () => {
       const armyHero = {
         name: 'hero',
         strength: 4,
@@ -84,15 +82,15 @@ describe('strength.army-group', () => {
           {name: 'hero'}
         ],
         equipment: [
-          {effects: [{name: 'command'}]}
+          {effects: [{name: 'brawn-aura'}]}
         ]
       }
       const armies = [armyHero]
       const armyGroup = {armies}
 
       // No NaN.
-      expect(testModule.strengthModifierEquippableCommand({armyGroup})).toEqual(0)
-      expect(testModule.strengthModifierEquippableCommand({armyGroup: armies})).toEqual(0)
+      expect(testModule.strengthModifierEquippableBrawnAura({armyGroup})).toEqual(0)
+      expect(testModule.strengthModifierEquippableBrawnAura({armyGroup: armies})).toEqual(0)
     })
   })
 

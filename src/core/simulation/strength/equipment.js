@@ -41,19 +41,19 @@ export const strengthModifierBrawn = ({equipment}) => {
 
 /**
  * Calculate the strength modifier from `equippable`s held by armies as
- * `equipment` that have a `command` effect.
+ * `equipment` that have a `brawn-aura` effect.
  *
  * @param {object} args
  * @param {object} args.equipment list of equipabbles
  *
  * @return {number} the strength modifier or 0
  */
-export const strengthModifierCommand = ({equipment}) => {
+export const strengthModifierBrawnAura = ({equipment}) => {
   let strength = 0
   if (equipment && equipment.length) {
     const effects = _.reduce(equipment, (effects, eq) => {
       return effects.concat(
-        _.filter(eq.effects, (effect) => effect.name === 'command')
+        _.filter(eq.effects, (effect) => effect.name === 'brawn-aura')
       )
     }, [])
 

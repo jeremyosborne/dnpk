@@ -13,6 +13,13 @@
       "description": "Descriptive, unique name for this structure.",
       "type": "string"
     },
+    "effects": {
+      "description": "Intrinsic effects provided by the structure, often bonuses granted to owners or occupiers.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
+      },
+      "type": "array"
+    },
     "type": {
       "enum": ["structure"],
       "default": "structure",
