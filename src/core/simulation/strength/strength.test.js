@@ -23,6 +23,15 @@ describe('strength', () => {
     armies,
   }
   const terrain = {name: 'forest'}
+  const structure = {
+    name: 'city',
+    effects: [
+      {
+        name: 'brawn-aura',
+        magnitude: 1,
+      }
+    ]
+  }
   const empire = {
     effects: [
       {
@@ -58,9 +67,15 @@ describe('strength', () => {
     })
 
     it('works with army and army-group and terrain and empire', () => {
-      // And finally adding in the empire negates the negations and we're net 0.
+      // Adding in the empire negates the negations and we're net 0.
       expect(testModule.strength({army, armyGroup, terrain, empire})).toEqual(4)
       expect(testModule.strength({army, armyGroup: armies, terrain, empire})).toEqual(4)
+    })
+
+    it('works with army and army-group and terrain and empire and structure', () => {
+      // Adding a structure bumps to net +1.
+      expect(testModule.strength({army, armyGroup, terrain, empire, structure})).toEqual(5)
+      expect(testModule.strength({army, armyGroup: armies, terrain, empire, structure})).toEqual(5)
     })
 
     it('throws an error if no army is passed', () => {

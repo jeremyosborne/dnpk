@@ -1,24 +1,9 @@
+import * as effects from './effects'
 import _ from 'lodash'
-
-/**
- * Common effects reducer, assuming we treat all of these effects the same and
- * sum up the `.mangitude` of the effect.
- *
- * @param {object[]} effects array of effect types where the magnitude is
- * singificant.
- *
- * @return {number} the sum
- */
-const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
-  return modifier + (effect.magnitude || 0)
-}, 0)
 
 /**
  * Calculate the strength modifier from `equippable`s held by armies as
  * `equipment` that have a `brawn` effect.
- *
- * This strength modifier is historically applied to just the army and isn't
- * equivalent to strength-modifiers applied to a full army-group.
  *
  * @param {object} args
  * @param {array} args.equipment list of equippables
@@ -26,17 +11,10 @@ const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
  * @return {number} a strength-modifier or 0
  */
 export const strengthModifierBrawn = ({equipment}) => {
-  let strength = 0
-  if (equipment && equipment.length) {
-    const effects = _.reduce(equipment, (effects, eq) => {
-      return effects.concat(
-        _.filter(eq.effects, (effect) => effect.name === 'brawn')
-      )
-    }, [])
-
-    strength += sumEffects(effects)
-  }
-  return strength
+  return _.reduce(equipment, (strengthModifier, equippable) => {
+    // Equipment bonuses provided by effects on the equipment.
+    return strengthModifier + effects.strengthModifierBrawn(equippable)
+  }, 0)
 }
 
 /**
@@ -49,15 +27,8 @@ export const strengthModifierBrawn = ({equipment}) => {
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierBrawnAura = ({equipment}) => {
-  let strength = 0
-  if (equipment && equipment.length) {
-    const effects = _.reduce(equipment, (effects, eq) => {
-      return effects.concat(
-        _.filter(eq.effects, (effect) => effect.name === 'brawn-aura')
-      )
-    }, [])
-
-    strength += sumEffects(effects)
-  }
-  return strength
+  return _.reduce(equipment, (strengthModifier, equippable) => {
+    // Equipment bonuses provided by effects on the equipment.
+    return strengthModifier + effects.strengthModifierBrawnAura(equippable)
+  }, 0)
 }

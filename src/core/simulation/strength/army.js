@@ -19,7 +19,7 @@ import _ from 'lodash'
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierHero = ({army = {}} = {}) => {
-  if (!gameObjectsCommon.effects.hasName(army, 'hero')) {
+  if (!gameObjectsCommon.is.hero(army)) {
     return 0
   }
 
@@ -36,7 +36,7 @@ export const strengthModifierHero = ({army = {}} = {}) => {
 }
 
 /**
- * Calculates total `brawn` based modifier that an `army` type could have.
+ * Calculates total `brawn` based modifier of an `army`.
  *
  * @param {Object} args
  * @param {Object} [args.army={}] the army for which to compute the modifier.
@@ -97,7 +97,7 @@ export const strength = ({
   }, 0)
 
   // At no time should an individual army unit be above 9, or whatever the
-  // max strenth is, on its own. It should  be safe to cap it here as this isn't
+  // max strength is, on its own. It should  be safe to cap it here as this isn't
   // an unbounded modifier but a stat that has in game constraints.
   return strengthBounded(strength)
 }

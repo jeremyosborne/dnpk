@@ -1,6 +1,7 @@
 import armyStrength from './army'
 import armyGroupStrengthModifier from './army-group'
 import {strengthBounded} from 'game-rules'
+import structureStrengthModifier from './structure'
 import terrainStrengthModifier from './terrain'
 
 /**
@@ -8,19 +9,22 @@ import terrainStrengthModifier from './terrain'
  *
  * @param {object} args params as arguments
  * @param {object} args.army the army providing the base strength
- * @param {object} args.armyGroup that the army presumably belongs to. This will
+ * @param {object} [args.armyGroup] that the army presumably belongs to. This will
  * calculate and provide an army group modifier and add it to the strength.
- * @param {object} args.empire the the army presumably belongs to. This will provide
+ * @param {object} [args.empire] that the army presumably belongs to. This will provide
  * any empire modifications (e.g. terrain bonuses in the classic rules) to the final
  * strength.
- * @param {object} args.terrain to use for modification of the strength. In
- * classic rules the armies and the empires provided terrain modifications.
+ * @param {object} [args.structure] that the army presumably occupies, likely applies
+ * to defending troops more than attacking troops.
+ * @param {object} [args.terrain] to use for modification of the strength. In
+ * classic rules armies and empires (dis)liked particular terrain.
  *
- * @return {number} strength that is valid within the game rules set.
+ * @return {number} strength that is valid within the range provided by the game
+ * rules.
  *
  * @throw {Error} if requried arguments are missing.
  */
-export const strength = ({army, armyGroup, empire, terrain}) => {
+export const strength = ({army, armyGroup, empire, structure, terrain}) => {
   if (!army) {
     throw new Error('At minimum you need to pass `army` as strength calculation is relative to that.')
   }
@@ -28,6 +32,7 @@ export const strength = ({army, armyGroup, empire, terrain}) => {
   let strength = armyStrength({army})
   strength += armyGroupStrengthModifier({armyGroup})
   strength += terrainStrengthModifier({army, empire, terrain})
+  strength += structureStrengthModifier({structure})
 
   return strengthBounded(strength)
 }

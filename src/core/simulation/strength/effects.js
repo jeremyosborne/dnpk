@@ -14,8 +14,7 @@ const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
 }, 0)
 
 /**
- * Calculate the strength modifier from `effect`s possessed by armies that
- * have `brawn`.
+ * Calculate the strength modifier from `effect`s possessed that have `brawn`.
  *
  * This strength modifier is historically applied to just the army and isn't
  * equivalent to strength-modifiers applied to a full army-group.
@@ -29,6 +28,25 @@ export const strengthModifierBrawn = ({effects}) => {
   let strength = 0
   if (effects && effects.length) {
     effects = _.filter(effects, (effect) => effect.name === 'brawn')
+    strength += sumEffects(effects)
+  }
+  return strength
+}
+
+/**
+ * Calculate the strength modifier from `effect`s possessed that have `brawn-aura`.
+ *
+ * This strength modifier is historically shared with everyone in an army-group.
+ *
+ * @param {object} args
+ * @param {array} args.effects list of effects
+ *
+ * @return {number} a strength-modifier or 0
+ */
+export const strengthModifierBrawnAura = ({effects}) => {
+  let strength = 0
+  if (effects && effects.length) {
+    effects = _.filter(effects, (effect) => effect.name === 'brawn-aura')
     strength += sumEffects(effects)
   }
   return strength
