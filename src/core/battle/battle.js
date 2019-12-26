@@ -84,6 +84,7 @@ export const violence = ({
  * can be in an object that implements `armies` or can be a simple array of
  * `army` types.
  * @param {object} args.defenders.empire the defending empire.
+ * @param {object} args.structure applies a bonus to the defenders.
  * @param {object} args.terrain where the battle is taking place.
  *
  * @param {object} config as dictionary
@@ -102,9 +103,10 @@ export const violence = ({
  * @property {object} defenders.empire reference to the empire passsed in.
  * @property {object[]} defenders.survivors copies of army units that have survived the battle.
  * @property {object[]} events play by play of the battle for humans or things that like data events.
+ * @property {object} structure reference to the structure argument.
  * @property {object} terrain reference to the terrain argument.
  */
-export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) => {
+export const battle = ({attackers, defenders, structure, terrain}, {d = _d.standard} = {}) => {
   // Clone the army groups so we can mutate them into the final results
   // returned. The caller is responsible for committing the results or ignoring
   // them. Ideally this allows for a later rules extensions where battle "kills"
@@ -138,6 +140,8 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
       army: defender,
       armyGroup: defenders.armyGroup,
       empire: defenders.empire,
+      // Original ruleset assumes only defenders cower behind structures.
+      structure,
       terrain,
     })
 
@@ -224,6 +228,8 @@ export const battle = ({attackers, defenders, terrain}, {d = _d.standard} = {}) 
     attackers,
     defenders,
     events,
+    structure,
+    terrain,
   }
 }
 
