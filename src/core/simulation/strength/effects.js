@@ -24,7 +24,7 @@ const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
  *
  * @return {number} a strength-modifier or 0
  */
-export const strengthModifierBrawn = ({effects}) => {
+export const strengthModifierBrawn = ({effects = []} = {}) => {
   let strength = 0
   if (effects && effects.length) {
     effects = _.filter(effects, (effect) => effect.name === 'brawn')
@@ -43,7 +43,7 @@ export const strengthModifierBrawn = ({effects}) => {
  *
  * @return {number} a strength-modifier or 0
  */
-export const strengthModifierBrawnAura = ({effects}) => {
+export const strengthModifierBrawnAura = ({effects = {}} = {}) => {
   let strength = 0
   if (effects && effects.length) {
     effects = _.filter(effects, (effect) => effect.name === 'brawn-aura')

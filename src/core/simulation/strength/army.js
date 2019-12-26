@@ -1,8 +1,6 @@
 import * as effects from './effects'
 import * as equipment from './equipment'
 import * as gameObjectsCommon from 'game-objects-common'
-import {strengthBounded} from 'game-rules'
-import _ from 'lodash'
 
 /**
  * Calculate the strength modifier from a hero unit.
@@ -36,70 +34,28 @@ export const strengthModifierHero = ({army = {}} = {}) => {
 }
 
 /**
- * Calculates total `brawn` based modifier of an `army`.
- *
- * @param {Object} args
- * @param {Object} [args.army={}] the army for which to compute the modifier.
- * @param {object} [config] configuration as dictionary
- * @param {function[]} [config.modifierFns] which modifier functions will be
- * used to calculate the terrain strength modifier.
- *
- * @return {number} brawn modifier, or 0
- */
-export const strengthModifierBrawn = ({
-  army = {}
-} = {}, {
-  modifierFns = [
-    equipment.strengthModifierBrawn,
-    effects.strengthModifierBrawn,
-  ],
-} = {}) => {
-  return _.reduce(modifierFns, (modifier, fn) => {
-    // Due to how functions are implemented, the modifier functions expect an
-    // object that implement something, and we pass the army as the container
-    // object that implements the interface from which the strength-modifier
-    // is computed.
-    return modifier + fn(army)
-  }, 0)
-}
-
-/**
- * Calculates the effective strength of an individual army.
+ * Calculates the effective, unbounded strength of an individual army.
  *
  * Effective strength = base strength + individual army effects
  *
  * This is needed due to calculations further based on the strength of the
- * individual army, namely the hero strength-modifier based on the strength
- * of the hero.
+ * individual army + equipment + effects without other aura based modifiers.
  *
  * @param {object} args
  * @param {object} args.army army to calculate effective strength of.
- *
- * @param {object} [config] configuration as dictionary
- * @param {function[]} [config.modifierFns] which modifier functions will be
- * used to calculate the terrain strength modifier.
  *
  * @return {number} effective strength of the army
  */
 export const strength = ({
   army
-} = {}, {
-  modifierFns = [
-    strengthModifierBrawn,
-  ],
 } = {}) => {
-  // Args passed to strength modifier callbacks.
-  const fnArgs = {army}
-
   let strength = army && army.strength ? army.strength : 0
-  strength += _.reduce(modifierFns, (modifier, fn) => {
-    return modifier + fn(fnArgs)
-  }, 0)
+  // Strength from equipment.
+  strength += equipment.strengthModifierBrawn(army)
+  // Strength from effects.
+  strength += effects.strengthModifierBrawn(army)
 
-  // At no time should an individual army unit be above 9, or whatever the
-  // max strength is, on its own. It should  be safe to cap it here as this isn't
-  // an unbounded modifier but a stat that has in game constraints.
-  return strengthBounded(strength)
+  return strength
 }
 
 export default strength

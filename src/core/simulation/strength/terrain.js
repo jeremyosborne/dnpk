@@ -92,24 +92,14 @@ export const strengthModifierTerrainEmpire = (
  * caclulate just the modifier provided by an empire when battling in a specific
  * terrain, don't pass the army.
  * @param {object} args.terrain the terrain where the battle is taking place
- * @param {object} [config] configuration as dictionary
- * @param {function[]} [config.modifierFns] which modifier functions will be
- * used to calculate the terrain strength modifier.
  *
  * @return {number} the strength modifier provided to the particular army
  */
-export const strengthModifier = (
-  {army, empire, terrain},
-  {
-    modifierFns = [
-      strengthModifierTerrainArmy,
-      strengthModifierTerrainEmpire,
-    ],
-  } = {}
-) => {
-  return _.reduce(modifierFns, (modifier, fn) => {
-    return modifier + fn({army, empire, terrain})
-  }, 0)
+export const strengthModifier = ({army, empire, terrain}) => {
+  let modifier = 0
+  modifier += strengthModifierTerrainArmy({terrain, army})
+  modifier += strengthModifierTerrainEmpire({terrain, empire})
+  return modifier
 }
 
 export default strengthModifier

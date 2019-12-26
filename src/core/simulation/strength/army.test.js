@@ -1,23 +1,7 @@
 import * as testModule from './army'
-import * as dataSourceModdables from 'data-source-moddables'
 import _ from 'lodash'
 
-// This is likely to break, put it visibly in one spot.
-const ASSUMED_STRENGTH_MAXIMUM = 9
-const ASSUMED_STRENGTH_MINIMUM = 0
-
 describe('strength.army', () => {
-  beforeEach(async () => {
-    // load dependencies, needed for strengthBoundary.
-    await dataSourceModdables.read()
-  })
-
-  describe('strengthModifierBrawn', () => {
-    it('does not explode', () => {
-      expect(testModule.strengthModifierBrawn()).toEqual(0)
-    })
-  })
-
   describe('strengthModifierHero', () => {
     const armyHero = {
       name: 'hero',
@@ -102,11 +86,11 @@ describe('strength.army', () => {
       expect(testModule.strength({army: fakeArmy})).toEqual(9)
     })
 
-    it('enforces a min even if missing', () => {
-      expect(testModule.strength({army: {}})).toEqual(ASSUMED_STRENGTH_MINIMUM)
+    it('has an expected default value', () => {
+      expect(testModule.strength({army: {}})).toEqual(0)
     })
 
-    it('enforces a maximum strength', () => {
+    it('does not enforce a maximum strength', () => {
       const fakeArmy = {
         strength: 6,
         equipment: [
@@ -121,10 +105,10 @@ describe('strength.army', () => {
           }
         ]
       }
-      expect(testModule.strength({army: fakeArmy})).toEqual(ASSUMED_STRENGTH_MAXIMUM)
+      expect(testModule.strength({army: fakeArmy})).toEqual(10)
     })
 
-    it('enforces a minimum strength', () => {
+    it('does not enforce a minimum strength', () => {
       const fakeArmy = {
         strength: 6,
         equipment: [
@@ -139,7 +123,7 @@ describe('strength.army', () => {
           }
         ]
       }
-      expect(testModule.strength({army: fakeArmy})).toEqual(ASSUMED_STRENGTH_MINIMUM)
+      expect(testModule.strength({army: fakeArmy})).toEqual(-34)
     })
   })
 })

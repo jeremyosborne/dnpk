@@ -80,26 +80,15 @@ export const strengthModifierHero = ({armyGroup = []} = {}) => {
  * @param {object|object[]} [args.armyGroup=[]] either a formal `army-group` that implements
  * `.armies` or a simple array of `army` types.
  *
- * @param {object} [config] configuration as dictionary
- * @param {function[]} [config.modifierFns] which modifier functions will be
- * used to calculate the terrain strength modifier.
- *
  * @return {number} the strength bonus provided by this group.
  */
-export const strengthModifier = (
-  {armyGroup = []} = {},
-  {
-    modifierFns = [
-      strengthModifierElite,
-      strengthModifierAerial,
-      strengthModifierEquippableBrawnAura,
-      strengthModifierHero,
-    ],
-  } = {}
-) => {
-  return _.reduce(modifierFns, (modifier, fn) => {
-    return modifier + fn({armyGroup})
-  }, 0)
+export const strengthModifier = ({armyGroup = []} = {}) => {
+  let modifier = 0
+  modifier += strengthModifierAerial({armyGroup})
+  modifier += strengthModifierElite({armyGroup})
+  modifier += strengthModifierEquippableBrawnAura({armyGroup})
+  modifier += strengthModifierHero({armyGroup})
+  return modifier
 }
 
 export default strengthModifier

@@ -10,7 +10,7 @@ import _ from 'lodash'
  *
  * @return {number} a strength-modifier or 0
  */
-export const strengthModifierBrawn = ({equipment}) => {
+export const strengthModifierBrawn = ({equipment = []} = {}) => {
   return _.reduce(equipment, (strengthModifier, equippable) => {
     // Equipment bonuses provided by effects on the equipment.
     return strengthModifier + effects.strengthModifierBrawn(equippable)
@@ -26,7 +26,7 @@ export const strengthModifierBrawn = ({equipment}) => {
  *
  * @return {number} the strength modifier or 0
  */
-export const strengthModifierBrawnAura = ({equipment}) => {
+export const strengthModifierBrawnAura = ({equipment = []} = {}) => {
   return _.reduce(equipment, (strengthModifier, equippable) => {
     // Equipment bonuses provided by effects on the equipment.
     return strengthModifier + effects.strengthModifierBrawnAura(equippable)
