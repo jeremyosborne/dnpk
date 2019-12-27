@@ -1,5 +1,0 @@
-{
-  "name": "terrain-battle-modifier",
-  "documentation": "Describes the bonus or malus for an entity when battling within a particular terrain. `metadata.name: string` defines the type of terrain this unit prefers or dislikes, the magnitude being how much. If an entity likes/dislikes multiple terrains, this effect will be applied multiple times. Be nice and always define the modifier.",
-  "duration": -1
-}

@@ -5,7 +5,10 @@ import structureStrengthModifier from './structure'
 import terrainStrengthModifier from './terrain'
 
 /**
- * Calculate the effective strength given all inputs, and cap based on game rules.
+ * Calculate the effective strength and cap based on game rules.
+ *
+ * Other than the army, all other input is optional and should only be passed
+ * if you wish to use the item to affect the strength of the unit.
  *
  * @param {object} args params as arguments
  * @param {object} args.army the army providing the base strength

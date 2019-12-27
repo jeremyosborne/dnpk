@@ -39,15 +39,15 @@
       "type": "integer"
     },
     "name": {
-      "description": "Descriptive, display name for this type of army.",
+      "description": "Unique name for this army.",
       "examples": [
-        "Heavy Infantry",
-        "Light Infantry"
+        "heavy-infantry",
+        "light-infantry"
       ],
       "type": "string"
     },
     "nameInstance": {
-      "description": "Unique name for the unit",
+      "description": "Display name for this particular army instance.",
       "examples": [
         "Vorgoth the Timid, Destroyer of Lint Bunnies"
       ],

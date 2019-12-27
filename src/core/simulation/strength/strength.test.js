@@ -8,7 +8,7 @@ describe('strength', () => {
     effects: [
       {name: 'aerial'},
       {
-        name: 'terrain-battle-modifier',
+        name: 'terrain-modifier-brawn',
         magnitude: -1,
         metadata: {
           name: 'forest'
@@ -35,7 +35,7 @@ describe('strength', () => {
   const empire = {
     effects: [
       {
-        name: 'terrain-battle-modifier',
+        name: 'terrain-modifier-brawn',
         magnitude: 1,
         metadata: {
           name: 'forest'

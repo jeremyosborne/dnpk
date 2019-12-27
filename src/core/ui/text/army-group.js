@@ -31,7 +31,7 @@ export const string = ({armyGroup}) => {
     if (army.effects.length) {
       // Display army effects.
       info.push('  Effects: ' + _.map(army.effects, (eff) => {
-        if (eff.name === 'terrain-battle-modifier') {
+        if (eff.name === 'terrain-modifier-brawn') {
           // Terrain modifiers have embedded meta data that gets missed when
           // displaying only the effect name.
           return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.name')}`

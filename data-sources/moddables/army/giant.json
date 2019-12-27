@@ -2,7 +2,7 @@
   "health": 2,
   "effects": [
     {
-      "name": "terrain-battle-modifier",
+      "name": "terrain-modifier-brawn",
       "magnitude": -1,
       "metadata": {
         "name": "forest"

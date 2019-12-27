@@ -3,14 +3,14 @@
   "color": "#FFFF00",
   "effects": [
     {
-      "name": "terrain-battle-modifier",
+      "name": "terrain-modifier-brawn",
       "magnitude": 1,
       "metadata": {
         "name": "hill"
       }
     },
     {
-      "name": "terrain-battle-modifier",
+      "name": "terrain-modifier-brawn",
       "magnitude": -1,
       "metadata": {
         "name": "marsh"

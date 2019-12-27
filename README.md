@@ -27,7 +27,7 @@ Modules that make use of runtime configuration settings should list those within
         - [X] change "command" effect to "brawn-aura"
         - [X] structures effects affect strength calculations
         - [X] structures passable to battle, and then affect strength calculations. For now only 1, and it applies to the defenders only.
-        - [ ] Digression: clean up strength a bit more and document.
+        - [X] Digression: clean up strength a bit more and document.
 
 ## Future TODO and ideas
 
