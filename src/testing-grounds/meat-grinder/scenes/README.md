@@ -4,23 +4,27 @@ The individual scenes (levels, stages, etc.), of the meat-grinder.
 
 ## Dev notes
 
-TODO: Update with preference for `scene-choices` module vs. directly working
-with `scene-names`.
+* Files and folders represent scenes, with the exceptions of the following:
+    * `scene-names.js` maps vars-as-constants to the names of the scenes as exported from this module. Every new scene must be listed in this module and then have a matching export provided in `index.js`.
+    * `scene-choices.js` provides scene-to-scene transitions as functions that can be returned from a scene.
+    * `wrappers` apply to scene functions before exporting to add common functionality and protections.
 
 ```js
-// Each new scene will be listed in `scene-names.js`. Please use these constants
-// for named scene transitions vs. bare strings.
-import * as sceneNames from './scene-names'
+// While `scene-names` constants can be used to transition to a particular scene,
+// prefer the sceneChoices.
+import * as sceneChoices from './scene-choices'
 
-// Each file defines a `scene` function, which is assumed to be async and will
-// be treated as such.
+// Each file defines a `scene` function, which is assumed to be an async function
+// and will be called as such.
 //
-// This named method is provided for testing (not that we're actually doing that
-// right now) and should exported as convenience.
+// A scene is done when it returns.
+//
+// The name of scene should be `scene`, although it is assumed the default
+// export will be used.
 export const scene = async () => {
     // Various return values will be respected by the `game-loop`.
     // This is a simple "go to the named scene" when done.
-    return sceneNames.FIGHT
+    return sceneChoices.violent()
 }
 
 // The value exported by default is the game-ready version of the scene, and is

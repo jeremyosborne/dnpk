@@ -79,23 +79,39 @@ describe('game-objects-common.armies', () => {
       {name: 'hero', id: '1', strength: 3, effects: [{name: 'hero'}]},
       {name: 'pegasus', id: '2', strength: 3, effects: [{name: 'aerial'}]},
       {name: 'dragon', id: '3', strength: 3, effects: [{name: 'aerial'}, {name: 'elite'}]},
+
+      // Use made up types to test for name sorting at the same strength.
       {name: 'light-infantry', id: '4', strength: 4},
-      {name: 'light-infantry', id: '5', strength: 4, effects: [{name: 'brawn', modifier: 1}]},
-      {name: 'light-infantry', id: '6', strength: 2},
+      {name: 'cat-infantry', id: '5', strength: 4},
+      {name: 'light-infantry', id: '6', strength: 4},
+      {name: 'dog-infantry', id: '7', strength: 4},
+      {name: 'dog-infantry', id: '8', strength: 4},
+      {name: 'light-infantry', id: '9', strength: 4},
+
+      {name: 'light-infantry', id: '10', strength: 4, effects: [{name: 'brawn', modifier: 1}]},
+      {name: 'light-infantry', id: '11', strength: 2},
     ]
 
     it('works with an army-group', () => {
+      // Well, it works with something implementing `armies`.
       const armyGroup = {armies}
       const sortedArmyGroup = testMod.sort(armyGroup)
 
       // Canon fodder in the front, stronger behind, heroes in the back even if
       // hero has less strength.
-      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('6')
-      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('4')
-      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('5')
-      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('2')
-      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('3')
-      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('1')
+      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('11')
+      // Armies of the same strength get grouped by type.
+      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('5')
+      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('7')
+      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('8')
+      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('4')
+      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('6')
+      expect(testMod.get(sortedArmyGroup, 6).id).toEqual('9')
+
+      expect(testMod.get(sortedArmyGroup, 7).id).toEqual('10')
+      expect(testMod.get(sortedArmyGroup, 8).id).toEqual('2')
+      expect(testMod.get(sortedArmyGroup, 9).id).toEqual('3')
+      expect(testMod.get(sortedArmyGroup, 10).id).toEqual('1')
     })
 
     it('works with a simple list of armies', () => {
@@ -103,12 +119,19 @@ describe('game-objects-common.armies', () => {
 
       // Canon fodder in the front, stronger behind, heroes in the back even if
       // hero has less strength.
-      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('6')
-      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('4')
-      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('5')
-      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('2')
-      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('3')
-      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('1')
+      expect(testMod.get(sortedArmyGroup, 0).id).toEqual('11')
+      // Armies of the same strength get grouped by type.
+      expect(testMod.get(sortedArmyGroup, 1).id).toEqual('5')
+      expect(testMod.get(sortedArmyGroup, 2).id).toEqual('7')
+      expect(testMod.get(sortedArmyGroup, 3).id).toEqual('8')
+      expect(testMod.get(sortedArmyGroup, 4).id).toEqual('4')
+      expect(testMod.get(sortedArmyGroup, 5).id).toEqual('6')
+      expect(testMod.get(sortedArmyGroup, 6).id).toEqual('9')
+
+      expect(testMod.get(sortedArmyGroup, 7).id).toEqual('10')
+      expect(testMod.get(sortedArmyGroup, 8).id).toEqual('2')
+      expect(testMod.get(sortedArmyGroup, 9).id).toEqual('3')
+      expect(testMod.get(sortedArmyGroup, 10).id).toEqual('1')
     })
   })
 })

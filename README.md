@@ -14,7 +14,8 @@ Modules that make use of runtime configuration settings should list those within
 
 ## TODO
 
-- [ ] Make the basic scenes of the meat grinder idle adventure.
+- [ ] Review and make new TODO list.
+- [X] Make the basic scenes of the meat grinder idle adventure.
     - [X] regular unit recruitment
     - [X] elite unit recruitment
     - [X] aerial unit recruitment
@@ -22,15 +23,18 @@ Modules that make use of runtime configuration settings should list those within
     - [X] vault / equipping heroes
     - [X] fight: large number of weak enemies
     - [X] fight: tough hero + entourage
-    - [ ] fight: city siege (huge number of random enemies with city bonus)
+    - [X] fight: city siege (huge number of random enemies with city bonus)
         - [X] structures as a basic type (fortification, buildings... other words that work...)
         - [X] change "command" effect to "brawn-aura"
         - [X] structures effects affect strength calculations
         - [X] structures passable to battle, and then affect strength calculations. For now only 1, and it applies to the defenders only.
         - [X] Digression: clean up strength a bit more and document.
+        - [X] Bug: sort seems broken... again... for the defenders in the city siege.... ugh. Maybe what's going on is I need to also sort on names? More visual than broken. This got noticed in the city siege due to the large number of troops with strengths adjusted to be equal values, and the sorter didn't group by army name.
 
 ## Future TODO and ideas
 
+- [ ] Army sort order: should be able to consider the terrain, empire, army-group, and any other modifiers to strength to achieve a correct sort for a particular battle.
+- [ ] Army sort order: also should allow for army-group manual ordering. Once ordered, the group is not reordered before a battle, or at any other time.
 - [ ] Meat Grinder: Record distance traveled before dying.
 - [ ] Meat Grinder: Make the intermission a menu system allowing access to various things.
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149

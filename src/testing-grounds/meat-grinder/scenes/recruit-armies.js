@@ -41,8 +41,12 @@ export const scene = async ({terrain, turn}: GameState): NextScene => {
     // Create a small set of non-special armies (by excluding special armies),
     // and add to the army group.
     const exclude = _.filter(gameObjects.army.def(), (aDef) => {
-      // non-special mans not aerial and not elite.
-      if (gameObjectsCommon.effects.hasName(aDef, 'aerial') || gameObjectsCommon.effects.hasName(aDef, 'elite')) {
+      // non-special means not aerial and not elite.
+      if (
+        gameObjectsCommon.effects.hasName(aDef, 'aerial') ||
+        gameObjectsCommon.effects.hasName(aDef, 'elite') ||
+        gameObjectsCommon.is.hero(aDef)
+      ) {
         return true
       } else {
         return false

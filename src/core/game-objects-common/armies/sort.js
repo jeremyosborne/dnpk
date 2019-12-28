@@ -39,6 +39,8 @@ export const sort = (o) => {
     // be first in the list. We also want to include the modifications from strength
     // items and from strength effects, but not auras.
     (army) => strength.army.strength({army}),
+    // Group by type of army if strength is the same.
+    (army) => army.name,
   ])
 
   if (!armies._isStruct(o)) {

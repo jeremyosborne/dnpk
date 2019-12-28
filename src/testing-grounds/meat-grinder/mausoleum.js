@@ -24,7 +24,7 @@ export const mausoleum = async () => {
   const kills = dataSourceGame.counterKills.sum()
   out.t('{{count}} have been vanquished by your forces.', {count: kills})
   if (kills) {
-    const killeds = _.slice(dataSourceGame.counterDead.sorted())
+    const killeds = _.slice(dataSourceGame.counterKills.sorted())
     out.t('Numbering your fallen foes:')
     _.forEach(killeds, (k) => {
       out.t('\t{{label}}: {{value}}', k)

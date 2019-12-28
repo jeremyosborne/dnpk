@@ -39,12 +39,13 @@ export const generalEncounter = () => () => {
     // Keep violence to ~50% of the potential choices by weight.
     // see: violent()
     [sceneNames.FIGHT]: 9,
+    [sceneNames.FIGHT_CITY_SIEGE]: 1,
     [sceneNames.FIGHT_FALLEN_HERO]: 1,
     [sceneNames.FIGHT_HORDE]: 3,
 
+    [sceneNames.RECRUIT_ARMIES]: 4,
     [sceneNames.RECRUIT_ARMIES_AERIAL]: 1,
     [sceneNames.RECRUIT_ARMIES_ELITE]: 1,
-    [sceneNames.RECRUIT_ARMIES]: 4,
     [sceneNames.RECRUIT_HERO]: 1,
     [sceneNames.SHRINE]: 1,
     [sceneNames.VAULT_EQUIPPABLES]: 2,
@@ -81,6 +82,7 @@ export const violent = () => () => {
   const weightedChoices = {
     // see: generalEncounter()
     [sceneNames.FIGHT]: 4,
+    [sceneNames.FIGHT_CITY_SIEGE]: 1,
     [sceneNames.FIGHT_FALLEN_HERO]: 1,
     [sceneNames.FIGHT_HORDE]: 2,
   }

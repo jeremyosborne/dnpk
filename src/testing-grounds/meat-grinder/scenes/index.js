@@ -5,6 +5,7 @@
 
 export {default as artifactSite} from './artifact-site'
 export {default as fight} from './fight'
+export {default as fightCitySiege} from './fight-city-siege'
 export {default as fightFallenHero} from './fight-fallen-hero'
 export {default as fightHorde} from './fight-horde'
 export {default as intermission} from './intermission'
