@@ -14,39 +14,58 @@ Modules that make use of runtime configuration settings should list those within
 
 ## TODO
 
-- [ ] Review and make new TODO list.
-- [X] Make the basic scenes of the meat grinder idle adventure.
-    - [X] regular unit recruitment
-    - [X] elite unit recruitment
-    - [X] aerial unit recruitment
-    - [X] treasure items
-    - [X] vault / equipping heroes
-    - [X] fight: large number of weak enemies
-    - [X] fight: tough hero + entourage
-    - [X] fight: city siege (huge number of random enemies with city bonus)
-        - [X] structures as a basic type (fortification, buildings... other words that work...)
-        - [X] change "command" effect to "brawn-aura"
-        - [X] structures effects affect strength calculations
-        - [X] structures passable to battle, and then affect strength calculations. For now only 1, and it applies to the defenders only.
-        - [X] Digression: clean up strength a bit more and document.
-        - [X] Bug: sort seems broken... again... for the defenders in the city siege.... ugh. Maybe what's going on is I need to also sort on names? More visual than broken. This got noticed in the city siege due to the large number of troops with strengths adjusted to be equal values, and the sorter didn't group by army name.
+- [ ] Other structures for classic parity:
+    - [ ] Ruins / Temples
+        - [ ] Searchable by: Heroes (according to original rules)
+        - [ ] Guarded: Possibly.
+        - [ ] Grants: Items, special armies that will ally to your cause (and originally the only way to get special allies like demons, dragons, etc.), or possibly both.
+        - [ ] States: Explored, Unexplored
+    - [ ] Shrines
+        - [ ] Searchable by: All
+        - [ ] Guarded: No.
+        - [ ] Grants: A 1 time brawn bonus to any armies searching.
+        - [ ] States: Always available, but each army only achieve the blessing from a specific shrine one time.
+    - [ ] Sage / Library
+        - [ ] Searchable by: All
+        - [ ] Guarded: no.
+        - [ ] Grants: Knowledge (location of heroes, items).
+        - [ ] States: Always available.
+- [ ] Economy
+    - [ ] Add production base costs
+    - [ ] Add upkeep and upkeep management
+- [ ] Look and feel
+    - [ ] meta data needs to be expanded to have a `cosmetics` field with some general assumed structure, or a new top level `cosmetics` or `ui` field needs to be added.
+    - [ ] along with `id`, army types should have a concept of `time created` stored as int of ms since epoch (e.g. Date.now()).
+    - [ ] Armies
+        - [ ] `army.name`:
+            - [ ] dwarf -> mountaineer (localization for classic set call it 'Dwarf')
+            - [ ] elven-archer -> ranger (localization for classic set call it 'Elven Archer')
+        - [ ] flavor (D&D style "races"): elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
+        - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
+    - [ ] Flags of cities and towers change as troops pass them / control them.
 
-## Future TODO and ideas
+## Ideas
 
+- [ ] Production "vectoring" as they called it in the original game. The "magically teleporting your troops to another city" is a lot of what made the original warlords so fun and not a drudgery to play.
+- [ ] Fog of war, although original game had no fog of war.
+- [ ] New structure: Special and specific god shrines (distinct from the general blessing shrines)
+    - [ ] Every god grants rewards for actions. Maybe one god wants you to kill X number of troops, one god wants X number of your troops to die, one god wants you to build X number of troops, one god wants you to take over X number of cities... and the list goes on. These are the default quest lines.
+    - [ ] Gods can also grant piety quests to gain their favor if not out of favor.
+    - [ ] Gods may have relationships with the player, and if falling out of favor, there can be a penance quest.
+    - [ ] Or instead of different shrines, maybe a shrine will be owned by a specific god and with newer rules will offer additional bonuses besides the one time brawn bonus.
 - [ ] Army sort order: should be able to consider the terrain, empire, army-group, and any other modifiers to strength to achieve a correct sort for a particular battle.
 - [ ] Army sort order: also should allow for army-group manual ordering. Once ordered, the group is not reordered before a battle, or at any other time.
-- [ ] Meat Grinder: Record distance traveled before dying.
+- [ ] Meat Grinder: Record distance traveled before dying, keep record of max distance.
 - [ ] Meat Grinder: Make the intermission a menu system allowing access to various things.
 - [ ] bug: i18next parser isn't working, see: https://github.com/i18next/i18next-parser/issues/149
     - [ ] Better yet, come up with a way of managing the strings for now that works for our needs and drop the automatic parsing.
 - [ ] Explicitly version the schemas used in the moddables.
-- [ ] Add production base costs + upkeep (1/2 cost per turn) for armies.
-- [ ] Add cosmetics to armies and items: elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
 - [ ] Keep accomplishment stats on objects like `army` and `army-group` and `player`.
 - [ ] Positive and negative morale for winning / losing battles. Morale is contagious to nearby army groups.
 - [ ] A battle loser can route before being totally destroyed.
 - [ ] Prisoners.
 - [ ] Boss battles.
+- [ ] Armies: Medals for surviving a battle (Warlords 2 I believe allowed up to 4 per troop), with a random chance for earning a medal per battle. Each medal provides a brawn +1.
 - [ ] Injuries for fighting in a battle. Winner may get to revive troops instead of losing everyone.
 - [ ] Terrain modifications beyond cities and towers, like traps and fires.
 - [ ] Experience for an army-group, as well as individual armies. Need a way to keep this from being gamed, like maybe when a group gets renowned it can't disband and keep a bonus, adding new armies dilutes the bonus, etc.
