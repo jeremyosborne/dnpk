@@ -14,6 +14,8 @@ Modules that make use of runtime configuration settings should list those within
 
 ## TODO
 
+General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
+
 - [ ] Other structures for classic parity:
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)
@@ -37,12 +39,13 @@ Modules that make use of runtime configuration settings should list those within
     - [ ] meta data needs to be expanded to have a `cosmetics` field with some general assumed structure, or a new top level `cosmetics` or `ui` field needs to be added.
     - [ ] along with `id`, army types should have a concept of `time created` stored as int of ms since epoch (e.g. Date.now()).
     - [ ] Armies
-        - [ ] `army.name`:
-            - [ ] dwarf -> mountaineer (localization for classic set call it 'Dwarf')
-            - [ ] elven-archer -> ranger (localization for classic set call it 'Elven Archer')
+        - [X] `army.name`:
+            - [X] dwarf -> mountaineer (localization for classic set call it 'Dwarf')
+            - [X] elven-archer -> ranger (localization for classic set call it 'Elven Archer')
         - [ ] flavor (D&D style "races"): elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
         - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
     - [ ] Flags of cities and towers change as troops pass them / control them.
+- [ ] Data integrity tool that reads through `data-sources` and checks for data correctness as well as idiomatic things we enforce.
 
 ## Ideas
 

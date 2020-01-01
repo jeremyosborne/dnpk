@@ -1,0 +1,17 @@
+{
+  "cavalry": "Cavalry",
+  "demon": "Demon",
+  "devil": "Devil",
+  "dragon": "Dragon",
+  "giant": "Giant",
+  "griffin": "Griffin",
+  "heavy-infantry": "Heavy Infantry",
+  "hero": "Hero",
+  "light-infantry": "Light Infantry",
+  "mountaineer": "Dwarf",
+  "pegasus": "Pegasus",
+  "ranger": "Elven Archer",
+  "undead": "Undead",
+  "wizard": "Wizard",
+  "wolf-rider": "Wolf Rider"
+}

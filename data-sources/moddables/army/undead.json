@@ -5,14 +5,14 @@
       "name": "elite"
     },
     {
-      "name": "terrain-modifier-brawn",
+      "name": "brawn-terrain-modifier",
       "magnitude": -1,
       "metadata": {
         "name": "forest"
       }
     },
     {
-      "name": "terrain-modifier-brawn",
+      "name": "brawn-terrain-modifier",
       "magnitude": 1,
       "metadata": {
         "name": "marsh"

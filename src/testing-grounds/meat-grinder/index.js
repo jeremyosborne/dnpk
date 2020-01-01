@@ -11,7 +11,7 @@ import mainMenu from 'meat-grinder/main-menu'
 
 export const main = async () => {
   // Load expected data into memory.
-  await l10n.read({ns: ['translation', 'meat-grinder']})
+  await l10n.read({ns: ['translation', 'army', 'empire', 'meat-grinder']})
   await dataSourceModdables.read()
   // Game has its own datasource that we need to read in at least once.
   await dataSourceGame.read()

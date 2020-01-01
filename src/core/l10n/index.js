@@ -63,7 +63,11 @@ export const _formatters = {
 export const read = async (
   {
     lng = 'en',
-    ns = 'translation',
+    ns = [
+      'translation',
+      'army',
+      'empire',
+    ],
     ...restConfig
   } = {},
   {

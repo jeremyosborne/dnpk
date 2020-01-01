@@ -58,7 +58,13 @@ export const mainMenu = async () => {
 }
 
 export const main = async () => {
-  await l10n.read({ns: ['translation']})
+  await l10n.read({
+    ns: [
+      'translation',
+      'army',
+      'empire',
+    ]
+  })
   await dataSourceModdables.read()
 
   // try/catch to handle ctrl-c and other program escapes since enquirer needs
