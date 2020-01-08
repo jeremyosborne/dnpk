@@ -9,7 +9,7 @@ describe('random-terrain', () => {
 
   describe('valueToName', () => {
     it('works', () => {
-      const name = testMod.valueToName(-0.2)
+      const name = testMod.valueToName(-0.25)
       expect(name).toEqual('water')
     })
   })
