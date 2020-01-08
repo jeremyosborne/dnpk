@@ -46,6 +46,16 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
         - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
     - [ ] Flags of cities and towers change as troops pass them / control them.
 - [ ] Data integrity tool that reads through `data-sources` and checks for data correctness as well as idiomatic things we enforce.
+- [ ] Terrain generation improvement
+    - [X] Make/steal a better perlin noise method.
+    - [X] Modify random terrain generator to use the new range of results output by the noise function (0 to 1).
+    - [X] Noise method makes use of seeded random number generator.
+    - [X] Remove roads from the terrain generation.
+    - [X] Apparent bug: integer points always producing 0 noise. This was "as designed" and I didn't realize it while putting in the noise method. Made testable code more friendly with introduction of jitter.
+    - [X] Change function signature to use positional args.
+    - [X] Document the better perlin noise code.
+    - [ ] Add a monte-carlo test to view terrain distribution.
+    - [ ] Terrain generation: allow for a rate of change modifier to tune how drastically each point in the grid changes, assuming grid points will remain integers. Smaller rates of change should theoretically create smoother, more gradual terrain transitions.
 
 ## Ideas
 

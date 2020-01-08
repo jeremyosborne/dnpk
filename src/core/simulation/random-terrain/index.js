@@ -11,25 +11,21 @@ import * as random from 'random'
  * @return {string} terrain name
  */
 export const name = ({x, y}) => {
-  const value = random.noisePerlin({x, y})
-  if (value < -1) {
+  const value = random.noise.perlin(x, y)
+  if (value <= 0.1) {
     return 'water'
-  } else if (-1 < value && value <= -0.5) {
-    return 'shore'
-  } else if (-0.5 < value && value <= -0.2) {
+  } else if (0.1 < value && value <= 0.12) {
     return 'marsh'
-  } else if (-0.2 < value && value <= -0.1) {
+  } else if (0.12 < value && value <= 0.2) {
+    return 'shore'
+  } else if (0.2 < value && value <= 0.4) {
     return 'plain'
-  } else if (-0.1 < value && value <= 0.1) {
-    return 'road'
-  } else if (0.1 < value && value <= 0.5) {
-    return 'plain'
-  } else if (0.5 < value && value <= 1) {
+  } else if (0.4 < value && value <= 0.6) {
     return 'forest'
-  } else if (1 < value && value <= 2) {
+  } else if (0.6 < value && value <= 0.8) {
     return 'hill'
   } else {
-    // value > 2
+    // value > 0.8
     return 'mountain'
   }
 }
