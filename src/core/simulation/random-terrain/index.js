@@ -2,16 +2,15 @@ import * as gameObjects from 'game-objects'
 import * as random from 'random'
 
 /**
- * Generate random terrain name at a specific 2d coordinate.
+ * Given an elevation style of value, return the equivalent terrain name for that
+ * value.
  *
- * @param {object} args
- * @param {number} args.x coordinate
- * @param {number} args.y coordinate
+ * @param {number} value floating point value, assumed to be created by a noise
+ * or other terrain generation function.
  *
  * @return {string} terrain name
  */
-export const name = ({x, y}) => {
-  const value = random.noise.perlin(x, y)
+export const valueToName = (value) => {
   if (value <= 0.1) {
     return 'water'
   } else if (0.1 < value && value <= 0.12) {
@@ -36,9 +35,13 @@ export const name = ({x, y}) => {
  * @param {object} args
  * @param {number} args.x coordinate
  * @param {number} args.y coordinate
+ * @param {number} [args.roc=0.2] "rate of change", assumed to be 0 < roc <= 1.
+ * Larger numbers provide a more drastic and sudden change between the presumed
+ * integer coordinates, smaller numbers output more gradual terrain changes.
  *
  * @return {object} terrain
  */
-export const create = ({x, y}) => {
-  return gameObjects.terrain.create({name: name({x, y})})
+export const create = ({x, y, roc = 0.2} = {}) => {
+  const value = random.noise.perlin(x * roc, y * roc)
+  return gameObjects.terrain.create({name: valueToName(value)})
 }
