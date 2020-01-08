@@ -9,11 +9,12 @@ const blacklistRemap = {
 }
 
 export const terrainGenerator = (x, y = 0) => {
-  let name = simulation.randomTerrain.name({x, y})
-  if (blacklistRemap[name]) {
-    name = blacklistRemap[name]
+  const terrain = simulation.randomTerrain.create({x, y})
+  if (blacklistRemap[terrain.name]) {
+    // If the name is in the blacklist, recreate the terrain object and return.
+    return gameObjects.terrain.create({name: blacklistRemap[terrain.name]})
   }
-  return gameObjects.terrain.create({name})
+  return terrain
 }
 
 export default terrainGenerator
