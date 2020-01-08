@@ -3,6 +3,7 @@ import {prompt} from 'enquirer'
 import _ from 'lodash'
 import randintMonteCarlo from './randint-monte-carlo'
 import randomMonteCarlo from './random-monte-carlo'
+import randomTerrainMonteCarlo from './random-terrain-monte-carlo'
 import randomWeightedArmiesMonteCarlo from './random-weighted-armies-monte-carlo'
 import sampleWeightedMonteCarlo from './sample-weighted-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
@@ -31,6 +32,13 @@ export const mainMenu = async () => {
       message: 'random() - test pseudo random values returned from core random',
       next: async () => {
         await randomMonteCarlo()
+        return mainMenu
+      }
+    },
+    {
+      message: 'randomTerrainMonteCarlo() - test distribution of values of terrain over a given area',
+      next: async () => {
+        await randomTerrainMonteCarlo()
         return mainMenu
       }
     },

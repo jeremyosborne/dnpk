@@ -55,7 +55,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [X] Change function signature to use positional args.
     - [X] Document the better perlin noise code.
     - [ ] Add a monte-carlo test to view terrain distribution.
-    - [ ] Terrain generation: allow for a rate of change modifier to tune how drastically each point in the grid changes, assuming grid points will remain integers. Smaller rates of change should theoretically create smoother, more gradual terrain transitions.
+    - [X] Terrain generation: allow for a rate of change modifier to tune how drastically each point in the grid changes, assuming grid points will remain integers. Smaller rates of change should theoretically create smoother, more gradual terrain transitions.
 
 ## Ideas
 
