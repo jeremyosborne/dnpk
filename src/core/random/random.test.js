@@ -5,21 +5,20 @@ describe('random.random', () => {
     // Assume multiple calls and tests over time will eventually find problems.
     const val = testMod.random()
     expect(val >= 0).toEqual(true)
-    expect(val <= 1).toEqual(true)
+    expect(val < 1).toEqual(true)
   })
 
   describe('seed', () => {
     it('can get and set', () => {
-      testMod.seed.set(5, 5)
+      testMod.seed.set(5)
       // Calling random will change the seed.
-      expect(testMod.seed.get()).toEqual({seedz: 5, seedw: 5})
+      expect(testMod.seed.get()).toEqual(5)
     })
 
     it('seeds to now when called without args', () => {
       testMod.seed.set()
       const seed = testMod.seed.get()
-      expect(typeof seed.seedz === 'number').toEqual(true)
-      expect(typeof seed.seedw === 'number').toEqual(true)
+      expect(typeof seed).toEqual('number')
     })
   })
 })

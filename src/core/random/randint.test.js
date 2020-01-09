@@ -24,14 +24,14 @@ describe('random.randint', () => {
 
   describe('seed', () => {
     it('produces the same values when seeded', () => {
-      seed.set(5, 5)
+      seed.set(5)
       // Values from the REPL, assume this will work across systems.
       expect(randint(1, 10)).toEqual(9)
-      expect(randint(1, 10)).toEqual(9)
-      expect(randint(1, 10)).toEqual(9)
-      expect(randint(1, 10)).toEqual(10)
-      expect(randint(1, 10)).toEqual(9)
+      expect(randint(1, 10)).toEqual(5)
+      expect(randint(1, 10)).toEqual(4)
       expect(randint(1, 10)).toEqual(6)
+      expect(randint(1, 10)).toEqual(8)
+      expect(randint(1, 10)).toEqual(8)
       expect(randint(1, 10)).toEqual(2)
     })
   })

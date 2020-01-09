@@ -1,6 +1,7 @@
-// Seed
-let seedz = Date.now()
-let seedw = Date.now() / 29
+// Original seed used to generate the current stream of random numbers.
+let seedInitial = Date.now()
+let seedz = seedInitial
+let seedw = seedz / 29
 
 /**
  * Generate a random number between 0 and 1.
@@ -13,14 +14,29 @@ let seedw = Date.now() / 29
 export const random = function () {
   seedz = 36969 * (seedz & 65535) + (seedz >> 16)
   seedw = 18000 * (seedw & 65535) + (seedw >> 16)
-  return (Math.abs((seedz << 16) + seedw) % 65535) / 65535
+  // The bit shifting may leave us with a signed number by the time we're done.
+  // We'll force the signed integer into being an unsigned integer with the zero-fill
+  // right shift (strange as this is, it seems to work, thanks to the hint from:
+  // https://stackoverflow.com/a/1908655).
+  // To get us back to the world of JavaScript Math.random(),
+  // we divide by unsigned 32-bit int max + 1 for a number between 0 (inclusive)
+  // and 1 (exclusive).
+  return (((seedz << 16) + seedw) >>> 0) / 4294967295
   //
   // Afternote:
   //
   // Number types in JavaScript (according to ECMA-262):
+  //
   //   primitive value corresponding to a double-precision 64-bit binary
   //   format IEEE 754 value.
-  // Starting with the wikipedia Random Number generator, described as
+  //
+  // Bitshifting in JavaScript forces a number into a signed 32-bit format
+  // (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Signed_32-bit_integers).
+  //
+  // The original code started with an older version of the multiply-with-carry
+  // that can now be found here: https://en.wikipedia.org/wiki/Multiply-with-carry_pseudorandom_number_generator
+  //
+  // Started with the wikipedia version:
   //
   // m_w = <choose-initializer>;    /* must not be zero */
   // m_z = <choose-initializer>;    /* must not be zero */
@@ -31,41 +47,38 @@ export const random = function () {
   //    m_w = 18000 * (m_w & 65535) + (m_w >> 16);
   //    return (m_z << 16) + m_w;  /* 32-bit result */
   // }
-  // and is better described at:
-  // http://www.bobwheeler.com/statistics/Password/MarsagliaPost.txt.
   //
-  // My thought follows:
-  // The result of this is supposed to be a 32-bit unsigned integer,
-  // but i'm not sure given some results I was seeing as I messed around
-  // with this in JavaScript, so I changed it.
-  //
-  // I'm going to mod the result with an unsigned 16bit max value
-  // and then divide by that. Even the funky ECMAScript-262 Number type
-  // shouldn't have any problems with this.
+  // Some not-rigorous-tests on jsperf within my Chrome browser show this code
+  // to be about 20% faster than Math.random(?). The also not very rigorous monte-carlo
+  // test then bucket the results testing I've been doing shows this and Math.random()
+  // appear to have similar, not odd looking (says my very biased human eyes +
+  // brain) distributions.
 }
 
 export const seed = {
   /**
    * Seed the pseudo-random number generator.
    *
-   * @param {number} [sz=Date.now()] non-zero integer used as seedz.
-   * @param {number} [sw=Date.now() / 29] non-zero integer used as seedw.
+   * @param {number} [seed=Date.now()] non-zero integer.
    *
    * @see getSeed
    */
-  set: function (sz, sw) {
-    seedz = sz || Date.now()
-    seedw = sw || Date.now() / 29
+  set: function (seed) {
+    // Save for later reference.
+    seedInitial = seed || Date.now()
+    seedz = seed
+    seedw = seedz / 29
   },
 
   /**
-   * Return the current seed values.
+   * Return the seed value used to generate this current stream of random
+   * numbers.
    *
-   * @return {{seedz: number, seedw: number}} The current seed values.
+   * @return {number} The current seed value.
    *
    * @see setSeed
    */
   get: function () {
-    return {seedz, seedw}
+    return seedInitial
   },
 }
