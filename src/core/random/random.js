@@ -1,7 +1,7 @@
 // Original seed used to generate the current stream of random numbers.
 let seedInitial = Date.now()
-let seedz = seedInitial
-let seedw = seedz / 29
+let statez = seedInitial
+let statew = statez / 29
 
 /**
  * Generate a random number between 0 and 1.
@@ -12,8 +12,8 @@ let seedw = seedz / 29
  * @return {number} Floating point number between 0 and 1.
  */
 export const random = function () {
-  seedz = 36969 * (seedz & 65535) + (seedz >> 16)
-  seedw = 18000 * (seedw & 65535) + (seedw >> 16)
+  statez = 36969 * (statez & 65535) + (statez >> 16)
+  statew = 18000 * (statew & 65535) + (statew >> 16)
   // The bit shifting may leave us with a signed number by the time we're done.
   // We'll force the signed integer into being an unsigned integer with the zero-fill
   // right shift (strange as this is, it seems to work, thanks to the hint from:
@@ -21,7 +21,7 @@ export const random = function () {
   // To get us back to the world of JavaScript Math.random(),
   // we divide by unsigned 32-bit int max + 1 for a number between 0 (inclusive)
   // and 1 (exclusive).
-  return (((seedz << 16) + seedw) >>> 0) / 4294967295
+  return (((statez << 16) + statew) >>> 0) / 4294967295
   //
   // Afternote:
   //
@@ -57,20 +57,6 @@ export const random = function () {
 
 export const seed = {
   /**
-   * Seed the pseudo-random number generator.
-   *
-   * @param {number} [seed=Date.now()] non-zero integer.
-   *
-   * @see getSeed
-   */
-  set: function (seed) {
-    // Save for later reference.
-    seedInitial = seed || Date.now()
-    seedz = seed
-    seedw = seedz / 29
-  },
-
-  /**
    * Return the seed value used to generate this current stream of random
    * numbers.
    *
@@ -80,5 +66,43 @@ export const seed = {
    */
   get: function () {
     return seedInitial
+  },
+
+  /**
+   * Seed the pseudo-random number generator.
+   *
+   * @param {number} [seed=Date.now()] non-zero integer.
+   *
+   * @see getSeed
+   */
+  set: function (seed) {
+    // Save for later reference.
+    seedInitial = seed || Date.now()
+    statez = seed
+    statew = statez / 29
+  },
+}
+
+export const state = {
+  /**
+   * If you need to get access to the state at this particular time, you
+   * may do so. Only recommeneded if you absolutely need to reset the random
+   * number generator to a particular state.
+   *
+   * @return {object} the state, which can be passed to `state.set` at a later
+   * time to reset the call state.
+   */
+  get: function () {
+    return {statez, statew}
+  },
+
+  /**
+   * Reset the callstate.
+   *
+   * @param {object} state which should have been retrieved from `state.get`.
+   */
+  set: function (state) {
+    statez = state.statez
+    statew = state.statew
   },
 }
