@@ -1,5 +1,5 @@
 import * as gameRules from 'game-rules'
-import {randint} from './randint'
+import {randint} from './random'
 
 /**
  * Simulate a dice roll, where 1 is assumed to be the min.

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import _randint from './randint'
+import {randint as _randint} from './random'
 
 /**
  * Linear scan method for choosing items from an array of items.

@@ -54,6 +54,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
+    "@trinkets/random": "0.0.5",
     "acorn": "^7.1.0",
     "ajv": "^6.10.2",
     "chalk": "^3.0.0",
