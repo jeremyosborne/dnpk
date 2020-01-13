@@ -51,6 +51,9 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 ## Ideas
 
 - [ ] Move core code out into a shared, more reusable code base.
+- [ ] Mid battle reinforcements.
+- [ ] Original games had "vectoring". Is reinforcing/reinforcements the same thing? Something different?
+- [ ] Special troops that spawn or break apart into other troops.
 - [ ] Production "vectoring" as they called it in the original game. The "magically teleporting your troops to another city" is a lot of what made the original warlords so fun and not a drudgery to play.
 - [ ] Fog of war, although original game had no fog of war.
 - [ ] New structure: Special and specific god shrines (distinct from the general blessing shrines)
