@@ -1,7 +1,6 @@
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import {d as _d} from 'random'
-import strength from 'simulation/strength'
+import {dice, strength} from 'simulation'
 
 /**
  * Calculate the results of violence between two units.
@@ -25,7 +24,7 @@ export const violence = ({
   attacker,
   defender,
 }, {
-  d = _d.standard,
+  d = dice.standard,
 } = {}) => {
   const results = {
     attacker: {
@@ -88,7 +87,7 @@ export const violence = ({
  * @param {object} args.terrain where the battle is taking place.
  *
  * @param {object} config as dictionary
- * @param {function} config.d the die to use for combat. Classic rules indicate
+ * @param {function} [config.d] the die to use for combat. Classic rules indicate
  * a `standard` die.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
@@ -106,7 +105,11 @@ export const violence = ({
  * @property {object} structure reference to the structure argument.
  * @property {object} terrain reference to the terrain argument.
  */
-export const battle = ({attackers, defenders, structure, terrain}, {d = _d.standard} = {}) => {
+export const battle = (
+  {attackers, defenders, structure, terrain},
+  // violence() protects itself from a missing die, no need to define here.
+  {d} = {},
+) => {
   // Clone the army groups so we can mutate them into the final results
   // returned. The caller is responsible for committing the results or ignoring
   // them. Ideally this allows for a later rules extensions where battle "kills"

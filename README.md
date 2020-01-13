@@ -16,7 +16,6 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [ ] Move d.standard to simulation, and get rid of the other d module if it is not being used.
 - [ ] Other structures for classic parity:
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)
@@ -40,9 +39,6 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [ ] meta data needs to be expanded to have a `cosmetics` field with some general assumed structure, or a new top level `cosmetics` or `ui` field needs to be added.
     - [ ] along with `id`, army types should have a concept of `time created` stored as int of ms since epoch (e.g. Date.now()).
     - [ ] Armies
-        - [X] `army.name`:
-            - [X] dwarf -> mountaineer (localization for classic set call it 'Dwarf')
-            - [X] elven-archer -> ranger (localization for classic set call it 'Elven Archer')
         - [ ] flavor (D&D style "races"): elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
         - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
     - [ ] Flags of cities and towers change as troops pass them / control them.
