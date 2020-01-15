@@ -37,7 +37,7 @@ export const randomWeightedArmiesMonteCarlo = async () => {
 
   // Following purposely not translated because I'm not sure how I want to format
   // things or process the data.
-  out('Distribution of results for calls to sampleWeighted')
+  out('Distribution of results for calls to randomWeightedArmies')
   out(`Total # of samples: ${times}`)
   _.forEach(counters, (counter) => {
     const armyRef = dataSourceModdables.types.army.get(counter.choice)

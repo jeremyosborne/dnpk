@@ -14,4 +14,4 @@ import {create} from '@trinkets/random'
 
 // Create a fresh instance to protect ourselves from anything accidentally messing
 // with the singleton instance of the module.
-export const {random, randint, seed, state} = create()
+export const {choice, choices, random, randint, sample, seed, state} = create()

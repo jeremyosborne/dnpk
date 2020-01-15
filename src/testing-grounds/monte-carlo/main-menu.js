@@ -5,7 +5,7 @@ import randintMonteCarlo from './randint-monte-carlo'
 import randomMonteCarlo from './random-monte-carlo'
 import randomTerrainMonteCarlo from './random-terrain-monte-carlo'
 import randomWeightedArmiesMonteCarlo from './random-weighted-armies-monte-carlo'
-import sampleWeightedMonteCarlo from './sample-weighted-monte-carlo'
+import choicesWeightedMonteCarlo from './choices-weighted-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
 
 /**
@@ -14,6 +14,13 @@ import violenceMonteCarlo from './violence-monte-carlo'
 export const mainMenu = async () => {
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
+    {
+      message: 'choices() - test choice function with weights',
+      next: async () => {
+        await choicesWeightedMonteCarlo()
+        return mainMenu
+      }
+    },
     {
       message: 'dice.standard() - test pseudo random values returned from the standard dice',
       next: async () => {
@@ -46,13 +53,6 @@ export const mainMenu = async () => {
       message: 'randomWeightedArmiesMonteCarlo() - test random army generation',
       next: async () => {
         await randomWeightedArmiesMonteCarlo()
-        return mainMenu
-      }
-    },
-    {
-      message: 'sampleWeightedMonteCarlo() - test weighted sample function',
-      next: async () => {
-        await sampleWeightedMonteCarlo()
         return mainMenu
       }
     },

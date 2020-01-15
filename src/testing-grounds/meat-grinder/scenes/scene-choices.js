@@ -51,16 +51,7 @@ export const generalEncounter = () => () => {
     [sceneNames.VAULT_EQUIPPABLES]: 2,
   }
 
-  return random.sampleWeighted({
-    choices: _.keys(weightedChoices),
-    weight: (name) => {
-      const weight = weightedChoices[name]
-      if (!weight) {
-        throw new Error(`generalEncounter: You forgot to add a weight for ${name}`)
-      }
-      return weight
-    }
-  })[0]
+  return random.choices(_.keys(weightedChoices), 1, _.values(weightedChoices))[0]
 }
 
 /**
@@ -87,14 +78,5 @@ export const violent = () => () => {
     [sceneNames.FIGHT_HORDE]: 2,
   }
 
-  return random.sampleWeighted({
-    choices: _.keys(weightedChoices),
-    weight: (name) => {
-      const weight = weightedChoices[name]
-      if (!weight) {
-        throw new Error(`violent: You forgot to add a weight for ${name}`)
-      }
-      return weight
-    }
-  })[0]
+  return random.choices(_.keys(weightedChoices), 1, _.values(weightedChoices))[0]
 }

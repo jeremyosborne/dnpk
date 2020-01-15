@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@trinkets/noise": "0.0.3",
-    "@trinkets/random": "0.0.6",
+    "@trinkets/random": "0.0.8",
     "acorn": "^7.1.0",
     "ajv": "^6.10.2",
     "chalk": "^3.0.0",

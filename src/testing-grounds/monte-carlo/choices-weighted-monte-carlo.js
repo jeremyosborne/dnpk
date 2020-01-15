@@ -3,13 +3,13 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
-import {sampleWeighted} from 'random'
+import {choices} from 'random'
 
 const validate = {
   isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
 }
 
-export const sampleWeightedMonteCarlo = async () => {
+export const choicesWeightedMonteCarlo = async () => {
   const {times, ...weights} = await prompt([
     {
       initial: 1,
@@ -43,11 +43,11 @@ export const sampleWeightedMonteCarlo = async () => {
 
   const counters = _.flow(
     // in number, out array of numbers
-    ({weights, times}) => sampleWeighted({
-      choices: ['item 1', 'item 2', 'item 3'],
-      size: times,
-      weight: (o) => weights[o]
-    }),
+    ({weights, times}) => choices(
+      ['item 1', 'item 2', 'item 3'],
+      times,
+      [weights['item 1'], weights['item 2'], weights['item 3']],
+    ),
     // in array of choices, out dictionary of counts per choice
     (choices) => _.countBy(choices),
     // in dictionary of counts per choice, out unsorted array of descriptive objects
@@ -58,14 +58,15 @@ export const sampleWeightedMonteCarlo = async () => {
 
   // Following purposely not translated because I'm not sure how I want to format
   // things or process the data.
-  out('Distribution of results for calls to sampleWeighted')
+  out('Distribution of results for calls to choices() with weights')
   out(`Total # of samples: ${times}`)
+  const totalWeight = _.values(weights).reduce((sum, x) => sum + x, 0)
   _.forEach(counters, (counter) => {
-    out(`${counter.choice}: ${counter.count} (${_.round(counter.count / times, 2)})`)
+    out(`${counter.choice}: ${counter.count} (actual: ${_.round(counter.count / times, 2)} / ideal: ${_.round(weights[counter.choice] / totalWeight, 2)})`)
   })
   out('')
 
   await hitReturnToContinue()
 }
 
-export default sampleWeightedMonteCarlo
+export default choicesWeightedMonteCarlo
