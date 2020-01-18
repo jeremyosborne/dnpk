@@ -1,11 +1,8 @@
 import diceStandard from './dice-standard-monte-carlo'
 import {prompt} from 'enquirer'
 import _ from 'lodash'
-import randintMonteCarlo from './randint-monte-carlo'
-import randomMonteCarlo from './random-monte-carlo'
 import randomTerrainMonteCarlo from './random-terrain-monte-carlo'
 import randomWeightedArmiesMonteCarlo from './random-weighted-armies-monte-carlo'
-import choicesWeightedMonteCarlo from './choices-weighted-monte-carlo'
 import violenceMonteCarlo from './violence-monte-carlo'
 
 /**
@@ -15,30 +12,9 @@ export const mainMenu = async () => {
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: 'choices() - test choice function with weights',
-      next: async () => {
-        await choicesWeightedMonteCarlo()
-        return mainMenu
-      }
-    },
-    {
       message: 'dice.standard() - test pseudo random values returned from the standard dice',
       next: async () => {
         await diceStandard()
-        return mainMenu
-      }
-    },
-    {
-      message: 'randint() - test pseudo random values returned from core randint',
-      next: async () => {
-        await randintMonteCarlo()
-        return mainMenu
-      }
-    },
-    {
-      message: 'random() - test pseudo random values returned from core random',
-      next: async () => {
-        await randomMonteCarlo()
         return mainMenu
       }
     },
