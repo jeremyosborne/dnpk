@@ -1,0 +1,6 @@
+{
+  "name": "constitution",
+  "documentation": "Provides an individual unit health modification. Duration and magnitude are considered defaults, these values will often be edited. Meta-data provides the reasoning for why this bonus was applied, where it comes from.",
+  "duration": -1,
+  "magnitude": 1
+}

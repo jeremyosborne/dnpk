@@ -22,6 +22,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [ ] Switch the core mechanics of the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
     - [ ] Have the battle module have limits on infinite looping.
     - [ ] Fully test the battle module.
+    - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.
 - [ ] Other structures for classic parity:
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)
@@ -52,6 +53,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 
 ## Ideas
 
+- [ ] Heroes have mounts. Mounts are `equippables` that can supply an individual move bonus or modification, or an army-group wide move bonus or modification.
 - [ ] Synergies between units to create more bonuses.
 - [ ] Move core code out into a shared, more reusable code base.
 - [ ] Mid battle reinforcements.
@@ -77,8 +79,8 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Prisoners.
 - [ ] Boss battles.
 - [ ] Armies: Medals for surviving a battle (Warlords 2 I believe allowed up to 4 per troop), with a random chance for earning a medal per battle. Each medal provides a brawn +1.
-- [ ] Injuries for fighting in a battle. Winner may get to revive troops instead of losing everyone.
-- [ ] Terrain modifications beyond cities and towers, like traps and fires.
+- [ ] Injuries for fighting in a battle. Winner may get to revive troops instead of losing everyone. (injuries === `constitution` effects).
+- [ ] Terrain modifications beyond cities and towers, like traps, fires, fighting on different terrains (attacker in river, defender on shore; attacker on plains, defender on bridge).
 - [ ] Experience for an army-group, as well as individual armies. Need a way to keep this from being gamed, like maybe when a group gets renowned it can't disband and keep a bonus, adding new armies dilutes the bonus, etc.
 - [ ] In that very far future where there might be a modder, include how to import additional translations for modded data.
 - [ ] Experiment with [blessed](https://github.com/chjj/blessed) for terminal GUIs.
