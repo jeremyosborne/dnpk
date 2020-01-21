@@ -15,8 +15,8 @@
       "minimum": 1,
       "type": "integer"
     },
-    "diceStandardMax": {
-      "description": "The number of sides available on the standard die used when generating most of the psuedo-random dice rolls in-game.",
+    "battleDiceNumFaces": {
+      "description": "The number of sides available on the standard battle dice.",
       "default": 10,
       "minimum": 2,
       "type": "integer"
@@ -41,6 +41,12 @@
       "description": "After all strength modifications are considered, provide a floor for the effective strength below which an army unit won't fall.",
       "default": 0,
       "minimum": 0,
+      "type": "integer"
+    },
+    "unitStrengthModifierMax": {
+      "description": "What is the maximum modifier that can be applied to units in a given situation, usually relative to a stack or when entering battle? A negative value means there is no cap on the modifier.",
+      "default": -1,
+      "minimum": -1,
       "type": "integer"
     },
     "type": {

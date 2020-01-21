@@ -1,4 +1,4 @@
-import diceStandard from './dice-standard-monte-carlo'
+import battleDiceStandard from './battle-dice-standard-monte-carlo'
 import {prompt} from 'enquirer'
 import _ from 'lodash'
 import randomTerrainMonteCarlo from './random-terrain-monte-carlo'
@@ -12,9 +12,9 @@ export const mainMenu = async () => {
   // Sub-menu actions, other than the obvious, want to return to this menu.
   const actions = [
     {
-      message: 'dice.standard() - test pseudo random values returned from the standard dice',
+      message: 'battle.dice.standard() - test pseudo random values returned from the standard dice',
       next: async () => {
-        await diceStandard()
+        await battleDiceStandard()
         return mainMenu
       }
     },

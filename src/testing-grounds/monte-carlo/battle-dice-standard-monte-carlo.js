@@ -4,13 +4,13 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
-import {dice} from 'simulation'
+import {dice} from 'battle'
 
 const validate = {
   isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.')
 }
 
-export const diceStandardMonteCarlo = async () => {
+export const battleDiceStandardMonteCarlo = async () => {
   const {times} = await prompt([
     {
       initial: 10000,
@@ -34,10 +34,10 @@ export const diceStandardMonteCarlo = async () => {
 
   // Following purposely not translated because I'm not sure how I want to format
   // things or process the data.
-  out('Distribution of results for dice.standard()')
+  out('Distribution of results for battle.dice.standard()')
   // This isn't actually defined in the configurable rules...
   out('Minimum defined by rules:', 1)
-  out('Maximum defined by rules:', gameRules.get('diceStandardMax'))
+  out('Maximum defined by rules:', gameRules.get('battleDiceNumFaces'))
   out(`Total # of rolls: ${times}`)
   _.forEach(counters, (counter) => {
     out(`${counter.roll}: ${counter.count} (${_.round(counter.count / times, 2)})`)
@@ -47,4 +47,4 @@ export const diceStandardMonteCarlo = async () => {
   await hitReturnToContinue()
 }
 
-export default diceStandardMonteCarlo
+export default battleDiceStandardMonteCarlo

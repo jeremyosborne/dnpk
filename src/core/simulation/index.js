@@ -1,9 +1,6 @@
 export {createRandom} from './create-random'
 export {createRandomWeightedArmyGroup} from './create-random-weighted-army-group'
 
-import * as dice from './dice' // eslint-disable-line import/first
-export {dice}
-
 export {randomNaming} from './random-naming'
 export {randomWeightedArmies, randomWeightedArmyWeighting} from './random-weighted-armies'
 

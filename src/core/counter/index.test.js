@@ -9,7 +9,7 @@ describe('counter', () => {
       expect(counter.get('dog')).toEqual(1)
       counter.add('dog')
       expect(counter.get('dog')).toEqual(2)
-      counter.subtract('dog', 2)
+      counter.add('dog', -2)
       expect(counter.exists('dog')).toEqual(true)
       expect(counter.get('dog')).toEqual(0)
       counter.add('dog', 5)
@@ -17,7 +17,7 @@ describe('counter', () => {
       expect(counter.get('dog')).toEqual(3)
       counter.del('dog')
       expect(counter.get('dog')).toEqual(0)
-      counter.subtract('cat')
+      counter.add('cat', -1)
       expect(counter.get('cat')).toEqual(-1)
 
       // Setup to make sure that default cache is not accidentally shared.
@@ -26,6 +26,34 @@ describe('counter', () => {
 
       const counter2 = testMod.create()
       expect(counter2.get('dog')).toEqual(0)
+    })
+  })
+
+  describe('add', () => {
+    it('works with different settings', () => {
+      const counter = testMod.create()
+      counter('hello') // +1
+      counter('world') // +1
+      counter(['hello', 'world', 'world']) // +1 each
+      expect(counter.get('hello')).toEqual(2)
+      expect(counter.get('world')).toEqual(3)
+
+      counter('hello', 5) // +5
+      expect(counter.get('hello')).toEqual(7)
+      counter(['hello', 'world'], 5) // +5 each
+      expect(counter.get('hello')).toEqual(12)
+      expect(counter.get('world')).toEqual(8)
+    })
+  })
+
+  describe('clear', () => {
+    it('works', () => {
+      const counter = testMod.create()
+      counter('a')
+      counter('b')
+      expect(counter.get('a')).toEqual(1)
+      counter.clear()
+      expect(counter.get('a')).toEqual(0)
     })
   })
 
@@ -53,5 +81,12 @@ describe('counter', () => {
       counter.set('gryphon', -2)
       expect(counter.sum()).toEqual(1)
     })
+  })
+
+  describe('toJSON', () => {
+    const cache = {a: 42}
+    const counter = testMod.create(cache)
+    // By definition of ECMAScript toJSON, returns the objec to be serialized.
+    expect(counter.toJSON()).toEqual(cache)
   })
 })

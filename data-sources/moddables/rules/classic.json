@@ -1,9 +1,10 @@
 {
   "documentation": "Rules and configuration options to make the game as similar to the original Warlords as possible.",
   "armyGroupSizeMax": 8,
-  "diceStandardMax": 10,
+  "battleDiceNumFaces": 10,
   "heroesMax": 5,
   "name": "classic",
   "unitStrengthMax": 9,
-  "unitStrengthMin": 0
+  "unitStrengthMin": 0,
+  "unitStrengthModifierMax": -1
 }

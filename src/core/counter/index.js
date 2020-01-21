@@ -1,9 +1,9 @@
-import _ from 'lodash'
-
 /**
  * Create a counter.
  *
- * @param {Object} [cache={}] optionally load with a pre-existing cache.
+ * @param {Object} [cache={}] optionally load with a pre-existing cache. The
+ * cache is a simple associative array, where keys are assumed strings and
+ * values are always assumed numbers.
  *
  * @return {Function} a function-object used for counting things.
  */
@@ -12,13 +12,24 @@ export const create = (cache = {}) => {
    * Count is a function object, where incrementing existing counts is main
    * method exposed.
    *
-   * @param {String} key to modify
-   * @param {Number} [value=1] if not included, a value of 1 is added. Can
-   * increment by any number when passed in.
+   * @param {String|Array} items if string, a singular key to modify. If an array,
+   * elements are presumed to be a set of keys that are intended to be counted.
+   * @param {Number} [value=1] if not included, a value of 1 is added to each
+   * key. Use a negative number to decrement values.
    */
-  const counter = (key, value = 1) => {
-    const update = cache[key] + value
-    cache[key] = isNaN(update) ? value : update
+  const counter = (items, value = 1) => {
+    if (Array.isArray(items)) {
+      const size = items.length
+      for (let i = 0; i < size; i++) {
+        const key = items[i]
+        const current = cache[key]
+        cache[key] = isNaN(current) ? value : current + value
+      }
+    } else {
+      // items assumed to be a singular value
+      const current = cache[items]
+      cache[items] = isNaN(current) ? value : current + value
+    }
   }
 
   /**
@@ -92,20 +103,17 @@ export const create = (cache = {}) => {
    * returned.
    */
   counter.sorted = () => {
-    const counts = _.map(cache, (value, label) => ({label, value}))
-    return _.orderBy(counts, ['value'], ['desc'])
-  }
+    const counts = []
+    for (const p in cache) {
+      if (Object.prototype.hasOwnProperty.call(cache, p)) {
+        counts.push({label: p, value: cache[p]})
+      }
+    }
 
-  /**
-   * Decrement a value.
-   *
-   * @param {String} key to modify
-   * @param {Number} [value=1] if not included, a value of 1 is added. Can increment
-   * by any number when passed in.
-   */
-  counter.subtract = (key, value = 1) => {
-    const update = cache[key] - value
-    cache[key] = isNaN(update) ? -value : update
+    return counts.sort((a, b) => {
+      // Descending order.
+      return b.value - a.value
+    })
   }
 
   /**
@@ -114,7 +122,13 @@ export const create = (cache = {}) => {
    * @return {[type]} [description]
    */
   counter.sum = () => {
-    return _.sum(_.values(cache)) || 0
+    let total = 0
+    for (const p in cache) {
+      if (Object.prototype.hasOwnProperty.call(cache, p)) {
+        total += cache[p]
+      }
+    }
+    return total
   }
 
   /**

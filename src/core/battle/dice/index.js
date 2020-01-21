@@ -8,5 +8,5 @@ import {randint} from 'random'
  * @return {number} value of the dice roll.
  */
 export const standard = () => {
-  return randint(1, gameRules.get('diceStandardMax'))
+  return randint(1, gameRules.get('battleDiceNumFaces'))
 }

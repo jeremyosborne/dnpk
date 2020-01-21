@@ -17,7 +17,7 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Rewrite the battle module
-    - [ ] distinguish battle dice from the previous mentioned standard dice (it's standard, but only relative to the battle module).
+    - [X] distinguish battle dice from the previous mentioned standard dice (it's standard, but only relative to the battle module).
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
     - [ ] Switch the core mechanics of the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
     - [ ] Have the battle module have limits on infinite looping.
@@ -52,6 +52,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 
 ## Ideas
 
+- [ ] Synergies between units to create more bonuses.
 - [ ] Move core code out into a shared, more reusable code base.
 - [ ] Mid battle reinforcements.
 - [ ] Original games had "vectoring". Is reinforcing/reinforcements the same thing? Something different?
