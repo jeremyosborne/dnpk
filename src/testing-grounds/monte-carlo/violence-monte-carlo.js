@@ -1,4 +1,4 @@
-import {violence as _violence} from 'battle'
+import {violence as _violence} from 'simulation/battle'
 import {prompt} from 'enquirer'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'

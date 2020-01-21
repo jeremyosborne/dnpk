@@ -1,4 +1,4 @@
-import {battle} from 'battle'
+import {battle} from 'simulation/battle'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'

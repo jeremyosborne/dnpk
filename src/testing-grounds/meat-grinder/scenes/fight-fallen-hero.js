@@ -1,5 +1,5 @@
 // @flow
-import {battle} from 'battle'
+import {battle} from 'simulation/battle'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'

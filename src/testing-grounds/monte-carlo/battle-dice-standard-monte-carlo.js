@@ -4,7 +4,7 @@ import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from 'out'
-import {dice} from 'battle'
+import {dice} from 'simulation/battle'
 
 const validate = {
   isInteger: (value) => _.isInteger(value) ? true : t('Value must be an integer.')

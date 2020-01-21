@@ -1,6 +1,6 @@
 import * as testMod from './battle'
 
-describe('battle.battle', () => {
+describe('battle', () => {
   const attackers = {
     armyGroup: [],
     empire: {name: 'good guys'},
@@ -18,7 +18,15 @@ describe('battle.battle', () => {
     // to cut down on the amount of loading we do in these tests.
   })
 
-  describe('violence', () => {
+  describe('battle()', () => {
+    it('gets to contribute to the line coverage in a negative way', () => {
+      // Let the coverage report, and usuage, define what we should actually
+      // be testing.
+      expect(!!testMod.battle({attackers, defenders, terrain})).toEqual(true)
+    })
+  })
+
+  describe('violence()', () => {
     const attacker = {
       strength: 5,
     }
@@ -90,14 +98,6 @@ describe('battle.battle', () => {
         attacker: {damaged: false, hit: true, roll: 7},
         defender: {damaged: true, hit: false, roll: 5},
       })
-    })
-  })
-
-  describe('battle', () => {
-    it('gets to contribute to the line coverage in a negative way', () => {
-      // Let the coverage report, and usuage, define what we should actually
-      // be testing.
-      expect(!!testMod.battle({attackers, defenders, terrain})).toEqual(true)
     })
   })
 })

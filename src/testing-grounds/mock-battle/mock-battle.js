@@ -1,4 +1,4 @@
-import {battle} from 'battle'
+import {battle} from 'simulation/battle'
 import * as gameObjectsCommon from 'game-objects-common'
 import * as gameRules from 'game-rules'
 import playerRandom from './player-random'
