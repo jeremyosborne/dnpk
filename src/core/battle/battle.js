@@ -1,7 +1,7 @@
 import * as dice from './dice'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import {strength} from 'simulation'
+import {strength} from 'simulation/strength'
 
 /**
  * Calculate the results of violence between two units.

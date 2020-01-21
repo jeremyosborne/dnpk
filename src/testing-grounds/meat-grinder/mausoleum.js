@@ -14,8 +14,8 @@ export const mausoleum = async () => {
   if (deaths) {
     const deads = _.slice(dataSourceGame.counterDead.sorted())
     out.t('Numbering your dead:')
-    _.forEach(deads, (d) => {
-      out.t('\t{{label}}: {{value}}', d)
+    _.forEach(deads, ([label, value]) => {
+      out.t('\t{{label}}: {{value}}', {label, value})
     })
   }
 
@@ -26,8 +26,8 @@ export const mausoleum = async () => {
   if (kills) {
     const killeds = _.slice(dataSourceGame.counterKills.sorted())
     out.t('Numbering your fallen foes:')
-    _.forEach(killeds, (k) => {
-      out.t('\t{{label}}: {{value}}', k)
+    _.forEach(killeds, ([label, value]) => {
+      out.t('\t{{label}}: {{value}}', {label, value})
     })
   }
 

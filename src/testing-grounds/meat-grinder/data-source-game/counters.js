@@ -1,4 +1,4 @@
-import * as counter from 'counter'
+import * as counter from '@trinkets/counter'
 import debug from 'debug'
 import * as _io from 'io'
 

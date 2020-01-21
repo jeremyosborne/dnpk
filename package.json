@@ -54,6 +54,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
+    "@trinkets/counter": "0.0.2",
     "@trinkets/noise": "0.0.3",
     "@trinkets/random": "0.0.8",
     "acorn": "^7.1.0",
