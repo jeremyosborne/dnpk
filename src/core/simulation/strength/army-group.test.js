@@ -22,6 +22,8 @@ describe('strength.army-group', () => {
     {name: 'dragon', effects: [{name: 'elite'}, {name: 'aerial'}]},
     // This should not contribute anything since the effects are one time applications.
     {name: 'dragon', effects: [{name: 'elite'}, {name: 'aerial'}]},
+    // Something that doesn't yet exist but could.
+    {name: 'brawny guy', effects: [{name: 'brawn-aura', magnitude: 1}]}
   ]
   const armyGroup = {
     armies,
@@ -69,6 +71,29 @@ describe('strength.army-group', () => {
     })
   })
 
+  describe('strengthModifierEffectsBrawnAura', () => {
+    it('does not explode', () => {
+      expect(testModule.strengthModifierEffectsBrawnAura()).toEqual(0)
+    })
+
+    it('handles a magnitude null brawn-aura object', () => {
+      const armyHero = {
+        name: 'hero',
+        strength: 4,
+        effects: [
+          {name: 'hero'},
+          {name: 'brawn-aura'}
+        ]
+      }
+      const armies = [armyHero]
+      const armyGroup = {armies}
+
+      // No NaN.
+      expect(testModule.strengthModifierEquippableBrawnAura({armyGroup})).toEqual(0)
+      expect(testModule.strengthModifierEquippableBrawnAura({armyGroup: armies})).toEqual(0)
+    })
+  })
+
   describe('strengthModifierEquippableBrawnAura', () => {
     it('does not explode', () => {
       expect(testModule.strengthModifierEquippableBrawnAura()).toEqual(0)
@@ -96,7 +121,7 @@ describe('strength.army-group', () => {
 
   describe('strengthModifier', () => {
     it('works', () => {
-      expect(testModule.strengthModifier({armyGroup})).toEqual(4)
+      expect(testModule.strengthModifier({armyGroup})).toEqual(5)
     })
 
     it('handles empty groups', () => {

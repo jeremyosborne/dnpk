@@ -7,13 +7,10 @@ export {armyGroup}
 import * as equipment from './equipment' // eslint-disable-line import/first
 export {equipment}
 
-import strength from './strength' // eslint-disable-line import/first
-export {strength}
+import health from './health' // eslint-disable-line import/first
+export {health}
 // also...
-export default strength
+export default health
 
 import * as structure from './structure' // eslint-disable-line import/first
 export {structure}
-
-import * as terrain from './terrain' // eslint-disable-line import/first
-export {terrain}

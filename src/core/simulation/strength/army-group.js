@@ -1,5 +1,6 @@
 import * as army from './army'
 import * as equipment from './equipment'
+import * as effects from './effects'
 import _ from 'lodash'
 
 /**
@@ -59,6 +60,22 @@ export const strengthModifierEquippableBrawnAura = ({armyGroup = []} = {}) => {
 }
 
 /**
+ * Calculate the strength modifier from equipped brawn-aura items.
+ *
+ * @param {object} args
+ * @param {object|object[]} [args.armyGroup=[]] either a formal `army-group` that implements
+ * `.armies` or a simple array of `army` types.
+ *
+ * @return {number} the strength modifier or 0
+ */
+export const strengthModifierEffectsBrawnAura = ({armyGroup = []} = {}) => {
+  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+  return _.reduce(armies, (strengthModifier, army) => {
+    return strengthModifier + effects.strengthModifierBrawnAura(army)
+  }, 0)
+}
+
+/**
  * Calculate the strength modifier from all hero units in the army group.
  *
  * @param {object} args
@@ -87,6 +104,7 @@ export const strengthModifier = ({armyGroup = []} = {}) => {
   modifier += strengthModifierAerial({armyGroup})
   modifier += strengthModifierElite({armyGroup})
   modifier += strengthModifierEquippableBrawnAura({armyGroup})
+  modifier += strengthModifierEffectsBrawnAura({armyGroup})
   modifier += strengthModifierHero({armyGroup})
   return modifier
 }
