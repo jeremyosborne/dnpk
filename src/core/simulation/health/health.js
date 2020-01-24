@@ -25,11 +25,8 @@ export const health = ({army, armyGroup, structure}) => {
   }
 
   let health = armyHealth({army})
-  console.log('health', health)
   health += armyGroupHealthModifier({armyGroup})
-  console.log('health', health)
   health += structureHealthModifier({structure})
-  console.log('health', health)
 
   return health
 }
