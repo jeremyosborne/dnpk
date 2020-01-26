@@ -19,6 +19,18 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Rewrite the battle module
     - [X] distinguish battle dice from the previous mentioned standard dice (it's standard, but only relative to the battle module).
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
+        - [ ] Modification: review and update naming conventions throughout the code.
+        - [ ] Modification: unitStrengthMax -> armyStrengthMax
+        - [ ] Modification: unitStrengthMin -> armyStrengthMin
+        - [ ] Modification: unitStrengthModifierMax -> groupStrengthModifierMax
+        - [ ] Addition: groupStrengthModifierMin
+        - [ ] Addition: armyHealthMax
+        - [ ] Addition: armyHealthMin
+        - [ ] Addition: groupHealthModifierMax
+        - [ ] Addition: groupHealthModifierMin
+        - [ ] Modification: all Min and Max rules need values (although the code should defend itself from missing ones and provide defaults). To have it effectively unbounded, use large numbers (note that -Infinity/Infinity are not JSON friendly).
+        - [ ] Modification: structures can have `equipment` representing items being mounted and active on the structure.
+        - [ ] Modification: structures can have a `vault`, representing items being stored in the structure.
     - [ ] Make use of modifier-tools to rebuild the way-too-wordy existing strength and health modifiers.
     - [ ] Switch the core mechanics of the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
     - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.

@@ -1,29 +1,14 @@
 # Battle module
 
 ```js
-// Battle structure
-
-// battle-meta
-{
-    global: {
-
-    },
-    attackers: {
-
-    },
-    defenders: {
-
-    },
-}
-
-// battle-army
+// battleArmy
 {
     // Reference to the original army
     id: string,
 
     // the effective base strength of the army, per the definition of calculation. Value is immutable.
     strengthEffectiveBase: number,
-    // effective base strength + effective group battle strength modifier. Value is immutable.
+    // effective base strength + group battle strength modifier. Value is immutable.
     strengthEffective: number,
     // Current effective strength of the army. This value is mutable, and reflects any strength modifications
     // taken _during_ the battle.
@@ -37,6 +22,65 @@
     // taken _during_ the battle.
     health: number,
 }
+
+// battleGroup
+{
+    //
+    // Values that will not mutate during the course of a battle
+    //
+    // reference to the original armyGroup
+    armyGroup: object|object[],
+    // associative array, keyed by id, of all armies in the armyGroup. Values are references to original army.
+    armyGroupIndex: object,
+    // reference to the original empire
+    empire: object,
+    // reference to the original, specific terrain applied to this group
+    terrain: object,
+    // reference to the original array of structures applied to this group
+    structures: object[],
+
+    // the group strength modifier (final calculated and bounded number) applied to this group
+    groupStrengthModifier: number,
+    // the group health modifier (final calculated and bounded number)
+    groupHealthModifier: number,
+
+    // associative array, keyed by id, of all armies translated into battle-army structures.
+    competitorsIndex: battleArmy{},
+
+    //
+    // Values that will mutate over the course of a battle
+    //
+    // reference to array of battle-army objects that have not yet been killed during battle
+    survivors: battleArmy[],
+    // reference to array of battle-army objects that have killed during battle
+    casualties: battleArmy[],
+}
+
+TODO: continue from here
+
+// battle-meta
+{
+    // Items that apply to attackers and defenders.
+    general: {
+        terrain: object, // reference to any general terrain applied to the battle
+    },
+    // Information
+    attackers: battleGroup,
+    defenders: battleGroup,
+}
+
+// battle-violence-competitor
+{
+    id: string,
+    roll: number,
+    hit: boolean,
+    damaged: boolean,
+}
+// battle-violence-round
+{
+    attacker: battleViolenceCompetitor,
+    defender: battleViolenceCompetitor,
+}
 ```
 
 ## Battle Procedure
@@ -44,31 +88,36 @@
 * A group of armies form the `attackers`.
     * can be associated with an `empire` for additional modifiers.
     * can be associated with a `structure` for additional modifiers.
-    * can be associated with `terrain` for additional modifiers.
+    * can be associated with a specific `terrain` for additional modifiers.
 * A group of armies form the `defenders`.
     * can be associated with an `empire` for additional modifiers.
     * can be associated with a `structure` for additional modifiers.
-    * can be associated with `terrain` for additional modifiers.
-* A type of `terrain` is applied to the battle. General `terrain` affects both `attackers` and `defenders` if the `attackers` or `defenders` do not have their own terrain specified.
-* calculate `effective base strength` for all `attackers` and `defenders` armies:
+    * can be associated with a specific `terrain` for additional modifiers.
+* Optional: a general `terrain` can be associated with the battle. General `terrain` affects both `attackers` and `defenders` and effects are cumulative with the individual terrain.
+* calculate `effective base strength` for `attackers` and `defenders`:
     * `effective base strength` represents the army's current strength based on promotions, shrine bonuses, experience, maluses, etc.
-    * `effective base strength` is not capped by the `unit strength modifier max` during this calculation and its value, even when greater from the non-modified `base strength` of the `army` type.
     * start with the `army.strength` value
-    * add modifiers from `brawn` effects on any equipment carried by the army
-    * add modifiers from `brawn` effects on the army
-    * add modifiers from `brawn-terrain-modifier` effects on the army
-* with the `effective base strength` of each army calculated, `attackers` and `defenders` have their `effective group battle strength modifier` calculated.
-    * an aerial army within the army-group will contribute a one time +1 to the `effective group battle strength modifier`.
-    * an elite army within the army-group will contribute a one time +1 to the `effective group battle strength modifier`.
-    * any unit with any brawn-aura effects will contribute all of the modifiers of the brawn-auras to the `effective group battle strength modifier`.
-    * any unit with any equipment with any brawn-aura effects will contribute all of the modifiers of the brawn-auras to the `effective group battle strength modifier`.
-    * any hero in the army will contribute a leadership bonus based on their `effective base strength`
-    * any brawn-terrain-modifier provided by the `empire` effects + associated `terrain` will be applied to the `effective group battle strength modifier`.
-    * any associated `structures` with `brawn-aura` effects will contribute all of their modifiers to the `effective group battle strength modifier`.
-    * If the rule set applies any value for `unit strength modifier max` >= 0, this value will cap the total available `effective group battle strength modifier`.
-* with the `effective base strength` and `effective group battle strength modifier`, this is applied to the respective individual armies, and calculates the `effective strength` of the unit.
-    * Math.max(`effective base strength` + `effective group battle strength modifier`, `unit strength max`)
-* `attackers` and `defenders` have individual army `effective base health` calculated
-    * `effective base health` is not capped.
-    * equipment with `constitution` modifiers are added to the `effective base health`.
-    * effects with `constitution` modifiers are added to the `effective base health`.
+    * for every effect or equipment.effect of `brawn`, add sum of all modifiers
+    * for every effect or equipment.effect of `brawn-terrain-modifier` that matches any of the associated terrain, add sum of all modifiers
+* calculate `effective group strength modifier` for `attackers` and `defenders`:
+    * if any army with any effect or equipment.effect of `aerial` add +1
+    * if any army with any effect or equipment.effect of `elite` add +1
+    * for every army, for every effect or equipment.effect of `brawn-aura`, add sum of all modifiers
+    * for every hero, calculate a `leadership bonus` based on the `effective base strength` of the hero, add sum of all `leadership bonus`es
+    * for the empire, for every effect of `brawn-terrain-modifier` that matches any of the associated terrain, add sum of all modifiers
+    * for every structure, for every effect or equipment.effect of `brawn-aura`, add sum of all modifiers
+* calculate `group strength modifier` for the `attackers` and `defenders`:
+    * `group strength modifier = max(group strength modifier min, min(group strength modifier max, effective group strength modifier))`
+* calculate `effective strength` for `attackers` and `defenders`:
+    * for every army, `effective strength = max(army strength min, min(army strength max, effective base strength + group strength modifier))`
+* calculate `effective base health` for `attackers` and `defenders`:
+    * `effective base health` represents the army's current health based on promotions, shrine bonuses, experience, maluses, etc.
+    * start with the `army.health` value
+    * for every effect or equipment.effect of `constitution`, add sum of all modifiers
+* calculate `effective group health modifier` for `attackers` and `defenders`:
+    * for every army, for every effect or equipment.effect of `constitution-aura`, add sum of all modifiers
+    * for every structure, for every effect or equipment.effect of `constitution-aura`, add sum of all modifiers
+* calculate `group health modifier` for `attackers` and `defenders`:
+    * `group health modifier = max(group health modifier min, min(group health modifier max, effective group group modifier))`
+* calculate `effective health` for `attackers` and `defenders`:
+    * for every army, `effective health = max(army health min, min(army health max, effective base health + group health modifier))`
