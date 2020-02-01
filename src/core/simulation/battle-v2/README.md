@@ -52,10 +52,8 @@ Each `armyGroup` in a battle will have a `battleGroup` structure associated with
     //
     // Values that will not mutate during the course of a battle
     //
-    // reference to the original armyGroup
+    // references to the arguments assumed passed into the battle function
     armyGroup: object|object[],
-    // associative array, keyed by id, of all armies in the armyGroup. Values are references to original army.
-    armyGroupIndex: object,
     // reference to the original empire applied to this group
     empire: object,
     // reference to original terrain applied to this group
@@ -63,13 +61,13 @@ Each `armyGroup` in a battle will have a `battleGroup` structure associated with
     // reference to original structures applied to this group
     structures: object[],
 
+    // associative array, keyed by id, of all armies in the armyGroup. Values are references to original army.
+    armyGroupIndex: object{},
+
     // the group strength modifier (final calculated and bounded number) applied to this group
     groupStrengthModifier: number,
     // the group health modifier (final calculated and bounded number)
     groupHealthModifier: number,
-
-    // associative array, keyed by id, of all armies translated into battle-army structures.
-    competitorsIndex: battleArmy{},
 
     //
     // Values that will mutate over the course of a battle
@@ -78,6 +76,9 @@ Each `armyGroup` in a battle will have a `battleGroup` structure associated with
     survivors: battleArmy[],
     // reference to array of battle-army objects that have killed during battle
     casualties: battleArmy[],
+
+    // associative array, keyed by id, of all armies translated into battle-army structures.
+    battleArmyIndex: battleArmy{},
 }
 ```
 
@@ -107,7 +108,10 @@ The `battleRoundParticipant` provides meta-data for each army in each round of v
 ```js
 {
     // Reference to the `battleArmy` acting as this participant.
-    ref: battleArmy,
+    battleArmy: battleArmy,
+    // id of the army, if lookup by id is preferred.
+    id: string,
+
     // The number rolled on the virtual dice by this participant.
     roll: number,
     // Whether or not the raw roll on the virtual dice resulted in a hit against the opponent.
@@ -200,7 +204,7 @@ The `battleEvent` is an `event` which is itself a message envelope passed from t
         * Battle state is updated: the dead unit is moved dequeued from the survivors and enqueued into the casualties.
         * Event is reported with an updated battle state and meta data about the ending of the battle round.
     * go back to `Test:` for battle rounds.
-* The `battle:end` event marks the end of the battle. One army has one, one has been defeated.
+* The `battle:end` event marks the end of the battle. One army has won, one has been defeated.
     * Battle state is final and will receive no more updates from the battle module.
     * Battle state is reported along with any other meta data.
     * None of the original data structures passed in will be modified. It is now the job of the caller to take the battle results and apply any permanent changes to the official game state.
