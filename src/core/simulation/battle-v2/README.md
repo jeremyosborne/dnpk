@@ -14,136 +14,6 @@ The battle module handles a central portion of the wargame: resolving violence b
 * API, at a higher level, allows for callback based hooks. The callbacks will be passed the battle state, and will be allowed to modify the state of the battle as well as pass messages back into the battle flow.
 * API, at a higher level, will be event based, message passing.
 
-## Battle state data structures
-
-### battleArmy
-
-Each `army` in a battle will have a `battleArmy` structure associated with it. This structure is assumed to be mutable and represents all the state necessary to manage and report on the lifecycle of an individual army during a battle.
-
-```js
-{
-    // Reference to the original army.
-    army: object,
-
-    // the effective base strength of the army, per the definition of calculation. Value is immutable.
-    strengthEffectiveBase: number,
-    // effective base strength + group battle strength modifier. Value is immutable.
-    strengthEffective: number,
-    // Current effective strength of the army. This value is mutable, and reflects any strength modifications
-    // taken _during_ the battle.
-    strength: number,
-
-    // The effective base health of the army, per the definition of the calculation. Value is immutable.
-    healthEffectiveBase: number,
-    // effective base strength + effective group battle health modifier. Value is immutable.
-    healthEffective: number,
-    // Current effective strength of the army. This value is mutable, and reflects any strength modifications
-    // taken _during_ the battle.
-    health: number,
-}
-```
-
-### battleGroup
-
-Each `armyGroup` in a battle will have a `battleGroup` structure associated with it. This structure is assumed to be mutable and represents all the state necessary to manage and report on the lifecycle of an individual `armyGroup` throughout the lifecycle of a battle. In the current design, there will only ever be two `battleGroup`s: `attackers` and `defenders`.
-
-```js
-{
-    //
-    // Values that will not mutate during the course of a battle
-    //
-    // references to the arguments assumed passed into the battle function
-    armyGroup: object|object[],
-    // reference to the original empire applied to this group
-    empire: object,
-    // reference to original terrain applied to this group
-    terrains: object[],
-    // reference to original structures applied to this group
-    structures: object[],
-
-    // associative array, keyed by id, of all armies in the armyGroup. Values are references to original army.
-    armyGroupIndex: object{},
-
-    // the group strength modifier (final calculated and bounded number) applied to this group
-    groupStrengthModifier: number,
-    // the group health modifier (final calculated and bounded number)
-    groupHealthModifier: number,
-
-    //
-    // Values that will mutate over the course of a battle
-    //
-    // reference to array of battle-army objects that have not yet been killed during battle
-    survivors: battleArmy[],
-    // reference to array of battle-army objects that have killed during battle
-    casualties: battleArmy[],
-
-    // associative array, keyed by id, of all armies translated into battle-army structures.
-    battleArmyIndex: battleArmy{},
-}
-```
-
-### battleState
-
-The `battleState` represents the current state of a battle.
-
-```js
-{
-    // Items that apply to attackers and defenders.
-    general: {
-        // reference to any general terrain applied to the battle.
-        terrains: object[],
-        // reference to any general structures applied to the battle.
-        structures: object[],
-    },
-    // reference to the current state of the battle groups.
-    attackers: battleGroup,
-    defenders: battleGroup,
-}
-```
-
-### battleRoundParticipant
-
-The `battleRoundParticipant` provides meta-data for each army in each round of violence that happens within a round of battle.
-
-```js
-{
-    // Reference to the `battleArmy` acting as this participant.
-    battleArmy: battleArmy,
-    // id of the army, if lookup by id is preferred.
-    id: string,
-
-    // The number rolled on the virtual dice by this participant.
-    roll: number,
-    // Whether or not the raw roll on the virtual dice resulted in a hit against the opponent.
-    hit: boolean,
-    // Whether or not the results of the round of combat resulted in damage against this unit.
-    damaged: boolean,
-}
-```
-
-### battleEvent
-
-The `battleEvent` is an `event` which is itself a message envelope passed from the API to anyone listening.
-
-```js
-{
-    // Constant value, will never change.
-    type: 'event'
-    // String with structured hierarchy delimited by colons.
-    name: 'battle:*'
-
-    // The current state of the battle.
-    state: battleState,
-
-    // Additional properties: each event will publish additional sets of properties.
-    //
-    // During a 'battle:round:*' event, `attacker` and `defender` properties will
-    // be published and will take the form of:
-    attacker: battleRoundParticipant,
-    defender: battleRoundParticipant,
-}
-```
-
 ## Battle Procedure
 
 * Basic data will be passed into the battle module. Much of the data is optional.
@@ -208,3 +78,52 @@ The `battleEvent` is an `event` which is itself a message envelope passed from t
     * Battle state is final and will receive no more updates from the battle module.
     * Battle state is reported along with any other meta data.
     * None of the original data structures passed in will be modified. It is now the job of the caller to take the battle results and apply any permanent changes to the official game state.
+
+## Battle state data structures
+
+* [battleArmy](./battle-state): see doc in source.
+* [battleGroup](./battle-state): see doc in source.
+* [battleState](./battle-state): see doc in source.
+
+### battleRoundParticipant
+
+The `battleRoundParticipant` provides meta-data for each army in each round of violence that happens within a round of battle.
+
+```js
+{
+    // Reference to the `battleArmy` acting as this participant.
+    battleArmy: battleArmy,
+    // id of the army, if lookup by id is preferred.
+    id: string,
+
+    // The number rolled on the virtual dice by this participant.
+    roll: number,
+    // Whether or not the raw roll on the virtual dice resulted in a hit against the opponent.
+    hit: boolean,
+    // Whether or not the results of the round of combat resulted in damage against this unit.
+    damaged: boolean,
+}
+```
+
+### battleEvent
+
+The `battleEvent` is an `event` which is itself a message envelope passed from the API to anyone listening.
+
+```js
+{
+    // Constant value, will never change.
+    type: 'event'
+    // String with structured hierarchy delimited by colons.
+    name: 'battle:*'
+
+    // The current state of the battle.
+    state: battleState,
+
+    // Additional properties: each event will publish additional sets of properties.
+    //
+    // During a 'battle:round:*' event, `attacker` and `defender` properties will
+    // be published and will take the form of:
+    attacker: battleRoundParticipant,
+    defender: battleRoundParticipant,
+}
+```
