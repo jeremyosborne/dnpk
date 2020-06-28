@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -8,11 +7,6 @@ import out from 'out'
 import * as simulation from 'simulation'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * Buff the armies within the army-group before continuing on.
  *
@@ -21,7 +15,7 @@ import type {
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}) => {
   const protagonist = dataSourceGame.protagonist.get()
   const armyGroup = _.get(protagonist, 'armyGroups[0]')
   const deity = simulation.randomNaming({name: 'deity'})

@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjects from 'game-objects'
@@ -12,18 +11,13 @@ import * as simulation from 'simulation'
 // import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * You will potentially be granted a new hero, based on the number of heroes
  * you already have.
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}) => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 

@@ -23,9 +23,9 @@ If you're in the code base, or modifying data-as-code, please adhere to these va
 * Documentation for programmers is also source code.
     * It should be discovarable with the source code.
     * It should document tribal knowledge and oddities.
-    * Use [flow](https://flow.org/) types to document data typing where types are important or nuanced.
     * `README.md` docs provide public API docs at the module level.
-    * DEPRECATED: Use [esdoc](https://esdoc.org/) style to document functions.
+    * Use [esdoc](https://esdoc.org/) style to document functions.
+    * Use [typescript](https://www.typescriptlang.org/) for strong typing where important.
 
 ## Entities and Game Objects
 

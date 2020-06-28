@@ -12,13 +12,13 @@ const logger = debug(`dnpk/${MODULE_NAME}`)
 
 logger('This module assumes an async call to provided `.read()` method before running the game.')
 
-// Main argument to the l10n data source functions.
-type ResourceKey = {
-  // The language code of the resource to load.
-  lng?: string,
-  // The namespace of the resource to load.
-  ns?: string,
-}
+// // Main argument to the l10n data source functions.
+// type ResourceKey = {
+//   // The language code of the resource to load.
+//   lng?: string,
+//   // The namespace of the resource to load.
+//   ns?: string,
+// }
 
 // Translation set.
 // Indexed by `[language code][namespace]`
@@ -27,13 +27,13 @@ const _cache = {}
 /**
  * Return a list of the top level keys in the cache.
  */
-export const dir = (): Array<string> => Object.keys(_cache)
+export const dir = () => Object.keys(_cache)
 
 /**
  * Retrieve a specific language resource, or all of them if no argument is
  * passed.
  */
-export const get = (args?: ResourceKey): any => {
+export const get = (args) => {
   if (args) {
     return _.get(_cache, `${args.lng}.${args.ns}`)
   } else {
@@ -50,7 +50,7 @@ export const get = (args?: ResourceKey): any => {
 export const read = async function ({
   lng = 'en',
   ns = 'translation'
-}: ResourceKey = {}): Promise<any> {
+} = {}) {
   return Promise.resolve()
     .then(() => {
       const resource = require(path.join(keyRoot(), lng, `${ns}.json`))

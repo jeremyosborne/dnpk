@@ -8,4 +8,10 @@
  * `null` - the game is over, your journey is done.
  * `function` - must return / resolve with a `string` or `null`.
  */
-export type NextScene = Promise<string|null|() => string | null>
+export type NextScene =
+  | string
+  | null
+  | (() => null | string)
+  | Promise<string>
+  | Promise<void>
+  | Promise<() => null | string>;

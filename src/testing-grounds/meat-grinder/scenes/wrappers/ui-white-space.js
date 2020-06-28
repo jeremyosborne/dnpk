@@ -1,16 +1,14 @@
 import out from 'out'
 
-import type {GameState} from '../../types'
-
 //
 // Wraps a scene.
 //
 // Adds white space between the previous scene and this one. Cosmetic.
 //
-export const uiWhiteSpace = (f: (gameState: GameState) => any) => {
-  return async (gameState: GameState) => {
+export const uiWhiteSpace = (scene) => {
+  return async (gameState) => {
     out('')
-    return f(gameState)
+    return scene(gameState)
   }
 }
 

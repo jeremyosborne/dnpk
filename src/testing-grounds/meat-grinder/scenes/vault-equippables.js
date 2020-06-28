@@ -1,4 +1,3 @@
-// @flow
 import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
 import hitReturnToContinue from 'hit-return-to-continue'
@@ -9,11 +8,6 @@ import out from 'out'
 import * as sceneChoices from './scene-choices'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * A visit to the vault-o-matic.
  *
@@ -21,7 +15,7 @@ import type {
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}) => {
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
   const heroesHaveEquipment = _.some(heroes, (army) => gameObjectsCommon.equipment.size(army))

@@ -1,18 +1,15 @@
 {
   "extends": ["standard"],
   "env": {
-    "jest": true,
+    "jest": true
   },
   "parser": "babel-eslint",
-  "plugins": [
-    "flowtype",
-    "import",
-  ],
+  "plugins": ["import"],
   "rules": {
     "import/no-unresolved": ["error"],
     "comma-dangle": ["error", "only-multiline"],
     "object-curly-spacing": ["error", "never"],
-    "yoda": ["off"],
+    "yoda": ["off"]
   },
   "settings": {
     "import/resolver": {
@@ -22,9 +19,9 @@
           "node_modules",
           "src/core",
           // This is due to prototype work on testing-grounds.
-          "src/testing-grounds",
-        ],
+          "src/testing-grounds"
+        ]
       }
-    },
+    }
   }
 }

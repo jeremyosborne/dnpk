@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
@@ -7,17 +6,12 @@ import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * You find a new equippable.
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}) => {
   const artifact = simulation.createRandom({type: 'equippable'})
 
   out.t('{{artifact, commonName}} lies on the ground.', {artifact})

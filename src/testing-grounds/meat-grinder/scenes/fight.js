@@ -1,4 +1,3 @@
-// @flow
 import {battle} from 'simulation/battle'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -10,18 +9,13 @@ import * as simulation from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * Put the protagonist's army-group through one random encounter style battle:
  *
  *     "The DM rolls for a random encounter,
  *         and lo you are beset by wolf riders."
  */
-export const scene = async ({terrain, turn}: GameState): NextScene => {
+export const scene = async ({terrain, turn}) => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]

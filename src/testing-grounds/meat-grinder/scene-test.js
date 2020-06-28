@@ -1,4 +1,3 @@
-// @flow
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
@@ -7,12 +6,11 @@ import out from 'out'
 import * as scenes from './scenes'
 import * as sceneNames from './scenes/scene-names'
 import terrainGenerator from './terrain-generator'
-import type {GameState} from './types'
 
 /**
  * Play one scene of the meat grinder and then exit.
  */
-export const sceneTest = async (): Promise<any> => {
+export const sceneTest = async () => {
   const choices = _.map(sceneNames, (v, k) => ({
     message: _.startCase(_.toLower(k)),
     next: async (...args) => {
@@ -31,7 +29,7 @@ export const sceneTest = async (): Promise<any> => {
   // ...look up the action function from the response.
   const scene = _.get(choices, `${choice.action}.next`)
 
-  const gameHistory: GameState = {
+  const gameHistory = {
     // Gets incremented to one below.
     turn: 1,
     terrain: terrainGenerator(1),

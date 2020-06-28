@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -9,18 +8,13 @@ import {createRandomWeightedArmyGroup} from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * You will be granted a new army group if you wind up here, and should you
  * wind up here with an existing group that existing group will be replaced.
  *
  * @return {NextScene}
  */
-export const scene = async (gameState: GameState): NextScene => {
+export const scene = async (gameState) => {
   let armyGroup = dataSourceGame.protagonist.getArmyGroup()
 
   out('')

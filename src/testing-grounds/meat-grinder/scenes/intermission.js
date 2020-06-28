@@ -1,4 +1,3 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
@@ -7,16 +6,11 @@ import {t} from 'l10n'
 import * as sceneChoices from './scene-choices'
 import * as wrappers from './wrappers'
 
-import type {
-  GameState,
-  NextScene,
-} from '../types'
-
 /**
  * Follows every significant scene, and decides path to take based on game
  * state.
  */
-export const scene = async (gameState: GameState): NextScene => {
+export const scene = async (gameState) => {
   const {confirmed} = await prompt({
     initial: true,
     message: t('This is a peaceful location. Do you wish to continue in your endless quest?'),

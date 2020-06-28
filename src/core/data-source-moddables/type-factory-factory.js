@@ -70,7 +70,7 @@ module.exports = ({
    * @return {object} associative array, specific reference, or undefined if
    * name does not exist.
    */
-  const get = (name: ?string) => {
+  const get = (name) => {
     if (name) {
       return _cache[name]
     } else {

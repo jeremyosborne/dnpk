@@ -1,8 +1,6 @@
-// @flow
 import _ from 'lodash'
 import * as scenes from './scenes'
 import terrainGenerator from './terrain-generator'
-import type {GameState} from './types'
 
 /**
  * Runs the meat-grinder game.
@@ -19,13 +17,13 @@ import type {GameState} from './types'
  *
  * @return {Promise}
  */
-export const gameLoop = async (): Promise<any> => {
+export const gameLoop = async () => {
   //
   // `scenes.prereq` performs some setup and should always be the first in the queue.
   //
   const queue = [scenes.prereq]
 
-  const gameHistory: GameState = {
+  const gameHistory = {
     // Pre-req is considered turn 0, not a real turn.
     turn: 0,
     terrain: terrainGenerator(0),

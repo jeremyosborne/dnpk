@@ -8,7 +8,6 @@
     "doc": "docs"
   },
   "scripts": {
-    "flow": "flow `# flow does not respect NODE_PATH, path alias handled in .flowconfig`",
     "l10n": "i18next 'src/core/**/*.{js,jsx}' -c src/core/l10n/i18next-parser.config.js",
     "lint": "eslint \"src/**/*.js?(x)\"",
     "repl": "NODE_PATH=src/core:src/testing-grounds babel-node `# Start up a node repl with a corrected node path.`",
@@ -17,7 +16,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm run flow && npm test"
+      "pre-push": "npm run lint && npm test"
     }
   },
   "repository": {
@@ -36,19 +35,16 @@
     "@babel/node": "^7.8.0",
     "@babel/plugin-proposal-class-properties": "^7.8.0",
     "@babel/preset-env": "^7.8.2",
-    "@babel/preset-flow": "^7.8.0",
     "acorn-stage3": "^2.0.0",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.9.0",
     "babel-plugin-lodash": "^3.3.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "flow-bin": "^0.115.0",
     "husky": "^4.0.7",
     "i18next-parser": "^1.0.0-beta38",
     "jest": "^24.9.0"
@@ -57,7 +53,7 @@
     "@trinkets/counter": "0.0.2",
     "@trinkets/noise": "0.0.3",
     "@trinkets/random": "0.0.8",
-    "acorn": "^7.1.0",
+    "acorn": "^7.3.1",
     "ajv": "^6.10.2",
     "chalk": "^3.0.0",
     "debug": "^4.1.1",
@@ -68,6 +64,7 @@
     "lodash": "^4.17.15",
     "make-dir": "^3.0.0",
     "sprintf-js": "^1.1.2",
+    "typescript": "^3.9.5",
     "uuid": "^3.3.2"
   }
 }

@@ -1,14 +1,8 @@
-// @flow
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import * as sceneChoices from './scene-choices'
 import * as wrappers from './wrappers'
-
-import type {
-  GameState,
-  NextScene,
-} from '../types'
 
 /**
  * This is assumed to be the first scene run, and other than things considered
@@ -17,7 +11,7 @@ import type {
  *
  * @return {NextScene}
  */
-export const scene = async (gameState: GameState): NextScene => {
+export const scene = async (gameState) => {
   const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     // Give the protagonist a fresh army-group if they don't have one...

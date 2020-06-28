@@ -7,8 +7,8 @@ import * as dataSourceModdables from 'data-source-moddables'
 export const def = (
   // The name of the specific reference. If not included, returns an associative
   // array of all references of this type.
-  name: ?string
-): any|void => {
+  name
+) => {
   return dataSourceModdables.types.structure.get(name)
 }
 

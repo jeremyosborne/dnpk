@@ -1,4 +1,3 @@
-// @flow
 import path from 'path'
 
 /**
@@ -11,6 +10,6 @@ import path from 'path'
  * eventually need to move to the `io` module, which will also mean the `io`
  * module will need to be made more flexible.
  */
-export const keyRoot = (): string => path.resolve(path.resolve(__dirname), '../../../data-sources/l10n')
+export const keyRoot = () => path.resolve(path.resolve(__dirname), '../../../data-sources/l10n')
 
 export default keyRoot
