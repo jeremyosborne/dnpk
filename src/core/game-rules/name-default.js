@@ -26,4 +26,8 @@ export const nameDefault = (name) => {
   }
 }
 
+nameDefault.reset = () => {
+  NAME_DEFAULT = dataSourceConfig.get('RULES_NAME_DEFAULT') || 'classic'
+}
+
 export default nameDefault
