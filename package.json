@@ -61,7 +61,7 @@
     "enquirer": "^2.3.2",
     "env-paths": "^2.2.0",
     "i18next": "^19.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "make-dir": "^3.0.0",
     "sprintf-js": "^1.1.2",
     "typescript": "^3.9.5",
