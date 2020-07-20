@@ -1,15 +1,16 @@
-import createProtagonist from './create-protagonist'
-import createArmyGroup from './create-army-group'
+import protagonistCreate from './protagonist-create'
+import armyGroupCreate from './army-group-create'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import gameLoop from './game-loop'
+import gameDataManagement from './game-data-management'
 import * as gameObjectsCommon from 'game-objects-common'
+import gameSettings from './game-settings'
 import {t} from 'l10n'
 import _ from 'lodash'
 import mausoleum from './mausoleum'
 import sceneTest from './scene-test'
 import out from 'out'
-import gameDataManagement from './game-data-management'
 import * as ui from 'ui'
 
 //
@@ -25,7 +26,7 @@ export const mainMenu = async () => {
     actions = [{
       message: t('Create a protagonist (required for the meat grinder)'),
       next: async () => {
-        await createProtagonist()
+        await protagonistCreate()
         return mainMenu
       }
     }]
@@ -62,24 +63,31 @@ export const mainMenu = async () => {
         }
       },
       {
-        message: t('Admin: Choose a new empire'),
+        message: t('Admin: choose a new empire'),
         next: async () => {
-          await createProtagonist()
+          await protagonistCreate()
           return mainMenu
         }
       },
       {
-        message: gameObjectsCommon.armies.size(armyGroup) ? t('Admin: Choose a new army group, disbanding the current one')
-          : t('Admin: Create a new army group.'),
+        message: gameObjectsCommon.armies.size(armyGroup) ? t('Admin: choose a new army group, disbanding the current one')
+          : t('Admin: create a new army group.'),
         next: async () => {
-          await createArmyGroup()
+          await armyGroupCreate()
           return mainMenu
         }
       },
       {
-        message: t('Admin: Manage game data'),
+        message: t('Admin: manage game data'),
         next: async () => {
           await gameDataManagement()
+          return mainMenu
+        }
+      },
+      {
+        message: t('Admin: modify settings'),
+        next: async () => {
+          await gameSettings()
           return mainMenu
         }
       },

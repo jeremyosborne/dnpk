@@ -3,8 +3,11 @@ import _ from 'lodash'
 import {counterKills, counterDead} from './counters' // eslint-disable-line import/first
 export {counterKills, counterDead}
 
-import protagonist from './protagonist' // eslint-disable-line import/first
+import {protagonist} from './protagonist' // eslint-disable-line import/first
 export {protagonist}
+
+import {settings} from './settings' // eslint-disable-line import/first
+export {settings}
 
 import {vaultEquippables} from './vaults' // eslint-disable-line import/first
 export {vaultEquippables}
@@ -13,8 +16,9 @@ export {vaultEquippables}
 export const dataSources = {
   counterDead,
   counterKills,
-  vaultEquippables,
   protagonist,
+  settings,
+  vaultEquippables,
 }
 
 /**

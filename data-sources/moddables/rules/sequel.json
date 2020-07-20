@@ -1,0 +1,11 @@
+{
+  "documentation": "Rules and configuration options to make the game as similar to Warlords II as possible.",
+  "armyGroupSizeMax": 8,
+  "battleDiceNumFaces": 20,
+  "heroesMax": 5,
+  "name": "sequel",
+  "unitStrengthMax": 15,
+  "unitStrengthMin": 0,
+  "unitStrengthModifierMax": 5,
+  "unitStrengthModifierMin": -5
+}

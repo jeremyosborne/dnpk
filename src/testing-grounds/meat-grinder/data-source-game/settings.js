@@ -1,25 +1,29 @@
 import debug from 'debug'
 import * as _io from 'io'
-import _ from 'lodash'
-import * as gameObjects from 'game-objects'
 
 const _logger = debug('dnpk/testing-grounds/data-source-game')
 
-const DATA_KEY = 'testing-grounds/protagonist'
+const DATA_KEY = 'testing-grounds/settings'
 
-export class Protagonist {
+const settingsData = () => ({
+  /** If customized, what game rules are we using? */
+  gameRulesName: '',
+})
+
+export class Settings {
   /**
-   * Player object, if one has been created.
+   * Customizable settings. Always exists. Settings, if not defined, are considered false.
+   *
    * @type {object}
    */
-  _cache = null
+  _cache = settingsData()
 
   clear = () => {
-    this._cache = null
+    this._cache = settingsData()
   }
 
   create = () => {
-    this._cache = gameObjects.player.create()
+    this._cache = settingsData()
   }
 
   exists = () => {
@@ -28,20 +32,6 @@ export class Protagonist {
 
   get = () => {
     return this._cache
-  }
-
-  /**
-   * Returns the army-group of the protagonist if it exists.
-   *
-   * Addresses a common need in the `meat-grinder`.
-   *
-   * @param {number} [index=0] can choose the particular index in the array
-   * of armyGroups.
-   *
-   * @return {object} an `army-group`, if one exists.
-   */
-  getArmyGroup = (index = 0) => {
-    return _.get(this._cache, `armyGroups[${index}]`)
   }
 
   /**
@@ -58,7 +48,7 @@ export class Protagonist {
     try {
       this.set(await io.read(DATA_KEY))
     } catch (err) {
-      logger(`Could not read user data ${dataKey}, perhaps it's intentionally empty?`)
+      logger(`Could not read settings data ${dataKey}, perhaps it's intentionally empty?`)
     }
   }
 
@@ -99,4 +89,4 @@ export class Protagonist {
   }
 }
 
-export const protagonist = new Protagonist()
+export const settings = new Settings()

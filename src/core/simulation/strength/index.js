@@ -4,6 +4,12 @@ export {army}
 import * as armyGroup from './army-group' // eslint-disable-line import/first
 export {armyGroup}
 
+import constrainStrengthModifierWithinRuleBoundaries from './constrain-strength-modifier-within-rule-boundaries' // eslint-disable-line import/first
+export {constrainStrengthModifierWithinRuleBoundaries}
+
+import constrainStrengthWithinRuleBoundaries from './constrain-strength-within-rule-boundaries' // eslint-disable-line import/first
+export {constrainStrengthWithinRuleBoundaries}
+
 import * as equipment from './equipment' // eslint-disable-line import/first
 export {equipment}
 
