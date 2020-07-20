@@ -6,5 +6,6 @@
   "name": "sequel",
   "unitStrengthMax": 15,
   "unitStrengthMin": 0,
-  "unitStrengthModifierMax": 5
+  "unitStrengthModifierMax": 5,
+  "unitStrengthModifierMin": -5
 }

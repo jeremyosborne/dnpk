@@ -1,6 +1,7 @@
 import armyStrength from './army'
 import armyGroupStrengthModifier from './army-group'
-import {strengthBounded} from 'game-rules'
+import constrainStrengthWithinRuleBoundaries from './constrain-strength-within-rule-boundaries'
+import constrainStrengthModifierWithinRuleBoundaries from './constrain-strength-modifier-within-rule-boundaries'
 import structureStrengthModifier from './structure'
 import terrainStrengthModifier from './terrain'
 
@@ -32,12 +33,13 @@ export const strength = ({army, armyGroup, empire, structure, terrain}) => {
     throw new Error('At minimum you need to pass `army` as strength calculation is relative to that.')
   }
 
-  let strength = armyStrength({army})
-  strength += armyGroupStrengthModifier({armyGroup})
-  strength += terrainStrengthModifier({army, empire, terrain})
-  strength += structureStrengthModifier({structure})
+  const strength = armyStrength({army})
+  const groupModifier = armyGroupStrengthModifier({armyGroup})
+  const terrainModifier = terrainStrengthModifier({army, empire, terrain})
+  const structureModifier = structureStrengthModifier({structure})
+  const modifier = constrainStrengthModifierWithinRuleBoundaries(groupModifier + terrainModifier + structureModifier)
 
-  return strengthBounded(strength)
+  return constrainStrengthWithinRuleBoundaries(strength + modifier)
 }
 
 export default strength

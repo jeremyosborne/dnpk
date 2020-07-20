@@ -1,5 +1,4 @@
 import * as gameObjectsCommon from 'game-objects-common'
-import * as gameRules from 'game-rules'
 import _ from 'lodash'
 import {t} from 'l10n'
 import out from './out'
@@ -26,7 +25,7 @@ export const string = ({armyGroup}) => {
     // Needed to calculate any accumulated strength modifications on the individual army.
     const strength = simulation.strength.army.strength({army})
 
-    info.push(`${sprintf('%-17s', gameObjectsCommon.name(army))} Str: ${strength} (${gameRules.strengthBounded(strength + strengthModifier)})`)
+    info.push(`${sprintf('%-17s', gameObjectsCommon.name(army))} Str: ${strength} (${simulation.strength.constrainStrengthWithinRuleBoundaries(strength + strengthModifier)})`)
 
     if (army.effects.length) {
       // Display army effects.

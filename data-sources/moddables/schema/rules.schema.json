@@ -44,9 +44,15 @@
       "type": "integer"
     },
     "unitStrengthModifierMax": {
-      "description": "What is the maximum modifier that can be applied to units in a given situation, usually relative to a stack or when entering battle? A negative value means there is no cap on the modifier.",
-      "default": -1,
-      "minimum": -1,
+      "description": "The cap of external, positive modifications that can be applied to a unit's strength.",
+      "default": 10000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "unitStrengthModifierMin": {
+      "description": "The limit of external, negative modifications that can be applied to a unit's strength.",
+      "default": -10000,
+      "maximum": 0,
       "type": "integer"
     },
     "type": {
