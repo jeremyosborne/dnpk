@@ -17,21 +17,21 @@ export const MIN_DEFAULT = -10000
  */
 export const constrainStrengthModifierWithinRuleBoundaries = (modifier = 0, {
   logger = _logger,
-  max = () => gameRules.get('unitStrengthModifierMax'),
+  max = () => gameRules.get('armyStrengthModifierMax'),
   maxDefault = MAX_DEFAULT,
-  min = () => gameRules.get('unitStrengthModifierMin'),
+  min = () => gameRules.get('armyStrengthModifierMin'),
   minDefault = MIN_DEFAULT,
 } = {}) => {
   let modifierMax = max()
   if (typeof modifierMax !== 'number') {
     modifierMax = maxDefault
-    logger('WARNING: likely non-number rule for unitStrengthModifierMax, defaulting to:', modifierMax)
+    logger('WARNING: likely non-number rule for armyStrengthModifierMax, defaulting to:', modifierMax)
   }
 
   let modifierMin = min()
   if (typeof modifierMin !== 'number') {
     modifierMin = minDefault
-    logger('WARNING: likely non-number rule for unitStrengthModifierMin, defaulting to:', modifierMin)
+    logger('WARNING: likely non-number rule for armyStrengthModifierMin, defaulting to:', modifierMin)
   }
 
   if (modifierMin > modifierMax) {

@@ -17,21 +17,21 @@ export const MAX_DEFAULT = 9
  */
 export const constrainStrengthWithinRuleBoundaries = (strength = 0, {
   logger = _logger,
-  max = () => gameRules.get('unitStrengthMax'),
+  max = () => gameRules.get('armyStrengthMax'),
   maxDefault = MAX_DEFAULT,
-  min = () => gameRules.get('unitStrengthMin'),
+  min = () => gameRules.get('armyStrengthMin'),
   minDefault = MIN_DEFAULT,
 } = {}) => {
   let strengthMin = min()
   if (typeof strengthMin !== 'number') {
     strengthMin = minDefault
-    logger('WARNING: non-number rule for unitStrengthMin, defaulting to:', strengthMin)
+    logger('WARNING: non-number rule for armyStrengthMin, defaulting to:', strengthMin)
   }
 
   let strengthMax = max()
   if (typeof strengthMax !== 'number') {
     strengthMax = maxDefault
-    logger('WARNING: non-number rule for unitStrengthMax, defaulting to:', strengthMax)
+    logger('WARNING: non-number rule for armyStrengthMax, defaulting to:', strengthMax)
   }
 
   if (strengthMin > strengthMax) {

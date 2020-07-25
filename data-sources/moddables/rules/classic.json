@@ -4,8 +4,8 @@
   "battleDiceNumFaces": 10,
   "heroesMax": 5,
   "name": "classic",
-  "unitStrengthMax": 9,
-  "unitStrengthMin": 0,
-  "unitStrengthModifierMax": 10000,
-  "unitStrengthModifierMin": -10000
+  "armyStrengthMax": 9,
+  "armyStrengthMin": 0,
+  "armyStrengthModifierMax": 10000,
+  "armyStrengthModifierMin": -10000
 }

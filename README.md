@@ -19,8 +19,6 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Rewrite the battle module
     - [X] distinguish battle dice from the previous mentioned standard dice (it's standard, but only relative to the battle module).
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
-        - [ ] Modification: unitStrengthMax -> armyStrengthMax
-        - [ ] Modification: unitStrengthMin -> armyStrengthMin
         - [ ] Addition: armyHealthMax
         - [ ] Addition: armyHealthMin
         - [ ] Addition: groupHealthModifierMax
