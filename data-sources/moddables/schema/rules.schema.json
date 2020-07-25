@@ -10,29 +10,37 @@
       "type": "string"
     },
     "armyGroupSizeMax": {
-      "description": "The normal, maximum size of a single army-group.",
+      "description": "The normal, maximum size of a single army-group on a single map tile.",
       "default": 8,
       "minimum": 1,
       "type": "integer"
     },
-    "battleDiceNumFaces": {
-      "description": "The number of sides available on the standard battle dice.",
+    "armyHealthMax": {
+      "description": "After all health modifications are considered, cap the maximum effective health of an army at this value.",
       "default": 10,
-      "minimum": 2,
+      "minimum": 1,
       "type": "integer"
     },
-    "heroesMax": {
-      "description": "Maximum number of heroes each empire is allowed to have at any one time.",
-      "default": 5,
-      "minimum": 0,
+    "armyHealthMin": {
+      "description": "After all health modifications are considered, prevent the minimum effective health of an army from falling below this value.",
+      "default": 1,
+      "minimum": 1,
       "type": "integer"
     },
-    "name": {
-      "description": "Rule sets need a distinct name and should say something about the rules defined within.",
-      "type": "string"
+    "armyHealthModifierMax": {
+      "description": "After all health modifications are considered, cap the maximum effective health of an army at this value.",
+      "default": 10,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "armyHealthModifierMin": {
+      "description": "After all health modifications are considered, prevent the minimum effective health of an army from falling below this value.",
+      "default": -10,
+      "maximum": 0,
+      "type": "integer"
     },
     "armyStrengthMax": {
-      "description": "After all bonuses are considered, cap the effective strength of an army at this value. It should be at least one less than the maximum value rolled by a standard dice.",
+      "description": "After all bonuses are considered, cap the effective strength of an army at this value. It should be at least one less than the maximum value rolled by a battle dice.",
       "default": 9,
       "minimum": 1,
       "type": "integer"
@@ -54,6 +62,22 @@
       "default": -10000,
       "maximum": 0,
       "type": "integer"
+    },
+    "battleDiceNumFaces": {
+      "description": "The number of sides available on the standard battle dice.",
+      "default": 10,
+      "minimum": 2,
+      "type": "integer"
+    },
+    "heroesMax": {
+      "description": "Maximum number of heroes each empire is allowed to have at any one time.",
+      "default": 5,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "name": {
+      "description": "Rule sets need a distinct name and should say something about the rules defined within.",
+      "type": "string"
     },
     "type": {
       "enum": ["rules"],

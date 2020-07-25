@@ -1,0 +1,15 @@
+{
+  "documentation": "Customized rules that try things further away from the original warlords.",
+  "armyGroupSizeMax": 20,
+  "armyHealthMax": 20,
+  "armyHealthMin": 1,
+  "armyHealthModifierMax": 6,
+  "armyHealthModifierMin": -4,
+  "armyStrengthMax": 16,
+  "armyStrengthMin": 1,
+  "armyStrengthModifierMax": 5,
+  "armyStrengthModifierMin": -5,
+  "battleDiceNumFaces": 20,
+  "heroesMax": 10,
+  "name": "sequel"
+}
