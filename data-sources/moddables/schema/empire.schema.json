@@ -5,13 +5,13 @@
   "description": "Defines a distinct empire.",
   "type": "object",
   "properties": {
-    "documentation": {
-      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
-      "type": "string"
-    },
     "color": {
       "default": "black",
       "description": "Hex color of the empire.",
+      "type": "string"
+    },
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
     "effects": {
@@ -28,10 +28,7 @@
     },
     "name": {
       "description": "Descriptive, display name for this empire.",
-      "examples": [
-        "Orcs of Kor",
-        "Lord Bane"
-      ],
+      "examples": ["Orcs of Kor", "Lord Bane"],
       "type": "string"
     },
     "type": {

@@ -5,10 +5,6 @@
   "description": "Optionally configurable rules for game mechanics, unit availability, economics, etc.",
   "type": "object",
   "properties": {
-    "documentation": {
-      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
-      "type": "string"
-    },
     "armyGroupSizeMax": {
       "description": "The normal, maximum size of a single army-group on a single map tile.",
       "default": 8,
@@ -68,6 +64,10 @@
       "default": 10,
       "minimum": 2,
       "type": "integer"
+    },
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
     },
     "heroesMax": {
       "description": "Maximum number of heroes each empire is allowed to have at any one time.",

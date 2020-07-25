@@ -9,10 +9,6 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
-    "id": {
-      "description": "Unique id for a particular instance of this type.",
-      "type": "string"
-    },
     "effects": {
       "description": "Intrinsic effects provided by the structure, often bonuses granted to owners or occupiers.",
       "items": {
@@ -27,6 +23,10 @@
         "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
       },
       "type": "array"
+    },
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
+      "type": "string"
     },
     "name": {
       "description": "Descriptive, unique name for this structure.",
