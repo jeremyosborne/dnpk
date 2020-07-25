@@ -9,14 +9,34 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
-    "name": {
-      "description": "Descriptive, unique name for this structure.",
+    "id": {
+      "description": "Unique id for a particular instance of this type.",
       "type": "string"
     },
     "effects": {
       "description": "Intrinsic effects provided by the structure, often bonuses granted to owners or occupiers.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
+      },
+      "type": "array"
+    },
+    "equipment": {
+      "default": [],
+      "description": "Inventory actively mounted on this structure and affecting the structure, usually in a positive way and usually during battle.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "Descriptive, unique name for this structure.",
+      "type": "string"
+    },
+    "storage": {
+      "default": [],
+      "description": "Inventory stored within this structure that does not actively affect this structure or anything interacting with it.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
       },
       "type": "array"
     },

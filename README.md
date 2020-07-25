@@ -17,15 +17,12 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Rewrite the battle module
-    - [X] distinguish battle dice from the previous mentioned standard dice (it's standard, but only relative to the battle module).
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
+        - [ ] Modification: all Min and Max rules need values, although the code should defend itself from missing ones and provide defaults. To have it effectively unbounded, use large numbers (note that -Infinity/Infinity are not JSON friendly).
         - [ ] Addition: general `structures` can be passed in that affect both attackers and defenders.
         - [ ] Modification: battle-groups will have `structures` that affect them during battle, vs. singular `structure`.
         - [ ] Modification: `terrains` will be forcefully plural to match naming conventions and suggest an array of terrain vs. `terrain` which will remain singular.
         - [ ] Modification: the battle module will take `terrains` at a global level, and `terrains` at a battle group level.
-        - [ ] Modification: all Min and Max rules need values (although the code should defend itself from missing ones and provide defaults). To have it effectively unbounded, use large numbers (note that -Infinity/Infinity are not JSON friendly).
-        - [ ] Modification: structures can have `equipment` representing items being mounted and active on the structure.
-        - [ ] Modification: structures can have a `vault`, representing items being stored in the structure.
     - [ ] Make use of modifier-tools to rebuild the way-too-wordy existing strength and health modifiers.
     - [ ] Switch the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
         - [ ] Can be run in event mode which yields events on every significant event.

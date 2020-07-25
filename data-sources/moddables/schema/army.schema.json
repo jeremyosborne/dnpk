@@ -9,9 +9,17 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
+    "effects": {
+      "default": [],
+      "description": "Various effects applied to this entity.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
+      },
+      "type": "array"
+    },
     "equipment": {
       "default": [],
-      "description": "Inventory carried by the unit.",
+      "description": "Inventory actively used by the unit.",
       "items": {
         "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
       },
@@ -26,31 +34,18 @@
       "description": "Unique id for a particular instance of this type.",
       "type": "string"
     },
-    "effects": {
-      "default": [],
-      "description": "Various effects applied to this entity.",
-      "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
-      },
-      "type": "array"
-    },
     "movementSpeed": {
       "description": "The number of squares per turn this unit can move over ideal terrain.",
       "type": "integer"
     },
     "name": {
       "description": "Unique name for this army.",
-      "examples": [
-        "heavy-infantry",
-        "light-infantry"
-      ],
+      "examples": ["heavy-infantry", "light-infantry"],
       "type": "string"
     },
     "nameInstance": {
       "description": "Display name for this particular army instance.",
-      "examples": [
-        "Vorgoth the Timid, Destroyer of Lint Bunnies"
-      ],
+      "examples": ["Vorgoth the Timid, Destroyer of Lint Bunnies"],
       "type": "string"
     },
     "strength": {
