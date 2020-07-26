@@ -17,18 +17,17 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Rewrite the battle module
+    - [ ] Modification: prefer `structures` and `terrains` in the strength, health, and any other checks. Allow single structures to still be passed.
+    - [ ] Addition: general `structures` can be passed that affect both attackers and defenders.
+    - [ ] Modification: battle-groups will have `structures` that affect them during battle, vs. singular `structure`.
+    - [ ] Modification: `terrains` will be forcefully plural to match naming conventions and suggest an array of terrain vs. `terrain` which will remain singular.
+    - [ ] Modification: the battle module will take `terrains` at a global level, and `terrains` at a battle group level.
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
-        - [ ] Modification: all Min and Max rules need values, although the code should defend itself from missing ones and provide defaults. To have it effectively unbounded, use large numbers (note that -Infinity/Infinity are not JSON friendly).
-        - [ ] Addition: general `structures` can be passed in that affect both attackers and defenders.
-        - [ ] Modification: battle-groups will have `structures` that affect them during battle, vs. singular `structure`.
-        - [ ] Modification: `terrains` will be forcefully plural to match naming conventions and suggest an array of terrain vs. `terrain` which will remain singular.
-        - [ ] Modification: the battle module will take `terrains` at a global level, and `terrains` at a battle group level.
-    - [ ] Make use of modifier-tools to rebuild the way-too-wordy existing strength and health modifiers.
     - [ ] Switch the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
         - [ ] Can be run in event mode which yields events on every significant event.
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
     - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.
-    - [ ] Have the battle module have limits on infinite looping.
+    - [ ] Have the battle module have a fight maximum, or per round maximum, like at X number of rolls / turns the armies retreat exhausted?
     - [ ] Add the new health code to the battle code rewrite.
     - [ ] Fully test the battle module.
 - [ ] Other structures for classic parity:
@@ -51,13 +50,13 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [ ] Add production base costs
     - [ ] Add upkeep and upkeep management
 - [ ] Look and feel
-    - [ ] meta data needs to be expanded to have a `cosmetics` field with some general assumed structure, or a new top level `cosmetics` or `ui` field needs to be added.
-    - [ ] along with `id`, army types should have a concept of `time created` stored as int of ms since epoch (e.g. Date.now()).
-    - [ ] Armies
-        - [ ] flavor (D&D style "races"): elven light infantry, human light infantry; human archers and elvish archers (instead of the `elven archer` as a type).
+    - [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
+        - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
         - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
+    - [ ] objects should have an identifier of `real time created` stored as int of ms since epoch (e.g. Date.now()).
+    - [ ] objects should have an identifier of `game time created` stored as... turn number? Integer meaning something something?
     - [ ] Flags of cities and towers change as troops pass them / control them.
-- [ ] Data integrity tool that reads through `data-sources` and checks for data correctness as well as idiomatic things we enforce.
+- [ ] Data integrity tool that checks `data-sources` for correctness as well as idiomatic things we enforce.
 
 ## Ideas
 

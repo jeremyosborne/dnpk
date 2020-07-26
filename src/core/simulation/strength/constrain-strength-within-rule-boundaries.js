@@ -22,16 +22,16 @@ export const constrainStrengthWithinRuleBoundaries = (strength = 0, {
   min = () => gameRules.get('armyStrengthMin'),
   minDefault = MIN_DEFAULT,
 } = {}) => {
-  let strengthMin = min()
-  if (typeof strengthMin !== 'number') {
-    strengthMin = minDefault
-    logger('WARNING: non-number rule for armyStrengthMin, defaulting to:', strengthMin)
-  }
-
   let strengthMax = max()
   if (typeof strengthMax !== 'number') {
     strengthMax = maxDefault
-    logger('WARNING: non-number rule for armyStrengthMax, defaulting to:', strengthMax)
+    logger('WARNING: non-number value for max, defaulting to:', strengthMax)
+  }
+
+  let strengthMin = min()
+  if (typeof strengthMin !== 'number') {
+    strengthMin = minDefault
+    logger('WARNING: non-number value for min, defaulting to:', strengthMin)
   }
 
   if (strengthMin > strengthMax) {
