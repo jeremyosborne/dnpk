@@ -51,8 +51,8 @@ describe('health', () => {
 
     it('works with army and army-group and structure', () => {
       // Adding a structure bumps to net +1.
-      expect(testModule.health({army, armyGroup, structure})).toEqual(4)
-      expect(testModule.health({army, armyGroup: armies, structure})).toEqual(4)
+      expect(testModule.health({army, armyGroup, structures: structure})).toEqual(4)
+      expect(testModule.health({army, armyGroup: armies, structures: structure})).toEqual(4)
     })
 
     it('throws an error if no army is passed', () => {

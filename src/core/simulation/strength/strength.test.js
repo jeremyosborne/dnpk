@@ -62,20 +62,20 @@ describe('strength', () => {
 
     it('works with army and army-group and terrain', () => {
       // Due to terrain modifier, now being calculated, terrain negates the group bonus.
-      expect(testModule.strength({army, armyGroup, terrain})).toEqual(3)
-      expect(testModule.strength({army, armyGroup: armies, terrain})).toEqual(3)
+      expect(testModule.strength({army, armyGroup, terrains: terrain})).toEqual(3)
+      expect(testModule.strength({army, armyGroup: armies, terrains: terrain})).toEqual(3)
     })
 
     it('works with army and army-group and terrain and empire', () => {
       // Adding in the empire negates the negations and we're net 0.
-      expect(testModule.strength({army, armyGroup, terrain, empire})).toEqual(4)
-      expect(testModule.strength({army, armyGroup: armies, terrain, empire})).toEqual(4)
+      expect(testModule.strength({army, armyGroup, terrains: terrain, empire})).toEqual(4)
+      expect(testModule.strength({army, armyGroup: armies, terrains: terrain, empire})).toEqual(4)
     })
 
     it('works with army and army-group and terrain and empire and structure', () => {
       // Adding a structure bumps to net +1.
-      expect(testModule.strength({army, armyGroup, terrain, empire, structure})).toEqual(5)
-      expect(testModule.strength({army, armyGroup: armies, terrain, empire, structure})).toEqual(5)
+      expect(testModule.strength({army, armyGroup, terrains: terrain, empire, structures: structure})).toEqual(5)
+      expect(testModule.strength({army, armyGroup: armies, terrains: terrain, empire, structures: structure})).toEqual(5)
     })
 
     it('throws an error if no army is passed', () => {

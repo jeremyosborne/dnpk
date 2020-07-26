@@ -17,13 +17,10 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Rewrite the battle module
-    - [ ] Modification: prefer `structures` and `terrains` in the strength, health, and any other checks. Allow single structures to still be passed.
-    - [ ] Addition: general `structures` can be passed that affect both attackers and defenders.
-    - [ ] Modification: battle-groups will have `structures` that affect them during battle, vs. singular `structure`.
-    - [ ] Modification: `terrains` will be forcefully plural to match naming conventions and suggest an array of terrain vs. `terrain` which will remain singular.
-    - [ ] Modification: the battle module will take `terrains` at a global level, and `terrains` at a battle group level.
     - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
-    - [ ] Switch the battle module to be a generator, but keep a public method that assume the caller does not care about the generator and just wants the full battle results.
+    - [ ] Make sure the state creation in the battle makes sense.
+    - [ ] Turn the battle code into an object/class that can be given initialization and re-run multiple times. This would make the battle code better for situations requiring repeated runs without needing to rewrite the rerun code multiple times.
+    - [ ] Allow the battle module to be run as a generator.
         - [ ] Can be run in event mode which yields events on every significant event.
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
     - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.

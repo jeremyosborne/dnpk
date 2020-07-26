@@ -2,6 +2,7 @@ import armyStrength from './army'
 import armyGroupStrengthModifier from './army-group'
 import constrainStrengthWithinRuleBoundaries from './constrain-strength-within-rule-boundaries'
 import constrainStrengthModifierWithinRuleBoundaries from './constrain-strength-modifier-within-rule-boundaries'
+import _ from 'lodash'
 import structureStrengthModifier from './structure'
 import terrainStrengthModifier from './terrain'
 
@@ -18,25 +19,31 @@ import terrainStrengthModifier from './terrain'
  * @param {object} [args.empire] that the army presumably belongs to. This will provide
  * any empire modifications (e.g. terrain bonuses in the classic rules) to the final
  * strength.
- * @param {object} [args.structure] that the army presumably occupies, likely applies
- * to defending troops more than attacking troops.
- * @param {object} [args.terrain] to use for modification of the strength. In
- * classic rules armies and empires (dis)liked particular terrain.
+ * @param {array|object} [args.structures] that affect the army.
+ * @param {array|object} [args.terrains] that affect the army.
  *
  * @return {number} strength that is valid within the range provided by the game
  * rules.
  *
  * @throw {Error} if requried arguments are missing.
  */
-export const strength = ({army, armyGroup, empire, structure, terrain}) => {
+export const strength = ({army, armyGroup, empire, structures, terrains}) => {
   if (!army) {
     throw new Error('At minimum you need to pass `army` as strength calculation is relative to that.')
   }
 
   const strength = armyStrength({army})
   const groupModifier = armyGroupStrengthModifier({armyGroup})
-  const terrainModifier = terrainStrengthModifier({army, empire, terrain})
-  const structureModifier = structureStrengthModifier({structure})
+  const terrainModifier = _.reduce(
+    _.isArray(terrains) ? terrains : [terrains],
+    (modifier, terrain) => terrainStrengthModifier({army, empire, terrain}) + modifier,
+    0
+  )
+  const structureModifier = _.reduce(
+    _.isArray(structures) ? structures : [structures],
+    (modifier, structure) => structureStrengthModifier({structure}) + modifier,
+    0
+  )
   const modifier = constrainStrengthModifierWithinRuleBoundaries(groupModifier + terrainModifier + structureModifier)
 
   return constrainStrengthWithinRuleBoundaries(strength + modifier)

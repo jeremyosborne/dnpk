@@ -136,7 +136,7 @@ export const battle = (
       army: attacker,
       armyGroup: attackers.armyGroup,
       empire: attackers.empire,
-      terrain,
+      terrains: terrain,
     })
 
     const defender = defenders.survivors[0]
@@ -145,8 +145,8 @@ export const battle = (
       armyGroup: defenders.armyGroup,
       empire: defenders.empire,
       // Original ruleset assumes only defenders cower behind structures.
-      structure,
-      terrain,
+      structures: structure,
+      terrains: terrain,
     })
 
     events.push({

@@ -1,6 +1,16 @@
 import * as battleState from './battle-state'
+import _ from 'lodash'
 import {strength} from 'simulation/strength'
 import {violence} from './violence'
+
+// If array, keep as array. If truthy but not array, wrap in array.
+// If falsey, return empty array.
+const makeArray = (o) => {
+  if (Array.isArray(o)) {
+    return o
+  }
+  return o ? [o] : []
+}
 
 /**
  * Simulate a battle and return the results.
@@ -57,6 +67,9 @@ export function * battle (
     const attacker = state.attackers.survivors[0]
 
     //
+    // TODO: BEFORE REMOVING: make sure the new `structures` and `terrains` changes
+    // are done in the battlestate code.
+    //
     // REMOVE: The following strength calculations should have already been performed
     // above in the new code.
     //
@@ -66,8 +79,11 @@ export function * battle (
       army: attacker,
       armyGroup: state.attackers.armyGroup,
       empire: state.attackers.empire,
-      structures,
-      terrains,
+      // Current rules: structures and terrains provide general effects to anyone
+      // in contact with them. There's not yet opposing structures distinct from
+      // allied structures.
+      structures: _.concat(structures, makeArray(attackers.structures)),
+      terrains: _.concat(terrains, makeArray(attackers.terrains)),
     })
 
     const defender = state.defenders.survivors[0]
@@ -75,8 +91,11 @@ export function * battle (
       army: defender,
       armyGroup: state.defenders.armyGroup,
       empire: state.defenders.empire,
-      structures,
-      terrains,
+      // Current rules: structures and terrains provide general effects to anyone
+      // in contact with them. There's not yet opposing structures distinct from
+      // allied structures.
+      structures: _.concat(structures, makeArray(defenders.structures)),
+      terrains: _.concat(terrains, makeArray(attackers.terrains)),
     })
 
     if (eventable) {
