@@ -11,7 +11,7 @@ describe('battle', () => {
     empire: {name: 'other good guys'},
   }
 
-  const terrain = {name: 'plain'}
+  const terrains = [{name: 'plain'}]
 
   beforeEach(async () => {
     // strength boundaries are used but we can opt for the in-code defaults
@@ -22,7 +22,7 @@ describe('battle', () => {
     it('gets to contribute to the line coverage in a negative way', () => {
       // Let the coverage report, and usuage, define what we should actually
       // be testing.
-      expect(!!testMod.battle({attackers, defenders, terrain})).toEqual(true)
+      expect(!!testMod.battle({attackers, defenders, terrains})).toEqual(true)
     })
   })
 

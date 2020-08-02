@@ -79,13 +79,19 @@ export const violence = ({
  * can be in an object that implements `armies` or can be a simple array of
  * `army` types.
  * @param {object} args.attackers.empire aggressor empire.
+ * @param {object[]} args.defenders.structures structures affecting only the attackers.
+ * @param {object[]} args.attackers.terrains terrain affecting only the attackers.
+ *
  * @param {object} args.defenders data for the defenders.
  * @param {object|object[]} args.defenders.armyGroup the defending units, which
  * can be in an object that implements `armies` or can be a simple array of
  * `army` types.
  * @param {object} args.defenders.empire the defending empire.
- * @param {object} args.structure applies a bonus to the defenders.
- * @param {object} args.terrain where the battle is taking place.
+ * @param {object[]} args.defenders.structures structures affecting only the defenders.
+ * @param {object[]} args.defenders.terrains terrain affecting only the defenders.
+ *
+ * @param {object[]} args.structures structures on the battlefield affecting both attackers and defenders.
+ * @param {object[]} args.terrains terrain affecting both the attackers and defenders.
  *
  * @param {object} config as dictionary
  * @param {function} [config.d] the die to use for combat. Classic rules indicate
@@ -97,17 +103,21 @@ export const violence = ({
  * @property {object[]} attackers.casualties copies of army units destroyed.
  * @property {object} attackers.empire reference to the empire passsed in.
  * @property {object[]} attackers.survivors copies of army units that have survived the battle.
+ * @property {object[]} attackers.structures copies of structures affecting only the attackers.
+ * @property {object[]} attackers.terrains copies terrain affecting only the attackers.
  * @property {object} defenders clone of the argument.
  * @property {object|object[]} defenders.armyGroup reference to the army group passed in.
  * @property {object[]} defenders.casualties copies of army units destroyed.
  * @property {object} defenders.empire reference to the empire passsed in.
+ * @property {object[]} defenders.structures copies of structures affecting only the defenders.
  * @property {object[]} defenders.survivors copies of army units that have survived the battle.
+ * @property {object[]} defenders.terrains copies terrain affecting only the defenders.
  * @property {object[]} events play by play of the battle for humans or things that like data events.
- * @property {object} structure reference to the structure argument.
- * @property {object} terrain reference to the terrain argument.
+ * @property {object} structures reference to the structure argument.
+ * @property {object} terrains reference to the terrain argument.
  */
 export const battle = (
-  {attackers, defenders, structure, terrain},
+  {attackers, defenders, structures = [], terrains = []},
   // violence() protects itself from a missing die, no need to define here.
   {d} = {},
 ) => {
@@ -118,11 +128,15 @@ export const battle = (
   // A bit morbid, but allows our cloned input to just become output as anyone
   // not dead is a survior.
   attackers = _.cloneDeep(attackers)
-  defenders = _.cloneDeep(defenders)
-  attackers.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(attackers.armyGroup))
   attackers.casualties = []
-  defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
+  attackers.structures = attackers.structures || []
+  attackers.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(attackers.armyGroup))
+  attackers.terrains = attackers.terrains || []
+  defenders = _.cloneDeep(defenders)
   defenders.casualties = []
+  defenders.structures = defenders.structures || []
+  defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
+  defenders.terrains = defenders.terrains || []
   // Track What happened during this battle.
   const events = []
 
@@ -136,7 +150,8 @@ export const battle = (
       army: attacker,
       armyGroup: attackers.armyGroup,
       empire: attackers.empire,
-      terrains: terrain,
+      structures: _.concat(structures, attackers.structures),
+      terrains: _.concat(terrains, attackers.terrains),
     })
 
     const defender = defenders.survivors[0]
@@ -144,9 +159,8 @@ export const battle = (
       army: defender,
       armyGroup: defenders.armyGroup,
       empire: defenders.empire,
-      // Original ruleset assumes only defenders cower behind structures.
-      structures: structure,
-      terrains: terrain,
+      structures: _.concat(structures, defenders.structures),
+      terrains: _.concat(terrains, defenders.terrains),
     })
 
     events.push({
@@ -232,8 +246,8 @@ export const battle = (
     attackers,
     defenders,
     events,
-    structure,
-    terrain,
+    structures,
+    terrains,
   }
 }
 

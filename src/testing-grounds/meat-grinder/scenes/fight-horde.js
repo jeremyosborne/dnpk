@@ -64,7 +64,7 @@ export const scene = async ({terrain, turn}) => {
       armyGroup: antagonistArmyGroup,
       empire: antagonistEmpire,
     },
-    terrain,
+    terrains: [terrain],
   })
 
   ui.text.battle.report({attackerColor: protagonistEmpire.color, defenderColor: antagonistEmpire.color, events})

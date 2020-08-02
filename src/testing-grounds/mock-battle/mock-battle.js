@@ -42,7 +42,7 @@ export const mockBattle = () => {
       armyGroup: player2.armyGroups[0],
       empire: player2.empire,
     },
-    terrain,
+    terrains: terrain,
   })
 
   out('\n\n')
