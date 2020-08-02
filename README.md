@@ -20,10 +20,16 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [ ] Allow the battle module to be run as a generator.
         - [ ] Can be run in event mode which yields events on every significant event.
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
-    - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.
     - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted?
     - [ ] Add the new health code to the battle code rewrite.
-- [ ] Other structures for classic parity:
+- [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
+    - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
+    - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
+    - [ ] move `nameInstance` as a type contained in the cosmetics.
+    - [ ] objects should have a cosmetic identifier of `real time created` stored as int of ms since epoch (e.g. Date.now()).
+    - [ ] objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
+    - [ ] Flags of cities and towers change as troops pass them / control them.
+- [ ] Other structures for classic parity
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)
         - [ ] Guarded: Possibly.
@@ -42,13 +48,6 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Economy
     - [ ] Add production base costs
     - [ ] Add upkeep and upkeep management
-- [ ] Look and feel
-    - [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
-        - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
-        - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
-    - [ ] objects should have an identifier of `real time created` stored as int of ms since epoch (e.g. Date.now()).
-    - [ ] objects should have an identifier of `game time created` stored as... turn number? Integer meaning something something?
-    - [ ] Flags of cities and towers change as troops pass them / control them.
 - [ ] Data integrity tool that checks `data-sources` for correctness as well as idiomatic things we enforce.
 
 ## Ideas
