@@ -2,17 +2,21 @@
   "documentation": "Generic list of hero names, assuming heroes are mercenaries and will fight for the highest bidder.",
   "name": "hero",
   "namings": [
-    "Roger Orcfinger",
+    "Archer Cat",
+    "Asha the Pasha",
+    "Dale Giant",
+    "Doc Shuri",
     "Don Heracles",
     "Hermione Wu",
-    "Marilyn Slaughter",
-    "Archer Angle",
-    "Jeremy the Knife",
     "Janice Unger",
-    "Tiffany Treeclub",
+    "Jeremy the Admin",
+    "Jennifer the Baker",
     "Lupe Lightning",
+    "Marilyn Slaughter",
+    "Myrdith the Planter",
+    "Roger Orcfinger",
     "Sofia Lancer",
-    "Doc Shuri",
-    "Stephen the Friar"
+    "Stephen the Friar",
+    "Tiffany Treeclub"
   ]
 }
