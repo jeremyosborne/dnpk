@@ -16,17 +16,13 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [ ] Rewrite the battle module
-    - [ ] Write out the battle algo, define the data structures, and define the events/hooks.
-    - [ ] Make sure the state creation in the battle makes sense.
-    - [ ] Turn the battle code into an object/class that can be given initialization and re-run multiple times. This would make the battle code better for situations requiring repeated runs without needing to rewrite the rerun code multiple times.
+- [ ] Improve the battle module
     - [ ] Allow the battle module to be run as a generator.
         - [ ] Can be run in event mode which yields events on every significant event.
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
     - [ ] Allow terrain to be applied specifically to `attackers` or `defenders`. This could represent a less ideal situation: attackers have waded across a river and are fighting up into the defenders beach.
-    - [ ] Have the battle module have a fight maximum, or per round maximum, like at X number of rolls / turns the armies retreat exhausted?
+    - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted?
     - [ ] Add the new health code to the battle code rewrite.
-    - [ ] Fully test the battle module.
 - [ ] Other structures for classic parity:
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)
