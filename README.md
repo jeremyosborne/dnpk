@@ -22,10 +22,11 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
     - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted?
     - [ ] Add the new health code to the battle code rewrite.
+- [ ] Add a `createdAt` property to all objects that marks real time since epoch when that object was created.
 - [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
     - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
     - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
-    - [ ] move `nameInstance` as a type contained in the cosmetics.
+    - [ ] move `nameInstance` to the `naming-proper` cosmetic type.
     - [ ] objects should have a cosmetic identifier of `real time created` stored as int of ms since epoch (e.g. Date.now()).
     - [ ] objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
     - [ ] Flags of cities and towers change as troops pass them / control them.

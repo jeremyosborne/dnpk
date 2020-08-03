@@ -1,7 +1,7 @@
 import * as dataSourceModdables from 'data-source-moddables'
 
 /**
- * List of `name`s of loaded empires.
+ * List of `name`s of loaded entities.
  *
  * @return {string[]} List of unique names.
  */

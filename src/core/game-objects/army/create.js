@@ -3,30 +3,34 @@ import _ from 'lodash'
 import uuid from 'uuid/v1'
 
 /**
- * Return a new army instance.
+ * Return a new entity instance.
  *
- * @param {string} name of the army to create.
+ * @param {string} name of the entity to create.
  *
- * @return {object} new army instance.
+ * @return {object} new entity instance.
  */
 export const create = ({name}) => {
-  const army = dataSourceModdables.create({name, type: 'army'})
+  const entity = dataSourceModdables.create({name, type: 'army'})
 
-  // All objects get a unique id.
-  army.id = uuid()
+  // Instantiate cosmetics, if any.
+  entity.cosmetics = _.map(entity.cosmetics, (cosmetic) => {
+    return _.merge(dataSourceModdables.create({name: cosmetic.name, type: 'cosmetic'}), cosmetic)
+  })
 
   // Instantiate effects, if any.
-  army.effects = _.map(army.effects, (eff) => {
+  entity.effects = _.map(entity.effects, (eff) => {
     return _.merge(dataSourceModdables.create({name: eff.name, type: 'effect'}), eff)
   })
 
-  // instantiate equippables (should be rare to non-existent in most game play)
-  army.equipment = _.map(army.equipment, (eq) => {
-    // The following line is not testable until we DI the dataSourceModdables.
+  // Instantiate equippables, if any.
+  entity.equipment = _.map(entity.equipment, (eq) => {
     return _.merge(dataSourceModdables.create({name: eq.name, type: 'equippable'}), eq)
   })
 
-  return army
+  // All objects get a unique id.
+  entity.id = uuid()
+
+  return entity
 }
 
 export default create

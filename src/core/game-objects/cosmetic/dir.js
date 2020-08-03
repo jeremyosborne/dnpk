@@ -5,6 +5,6 @@ import * as dataSourceModdables from 'data-source-moddables'
  *
  * @return {string[]} List of unique names.
  */
-export const dir = () => dataSourceModdables.dir('equippable')
+export const dir = () => dataSourceModdables.dir('cosmetic')
 
 export default dir

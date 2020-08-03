@@ -3,23 +3,27 @@ import _ from 'lodash'
 import uuid from 'uuid/v1'
 
 /**
- * Return a new effect instance.
+ * Return a new entity instance.
  *
- * @param {string} name of the army to create.
+ * @param {string} name of the entity to create.
  *
- * @return {object} new army instance.
+ * @return {object} new entity instance.
  */
 export const create = ({name}) => {
-  const equippable = dataSourceModdables.create({name, type: 'equippable'})
-  equippable.id = uuid()
+  const entity = dataSourceModdables.create({name, type: 'equippable'})
+
+  // All objects get a unique id.
+  entity.id = uuid()
+
   // Instantiate effects, if any.
-  equippable.effects = _.map(equippable.effects, (eff) => {
+  entity.effects = _.map(entity.effects, (eff) => {
     return _.merge(dataSourceModdables.create({name: eff.name, type: 'effect'}), eff)
   })
-  // no reason to have this in game
-  delete equippable.documentation
 
-  return equippable
+  // no reason to have this in game
+  delete entity.documentation
+
+  return entity
 }
 
 export default create

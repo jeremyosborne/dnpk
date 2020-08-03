@@ -5,6 +5,14 @@
   "description": "Basic structure information.",
   "type": "object",
   "properties": {
+    "cosmetics": {
+      "default": [],
+      "description": "Various cosmetics applied to this entity.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/cosmetic.schema.json"
+      },
+      "type": "array"
+    },
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"

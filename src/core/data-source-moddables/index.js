@@ -25,6 +25,8 @@ logger('This module assumes an async call to provided `.read()` method before ru
 export const types = _.reduce([
   // Definitions of army units.
   'army',
+  // Adds lively and colorful descriptions to entities.
+  'cosmetic',
   // Definitions of effects that can be applied to items or armies or anything else
   // that can be effected.
   'effect',

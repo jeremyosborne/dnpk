@@ -1,23 +1,29 @@
 import * as dataSourceModdables from 'data-source-moddables'
+import _ from 'lodash'
 import uuid from 'uuid/v1'
 
 /**
- * Return a new empire instance.
+ * Return a new entity instance.
  *
- * @param {string} name of the empire to create.
+ * @param {string} name of the entity to create.
  *
- * @return {object} new empire instance.
+ * @return {object} new entity instance.
  */
 export const create = ({name}) => {
-  const empire = dataSourceModdables.create({name, type: 'empire'})
-
-  // All objects get a unique id.
-  empire.id = uuid()
+  const entity = dataSourceModdables.create({name, type: 'empire'})
 
   // Not planning on using documentation in game... for now.
-  delete empire.documentation
+  delete entity.documentation
 
-  return empire
+  // Instantiate effects, if any.
+  entity.cosmetics = _.map(entity.cosmetics, (cosmetic) => {
+    return _.merge(dataSourceModdables.create({name: cosmetic.name, type: 'cosmetic'}), cosmetic)
+  })
+
+  // All objects get a unique id.
+  entity.id = uuid()
+
+  return entity
 }
 
 export default create

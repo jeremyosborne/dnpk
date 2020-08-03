@@ -1,8 +1,8 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/effect.schema.json",
+  "$id": "https://jeremyosborne.com/dnpk/cosmetic.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "effect",
-  "description": "Defines a single, particular, longer term effect.",
+  "title": "cosmetic",
+  "description": "Defines a single, particular visualization for an entity.",
   "type": "object",
   "properties": {
     "documentation": {
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "duration": {
-      "description": "Number of turns this effect will last. Default duration of -1 describes a permanent effect.",
+      "description": "Number of turns this cosmetic will last. Default duration of -1 describes a permanent effect.",
       "default": -1,
       "type": "integer"
     },
@@ -18,22 +18,23 @@
       "description": "Unique id for a particular instance of this type.",
       "type": "string"
     },
-    "magnitude": {
-      "description": "Power level of this particular effect. Not always applicable for an effect.",
-      "type": "integer"
-    },
     "metadata": {
-      "description": "Additional modifiers for more complex effects.",
+      "description": "Each cosmetic can have associated metadata.",
       "type": "object"
     },
     "name": {
-      "description": "Descriptive, unique name for this effect.",
+      "description": "Descriptive, unique name for this cosmetic.",
       "type": "string"
     },
     "type": {
-      "enum": ["effect"],
-      "default": "effect",
+      "enum": ["cosmetic"],
+      "default": "cosmetic",
       "description": "duck typing",
+      "type": "string"
+    },
+    "value": {
+      "description": "Some comsetics will suffice with a simple, string encoded value",
+      "default": "",
       "type": "string"
     }
   }

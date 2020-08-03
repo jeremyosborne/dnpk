@@ -2,22 +2,22 @@ import * as dataSourceModdables from 'data-source-moddables'
 import uuid from 'uuid/v1'
 
 /**
- * Return a new effect instance.
+ * Return a new entity instance.
  *
- * @param {string} name of the army to create.
+ * @param {string} name of the entity to create.
  *
- * @return {object} new army instance.
+ * @return {object} new entity instance.
  */
 export const create = ({name}) => {
-  const effect = dataSourceModdables.create({name, type: 'effect'})
-
-  // All objects get a unique id.
-  effect.id = uuid()
+  const entity = dataSourceModdables.create({name, type: 'effect'})
 
   // Not planning on using documentation in game... for now.
-  delete effect.documentation
+  delete entity.documentation
 
-  return effect
+  // All objects get a unique id.
+  entity.id = uuid()
+
+  return entity
 }
 
 export default create
