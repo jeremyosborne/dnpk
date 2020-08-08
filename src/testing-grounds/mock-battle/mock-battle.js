@@ -47,7 +47,7 @@ export const mockBattle = () => {
 
   out('\n\n')
 
-  ui.text.battle.report({attackerColor: player1.empire.color, defenderColor: player2.empire.color, events})
+  ui.text.battle.report({attackerColor: gameObjectsCommon.cosmetics.color(player1.empire), defenderColor: gameObjectsCommon.cosmetics.color(player2.empire), events})
 
   out('\n\n')
 

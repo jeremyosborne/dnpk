@@ -3,7 +3,7 @@ import _ from 'lodash'
 import * as objectList from '../object-list'
 
 /**
- * Helpers for working with sets of `armies` on an object.
+ * Helpers for working with sets of `effects` on an object.
  *
  * see: object-list
  */

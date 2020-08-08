@@ -1,5 +1,5 @@
 {
   "name": "sirians",
-  "color": "#FFFFFF",
+  "cosmetics": [{ "name": "color", "value": "#FFFFFF" }],
   "effects": []
 }

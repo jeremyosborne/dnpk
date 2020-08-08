@@ -1,6 +1,6 @@
 {
   "name": "orcs-of-kor",
-  "color": "#FF0000",
+  "cosmetics": [{ "name": "color", "value": "#FF0000" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

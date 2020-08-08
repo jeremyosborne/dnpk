@@ -1,6 +1,6 @@
 {
   "name": "selentines",
-  "color": "#40E0D0",
+  "cosmetics": [{ "name": "color", "value": "#40E0D0" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

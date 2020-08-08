@@ -25,9 +25,8 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Add a `createdAt` property to all objects that marks real time since epoch when that object was created.
 - [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
     - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
-    - [ ] when created in classic game got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
+    - [ ] when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
     - [ ] move `nameInstance` to the `naming-proper` cosmetic type.
-    - [ ] objects should have a cosmetic identifier of `real time created` stored as int of ms since epoch (e.g. Date.now()).
     - [ ] objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
     - [ ] Flags of cities and towers change as troops pass them / control them.
 - [ ] Other structures for classic parity

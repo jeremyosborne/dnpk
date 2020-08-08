@@ -1,6 +1,6 @@
 {
   "name": "lord-bane",
-  "color": "#000000",
+  "cosmetics": [{ "name": "color", "value": "#000000" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

@@ -1,6 +1,6 @@
 {
   "name": "storm-giants",
-  "color": "#FFFF00",
+  "cosmetics": [{ "name": "color", "value": "#FFFF00" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

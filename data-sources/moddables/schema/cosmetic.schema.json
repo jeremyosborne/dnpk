@@ -33,7 +33,7 @@
       "type": "string"
     },
     "value": {
-      "description": "Some comsetics will suffice with a simple, string encoded value",
+      "description": "It is assumed that most comsetics will suffice with a simple, string encoded value",
       "default": "",
       "type": "string"
     }

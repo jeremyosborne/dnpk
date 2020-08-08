@@ -1,6 +1,6 @@
 {
   "name": "horse-lords",
-  "color": "#0000FF",
+  "cosmetics": [{ "name": "color", "value": "#0000FF" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

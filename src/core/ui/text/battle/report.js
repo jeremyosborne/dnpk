@@ -28,8 +28,8 @@ export const string = ({
 
   // If attackers or defenders is passed in as metadata, opt to grab the color
   // from there vs. the default attackerColor.
-  attackerColor = _.get(attackers, 'empire.color') || attackerColor
-  defenderColor = _.get(defenders, 'empire.color') || defenderColor
+  attackerColor = gameObjectsCommon.cosmetics.color(_.get(attackers, 'empire')) || attackerColor
+  defenderColor = gameObjectsCommon.cosmetics.color(_.get(defenders, 'empire')) || defenderColor
 
   events.forEach((ev) => {
     const attacker = {

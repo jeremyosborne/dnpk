@@ -1,6 +1,6 @@
 {
   "name": "elvallie",
-  "color": "#00FF00",
+  "cosmetics": [{ "name": "color", "value": "#00FF00" }],
   "effects": [
     {
       "name": "terrain-modifier-brawn",

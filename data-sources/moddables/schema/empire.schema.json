@@ -5,11 +5,6 @@
   "description": "Defines a distinct empire.",
   "type": "object",
   "properties": {
-    "color": {
-      "default": "black",
-      "description": "Hex color of the empire.",
-      "type": "string"
-    },
     "cosmetics": {
       "default": [],
       "description": "Various cosmetics applied to this entity.",
