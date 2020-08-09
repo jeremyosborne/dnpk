@@ -11,6 +11,8 @@ import uuid from 'uuid/v1'
 export const create = ({name}) => {
   const entity = dataSourceModdables.create({name, type: 'cosmetic'})
 
+  entity.createdAt = new Date().toISOString()
+
   // Not planning on using documentation in game... for now.
   delete entity.documentation
 

@@ -13,6 +13,8 @@ import uuid from 'uuid/v1'
 export const create = ({name}) => {
   const entity = dataSourceModdables.create({name, type: 'equippable'})
 
+  entity.createdAt = new Date().toISOString()
+
   // All objects get a unique id.
   entity.id = uuid()
 

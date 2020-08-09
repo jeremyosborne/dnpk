@@ -10,6 +10,7 @@ describe('game-objects.armyGroup.create', () => {
   it('works', () => {
     const instance = testMod.create()
     expect(Array.isArray(instance.armies)).toEqual(true)
+    expect(typeof instance.createdAt).toEqual('string')
     expect(typeof instance.id).toEqual('string')
     expect(instance.type).toEqual('army-group')
   })

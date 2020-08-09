@@ -14,7 +14,8 @@ describe('game-objects.cosmetic.create', () => {
 
   it('works', () => {
     const instance = testMod.create({name: TEST_NAME_VALID})
-    expect(typeof instance.id === 'string').toEqual(true)
+    expect(typeof instance.createdAt).toEqual('string')
+    expect(typeof instance.id).toEqual('string')
     expect(instance.type).toEqual('cosmetic')
   })
 

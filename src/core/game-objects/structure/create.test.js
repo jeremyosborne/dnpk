@@ -14,8 +14,8 @@ describe('game-objects.structure.create', () => {
 
   it('works', () => {
     const instance = testMod.create({name: TEST_NAME_VALID})
-    // Terrain does not have an id, at least right now.
-    // expect(typeof instance.id === 'string').toEqual(true)
+    expect(typeof instance.createdAt).toEqual('string')
+    expect(typeof instance.id).toEqual('string')
     expect(instance.type).toEqual('structure')
   })
 

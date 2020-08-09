@@ -20,6 +20,8 @@ export const create = ({name}) => {
     return _.merge(cosmeticCreate({name: cosmetic.name}), cosmetic)
   })
 
+  entity.createdAt = new Date().toISOString()
+
   // Instantiate effects, if any.
   entity.effects = _.map(entity.effects, (eff) => {
     return _.merge(effectCreate({name: eff.name}), eff)

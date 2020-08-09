@@ -16,6 +16,8 @@ export const create = () => {
      */
     armyGroups: [],
 
+    createdAt: new Date().toISOString(),
+
     /**
      * 1:1 empire to player.
      * @type {object}

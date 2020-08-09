@@ -20,6 +20,8 @@ export const create = ({armies} = {}) => {
   return {
     armies,
 
+    createdAt: new Date().toISOString(),
+
     // asserted future property... could hold effects of battles on the units
     // in this group, usually more positive than negative to encourage keeping
     // good groups reinforced.
