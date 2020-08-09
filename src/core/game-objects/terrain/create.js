@@ -1,3 +1,4 @@
+import {create as cosmeticCreate} from '../cosmetic'
 import * as dataSourceModdables from 'data-source-moddables'
 import _ from 'lodash'
 import uuid from 'uuid/v1'
@@ -14,7 +15,7 @@ export const create = ({name}) => {
 
   // Instantiate cosmetics, if any.
   entity.cosmetics = _.map(entity.cosmetics, (cosmetic) => {
-    return _.merge(dataSourceModdables.create({name: cosmetic.name, type: 'cosmetic'}), cosmetic)
+    return _.merge(cosmeticCreate({name: cosmetic.name}), cosmetic)
   })
 
   // Not planning on using documentation in game... for now.

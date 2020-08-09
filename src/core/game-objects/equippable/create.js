@@ -1,4 +1,5 @@
 import * as dataSourceModdables from 'data-source-moddables'
+import {create as effectCreate} from '../effect'
 import _ from 'lodash'
 import uuid from 'uuid/v1'
 
@@ -17,7 +18,7 @@ export const create = ({name}) => {
 
   // Instantiate effects, if any.
   entity.effects = _.map(entity.effects, (eff) => {
-    return _.merge(dataSourceModdables.create({name: eff.name, type: 'effect'}), eff)
+    return _.merge(effectCreate({name: eff.name}), eff)
   })
 
   // no reason to have this in game
