@@ -56,11 +56,6 @@
       "examples": ["heavy-infantry", "light-infantry"],
       "type": "string"
     },
-    "nameInstance": {
-      "description": "Display name for this particular army instance.",
-      "examples": ["Vorgoth the Timid, Destroyer of Lint Bunnies"],
-      "type": "string"
-    },
     "strength": {
       "description": "Base, unmodified attack/defense strength of the unit.",
       "type": "integer"

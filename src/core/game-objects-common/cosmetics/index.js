@@ -30,16 +30,27 @@ cosmetics.color = (o) => {
 }
 
 /**
+ * Array of all colors associated with an entity.
+ *
+ * @param {object|object[]} o requires something that implements `cosmetics`
+ * or a simple array of cosmetics.
+ *
+ * @return {string[]} may be an empty array
+ */
+cosmetics.colors = (o) => {
+  return _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'color').map((color) => color.value || '')
+}
+
+/**
  * Array of all of the deeds an entity has accomplished.
  *
  * @param {object|object[]} o requires something that implements `cosmetics`
  * or a simple array of cosmetics.
  *
- * @return {Array[]}
+ * @return {string[]} may be an empty array
  */
 cosmetics.deeds = (o) => {
-  const deeds = _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'deed')
-  return deeds
+  return _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'deed').map((deed) => deed.value || '')
 }
 
 /**
@@ -73,4 +84,16 @@ cosmetics.naming.proper = (o) => {
 cosmetics.naming.title = (o) => {
   const cosmetic = _.find(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'naming-title')
   return _.get(cosmetic, 'value') || ''
+}
+
+/**
+ * Array of all titles associated with an entity.
+ *
+ * @param {object|object[]} o requires something that implements `cosmetics`
+ * or a simple array of cosmetics.
+ *
+ * @return {string[]} may be an empty array
+ */
+cosmetics.naming.titles = (o) => {
+  return _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'naming-title').map((title) => title.value || '')
 }

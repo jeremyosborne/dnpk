@@ -31,13 +31,13 @@ export const scene = async ({terrain, turn}) => {
     // Create a hero and add to the army group.
     const army = gameObjects.army.create({name: 'hero'})
     // Give a name to the hero.
-    army.nameInstance = simulation.randomNaming({name: 'hero'})
+    gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: simulation.randomNaming({name: 'hero'})})
     gameObjectsCommon.armies.add(armyGroup, army)
     armyGroup = gameObjectsCommon.armies.sort(armyGroup)
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-    out.t('{{armies, commonName}} is training here.', {armies: army, terrain, count: 1})
+    out.t('{{armyGroup, commonName}} is training here.', armyGroup)
     out.t('They join your ranks, eager to bring glory to your empire.')
     await hitReturnToContinue()
 

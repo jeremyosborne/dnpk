@@ -34,9 +34,6 @@ export const create = ({armies} = {}) => {
     // maybe simplistic yet descriptive names like 'patrol' or 'garrison'...
     // name: 'platoon',
 
-    // asserted future property
-    // nameInstance: '',
-
     type: 'army-group',
   }
 }

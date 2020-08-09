@@ -43,7 +43,7 @@ export const scene = async ({terrain, turn}) => {
   const blackKnight = gameObjects.army.create({name: 'hero'})
   // Potentially very strong opponent.
   blackKnight.strength = random.randint(4, 9)
-  blackKnight.nameInstance = simulation.randomNaming({name: 'hero'})
+  gameObjectsCommon.cosmetics.add(blackKnight, {name: 'naming-proper', value: simulation.randomNaming({name: 'hero'})})
   antagonistArmyGroup.push(blackKnight)
   const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
 

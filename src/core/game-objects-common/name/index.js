@@ -1,3 +1,4 @@
+import cosmetics from '../cosmetics'
 import {t} from 'l10n'
 import _ from 'lodash'
 
@@ -14,7 +15,7 @@ export const name = (o) => {
   if (_.isString(o)) {
     return t(o)
   } else {
-    return o.nameInstance || t(o.name) || t('UNKNOWN NAME')
+    return cosmetics.naming.proper(o) || t(o.name) || t('UNKNOWN NAME')
   }
 }
 
