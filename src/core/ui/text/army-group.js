@@ -1,9 +1,9 @@
-import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import {t} from 'l10n'
 import out from './out'
 import {sprintf} from 'sprintf-js'
 import * as simulation from 'simulation'
+import * as ui from 'ui'
 
 /**
  * Take an army group and return text information about the group.
@@ -25,7 +25,7 @@ export const string = ({armyGroup}) => {
     // Needed to calculate any accumulated strength modifications on the individual army.
     const strength = simulation.strength.army.strength({army})
 
-    info.push(`${sprintf('%-17s', gameObjectsCommon.name(army))} Str: ${strength} (${simulation.strength.constrainStrengthWithinRuleBoundaries(strength + strengthModifier)})`)
+    info.push(`${sprintf('%-17s', ui.text.naming.displayShort.string(army))} Str: ${strength} (${simulation.strength.constrainStrengthWithinRuleBoundaries(strength + strengthModifier)})`)
 
     if (army.effects.length) {
       // Display army effects.
@@ -35,7 +35,7 @@ export const string = ({armyGroup}) => {
           // displaying only the effect name.
           return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.name')}`
         } else {
-          return gameObjectsCommon.name(eff)
+          return ui.text.naming.displayShort.string(eff)
         }
       }).join(', '))
     }
@@ -43,7 +43,7 @@ export const string = ({armyGroup}) => {
     if (army.equipment.length) {
       // Display army inventory.
       info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
-        return gameObjectsCommon.name(eq)
+        return ui.text.naming.displayShort.string(eq)
       }).join(', '))
     }
 

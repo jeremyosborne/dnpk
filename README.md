@@ -17,17 +17,19 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Improve the battle module
-    - [ ] Allow the battle module to be run as a generator.
+    - [ ] Allow the battle module to be run as a generator (maybe?)
         - [ ] Can be run in event mode which yields events on every significant event.
         - [ ] Can be run in non-event mode which only yields on the completion of the battle.
     - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted?
-    - [ ] Add the new health code to the battle code rewrite.
-- [ ] Add a `cosmetics` array that works like effects, but for display only purposes.
-    - [ ] D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
-    - [ ] when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
-    - [ ] change `gameObjectsCommon.name` to something else, like `displayName`. It's too easily confused with the `name` property.
-    - [ ] objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
-    - [ ] Flags of cities and towers change as troops pass them / control them.
+    - [ ] Add health modification code.
+- [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
+- [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
+- [ ] Cosmetic: add additional name outputs (the structuring will need to go through l10n... it probably all needs to go to l10n):
+    - [ ] displayShort: modify to name-proper + name: "Archer, the Hero"
+    - [ ] displayFull: name-proper + name-title + name: "Archer, Duke of Discord, the Hero"
+    - [ ] displayRoyal: name-proper + name-title + name + deeds: "Archer, Duke of Discord, the Hero, slayer of house spiders, destroyer of bad guys."
+- [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
+- [ ] Cosmetics: Flags of cities and towers change as troops pass them / control them.
 - [ ] Other structures for classic parity
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)

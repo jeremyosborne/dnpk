@@ -2,6 +2,7 @@ import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
 import _ from 'lodash'
 import out from '../out'
+import * as ui from 'ui'
 
 /**
  * Transform battle events into a string of text.
@@ -37,7 +38,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: attackerColor,
-        label: gameObjectsCommon.name(ev.attacker.ref),
+        label: ui.text.naming.displayShort.string(ev.attacker.ref),
       },
     }
     const defender = {
@@ -45,7 +46,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: defenderColor,
-        label: gameObjectsCommon.name(ev.defender.ref),
+        label: ui.text.naming.displayShort.string(ev.defender.ref),
       }
     }
     if (ev.name === 'battle:round:start') {
