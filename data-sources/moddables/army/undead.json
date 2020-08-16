@@ -8,14 +8,14 @@
       "name": "brawn-terrain-modifier",
       "magnitude": -1,
       "metadata": {
-        "name": "forest"
+        "appliesTo": "forest"
       }
     },
     {
       "name": "brawn-terrain-modifier",
       "magnitude": 1,
       "metadata": {
-        "name": "marsh"
+        "appliesTo": "marsh"
       }
     }
   ],

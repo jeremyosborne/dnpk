@@ -18,13 +18,13 @@ export const create = ({name}) => {
     return _.merge(cosmeticCreate({name: cosmetic.name}), cosmetic)
   })
 
-  entity.createdAt = new Date().toISOString()
-
   // Not planning on using documentation in game... for now.
   delete entity.documentation
 
   // All objects get a unique id.
   entity.id = uuid()
+
+  entity.metadata.createdAt = new Date().toISOString()
 
   return entity
 }

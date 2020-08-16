@@ -50,7 +50,7 @@ const DEFAULT_BLESSING_EFFECT_NAME = 'brawn'
 effects.blessings.has = (o, granter, {
   name = DEFAULT_BLESSING_EFFECT_NAME,
 } = {}) => {
-  return _.some(effects.get(o), (effect) => _.get(effect, 'name') === name && _.get(effect, 'metadata.name') === granter)
+  return _.some(effects.get(o), (effect) => _.get(effect, 'name') === name && _.get(effect, 'metadata.comesFrom') === granter)
 }
 
 /**
@@ -74,7 +74,7 @@ effects.blessings.add = (o, granter, {
     const effect = gameObjects.effect.create({name})
     effect.magnitude = magnitude
     // Additional shrine meta-info.
-    _.set(effect, 'metadata.name', granter)
+    _.set(effect, 'metadata.comesFrom', granter)
     effects.add(o, effect)
   }
 }

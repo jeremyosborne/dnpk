@@ -1,0 +1,35 @@
+{
+  "$id": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "metadata",
+  "description": "Descriptive information that can be a part of most objects.",
+  "type": "object",
+  "properties": {
+    "appliesTo": {
+      "description": "Identifies that this object is associated with another object or class of objects.",
+      "type": "string"
+    },
+    "comesFrom": {
+      "description": "Identifies that this object came from or was granted by another object or class of objects.",
+      "type": "string"
+    },
+    "createdAt": {
+      "description": "Human time when this object was created, ISO format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "documentation": {
+      "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json"
+    },
+    "type": {
+      "enum": ["metadata"],
+      "default": "metadata",
+      "description": "duck typing",
+      "type": "string"
+    }
+  }
+}

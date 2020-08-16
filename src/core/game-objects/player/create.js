@@ -16,8 +16,6 @@ export const create = () => {
      */
     armyGroups: [],
 
-    createdAt: new Date().toISOString(),
-
     /**
      * 1:1 empire to player.
      * @type {object}
@@ -29,6 +27,10 @@ export const create = () => {
      * @type {string}
      */
     id: uuid(),
+
+    metadata: {
+      createdAt: new Date().toISOString(),
+    },
 
     // future planned extension, allows for type of player, like `human`
     // name: 'human',

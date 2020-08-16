@@ -30,6 +30,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [ ] displayRoyal: name-proper + name-title + name + deeds: "Archer, Duke of Discord, the Hero, slayer of house spiders, destroyer of bad guys."
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
 - [ ] Cosmetics: Flags of cities and towers change as troops pass them / control them.
+- [ ] Deities: make them a specific type, not just a group of `namings`.
 - [ ] Other structures for classic parity
     - [ ] Ruins / Temples
         - [ ] Searchable by: Heroes (according to original rules)

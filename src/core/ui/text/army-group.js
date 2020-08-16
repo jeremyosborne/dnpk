@@ -33,7 +33,7 @@ export const string = ({armyGroup}) => {
         if (eff.name === 'brawn-terrain-modifier') {
           // Terrain modifiers have embedded meta data that gets missed when
           // displaying only the effect name.
-          return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.name')}`
+          return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.appliesTo')}`
         } else {
           return ui.text.naming.displayShort.string(eff)
         }

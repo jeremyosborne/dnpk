@@ -1,5 +1,9 @@
 {
   "name": "brawn-terrain-modifier",
-  "documentation": "Describes the bonus or malus to strength for an entity when battling within a particular terrain. `metadata.name: string` defines the type of terrain this unit prefers or dislikes, the magnitude being how much. If an entity likes/dislikes multiple terrains, this effect will be applied multiple times. No default, must always define the modifier.",
-  "duration": -1
+  "documentation": "Describes the modifier to strength for an entity when battling within a particular terrain. `metadata.appliesTo: string` defines the type of terrain by name that this unit prefers or dislikes, the magnitude being how much. If an entity likes/dislikes multiple terrains, this effect can be applied multiple times, once for each terrain.",
+  "duration": -1,
+  "metadata": {
+    "appliesTo": ""
+  },
+  "magnitude": 0
 }

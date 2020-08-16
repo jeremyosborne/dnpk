@@ -5,17 +5,16 @@
   "description": "A categorically grouped set of strings used for naming in game entities.",
   "type": "object",
   "properties": {
-    "createdAt": {
-      "description": "Human time when this object was created, ISO format.",
-      "format": "date-time",
-      "type": "string"
-    },
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
+    "metadata": {
+      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "default": {}
+    },
     "name": {
-      "description": "Grouping of these naming strings. This property was in existence and standard before it clashed uncomfortably in this context.",
+      "description": "Unique name for this list of namings.",
       "type": "string"
     },
     "namings": {

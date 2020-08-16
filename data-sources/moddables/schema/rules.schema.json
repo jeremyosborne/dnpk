@@ -65,11 +65,6 @@
       "minimum": 2,
       "type": "integer"
     },
-    "createdAt": {
-      "description": "Human time when this object was created, ISO format.",
-      "format": "date-time",
-      "type": "string"
-    },
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
@@ -80,8 +75,12 @@
       "minimum": 0,
       "type": "integer"
     },
+    "metadata": {
+      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "default": {}
+    },
     "name": {
-      "description": "Rule sets need a distinct name and should say something about the rules defined within.",
+      "description": "Unique name for this set of rules.",
       "type": "string"
     },
     "type": {

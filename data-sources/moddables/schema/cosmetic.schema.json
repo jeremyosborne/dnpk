@@ -5,11 +5,6 @@
   "description": "Defines a single, particular visualization for an entity.",
   "type": "object",
   "properties": {
-    "createdAt": {
-      "description": "Human time when this object was created, ISO format.",
-      "format": "date-time",
-      "type": "string"
-    },
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
@@ -24,11 +19,11 @@
       "type": "string"
     },
     "metadata": {
-      "description": "Each cosmetic can have associated metadata.",
-      "type": "object"
+      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "default": {}
     },
     "name": {
-      "description": "Descriptive, unique name for this cosmetic.",
+      "description": "Unique name for this type of cosmetic.",
       "type": "string"
     },
     "type": {
