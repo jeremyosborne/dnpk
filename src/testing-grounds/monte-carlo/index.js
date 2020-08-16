@@ -10,7 +10,7 @@ import mainMenu from './main-menu'
 
 export const main = async () => {
   // Load expected data into memory.
-  await l10n.read({ns: ['translation']})
+  await l10n.read({ns: ['translation', 'army', 'empire']})
   await dataSourceModdables.read()
 
   let next = mainMenu
