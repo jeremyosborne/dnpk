@@ -6,6 +6,7 @@ import _ from 'lodash'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import out from 'out'
 import * as sceneChoices from './scene-choices'
+import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
 /**
@@ -75,7 +76,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => gameObjectsCommon.equipment.size(c))
     return _.map(candidates, (from) => ({
-      message: t('{{from, namingsShort}}', {from}),
+      message: t('{{from}}', {from: ui.text.naming.short.string(from)}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -85,7 +86,7 @@ export const scene = async ({terrain, turn}) => {
   const equippableCandidatesChoices = (candidate) => {
     // Assume we're only dealing with equipment right now.
     return _.map(candidate.equipment, (eq) => ({
-      message: t('{{eq, namingsShort}}', {eq}),
+      message: t('{{eq}}', {eq: ui.text.naming.short.string(eq)}),
       name: eq.id,
     }))
   }
@@ -96,7 +97,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => c.id !== filtered.id)
     return _.map(candidates, (from) => ({
-      message: t('{{from, namingsShort}}', {from}),
+      message: t('{{from}}', {from: ui.text.naming.short.string(from)}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -109,9 +110,9 @@ export const scene = async ({terrain, turn}) => {
     _.forEach(equippableCandidatesMap, (container) => {
       const equipment = gameObjectsCommon.equipment.get(container)
       if (gameObjectsCommon.equipment.size(equipment)) {
-        out.t('{{container, namingsShort}}: {{equipment, namingsShort}}', {container, equipment})
+        out.t('{{container}}: {{equipment}}', {container: ui.text.naming.short.string(container), equipment: ui.text.naming.short.string(equipment)})
       } else {
-        out.t('{{container, namingsShort}}: no equipment', {container})
+        out.t('{{container}}: no equipment', {container: ui.text.naming.short.string(container)})
       }
     })
 
@@ -159,10 +160,10 @@ export const scene = async ({terrain, turn}) => {
       // Save everything as vault and armies are in different locations.
       dataSourceGame.write()
 
-      out.t('{{object, namingsShort}} transferred from {{from, namingsShort}} to {{to, namingsShort}}', {
-        object: toTransfer,
-        from,
-        to,
+      out.t('{{object}} transferred from {{from}} to {{to}}', {
+        object: ui.text.naming.short.string(toTransfer),
+        from: ui.text.naming.short.string(from),
+        to: ui.text.naming.short.string(from),
       })
       await hitReturnToContinue()
     } else {

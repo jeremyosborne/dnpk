@@ -28,6 +28,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [X] short: modify to `naming-proper` or `name`: "Archer" or "Light Infantry"
     - [ ] full: `naming-proper` + `naming-title` + `name`: "Archer, Duke of Discord, Hero"
     - [ ] royal: `naming-proper` + `naming-title` + `name` + `deeds`: "Archer, Duke of Discord, Hero, slayer of house spiders, destroyer of bad guys."
+- [X] Remove the filter `namingsShort` and replace with calls to `ui.text.namings.short.string`.
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
 - [ ] Cosmetics: Flags of cities and towers change as troops pass them / control them.
 - [ ] `ui.text` code: string should be default, and `.out` should be secondary (flip flop the way it is now since we mainly call `.string`).

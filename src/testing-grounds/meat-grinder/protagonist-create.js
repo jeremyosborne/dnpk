@@ -3,6 +3,7 @@ import {prompt} from 'enquirer'
 import * as gameObjects from 'game-objects'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
+import * as ui from 'ui'
 
 // Originally protagonist was going to maybe be more special, now it's really
 // just empire management, and the one spot where we create the `protagonist`
@@ -14,7 +15,7 @@ export const createProtagonist = async () => {
     // Deal with strings only in the prompt, not objects.
     choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire)})),
     message: !protagonist ? t('Choose your empire')
-      : t('Choose a new empire (current empire: {{empire, namingsShort}})', {empire: protagonist.empire}),
+      : t('Choose a new empire (current empire: {{empire}})', {empire: ui.text.naming.short.string(protagonist.empire)}),
     name: 'empire',
     type: 'select',
   })
@@ -24,7 +25,7 @@ export const createProtagonist = async () => {
 
   const {confirmed} = await prompt({
     initial: true,
-    message: t('Do you wish to rule the empire of {{empire, namingsShort}}?', {empire}),
+    message: t('Do you wish to rule the empire of {{empire}}?', {empire: ui.text.naming.short.string(empire)}),
     name: 'confirmed',
     type: 'confirm',
   })
@@ -34,7 +35,7 @@ export const createProtagonist = async () => {
       dataSourceGame.protagonist.create()
     }
     dataSourceGame.protagonist.save({empire})
-    await hitReturnToContinue(t('You now rule {{empire, namingsShort}}. Hit return to continue.', {empire}))
+    await hitReturnToContinue(t('You now rule {{empire}}. Hit return to continue.', {empire: ui.text.naming.short.string(empire)}))
   } else {
     await hitReturnToContinue(t('Input ignored. Hit return for the main menu.'))
   }

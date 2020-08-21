@@ -1,11 +1,12 @@
 import * as textEmpire from '../empire'
+import * as textNaming from '../naming'
 import {t} from 'l10n'
 import out from '../out'
 
 const casualtyReport = ({survivors, casualties}) => {
-  return t('survivors ({{survivors.length}}) {{survivors, namingsShort}}\ncasualties ({{casualties.length}}) {{casualties, namingsShort}}', {
-    survivors,
-    casualties,
+  return t('survivors ({{survivors.length}}) {{survivors}}\ncasualties ({{casualties.length}}) {{casualties}}', {
+    survivors: textNaming.short.string(survivors),
+    casualties: textNaming.short.string(casualties),
   })
 }
 

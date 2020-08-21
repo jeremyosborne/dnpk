@@ -1,7 +1,7 @@
 {
-  "{{armies, commonName}} is training here.": "({{armies, commonName}}) is training here.",
-  "{{armies, commonName}} is training here._plural": "({{armies, commonName}}) are training here.",
+  "{{armies}} is training here.": "({{armies}}) is training here.",
+  "{{armies}} is training here._plural": "({{armies}}) are training here.",
 
-  "Vault contents: {{equipment, commonName}}_0": "Vault contents: none",
-  "Vault contents: {{equipment, commonName}}": "Vault contents: {{equipment, commonName}}"
+  "Vault contents: {{equipment}}_0": "Vault contents: none",
+  "Vault contents: {{equipment}}": "Vault contents: {{equipment}}"
 }

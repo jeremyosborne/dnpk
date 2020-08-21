@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import * as dataSourceConfig from 'data-source-config'
 import * as dataSourceL10n from 'data-source-l10n'
-import * as ui from 'ui'
 import i18next from 'i18next'
 import _ from 'lodash'
 
@@ -28,26 +27,20 @@ export const _formatters = {
 
   // callable: {{Array<string>, simpleList}}
   // takes a list of strings and joins them, based on language.
+  // In English, I'd always write the dynamic elements of the array into a simple, comma delimited list,
+  // without trailing `and` conjunction.
   simpleList: (value, format, lng) => {
     // TODO: switch on language
     return _.join(value, ', ')
   },
 
-  // callable: {{someGameObject, namingsShort}}
-  // tries to display the simplest human friendly name of an object or objects, including
-  // objects that implement armies.
-  namingsShort: (value, format, lng) => {
-    let values
-    if (Array.isArray(value)) {
-      values = value
-    } else if (value.armies) {
-      // Concession to the added complexity of army-groups.
-      // TODO: stop being helpful, as army groups will likely carry names in the future.
-      values = value.armies
-    } else {
-      values = [value]
-    }
-    return _formatters.simpleList(_.map(values, (v) => ui.text.naming.short.string(v), null, lng))
+  // callable: {{Array<string>, simpleList}}
+  // takes a list of strings and joins them, based on language.
+  // In English, this would potentially be a list of already comma delimited lists, like a list of
+  // long names for a handful of heroes.
+  complexList: (value, format, lng) => {
+    // TODO: switch on language
+    return _.join(value, '; ')
   },
 }
 

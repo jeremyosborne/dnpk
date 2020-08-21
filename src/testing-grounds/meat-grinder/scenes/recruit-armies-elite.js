@@ -8,7 +8,7 @@ import out from 'out'
 import * as random from 'random'
 import * as sceneChoices from './scene-choices'
 import * as simulation from 'simulation'
-// import * as ui from 'ui'
+import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
 /**
@@ -49,7 +49,7 @@ export const scene = async ({terrain, turn}) => {
       size,
     })
     // Plurals handled in the en/translation.json.
-    out.t('{{armies, namingsShort}} is training here.', {armies: armyNames, count: armyNames.length})
+    out.t('{{armies}} is training here.', {armies: ui.text.naming.short.string(armyNames), count: armyNames.length})
     out.t('They join your ranks, eager to bring glory to your empire.')
 
     // Add the new armies to the army group.
