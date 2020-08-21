@@ -38,7 +38,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: attackerColor,
-        label: ui.text.naming.displayShort.string(ev.attacker.ref),
+        label: ui.text.naming.short.string(ev.attacker.ref),
       },
     }
     const defender = {
@@ -46,7 +46,7 @@ export const string = ({
       // rewrite name to support colorize formatter.
       name: {
         color: defenderColor,
-        label: ui.text.naming.displayShort.string(ev.defender.ref),
+        label: ui.text.naming.short.string(ev.defender.ref),
       }
     }
     if (ev.name === 'battle:round:start') {

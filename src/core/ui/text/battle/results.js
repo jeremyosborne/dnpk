@@ -3,7 +3,7 @@ import {t} from 'l10n'
 import out from '../out'
 
 const casualtyReport = ({survivors, casualties}) => {
-  return t('survivors ({{survivors.length}}) {{survivors, commonName}}\ncasualties ({{casualties.length}}) {{casualties, commonName}}', {
+  return t('survivors ({{survivors.length}}) {{survivors, namingsShort}}\ncasualties ({{casualties.length}}) {{casualties, namingsShort}}', {
     survivors,
     casualties,
   })

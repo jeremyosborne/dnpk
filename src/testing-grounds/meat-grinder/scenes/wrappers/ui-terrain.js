@@ -9,7 +9,7 @@ export const uiTerrain = (scene) => {
   return async (gameState) => {
     const {terrain} = gameState
     if (terrain) {
-      out.t('Your endless travels take you to a {{terrain, commonName}}.', {terrain})
+      out.t('Your endless travels take you to a {{terrain, namingsShort}}.', {terrain})
     }
     // ... continue on.
     return scene(gameState)

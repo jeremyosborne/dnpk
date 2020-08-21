@@ -25,7 +25,7 @@ export const string = ({armyGroup}) => {
     // Needed to calculate any accumulated strength modifications on the individual army.
     const strength = simulation.strength.army.strength({army})
 
-    info.push(`${sprintf('%-17s', ui.text.naming.displayShort.string(army))} Str: ${strength} (${simulation.strength.constrainStrengthWithinRuleBoundaries(strength + strengthModifier)})`)
+    info.push(`${sprintf('%-17s', ui.text.naming.short.string(army))} Str: ${strength} (${simulation.strength.constrainStrengthWithinRuleBoundaries(strength + strengthModifier)})`)
 
     if (army.effects.length) {
       // Display army effects.
@@ -35,7 +35,7 @@ export const string = ({armyGroup}) => {
           // displaying only the effect name.
           return `${eff.magnitude > 0 ? '+' : '-'}${_.get(eff, 'metadata.appliesTo')}`
         } else {
-          return ui.text.naming.displayShort.string(eff)
+          return ui.text.naming.short.string(eff)
         }
       }).join(', '))
     }
@@ -43,7 +43,7 @@ export const string = ({armyGroup}) => {
     if (army.equipment.length) {
       // Display army inventory.
       info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
-        return ui.text.naming.displayShort.string(eq)
+        return ui.text.naming.short.string(eq)
       }).join(', '))
     }
 

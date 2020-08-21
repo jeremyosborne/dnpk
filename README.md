@@ -25,11 +25,12 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
 - [ ] Cosmetic: add additional name outputs (the structuring will need to go through l10n... it probably all needs to go to l10n):
-    - [ ] displayShort: modify to name-proper + name: "Archer, the Hero"
-    - [ ] displayFull: name-proper + name-title + name: "Archer, Duke of Discord, the Hero"
-    - [ ] displayRoyal: name-proper + name-title + name + deeds: "Archer, Duke of Discord, the Hero, slayer of house spiders, destroyer of bad guys."
+    - [X] short: modify to `naming-proper` or `name`: "Archer" or "Light Infantry"
+    - [ ] full: `naming-proper` + `naming-title` + `name`: "Archer, Duke of Discord, Hero"
+    - [ ] royal: `naming-proper` + `naming-title` + `name` + `deeds`: "Archer, Duke of Discord, Hero, slayer of house spiders, destroyer of bad guys."
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
 - [ ] Cosmetics: Flags of cities and towers change as troops pass them / control them.
+- [ ] `ui.text` code: string should be default, and `.out` should be secondary (flip flop the way it is now since we mainly call `.string`).
 - [ ] Deities: make them a specific type, not just a group of `namings`.
 - [ ] Other structures for classic parity
     - [ ] Ruins / Temples

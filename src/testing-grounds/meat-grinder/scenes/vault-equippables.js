@@ -75,7 +75,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => gameObjectsCommon.equipment.size(c))
     return _.map(candidates, (from) => ({
-      message: t('{{from, commonName}}', {from}),
+      message: t('{{from, namingsShort}}', {from}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -85,7 +85,7 @@ export const scene = async ({terrain, turn}) => {
   const equippableCandidatesChoices = (candidate) => {
     // Assume we're only dealing with equipment right now.
     return _.map(candidate.equipment, (eq) => ({
-      message: t('{{eq, commonName}}', {eq}),
+      message: t('{{eq, namingsShort}}', {eq}),
       name: eq.id,
     }))
   }
@@ -96,7 +96,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => c.id !== filtered.id)
     return _.map(candidates, (from) => ({
-      message: t('{{from, commonName}}', {from}),
+      message: t('{{from, namingsShort}}', {from}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -109,9 +109,9 @@ export const scene = async ({terrain, turn}) => {
     _.forEach(equippableCandidatesMap, (container) => {
       const equipment = gameObjectsCommon.equipment.get(container)
       if (gameObjectsCommon.equipment.size(equipment)) {
-        out.t('{{container, commonName}}: {{equipment, commonName}}', {container, equipment})
+        out.t('{{container, namingsShort}}: {{equipment, namingsShort}}', {container, equipment})
       } else {
-        out.t('{{container, commonName}}: no equipment', {container})
+        out.t('{{container, namingsShort}}: no equipment', {container})
       }
     })
 
@@ -159,7 +159,7 @@ export const scene = async ({terrain, turn}) => {
       // Save everything as vault and armies are in different locations.
       dataSourceGame.write()
 
-      out.t('{{object, commonName}} transferred from {{from, commonName}} to {{to, commonName}}', {
+      out.t('{{object, namingsShort}} transferred from {{from, namingsShort}} to {{to, namingsShort}}', {
         object: toTransfer,
         from,
         to,

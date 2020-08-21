@@ -16,7 +16,7 @@ const logger = debug('dnpk/ui/text/empire')
  * @return {string}
  */
 export const string = ({empire}) => {
-  const name = ui.text.naming.displayShort.string(empire)
+  const name = ui.text.naming.short.string(empire)
   if (!name) {
     logger('warning, called title() with incompatible data param of:', empire)
   }

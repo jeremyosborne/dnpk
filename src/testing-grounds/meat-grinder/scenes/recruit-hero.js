@@ -37,7 +37,7 @@ export const scene = async ({terrain, turn}) => {
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-    out.t('{{armyGroup, commonName}} is training here.', armyGroup)
+    out.t('{{armyGroup, namingsShort}} is training here.', armyGroup)
     out.t('They join your ranks, eager to bring glory to your empire.')
     await hitReturnToContinue()
 

@@ -4,7 +4,7 @@ import _ from 'lodash'
 import out from '../out'
 
 /**
- * Return a short, common name of any object which is visual friendly.
+ * Attempt to return a short, human friendly name of any object.
  *
  * @param {object|string} o some object we wish to coerce into a name.
  *
@@ -14,18 +14,18 @@ export const string = (o) => {
   if (_.isString(o)) {
     return t(o)
   } else {
-    return gameObjectsCommon.cosmetics.naming.proper(o) || t(o.name) || t('UNKNOWN NAME')
+    return t(gameObjectsCommon.cosmetics.naming.proper(o)) || t(o.name) || t('UNKNOWN NAME')
   }
 }
 
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const displayShort = (...args) => out(string(...args))
+export const short = (...args) => out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-displayShort.string = string
+short.string = string
 
-export default displayShort
+export default short

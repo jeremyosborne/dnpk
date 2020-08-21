@@ -1,1 +1,1 @@
-export {displayShort} from './display-short'
+export {short} from './short'

@@ -49,11 +49,11 @@ export const scene = async ({terrain, turn}) => {
 
   // Engage the 2 groups in battle.
 
-  out.t('A fallen knight of {{empire, commonName}} blocks your path.', {empire: antagonistEmpire})
+  out.t('A fallen knight of {{empire, namingsShort}} blocks your path.', {empire: antagonistEmpire})
   out.t('')
-  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: protagonistArmyGroup, flag: protagonistFlag})
+  out.t('{{flag}} ({{armyGroup, namingsShort}})', {armyGroup: protagonistArmyGroup, flag: protagonistFlag})
   out.t('vs.')
-  out.t('{{flag}} ({{armyGroup, commonName}})', {armyGroup: antagonistArmyGroup, flag: antagonistFlag})
+  out.t('{{flag}} ({{armyGroup, namingsShort}})', {armyGroup: antagonistArmyGroup, flag: antagonistFlag})
   out.t('')
   await hitReturnToContinue('Hit return to charge into battle!')
 
@@ -88,18 +88,18 @@ export const scene = async ({terrain, turn}) => {
   })
 
   if (casualties.length) {
-    out.t('A moment of silence for your fallen: {{armyGroup, commonName}}', {armyGroup: casualties})
+    out.t('A moment of silence for your fallen: {{armyGroup, namingsShort}}', {armyGroup: casualties})
   } else {
     out.t('Your troops made it through this battle unscathed.')
   }
 
   if (equipment.length) {
     _.forEach(equipment, (equippable) => dataSourceGame.vaultEquippables.add(equippable))
-    out.t('{{equipment, commonName}} shimmer away and teleport to the equipment vault.', {equipment})
+    out.t('{{equipment, namingsShort}} shimmer away and teleport to the equipment vault.', {equipment})
   }
 
   if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
-    out.t('Your ({{armyGroup, commonName}}) scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
+    out.t('Your ({{armyGroup, namingsShort}}) scavenge supplies and march on.', {armyGroup: protagonistArmyGroup})
   } else {
     out.t('You have been defeated.')
   }

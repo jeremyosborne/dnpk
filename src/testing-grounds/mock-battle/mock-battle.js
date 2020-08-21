@@ -21,7 +21,7 @@ export const mockBattle = () => {
 
   // Engage the 2 groups in battle.
 
-  out(`\nBattle commencing on terrain (${ui.text.naming.displayShort.string(terrain)}), between:`)
+  out(`\nBattle commencing on terrain (${ui.text.naming.short.string(terrain)}), between:`)
   out('')
   ui.text.empire.title(player1)
   ui.text.armyGroup({armyGroup: player1.armyGroups[0]})

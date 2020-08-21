@@ -14,7 +14,7 @@ import * as wrappers from './wrappers'
 export const scene = async ({terrain, turn}) => {
   const artifact = simulation.createRandom({type: 'equippable'})
 
-  out.t('{{artifact, commonName}} lies on the ground.', {artifact})
+  out.t('{{artifact, namingsShort}} lies on the ground.', {artifact})
   out.t('Eldritch tendrils wrap around and snap the artifact into the pocket storage dimension.')
   out.t('Next stop: Vault-o-matic.')
 

@@ -26,20 +26,28 @@ export const _formatters = {
     }
   },
 
-  // callable: {{someGameObject, commonNames}}
-  // tries to display the best name of an object, or the best names as a human
-  // list for an array of objects.
-  commonName: (value, format, lng) => {
+  // callable: {{Array<string>, simpleList}}
+  // takes a list of strings and joins them, based on language.
+  simpleList: (value, format, lng) => {
+    // TODO: switch on language
+    return _.join(value, ', ')
+  },
+
+  // callable: {{someGameObject, namingsShort}}
+  // tries to display the simplest human friendly name of an object or objects, including
+  // objects that implement armies.
+  namingsShort: (value, format, lng) => {
     let values
     if (Array.isArray(value)) {
       values = value
     } else if (value.armies) {
       // Concession to the added complexity of army-groups.
+      // TODO: stop being helpful, as army groups will likely carry names in the future.
       values = value.armies
     } else {
       values = [value]
     }
-    return _.map(values, (v) => ui.text.naming.displayShort.string(v)).join(', ')
+    return _formatters.simpleList(_.map(values, (v) => ui.text.naming.short.string(v), null, lng))
   },
 }
 
