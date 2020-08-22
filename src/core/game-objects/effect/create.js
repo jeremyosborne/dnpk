@@ -1,5 +1,5 @@
 import * as dataSourceModdables from 'data-source-moddables'
-import uuid from 'uuid/v1'
+import {v1 as uuid} from 'uuid'
 
 /**
  * Return a new entity instance.

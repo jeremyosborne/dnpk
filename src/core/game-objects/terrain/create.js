@@ -1,7 +1,7 @@
 import {create as cosmeticCreate} from '../cosmetic'
 import * as dataSourceModdables from 'data-source-moddables'
 import _ from 'lodash'
-import uuid from 'uuid/v1'
+import {v1 as uuid} from 'uuid'
 
 /**
  * Return a new entity instance.

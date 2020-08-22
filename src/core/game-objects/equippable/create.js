@@ -1,7 +1,7 @@
 import * as dataSourceModdables from 'data-source-moddables'
 import {create as effectCreate} from '../effect'
 import _ from 'lodash'
-import uuid from 'uuid/v1'
+import {v1 as uuid} from 'uuid'
 
 /**
  * Return a new entity instance.

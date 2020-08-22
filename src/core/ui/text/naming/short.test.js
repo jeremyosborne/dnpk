@@ -12,7 +12,7 @@ describe('ui.text.naming.short', () => {
       expect(testModule.string({name: 'bob'})).toEqual('bob')
       expect(testModule.string({name: 'bob', cosmetics: [{name: 'naming-proper', value: 'bobby'}]})).toEqual('bobby')
       expect(testModule.string('bob')).toEqual('bob')
-      expect(testModule.string(new String('bob'))).toEqual(new String('bob')) // eslint-disable-line no-new-wrappers
+      expect(testModule.string(new String('bob'))).toEqual('bob') // eslint-disable-line no-new-wrappers
     })
   })
 })
