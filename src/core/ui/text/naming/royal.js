@@ -4,7 +4,7 @@ import _ from 'lodash'
 import _out from '../out'
 
 /**
- * Attempt to return a short, human friendly name of any object or collection of objects.
+ * Attempt to return a braggart naming with a full list of deeds.
  *
  * As this focuses on "human" names, this prefers `armies` within an object, but not
  * other collections like `equipment`.
@@ -14,7 +14,13 @@ import _out from '../out'
  * @return {string} preferred name for this object
  */
 export const string = (o) => {
+  if (_.isString(o)) {
+    return t(o)
+  }
+
+  // Are we a set of armies?
   let collection
+
   if (Array.isArray(o)) {
     collection = o
   } else if (gameObjectsCommon.armies.get(o)) {
@@ -24,15 +30,16 @@ export const string = (o) => {
   }
 
   const names = _.map(collection, (item = {}) => {
-    if (_.isString(item)) {
-      // In case we get a string or set of strings, still try to do the right thing.
-      return t(item)
-    } else {
-      return t(gameObjectsCommon.cosmetics.naming.proper(item)) || t(item.name) || t('UNKNOWN NAME')
-    }
+    const deeds = _.compact(gameObjectsCommon.cosmetics.deeds(item), (deed) => t(deed.value))
+    const names = _.compact([
+      t(gameObjectsCommon.cosmetics.naming.proper(item)),
+      t(gameObjectsCommon.cosmetics.naming.title(item)),
+      t(item.name)
+    ])
+    return t('{{names, simpleList}}', {names: _.concat(names, deeds)})
   })
 
-  return t('{{names, simpleList}}', {names})
+  return t('{{names, complexList}}', {names})
 }
 
 /**
@@ -41,7 +48,7 @@ export const string = (o) => {
 export const out = (...args) => _out(string(...args))
 
 /**
- * Convenience. See `string`.
+ * Convenience. See `out`.
  */
 string.out = out
 

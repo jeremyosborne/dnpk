@@ -31,7 +31,7 @@ export const mainMenu = async () => {
       }
     }]
   } else {
-    ui.text.empire.title.out(protagonist.empire)
+    ui.text.naming.empire.out(protagonist.empire)
     if (gameObjectsCommon.armies.size(armyGroup)) {
       out.t('Army group: {{armyGroup}}', {armyGroup: ui.text.naming.short(armyGroup)})
     } else {

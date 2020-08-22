@@ -1,5 +1,6 @@
-import _ from 'lodash'
+import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
+import _ from 'lodash'
 import _out from './out'
 import {sprintf} from 'sprintf-js'
 import * as simulation from 'simulation'
@@ -13,8 +14,8 @@ import * as ui from 'ui'
  * @return {string} multi-line, slightly formatted, plain text diagnostic
  * information about the army group.
  */
-export const string = ({armyGroup}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+export const string = (armyGroup) => {
+  const armies = gameObjectsCommon.armies.get(armyGroup)
   const strengthModifier = simulation.strength.armyGroup.strengthModifier({armyGroup: armies})
   const info = []
   // Overall group information.

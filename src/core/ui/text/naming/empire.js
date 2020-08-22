@@ -1,12 +1,12 @@
 import debug from 'debug'
 import flag from '../flag'
 import _out from '../out'
-import * as naming from '../naming'
+import short from './short'
 
-const logger = debug('dnpk/ui/text/empire')
+const logger = debug('dnpk/ui/text/naming')
 
 /**
- * Display the empire name plus flag.
+ * Assume the entity is an empire and display the name as an empire.
  *
  * Versatile function that attempts to do the right thing depending on input.
  *
@@ -14,13 +14,13 @@ const logger = debug('dnpk/ui/text/empire')
  *
  * @return {string}
  */
-export const string = (empire) => {
-  const name = naming.short(empire)
+export const string = (entity) => {
+  const name = short(entity)
   if (!name) {
-    logger('warning, called title() with incompatible data param of:', empire)
+    logger('warning, called title() with incompatible data param of:', entity)
   }
 
-  return `${name} ${flag(empire)}`
+  return `${name} ${flag(entity)}`
 }
 
 /**

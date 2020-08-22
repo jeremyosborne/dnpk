@@ -12,7 +12,7 @@ export const createArmyGroup = async () => {
   let armyGroup = _.get(dataSourceGame.protagonist.get(), 'armyGroups[0]')
   if (armyGroup) {
     out.t('Your current army:')
-    ui.text.armyGroup.out({armyGroup})
+    ui.text.armyGroup.out(armyGroup)
   }
 
   const {confirmed} = await prompt({
@@ -26,7 +26,7 @@ export const createArmyGroup = async () => {
     armyGroup = createRandomWeightedArmyGroup()
 
     out.t('army created:')
-    ui.text.armyGroup.out({armyGroup})
+    ui.text.armyGroup.out(armyGroup)
     // For now, you only have one army group you are working with.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
     await hitReturnToContinue()
