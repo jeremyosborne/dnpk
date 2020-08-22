@@ -26,7 +26,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
 - [ ] Cosmetic: add additional name outputs (the structuring will need to go through l10n... it probably all needs to go to l10n):
     - [X] short: modify to `naming-proper` or `name`: "Archer" or "Light Infantry"
-    - [ ] full: `naming-proper` + `naming-title` + `name`: "Archer, Duke of Discord, Hero"
+    - [X] full: `naming-proper` + `naming-title` + `name`: "Archer, Duke of Discord, Hero"
     - [ ] royal: `naming-proper` + `naming-title` + `name` + `deeds`: "Archer, Duke of Discord, Hero, slayer of house spiders, destroyer of bad guys."
 - [X] Remove the filter `namingsShort` and replace with calls to `ui.text.namings.short.string`.
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
