@@ -21,13 +21,13 @@ export const mockBattle = () => {
 
   // Engage the 2 groups in battle.
 
-  out(`\nBattle commencing on terrain (${ui.text.naming.short.string(terrain)}), between:`)
+  out(`\nBattle commencing on terrain (${ui.text.naming.short(terrain)}), between:`)
   out('')
-  ui.text.empire.title(player1)
-  ui.text.armyGroup({armyGroup: player1.armyGroups[0]})
+  ui.text.empire.title.out(player1)
+  ui.text.armyGroup.out({armyGroup: player1.armyGroups[0]})
   out('\nvs.\n')
-  ui.text.empire.title(player2)
-  ui.text.armyGroup({armyGroup: player2.armyGroups[0]})
+  ui.text.empire.title.out(player2)
+  ui.text.armyGroup.out({armyGroup: player2.armyGroups[0]})
 
   const {
     attackers,

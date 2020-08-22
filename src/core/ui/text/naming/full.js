@@ -13,7 +13,7 @@ import _out from '../out'
  *
  * @return {string} preferred name for this object
  */
-export const full = (o) => {
+export const string = (o) => {
   if (_.isString(o)) {
     return t(o)
   }
@@ -44,11 +44,11 @@ export const full = (o) => {
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const out = (...args) => _out(full(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `out`.
  */
-full.out = out
+string.out = out
 
-export default full
+export default string

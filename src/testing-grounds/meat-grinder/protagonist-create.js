@@ -15,7 +15,7 @@ export const createProtagonist = async () => {
     // Deal with strings only in the prompt, not objects.
     choices: gameObjects.empire.dir().map((empire) => ({name: empire, message: t(empire)})),
     message: !protagonist ? t('Choose your empire')
-      : t('Choose a new empire (current empire: {{empire}})', {empire: ui.text.naming.short.string(protagonist.empire)}),
+      : t('Choose a new empire (current empire: {{empire}})', {empire: ui.text.naming.short(protagonist.empire)}),
     name: 'empire',
     type: 'select',
   })
@@ -25,7 +25,7 @@ export const createProtagonist = async () => {
 
   const {confirmed} = await prompt({
     initial: true,
-    message: t('Do you wish to rule the empire of {{empire}}?', {empire: ui.text.naming.short.string(empire)}),
+    message: t('Do you wish to rule the empire of {{empire}}?', {empire: ui.text.naming.short(empire)}),
     name: 'confirmed',
     type: 'confirm',
   })
@@ -35,7 +35,7 @@ export const createProtagonist = async () => {
       dataSourceGame.protagonist.create()
     }
     dataSourceGame.protagonist.save({empire})
-    await hitReturnToContinue(t('You now rule {{empire}}. Hit return to continue.', {empire: ui.text.naming.short.string(empire)}))
+    await hitReturnToContinue(t('You now rule {{empire}}. Hit return to continue.', {empire: ui.text.naming.short(empire)}))
   } else {
     await hitReturnToContinue(t('Input ignored. Hit return for the main menu.'))
   }

@@ -26,17 +26,17 @@ const casualtyReport = ({survivors, casualties}) => {
 export const string = ({attackers, defenders}) => {
   const info = [t('Battle Results')]
 
-  info.push(textEmpire.title.string(attackers))
+  info.push(textEmpire.title(attackers))
   info.push(casualtyReport(attackers))
-  info.push(textEmpire.title.string(defenders))
+  info.push(textEmpire.title(defenders))
   info.push(casualtyReport(defenders))
 
   // Built in to assume highlander rules and that, as the warning suggests, there
   // actually must be one winner.
   if (attackers.survivors.length || defenders.survivors.length) {
     const name = attackers.survivors.length
-      ? textEmpire.title.string(attackers)
-      : textEmpire.title.string(defenders)
+      ? textEmpire.title(attackers)
+      : textEmpire.title(defenders)
     info.push(t('The {{name}} empire wins the battle!', {name}))
   } else {
     info.push(t("WARNING: All armies are dead. This shouldn't be possible."))

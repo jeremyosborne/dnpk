@@ -1,2 +1,1 @@
-export {flag} from './flag'
-export {title} from './title'
+export {default as title} from './title'

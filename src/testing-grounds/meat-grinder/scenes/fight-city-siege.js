@@ -21,7 +21,7 @@ export const scene = async ({terrain, turn}) => {
   const protagonist = dataSourceGame.protagonist.get()
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroups[0]
-  const protagonistFlag = ui.text.empire.flag.string({empire: protagonistEmpire})
+  const protagonistFlag = ui.text.flag(protagonistEmpire)
 
   const antagonistEmpire = simulation.createRandom({
     exclude: [protagonist.empire.name],
@@ -46,7 +46,7 @@ export const scene = async ({terrain, turn}) => {
     // The chance of an army surviving this should be low.
     size: random.randint(10, 30),
   })
-  const antagonistFlag = ui.text.empire.flag.string({empire: antagonistEmpire})
+  const antagonistFlag = ui.text.flag(antagonistEmpire)
   // Defenders get some significant defense.
   const structure = gameObjectsCommon.create('structure', {name: 'city'})
   // Modify the defense of the brawn-aura to 2.
@@ -56,12 +56,12 @@ export const scene = async ({terrain, turn}) => {
 
   // Engage the 2 groups in battle.
 
-  out.t('A city belonging to {{empire}} looms before you.', {empire: ui.text.naming.short.string(antagonistEmpire)})
+  out.t('A city belonging to {{empire}} looms before you.', {empire: ui.text.naming.short(antagonistEmpire)})
   out.t('There are many defenders resisting your siege.')
   out.t('')
-  out.t('{{flag}} ({{armyGroup}})', {armyGroup: ui.text.naming.short.string(protagonistArmyGroup), flag: protagonistFlag})
+  out.t('{{flag}} ({{armyGroup}})', {armyGroup: ui.text.naming.short(protagonistArmyGroup), flag: protagonistFlag})
   out.t('vs.')
-  out.t('{{flag}} ({{armyGroup}})', {armyGroup: ui.text.naming.short.string(antagonistArmyGroup), flag: antagonistFlag})
+  out.t('{{flag}} ({{armyGroup}})', {armyGroup: ui.text.naming.short(antagonistArmyGroup), flag: antagonistFlag})
   out.t('')
   await hitReturnToContinue('Hit return to charge into battle!')
 
@@ -97,18 +97,18 @@ export const scene = async ({terrain, turn}) => {
   })
 
   if (casualties.length) {
-    out.t('A moment of silence for your fallen: {{armyGroup}}', {armyGroup: ui.text.naming.short.string(casualties)})
+    out.t('A moment of silence for your fallen: {{armyGroup}}', {armyGroup: ui.text.naming.short(casualties)})
   } else {
     out.t('Your troops made it through this battle unscathed.')
   }
 
   if (equipment.length) {
     _.forEach(equipment, (equippable) => dataSourceGame.vaultEquippables.add(equippable))
-    out.t('{{equipment}} shimmer away and teleport to the equipment vault.', {equipment: ui.text.naming.short.string(equipment)})
+    out.t('{{equipment}} shimmer away and teleport to the equipment vault.', {equipment: ui.text.naming.short(equipment)})
   }
 
   if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
-    out.t('Your ({{armyGroup}}) scavenge supplies and march on.', {armyGroup: ui.text.naming.short.string(protagonistArmyGroup)})
+    out.t('Your ({{armyGroup}}) scavenge supplies and march on.', {armyGroup: ui.text.naming.short(protagonistArmyGroup)})
   } else {
     out.t('You have been defeated.')
   }

@@ -1,7 +1,7 @@
 import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
 import _ from 'lodash'
-import out from '../out'
+import _out from '../out'
 
 /**
  * Attempt to return a short, human friendly name of any object or collection of objects.
@@ -37,11 +37,11 @@ export const string = (o) => {
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const short = (...args) => out(string(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-short.string = string
+string.out = out
 
-export default short
+export default string

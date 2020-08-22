@@ -15,7 +15,7 @@ import * as ui from 'ui'
 export const scene = async ({terrain, turn}) => {
   const artifact = simulation.createRandom({type: 'equippable'})
 
-  out.t('{{artifact}} lies on the ground.', {artifact: ui.text.naming.short.string(artifact)})
+  out.t('{{artifact}} lies on the ground.', {artifact: ui.text.naming.short(artifact)})
   out.t('Eldritch tendrils wrap around and snap the artifact into the pocket storage dimension.')
   out.t('Next stop: Vault-o-matic.')
 

@@ -76,7 +76,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => gameObjectsCommon.equipment.size(c))
     return _.map(candidates, (from) => ({
-      message: t('{{from}}', {from: ui.text.naming.short.string(from)}),
+      message: t('{{from}}', {from: ui.text.naming.short(from)}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -86,7 +86,7 @@ export const scene = async ({terrain, turn}) => {
   const equippableCandidatesChoices = (candidate) => {
     // Assume we're only dealing with equipment right now.
     return _.map(candidate.equipment, (eq) => ({
-      message: t('{{eq}}', {eq: ui.text.naming.short.string(eq)}),
+      message: t('{{eq}}', {eq: ui.text.naming.short(eq)}),
       name: eq.id,
     }))
   }
@@ -97,7 +97,7 @@ export const scene = async ({terrain, turn}) => {
     // Who has items within their inventory?
     const candidates = _.filter(equippableCandidatesMap, (c) => c.id !== filtered.id)
     return _.map(candidates, (from) => ({
-      message: t('{{from}}', {from: ui.text.naming.short.string(from)}),
+      message: t('{{from}}', {from: ui.text.naming.short(from)}),
       // Reference by id, including the psuedo-vault wrapper we made up.
       name: from.id,
     }))
@@ -110,9 +110,9 @@ export const scene = async ({terrain, turn}) => {
     _.forEach(equippableCandidatesMap, (container) => {
       const equipment = gameObjectsCommon.equipment.get(container)
       if (gameObjectsCommon.equipment.size(equipment)) {
-        out.t('{{container}}: {{equipment}}', {container: ui.text.naming.short.string(container), equipment: ui.text.naming.short.string(equipment)})
+        out.t('{{container}}: {{equipment}}', {container: ui.text.naming.short(container), equipment: ui.text.naming.short(equipment)})
       } else {
-        out.t('{{container}}: no equipment', {container: ui.text.naming.short.string(container)})
+        out.t('{{container}}: no equipment', {container: ui.text.naming.short(container)})
       }
     })
 
@@ -161,9 +161,9 @@ export const scene = async ({terrain, turn}) => {
       dataSourceGame.write()
 
       out.t('{{object}} transferred from {{from}} to {{to}}', {
-        object: ui.text.naming.short.string(toTransfer),
-        from: ui.text.naming.short.string(from),
-        to: ui.text.naming.short.string(from),
+        object: ui.text.naming.short(toTransfer),
+        from: ui.text.naming.short(from),
+        to: ui.text.naming.short(from),
       })
       await hitReturnToContinue()
     } else {

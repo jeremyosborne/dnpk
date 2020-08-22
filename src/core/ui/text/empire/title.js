@@ -1,37 +1,36 @@
 import debug from 'debug'
 import flag from '../flag'
-import out from '../out'
-import * as ui from 'ui'
+import _out from '../out'
+import * as naming from '../naming'
 
 const logger = debug('dnpk/ui/text/empire')
 
 /**
- * Display the empire name.
+ * Display the empire name plus flag.
  *
  * Versatile function that attempts to do the right thing depending on input.
  *
- * @param {object} data something that implements either `empire` or `player`
- * structure.
+ * @param {object} entity
  *
  * @return {string}
  */
-export const string = ({empire}) => {
-  const name = ui.text.naming.short.string(empire)
+export const string = (empire) => {
+  const name = naming.short(empire)
   if (!name) {
     logger('warning, called title() with incompatible data param of:', empire)
   }
 
-  return `${name} ${flag.string(empire)}`
+  return `${name} ${flag(empire)}`
 }
 
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const title = (...args) => out(string(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-title.string = string
+string.out = out
 
-export default title
+export default string

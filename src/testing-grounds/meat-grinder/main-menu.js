@@ -31,9 +31,9 @@ export const mainMenu = async () => {
       }
     }]
   } else {
-    out.t('{{empire}} {{flag}}', {empire: ui.text.naming.short.string(protagonist.empire), flag: ui.text.empire.flag.string(protagonist)})
+    ui.text.empire.title.out(protagonist.empire)
     if (gameObjectsCommon.armies.size(armyGroup)) {
-      out.t('Army group: {{armyGroup}}', {armyGroup: ui.text.naming.short.string(armyGroup)})
+      out.t('Army group: {{armyGroup}}', {armyGroup: ui.text.naming.short(armyGroup)})
     } else {
       out.t('Army group: none')
     }

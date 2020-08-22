@@ -51,7 +51,7 @@ export const scene = async ({terrain, turn}) => {
       size,
     })
     // Plurals handled in the en/translation.json.
-    out.t('{{armies}} is training here.', {armies: ui.text.naming.short.string(armyNames), count: armyNames.length})
+    out.t('{{armies}} is training here.', {armies: ui.text.naming.short(armyNames), count: armyNames.length})
     out.t('They join your ranks, eager to bring glory to your empire.')
 
     // Add the new armies to the army group.

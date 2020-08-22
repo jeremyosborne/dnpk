@@ -1,25 +1,36 @@
+import debug from 'debug'
+import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
-import out from './out'
+import _out from './out'
+
+const logger = debug('dnpk/ui/text/empire')
 
 /**
- * Generate a flag character.
+ * Display a flag based on entity's cosmetic color.
  *
- * @param {string} args params as arguments.
- * @param {string} [args.color='#FFFFFF'] color of the flag to show.
- * @param {string} [args.label='\u2691'] symbol used to represent the flag
+ * @param {object} entity or something that implements a `cosmetic` of `color`.
  *
- * @return {string} colorized unicode flag.
+ * @return {string}
  */
-export const string = ({label = '\u2691', color = '#FFFFFF'} = {}) => t('{{flag, colorize}}', {flag: {label, color}})
+export const string = (entity) => {
+  const label = '\u2691'
+  let color = gameObjectsCommon.cosmetics.color(entity)
+  if (!color) {
+    logger('warning, called flag() with incompatible data param that does not appear to implement a color:', entity)
+    color = '#FFFFFF'
+  }
+
+  return t('{{flag, colorize}}', {flag: {label, color}})
+}
 
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const flag = (...args) => out(string(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-flag.string = string
+string.out = out
 
-export default flag
+export default string

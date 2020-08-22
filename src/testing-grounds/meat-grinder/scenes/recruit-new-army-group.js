@@ -29,7 +29,7 @@ export const scene = async (gameState) => {
   out('')
 
   armyGroup = createRandomWeightedArmyGroup()
-  ui.text.armyGroup({armyGroup})
+  ui.text.armyGroup.out({armyGroup})
   // For now, you only have one army group you are working with.
   dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
   await hitReturnToContinue()

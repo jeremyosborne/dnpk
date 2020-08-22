@@ -8,29 +8,29 @@ describe('ui.text.naming.full', () => {
   })
 
   it('works', () => {
-    expect(testModule.full({name: 'bob'})).toEqual('bob')
+    expect(testModule.string({name: 'bob'})).toEqual('bob')
 
-    expect(testModule.full({
+    expect(testModule.string({
       name: 'bob',
       cosmetics: [
         {name: 'naming-title', value: 'the bobber'},
         {name: 'naming-proper', value: 'bobby'},
       ]
     })).toEqual('bobby, the bobber, bob')
-    expect(testModule.full({
+    expect(testModule.string({
       name: 'bob',
       cosmetics: [
         {name: 'naming-title', value: 'the bobber'},
       ]
     })).toEqual('the bobber, bob')
-    expect(testModule.full({
+    expect(testModule.string({
       name: 'bob',
       cosmetics: [
         {name: 'naming-proper', value: 'bobby'},
       ]
     })).toEqual('bobby, bob')
 
-    expect(testModule.full([
+    expect(testModule.string([
       {
         name: 'bob',
         cosmetics: [
@@ -47,7 +47,7 @@ describe('ui.text.naming.full', () => {
       },
     ])).toEqual('bobby, the bobber, bob; dudley, the dude, dude')
 
-    expect(testModule.full('bob')).toEqual('bob')
-    expect(testModule.full(new String('bob'))).toEqual('bob') // eslint-disable-line no-new-wrappers
+    expect(testModule.string('bob')).toEqual('bob')
+    expect(testModule.string(new String('bob'))).toEqual('bob') // eslint-disable-line no-new-wrappers
   })
 })
