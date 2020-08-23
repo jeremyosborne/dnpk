@@ -9,13 +9,20 @@ import _ from 'lodash'
 import out from 'out'
 import * as sceneChoices from './scene-choices'
 import * as ui from 'ui'
+import * as wrappers from './wrappers'
 
 /**
  * Generate a fight scene function.
  *
  * Takes a createAntagonist function that must return the expected antagonist data.
  */
-export const createScene = ({createAntagonist}) => async ({protagonist, terrain}) => {
+export const createScene = ({createAntagonist}) => _.flowRight([
+  wrappers.throwIfNoArmyGroup,
+  wrappers.throwIfNoEmpire,
+  wrappers.uiWhiteSpace,
+  wrappers.uiGameTurn,
+  wrappers.uiTerrain,
+])(async ({protagonist, terrain}) => {
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroup
   const protagonistFlag = ui.text.flag(protagonistEmpire)
@@ -118,4 +125,6 @@ export const createScene = ({createAntagonist}) => async ({protagonist, terrain}
   await hitReturnToContinue()
 
   return sceneChoices.intermission()
-}
+})
+
+export default createScene

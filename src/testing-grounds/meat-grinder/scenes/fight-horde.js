@@ -5,7 +5,6 @@ import _ from 'lodash'
 import * as random from 'random'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
-import * as wrappers from './wrappers'
 
 const createAntagonist = ({protagonist}) => {
   // For the HORDE!
@@ -44,10 +43,4 @@ const createAntagonist = ({protagonist}) => {
  */
 export const scene = createScene({createAntagonist})
 
-export default _.flowRight([
-  wrappers.throwIfNoArmyGroup,
-  wrappers.throwIfNoEmpire,
-  wrappers.uiWhiteSpace,
-  wrappers.uiGameTurn,
-  wrappers.uiTerrain,
-])(scene)
+export default scene
