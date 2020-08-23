@@ -72,8 +72,20 @@ export const scene = async ({terrain, turn}) => {
     casualties: attackers.casualties,
   })
 
+  // By nature of the current rules, if the opposing team survives, they win.
+  if (defenders.survivors.length) {
+    out.t('The opposing forces ({{armyGroup}}) stand triumphant.', {armyGroup: ui.text.naming.short(defenders.survivors)})
+  } else {
+    out.t('The opposing forces have been destroyed.')
+  }
+  if (defenders.casualties.length) {
+    out.t('Your armies destroyed ({{armyGroup}}) of the opposing force.', {armyGroup: ui.text.naming.short(defenders.casualties)})
+  } else {
+    out.t('The opposing force made it through this battle unscatched.')
+  }
+
   if (casualties.length) {
-    out.t('A moment of silence for your fallen: {{armyGroup}}', {armyGroup: ui.text.naming.short(casualties)})
+    out.t('A moment of silence for your fallen: ({{armyGroup}})', {armyGroup: ui.text.naming.short(casualties)})
   } else {
     out.t('Your troops made it through this battle unscathed.')
   }

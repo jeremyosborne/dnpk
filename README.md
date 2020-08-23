@@ -17,7 +17,7 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Meat grinder updates
-    - [ ] List out deaths of enemies.
+    - [X] List out deaths of enemies.
     - [ ] Move data source saving to the game loop.
     - [ ] Pass in the protagonist to the gameloop.
     - [ ] Combine the like fight code and share it among the fight scenes.
