@@ -62,7 +62,7 @@ export const randomWeightedArmies = ({
   weight = randomWeightedArmyWeighting,
 } = {}) => {
   const names = _.filter(gameObjects.army.dir(), (name) => !_.includes(exclude, name))
-  const weights = _.map(names, randomWeightedArmyWeighting)
+  const weights = _.map(names, weight)
   if (!names.length) {
     throw new Error('randomWeightedArmies: no army names available. Did you load the armies before calling this method?')
   }

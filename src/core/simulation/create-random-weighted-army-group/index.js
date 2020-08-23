@@ -1,5 +1,6 @@
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
+import randomNaming from '../random-naming'
 import randomWeightedArmies from '../random-weighted-armies'
 
 /**
@@ -15,7 +16,13 @@ import randomWeightedArmies from '../random-weighted-armies'
  */
 export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
-  const armies = names.map((name) => gameObjects.army.create({name}))
+  const armies = names.map((name) => {
+    const army = gameObjects.army.create({name})
+    if (gameObjectsCommon.is.hero(army)) {
+      gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: randomNaming({name: 'hero'})})
+    }
+    return army
+  })
   const armyGroup = gameObjects.armyGroup.create({armies})
   return gameObjectsCommon.armies.sort(armyGroup)
 }

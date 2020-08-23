@@ -23,11 +23,19 @@ export const createArmyGroup = async () => {
   })
 
   if (confirmed) {
-    armyGroup = createRandomWeightedArmyGroup()
-
-    out.t('army created:')
-    ui.text.armyGroup.out(armyGroup)
-    // For now, you only have one army group you are working with.
+    let roll = true
+    while (roll) {
+      armyGroup = createRandomWeightedArmyGroup()
+      out.t('army created:')
+      ui.text.armyGroup.out(armyGroup)
+      const {reroll} = await prompt({
+        initial: false,
+        message: t('Do you wish to reroll (y) or keep this army (n)?'),
+        name: 'reroll',
+        type: 'confirm',
+      })
+      roll = reroll
+    }
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
     await hitReturnToContinue()
   } else {
