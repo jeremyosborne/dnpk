@@ -17,12 +17,9 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Meat grinder updates
-    - [X] List out deaths of enemies.
-    - [X] Move data source saving to the game loop.
-    - [X] Pass in the protagonist data to the gameloop.
-    - [ ] Combine the like fight code and share it among the fight scenes.
-    - [X] With the game state changes, make sure the single scene admin command still works.
     - [ ] Combine the like recruit code and share it among the recruit scenes.
+    - [ ] createRandomWeightedArmyGroup: move the army decoration out of the code and into the game itself.
+    - [ ] hit enter for each round of the battle.
 - [ ] Improve the battle module
     - [ ] Allow the battle module to be run as a generator (maybe?)
         - [ ] Can be run in event mode which yields events on every significant event.

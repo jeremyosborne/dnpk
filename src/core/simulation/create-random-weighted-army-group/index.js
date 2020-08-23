@@ -18,6 +18,8 @@ export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
   const armies = names.map((name) => {
     const army = gameObjects.army.create({name})
+    // TODO: I don't think the hero naming, or other cosmetics, should be done here. This should
+    // just create the random armies and they should be decorated elsewhere.
     if (gameObjectsCommon.is.hero(army)) {
       gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: randomNaming({name: 'hero'})})
     }
