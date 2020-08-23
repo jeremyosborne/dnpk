@@ -78,7 +78,7 @@ export const scene = async ({protagonist, terrain, turn}) => {
     out.t('The opposing forces have been destroyed.')
   }
   if (defenders.casualties.length) {
-    out.t('Your armies destroyed ({{armyGroup}}) of the opposing force.', {armyGroup: ui.text.naming.short(defenders.casualties)})
+    out.t('Your armies destroyed the opposing troops: ({{armyGroup}})', {armyGroup: ui.text.naming.short(defenders.casualties)})
   } else {
     out.t('The opposing force made it through this battle unscatched.')
   }
