@@ -18,10 +18,9 @@ import * as wrappers from './wrappers'
  *     "The DM rolls for a random encounter,
  *         and lo you are beset by Mr. Tis-but-a-scratch."
  */
-export const scene = async ({terrain, turn}) => {
-  const protagonist = dataSourceGame.protagonist.get()
+export const scene = async ({protagonist, terrain, turn}) => {
   const protagonistEmpire = protagonist.empire
-  let protagonistArmyGroup = protagonist.armyGroups[0]
+  let protagonistArmyGroup = protagonist.armyGroup
   const protagonistFlag = ui.text.flag(protagonistEmpire)
 
   const antagonistEmpire = simulation.createRandom({
@@ -127,9 +126,6 @@ export const scene = async ({terrain, turn}) => {
   // Save the updated results.
   protagonistArmyGroup = gameObjectsCommon.armies.sort(protagonistArmyGroup)
   dataSourceGame.protagonist.set({armyGroups: [protagonistArmyGroup]})
-
-  // Write everything at once.
-  await dataSourceGame.write()
 
   out('\n\n')
 

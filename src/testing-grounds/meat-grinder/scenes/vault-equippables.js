@@ -16,8 +16,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}) => {
-  const armyGroup = dataSourceGame.protagonist.getArmyGroup()
+export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
   const heroesHaveEquipment = _.some(heroes, (army) => gameObjectsCommon.equipment.size(army))
   const vault = dataSourceGame.vaultEquippables.get()
@@ -157,8 +156,6 @@ export const scene = async ({terrain, turn}) => {
 
       // Perform the transfer.
       gameObjectsCommon.equipment.transfer(toTransfer, from, to)
-      // Save everything as vault and armies are in different locations.
-      dataSourceGame.write()
 
       out.t('{{object}} transferred from {{from}} to {{to}}', {
         object: ui.text.naming.short(toTransfer),

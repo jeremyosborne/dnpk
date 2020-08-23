@@ -17,10 +17,9 @@ import * as wrappers from './wrappers'
  *         brawling in the bar, announces your likely demise at the siege
  *             of the Fortress of Marthos.""
  */
-export const scene = async ({terrain, turn}) => {
-  const protagonist = dataSourceGame.protagonist.get()
+export const scene = async ({protagonist, terrain, turn}) => {
   const protagonistEmpire = protagonist.empire
-  let protagonistArmyGroup = protagonist.armyGroups[0]
+  let protagonistArmyGroup = protagonist.armyGroup
   const protagonistFlag = ui.text.flag(protagonistEmpire)
 
   const antagonistEmpire = simulation.createRandom({
@@ -136,9 +135,6 @@ export const scene = async ({terrain, turn}) => {
   // Save the updated results.
   protagonistArmyGroup = gameObjectsCommon.armies.sort(protagonistArmyGroup)
   dataSourceGame.protagonist.set({armyGroups: [protagonistArmyGroup]})
-
-  // Write everything at once.
-  await dataSourceGame.write()
 
   out('\n\n')
 

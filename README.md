@@ -18,8 +18,8 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 
 - [ ] Meat grinder updates
     - [X] List out deaths of enemies.
-    - [ ] Move data source saving to the game loop.
-    - [ ] Pass in the protagonist to the gameloop.
+    - [X] Move data source saving to the game loop.
+    - [X] Pass in the protagonist data to the gameloop.
     - [ ] Combine the like fight code and share it among the fight scenes.
     - [ ] Combine the like recruit code and share it among the recruit scenes.
 - [ ] Improve the battle module

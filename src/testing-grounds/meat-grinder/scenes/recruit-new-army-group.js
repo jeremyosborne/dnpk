@@ -14,9 +14,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async (gameState) => {
-  let armyGroup = dataSourceGame.protagonist.getArmyGroup()
-
+export const scene = async ({protagonist: {armyGroup}}) => {
   out('')
 
   if (!gameObjectsCommon.armies.size(armyGroup)) {

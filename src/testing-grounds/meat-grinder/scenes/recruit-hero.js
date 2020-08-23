@@ -17,8 +17,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}) => {
-  let armyGroup = dataSourceGame.protagonist.getArmyGroup()
+export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 
   const canHazHero = heroes.length === 0

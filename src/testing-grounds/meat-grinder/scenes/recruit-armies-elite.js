@@ -14,8 +14,7 @@ import * as wrappers from './wrappers'
 /**
  * Find elite units.
  */
-export const scene = async ({terrain, turn}) => {
-  let armyGroup = dataSourceGame.protagonist.getArmyGroup()
+export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
   const armiesSize = gameObjectsCommon.armies.size(armyGroup)
 
   // If your meat grinder army has less armies than the rules allow, then you

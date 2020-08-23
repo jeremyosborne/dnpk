@@ -16,9 +16,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({terrain, turn}) => {
-  const protagonist = dataSourceGame.protagonist.get()
-  const armyGroup = _.get(protagonist, 'armyGroups[0]')
+export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
   const deity = simulation.randomNaming({name: 'deity'})
 
   // Deity official names can have some funky characters.

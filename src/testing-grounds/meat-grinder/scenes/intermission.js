@@ -1,4 +1,3 @@
-import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
@@ -10,7 +9,7 @@ import * as wrappers from './wrappers'
  * Follows every significant scene, and decides path to take based on game
  * state.
  */
-export const scene = async (gameState) => {
+export const scene = async ({protagonist: {armyGroup}}) => {
   const {confirmed} = await prompt({
     initial: true,
     message: t('This is a peaceful location. Do you wish to continue in your endless quest?'),
@@ -22,7 +21,6 @@ export const scene = async (gameState) => {
   }
 
   // Give the protagonist a fresh army-group if they don't have one...
-  const armyGroup = dataSourceGame.protagonist.getArmyGroup()
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     return sceneChoices.defeat()
   } else {

@@ -20,7 +20,6 @@ export const scene = async ({terrain, turn}) => {
   out.t('Next stop: Vault-o-matic.')
 
   dataSourceGame.vaultEquippables.add(artifact)
-  dataSourceGame.vaultEquippables.write()
 
   hitReturnToContinue()
 
