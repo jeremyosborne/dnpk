@@ -1,7 +1,8 @@
+import {prompt} from 'enquirer'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
 import _ from 'lodash'
-import {prompt} from 'enquirer'
 import out from 'out'
 import * as scenes from './scenes'
 import * as sceneNames from './scenes/scene-names'
@@ -30,7 +31,10 @@ export const sceneTest = async () => {
   const scene = _.get(choices, `${choice.action}.next`)
 
   const gameHistory = {
-    // Gets incremented to one below.
+    protagonist: {
+      armyGroup: dataSourceGame.protagonist.getArmyGroup(),
+      empire: dataSourceGame.protagonist.get().empire,
+    },
     turn: 1,
     terrain: terrainGenerator(1),
   }

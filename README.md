@@ -21,6 +21,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [X] Move data source saving to the game loop.
     - [X] Pass in the protagonist data to the gameloop.
     - [ ] Combine the like fight code and share it among the fight scenes.
+    - [X] With the game state changes, make sure the single scene admin command still works.
     - [ ] Combine the like recruit code and share it among the recruit scenes.
 - [ ] Improve the battle module
     - [ ] Allow the battle module to be run as a generator (maybe?)
