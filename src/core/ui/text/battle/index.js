@@ -1,2 +1,2 @@
-export {report} from './report'
-export {results} from './results'
+export {default as report} from './report'
+export {default as results} from './results'

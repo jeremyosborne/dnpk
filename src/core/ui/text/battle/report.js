@@ -1,7 +1,7 @@
 import * as gameObjectsCommon from 'game-objects-common'
 import {t} from 'l10n'
 import _ from 'lodash'
-import out from '../out'
+import _out from '../out'
 import * as ui from 'ui'
 
 /**
@@ -27,8 +27,7 @@ export const string = ({
 }) => {
   const info = []
 
-  // If attackers or defenders is passed in as metadata, opt to grab the color
-  // from there vs. the default attackerColor.
+  // Prefer empire metadata color vs. the color as an argument.
   attackerColor = gameObjectsCommon.cosmetics.color(_.get(attackers, 'empire')) || attackerColor
   defenderColor = gameObjectsCommon.cosmetics.color(_.get(defenders, 'empire')) || defenderColor
 
@@ -70,7 +69,7 @@ export const string = ({
         slainName: attacker.health === 0 ? attacker.name : defender.name
       }))
     } else {
-      // No translation since this should never happen in a real game and is for bug fixing only.
+      // Should never be seen unless an error happens.
       info.push(`WARNING: fall through due to unrecognized event name: ${ev.name}; found on event: ${JSON.stringify(ev)}`)
     }
   })
@@ -81,11 +80,11 @@ export const string = ({
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const report = (...args) => out(string(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-report.string = string
+string.out = out
 
-export default report
+export default string

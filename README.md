@@ -19,13 +19,10 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [ ] Meat grinder updates
     - [ ] Combine the like recruit code and share it among the recruit scenes.
     - [ ] createRandomWeightedArmyGroup: move the army decoration out of the code and into the game itself.
-    - [ ] hit enter for each round of the battle.
 - [ ] Improve the battle module
-    - [ ] Allow the battle module to be run as a generator (maybe?)
-        - [ ] Can be run in event mode which yields events on every significant event.
-        - [ ] Can be run in non-event mode which only yields on the completion of the battle.
-    - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted?
     - [ ] Add health modification code.
+    - [ ] Allow the battle module to be run as a generator, yielding on each significant event.
+    - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted.
 - [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?

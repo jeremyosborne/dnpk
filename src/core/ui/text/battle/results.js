@@ -1,6 +1,6 @@
 import * as textNaming from '../naming'
 import {t} from 'l10n'
-import out from '../out'
+import _out from '../out'
 
 const casualtyReport = ({survivors, casualties}) => {
   return t('survivors ({{survivors.length}}) {{survivors}}\ncasualties ({{casualties.length}}) {{casualties}}', {
@@ -47,11 +47,11 @@ export const string = ({attackers, defenders}) => {
 /**
  * Direct-to-out wrapper. See `string`.
  */
-export const results = (...args) => out(string(...args))
+export const out = (...args) => _out(string(...args))
 
 /**
  * Convenience. See `string`.
  */
-results.string = string
+string.out = out
 
-export default results
+export default string
