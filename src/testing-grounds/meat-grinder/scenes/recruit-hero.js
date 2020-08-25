@@ -17,7 +17,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
+export const scene = async ({protagonist: {armyGroup = gameObjects.armyGroup.create()}, terrain, turn}) => {
   const heroes = _.filter(gameObjectsCommon.armies.get(armyGroup), (army) => gameObjectsCommon.effects.hasName(army, 'hero'))
 
   const canHazHero = heroes.length === 0
@@ -27,17 +27,25 @@ export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
       : false
 
   if (canHazHero) {
-    // Create a hero and add to the army group.
-    const army = gameObjects.army.create({name: 'hero'})
-    // Give a name to the hero.
-    gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: simulation.randomNaming({name: 'hero'})})
-    gameObjectsCommon.armies.add(armyGroup, army)
+    const size = 1
+    const exclude = _.filter(gameObjects.army.def(), (aDef) => {
+      if (!gameObjectsCommon.effects.hasName(aDef, 'hero')) {
+        return true
+      } else {
+        return false
+      }
+    }).map((aDef) => aDef.name)
+    const armies = simulation.createRandomWeightedArmies({exclude, size})
+
+    out.t('{{armies}} is training here.', {armies: ui.text.naming.short(armies)})
+    out.t('They join your ranks, eager to bring glory to your empire.')
+
+    // Add the new armies to the army group.
+    _.forEach(armies, (army) => gameObjectsCommon.armies.add(armyGroup, army))
     armyGroup = gameObjectsCommon.armies.sort(armyGroup)
-    // For now, you only have one army group you are working with.
+    // Continuing assumption you can only have one army group in the meat grinder.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
 
-    out.t('{{armies}} is training here.', {armies: ui.text.naming.short(armyGroup)})
-    out.t('They join your ranks, eager to bring glory to your empire.')
     await hitReturnToContinue()
 
     // Give a violent next stop.
@@ -53,7 +61,6 @@ export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
 
 export default _.flowRight([
   wrappers.throwIfNoEmpire,
-  wrappers.throwIfNoArmyGroup,
   wrappers.uiWhiteSpace,
   wrappers.uiGameTurn,
   wrappers.uiTerrain,

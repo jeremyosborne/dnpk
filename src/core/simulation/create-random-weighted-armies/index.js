@@ -4,16 +4,16 @@ import randomNaming from '../random-naming'
 import randomWeightedArmies from '../random-weighted-armies'
 
 /**
- * Create a randomized list of armies in an army-group.
+ * Create a randomized list of armies.
  *
  * @param {object} args
  * @param {array} [args.exclude] values will be excluded from the potential set
  * from which we sample.
- * @param {number} [args.size=8] size of the army-group returned.
+ * @param {number} [args.size=8] number of armies in the list.
  *
- * @return {object} an `army-group`
+ * @return {object[]} a list of armies
  */
-export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
+export const createRandomWeightedArmies = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
   const armies = names.map((name) => {
     const army = gameObjects.army.create({name})
@@ -24,6 +24,5 @@ export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
     }
     return army
   })
-  const armyGroup = gameObjects.armyGroup.create({armies})
-  return gameObjectsCommon.armies.sort(armyGroup)
+  return armies
 }

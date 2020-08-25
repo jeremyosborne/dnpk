@@ -1,4 +1,5 @@
 export {createRandom} from './create-random'
+export {createRandomWeightedArmies} from './create-random-weighted-armies'
 export {createRandomWeightedArmyGroup} from './create-random-weighted-army-group'
 
 export {randomNaming} from './random-naming'

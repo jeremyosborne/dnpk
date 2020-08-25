@@ -14,7 +14,7 @@ import * as wrappers from './wrappers'
 /**
  * New units may join you.
  */
-export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
+export const scene = async ({protagonist: {armyGroup = gameObjects.armyGroup.create()}, terrain, turn}) => {
   const armiesSize = gameObjectsCommon.armies.size(armyGroup)
 
   // If your meat grinder army has less armies than the rules allow, then you
@@ -34,7 +34,6 @@ export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
     // Create a small set of non-special armies (by excluding special armies),
     // and add to the army group.
     const exclude = _.filter(gameObjects.army.def(), (aDef) => {
-      // non-special means not aerial and not elite.
       if (
         gameObjectsCommon.effects.hasName(aDef, 'aerial') ||
         gameObjectsCommon.effects.hasName(aDef, 'elite') ||
@@ -45,19 +44,13 @@ export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
         return false
       }
     }).map((aDef) => aDef.name)
-    const armyNames = simulation.randomWeightedArmies({
-      exclude,
-      size,
-    })
-    // Plurals handled in the en/translation.json.
-    out.t('{{armies}} is training here.', {armies: ui.text.naming.short(armyNames), count: armyNames.length})
+    const armies = simulation.createRandomWeightedArmies({exclude, size})
+
+    out.t('{{armies}} is training here.', {armies: ui.text.naming.short(armies), count: armies.length})
     out.t('They join your ranks, eager to bring glory to your empire.')
 
     // Add the new armies to the army group.
-    _.forEach(armyNames, (name) => {
-      const army = gameObjects.army.create({name})
-      gameObjectsCommon.armies.add(armyGroup, army)
-    })
+    _.forEach(armies, (army) => gameObjectsCommon.armies.add(armyGroup, army))
     armyGroup = gameObjectsCommon.armies.sort(armyGroup)
     // Continuing assumption you can only have one army group in the meat grinder.
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
@@ -77,7 +70,6 @@ export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
 
 export default _.flowRight([
   wrappers.throwIfNoEmpire,
-  wrappers.throwIfNoArmyGroup,
   wrappers.uiWhiteSpace,
   wrappers.uiGameTurn,
   wrappers.uiTerrain,

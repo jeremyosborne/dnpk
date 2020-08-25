@@ -1,10 +1,11 @@
-import * as dataSourceGame from 'meat-grinder/data-source-game'
-import hitReturnToContinue from 'hit-return-to-continue'
+import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
+import hitReturnToContinue from 'hit-return-to-continue'
 import _ from 'lodash'
+import * as dataSourceGame from 'meat-grinder/data-source-game'
 import out from 'out'
 import * as sceneChoices from './scene-choices'
-import {createRandomWeightedArmyGroup} from 'simulation'
+import * as simulation from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
@@ -14,25 +15,42 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({protagonist: {armyGroup}}) => {
-  out('')
+export const scene = async ({protagonist: {armyGroup = gameObjects.armyGroup.create()}}) => {
+  const armiesSize = gameObjectsCommon.armies.size(armyGroup)
 
-  if (!gameObjectsCommon.armies.size(armyGroup)) {
-    out.t('It\'s dangerous to go alone. Here, take this:')
+  if (!armiesSize) {
+    const size = 8
+    // Build a basic army, but no heroes.
+    const exclude = _.filter(gameObjects.army.def(), (aDef) => {
+      if (
+        gameObjectsCommon.is.hero(aDef)
+      ) {
+        return true
+      } else {
+        return false
+      }
+    }).map((aDef) => aDef.name)
+    const armies = simulation.createRandomWeightedArmies({exclude, size})
+
+    out.t('It\'s dangerous to go alone. Here, take this: {{armies}}', {armies: ui.text.naming.short(armies), count: armies.length})
+
+    // Add the new armies to the army group.
+    _.forEach(armies, (army) => gameObjectsCommon.armies.add(armyGroup, army))
+    armyGroup = gameObjectsCommon.armies.sort(armyGroup)
+    // Continuing assumption you can only have one army group in the meat grinder.
+    dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
+
+    await hitReturnToContinue()
+
+    // Give a violent next stop.
+    return sceneChoices.violent()
   } else {
-    // Really, the game shouldn't let us get here, but if it does.
-    out.t('You wave a tearful goodbye to your old group, and replace them with the following:')
+    // Head back to the intermission for another shot after a short message about
+    // coming upon a clearing with nothing there.
+    out.t("It is peaceful here. After a moment's rest, you move on.")
+    await hitReturnToContinue()
+    return sceneChoices.intermission()
   }
-
-  out('')
-
-  armyGroup = createRandomWeightedArmyGroup()
-  ui.text.armyGroup.out(armyGroup)
-  // For now, you only have one army group you are working with.
-  dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
-  await hitReturnToContinue()
-
-  return sceneChoices.violent()
 }
 
 export default _.flowRight([
