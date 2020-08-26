@@ -1,4 +1,5 @@
 import {prompt} from 'enquirer'
+import * as gameObjects from 'game-objects'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import hitReturnToContinue from 'hit-return-to-continue'
 import {t} from 'l10n'
@@ -30,16 +31,16 @@ export const sceneTest = async () => {
   // ...look up the action function from the response.
   const scene = _.get(choices, `${choice.action}.next`)
 
-  const gameHistory = {
+  const gameState = {
     protagonist: {
-      armyGroup: dataSourceGame.protagonist.getArmyGroup(),
+      armyGroup: dataSourceGame.protagonist.getArmyGroup() || gameObjects.armyGroup.create(),
       empire: dataSourceGame.protagonist.get().empire,
     },
     turn: 1,
     terrain: terrainGenerator(1),
   }
 
-  const returnValue = await scene(gameHistory)
+  const returnValue = await scene(gameState)
   out('Scene returned the following:', typeof returnValue === 'function' ? returnValue.toString() : returnValue)
 
   await hitReturnToContinue()

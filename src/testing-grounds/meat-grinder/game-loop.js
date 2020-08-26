@@ -1,3 +1,4 @@
+import * as gameObjects from 'game-objects'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import _ from 'lodash'
 import * as scenes from './scenes'
@@ -24,9 +25,9 @@ export const gameLoop = async () => {
   //
   const queue = [scenes.prereq]
 
-  let gameHistory = {
+  let gameState = {
     protagonist: {
-      armyGroup: dataSourceGame.protagonist.getArmyGroup(),
+      armyGroup: dataSourceGame.protagonist.getArmyGroup() || gameObjects.armyGroup.create(),
       empire: dataSourceGame.protagonist.get().empire,
     },
     // Pre-req is considered turn 0, not a real turn.
@@ -36,7 +37,7 @@ export const gameLoop = async () => {
 
   while (queue.length) {
     const scene = queue.shift()
-    let next = await scene(gameHistory)
+    let next = await scene(gameState)
 
     // Save the game state after every scene.
     await dataSourceGame.write()
@@ -58,13 +59,13 @@ export const gameLoop = async () => {
     }
 
     // Prepare for next turn.
-    gameHistory = {
+    gameState = {
       protagonist: {
-        armyGroup: dataSourceGame.protagonist.getArmyGroup(),
+        armyGroup: dataSourceGame.protagonist.getArmyGroup() || gameObjects.armyGroup.create(),
         empire: dataSourceGame.protagonist.get().empire,
       },
-      turn: gameHistory.turn + 1,
-      terrain: terrainGenerator(gameHistory.turn)
+      turn: gameState.turn + 1,
+      terrain: terrainGenerator(gameState.turn)
     }
   }
 }

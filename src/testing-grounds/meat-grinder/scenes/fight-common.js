@@ -86,7 +86,7 @@ export const battleReport = function * ({
 /**
  * Generate a fight scene function.
  *
- * Takes a createAntagonist function that must return the expected antagonist data.
+ * Takes a createAntagonist function that takes {protagonist} and must return antagonist data.
  */
 export const createScene = ({createAntagonist}) => _.flowRight([
   wrappers.throwIfNoArmyGroup,
@@ -205,5 +205,3 @@ export const createScene = ({createAntagonist}) => _.flowRight([
 
   return sceneChoices.intermission()
 })
-
-export default createScene
