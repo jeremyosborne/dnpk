@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "appliesTo": {
-      "description": "Identifies that this object is associated with another object or class of objects.",
+      "description": "Identifies that this object is associated with or affects another object or class of objects.",
       "type": "string"
     },
     "comesFrom": {
@@ -21,9 +21,6 @@
     "documentation": {
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
-    },
-    "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json"
     },
     "type": {
       "enum": ["metadata"],
