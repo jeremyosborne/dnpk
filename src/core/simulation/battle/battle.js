@@ -113,7 +113,7 @@ export const violence = ({
  * @property {object[]} defenders.structures copies of structures affecting only the defenders.
  * @property {object[]} defenders.survivors copies of army units that have survived the battle.
  * @property {object[]} defenders.terrains copies terrain affecting only the defenders.
- * @property {object[]} events play by play of the battle for humans or things that like data events.
+ * @property {object[]} events play by play of the battle.
  * @property {object} structures reference to the structure argument.
  * @property {object} terrains reference to the terrain argument.
  */
@@ -142,54 +142,67 @@ export const battle = (
   const events = []
 
   // While both groups still have units, keep going.
+  let attacker
+  let defender
   while (attackers.survivors.length && defenders.survivors.length) {
-    // Top of the stack current battle.
-    const attacker = attackers.survivors[0]
-    // Calculate strength modifier from the original group, which should not
-    // be modified during battle.
-    const attackerStrength = strength({
-      army: attacker,
-      armyGroup: attackers.armyGroup,
-      empire: attackers.empire,
-      structures: _.concat(structures, attackers.structures),
-      terrains: _.concat(terrains, attackers.terrains),
-    })
-    let attackerHealth = health({
-      army: attacker,
-      armyGroup: attackers.armyGroup,
-      structures: _.concat(structures, attackers.structures)
-    })
+    // `attacker` and `defender` battle structures are null at the beginning of a battle
+    // and nullified if they become a casualty.
+    if (!attacker) {
+      const army = attackers.survivors[0]
+      // attacker/defender structures used in battle are mutable, although are serialized into
+      // event output.
+      attacker = {
+        // Ref is read only and a clone of the army structure as it was upon entering battle.
+        ref: army,
+        // Calculate strength and health modifier based on the original group, not the
+        // dwindling group as the sides take casualties.
+        // Strength and health are mutable during the battle.
+        health: health({
+          army,
+          armyGroup: attackers.armyGroup,
+          structures: _.concat(structures, attackers.structures)
+        }),
+        strength: strength({
+          army,
+          armyGroup: attackers.armyGroup,
+          empire: attackers.empire,
+          structures: _.concat(structures, attackers.structures),
+          terrains: _.concat(terrains, attackers.terrains),
+        }),
+      }
+    }
 
-    const defender = defenders.survivors[0]
-    const defenderStrength = strength({
-      army: defender,
-      armyGroup: defenders.armyGroup,
-      empire: defenders.empire,
-      structures: _.concat(structures, defenders.structures),
-      terrains: _.concat(terrains, defenders.terrains),
-    })
-    let defenderHealth = health({
-      army: defender,
-      armyGroup: defenders.armyGroup,
-      structures: _.concat(structures, defenders.structures)
-    })
+    if (!defender) {
+      const army = defenders.survivors[0]
+      defender = {
+        ref: army,
+        health: health({
+          army,
+          armyGroup: defenders.armyGroup,
+          structures: _.concat(structures, defenders.structures)
+        }),
+        strength: strength({
+          army,
+          armyGroup: defenders.armyGroup,
+          empire: defenders.empire,
+          structures: _.concat(structures, defenders.structures),
+          terrains: _.concat(terrains, defenders.terrains),
+        }),
+      }
+    }
 
     events.push({
       attacker: {
-        ref: _.cloneDeep(attacker),
-        health: attackerHealth,
-        strength: attackerStrength,
+        ...attacker,
       },
       defender: {
-        ref: _.cloneDeep(defender),
-        health: defenderHealth,
-        strength: defenderStrength,
+        ...defender,
       },
       name: 'battle:round:start',
       type: 'event'
     })
 
-    while (attackerHealth && defenderHealth) {
+    while (attacker.health && defender.health) {
       // Each round has some level of violence. The violence might not lead to
       // an injury on an army, but it is violence.
       // The violence continues until morale improves... I mean someone has
@@ -198,59 +211,52 @@ export const battle = (
         attacker: attackerResults,
         defender: defenderResults,
       } = violence({
-        attacker: {strength: attackerStrength},
-        defender: {strength: defenderStrength},
+        attacker,
+        defender,
       }, {d})
 
       if (attackerResults.damaged) {
-        attackerHealth -= 1
+        attacker.health -= 1
       }
       if (defenderResults.damaged) {
-        defenderHealth -= 1
+        defender.health -= 1
       }
 
       events.push({
         attacker: {
           // Provides `damaged`, `hit`, `roll`
           ...attackerResults,
-          health: attackerHealth,
-          ref: _.clone(attacker),
-          strength: attackerStrength,
+          ...attacker,
         },
         defender: {
           // Provides `damaged`, `hit`, `roll`
           ...defenderResults,
-          health: defenderHealth,
-          ref: _.clone(defender),
-          strength: defenderStrength,
+          ...defender,
         },
         name: 'battle:round:violence',
         type: 'event'
       })
     }
 
-    // The round is over. Someone has died, and we ~bring~ shift out the dead
-    // from survivors into the casualties before starting the next round.
-    if (attackerHealth <= 0) {
-      attackers.casualties.push(attackers.survivors.shift())
-    }
-    if (defenderHealth <= 0) {
-      defenders.casualties.push(defenders.survivors.shift())
-    }
+    // The round is over. Someone has died, move the dead to the list of causalties.
     events.push({
       attacker: {
-        ref: _.clone(attacker),
-        health: attackerHealth,
-        strength: attackerStrength,
+        ...attacker,
       },
       defender: {
-        ref: _.clone(defender),
-        health: defenderHealth,
-        strength: defenderStrength,
+        ...defender,
       },
       name: 'battle:round:end',
       type: 'event'
     })
+    if (attacker.health <= 0) {
+      attackers.casualties.push(attackers.survivors.shift())
+      attacker = null
+    }
+    if (defender.health <= 0) {
+      defenders.casualties.push(defenders.survivors.shift())
+      defender = null
+    }
   }
 
   return {
