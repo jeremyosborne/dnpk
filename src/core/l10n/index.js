@@ -67,7 +67,9 @@ export const read = async (
     ns = [
       'translation',
       'army',
+      'battle',
       'empire',
+      'equippable',
     ],
     ...restConfig
   } = {},

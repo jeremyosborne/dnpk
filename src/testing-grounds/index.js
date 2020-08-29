@@ -62,7 +62,9 @@ export const main = async () => {
     ns: [
       'translation',
       'army',
+      'battle',
       'empire',
+      'equippable',
     ]
   })
   await dataSourceModdables.read()

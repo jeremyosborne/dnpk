@@ -1,18 +1,4 @@
 {
-  "...{{wounded}}: {{attacker.name}}": "",
-  "...{{wounded}}: {{defender.name}}": "",
-  "...draw no blood.": "",
-  "{{attacker.name}} (roll: {{attacker.roll}}) and {{defender.name}} (roll: {{defender.roll}})...": "",
-  "{{attacker.name}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name}} (str: {{defender.strength}}) (health: {{defender.health}})": "",
-  "{{slain}}: {{attacker.name}}": "",
-  "{{slain}}: {{defender.name}}": "",
-  "Army group bonus: {{bonus}}": "",
-  "Battle prototype": "",
-  "Battle Results!": "",
-  "slain": "",
-  "survivors ({{survivors.length}}) {{survivors.names}}\ncasualties ({{casualties.length}}) {{casualties.names}}": "",
-  "The {{name}} empire wins the battle!": "",
   "Using ruleset: {{rules}}": "",
-  "WARNING: All armies are dead. This shouldn't be possible.": "",
-  "wounded": ""
+  "WARNING: All armies are dead. This shouldn't be possible.": ""
 }
