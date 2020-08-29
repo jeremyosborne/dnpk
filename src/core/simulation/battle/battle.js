@@ -1,7 +1,8 @@
 import * as dice from './dice'
 import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
-import {strength} from 'simulation/strength'
+import health from 'simulation/health'
+import strength from 'simulation/strength'
 
 /**
  * Calculate the results of violence between two units.
@@ -153,6 +154,11 @@ export const battle = (
       structures: _.concat(structures, attackers.structures),
       terrains: _.concat(terrains, attackers.terrains),
     })
+    let attackerHealth = health({
+      army: attacker,
+      armyGroup: attackers.armyGroup,
+      structures: _.concat(structures, attackers.structures)
+    })
 
     const defender = defenders.survivors[0]
     const defenderStrength = strength({
@@ -162,23 +168,28 @@ export const battle = (
       structures: _.concat(structures, defenders.structures),
       terrains: _.concat(terrains, defenders.terrains),
     })
+    let defenderHealth = health({
+      army: defender,
+      armyGroup: defenders.armyGroup,
+      structures: _.concat(structures, defenders.structures)
+    })
 
     events.push({
       attacker: {
         ref: _.cloneDeep(attacker),
-        health: attacker.health,
+        health: attackerHealth,
         strength: attackerStrength,
       },
       defender: {
         ref: _.cloneDeep(defender),
-        health: defender.health,
+        health: defenderHealth,
         strength: defenderStrength,
       },
       name: 'battle:round:start',
       type: 'event'
     })
 
-    while (attacker.health && defender.health) {
+    while (attackerHealth && defenderHealth) {
       // Each round has some level of violence. The violence might not lead to
       // an injury on an army, but it is violence.
       // The violence continues until morale improves... I mean someone has
@@ -192,24 +203,24 @@ export const battle = (
       }, {d})
 
       if (attackerResults.damaged) {
-        attacker.health -= 1
+        attackerHealth -= 1
       }
       if (defenderResults.damaged) {
-        defender.health -= 1
+        defenderHealth -= 1
       }
 
       events.push({
         attacker: {
           // Provides `damaged`, `hit`, `roll`
           ...attackerResults,
-          health: attacker.health,
+          health: attackerHealth,
           ref: _.clone(attacker),
           strength: attackerStrength,
         },
         defender: {
           // Provides `damaged`, `hit`, `roll`
           ...defenderResults,
-          health: defender.health,
+          health: defenderHealth,
           ref: _.clone(defender),
           strength: defenderStrength,
         },
@@ -220,21 +231,21 @@ export const battle = (
 
     // The round is over. Someone has died, and we ~bring~ shift out the dead
     // from survivors into the casualties before starting the next round.
-    if (attacker.health <= 0) {
+    if (attackerHealth <= 0) {
       attackers.casualties.push(attackers.survivors.shift())
     }
-    if (defender.health <= 0) {
+    if (defenderHealth <= 0) {
       defenders.casualties.push(defenders.survivors.shift())
     }
     events.push({
       attacker: {
         ref: _.clone(attacker),
-        health: attacker.health,
+        health: attackerHealth,
         strength: attackerStrength,
       },
       defender: {
         ref: _.clone(defender),
-        health: defender.health,
+        health: defenderHealth,
         strength: defenderStrength,
       },
       name: 'battle:round:end',

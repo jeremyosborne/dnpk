@@ -15,7 +15,7 @@ import structureHealthModifier from './structure'
  * @param {object} args.army the army providing the base health
  * @param {object} [args.armyGroup] that the army presumably belongs to. This will
  * calculate and provide an army group modifier and add it to the health.
- * @param {array|object} [args.structure] that the army presumably occupies.
+ * @param {array|object} [args.structures] that the army presumably occupies.
  *
  * @return {number} health that is valid within the range provided by the game
  * rules.
