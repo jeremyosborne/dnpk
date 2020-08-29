@@ -69,10 +69,14 @@ export const violence = ({
  *
  * - A full `battle` is between two army groups that starts by calling this
  * function and ends when one side has been obliterated by the other.
- * - A `battle:round` is a one-on-one fight between two opposing units. A `battle`
- * is made up of as many `battle:round`s as needed to determine the victor, and
- * a `battle:round` lasts until one army has been killed (simultaneous death
- * should be impossible in the classic rule set).
+ * - A `battle` is made up of as many `battle:round`s as needed to determine the
+ * victor.
+ * - A `battle:round` is a one-on-one fight between two opposing units. It lasts
+ * until one army has been killed.
+ * - A `battle:round` consists of:
+ *     - one `battle:round:start` event
+ *     - N number of `battle:round:violence` events
+ *     - one `battle:round:end` event
  *
  * @param {object} args as dictionary
  * @param {object} args.attackers data for the aggressors.
@@ -97,6 +101,8 @@ export const violence = ({
  * @param {object} config as dictionary
  * @param {function} [config.d] the die to use for combat. Classic rules indicate
  * a `standard` die.
+ * @param {boolean} [eventRecording=true] false if you only want the results of the battle
+ * and no log of events.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
@@ -120,7 +126,7 @@ export const violence = ({
 export const battle = (
   {attackers, defenders, structures = [], terrains = []},
   // violence() protects itself from a missing die, no need to define here.
-  {d} = {},
+  {d, eventRecording = true} = {},
 ) => {
   // Clone the army groups so we can mutate them into the final results
   // returned. The caller is responsible for committing the results or ignoring
@@ -191,16 +197,18 @@ export const battle = (
       }
     }
 
-    events.push({
-      attacker: {
-        ...attacker,
-      },
-      defender: {
-        ...defender,
-      },
-      name: 'battle:round:start',
-      type: 'event'
-    })
+    if (eventRecording) {
+      events.push({
+        attacker: {
+          ...attacker,
+        },
+        defender: {
+          ...defender,
+        },
+        name: 'battle:round:start',
+        type: 'event'
+      })
+    }
 
     while (attacker.health && defender.health) {
       // Each round has some level of violence. The violence might not lead to
@@ -222,33 +230,37 @@ export const battle = (
         defender.health -= 1
       }
 
-      events.push({
-        attacker: {
+      if (eventRecording) {
+        events.push({
+          attacker: {
           // Provides `damaged`, `hit`, `roll`
-          ...attackerResults,
-          ...attacker,
-        },
-        defender: {
+            ...attackerResults,
+            ...attacker,
+          },
+          defender: {
           // Provides `damaged`, `hit`, `roll`
-          ...defenderResults,
-          ...defender,
-        },
-        name: 'battle:round:violence',
-        type: 'event'
-      })
+            ...defenderResults,
+            ...defender,
+          },
+          name: 'battle:round:violence',
+          type: 'event'
+        })
+      }
     }
 
     // The round is over. Someone has died, move the dead to the list of causalties.
-    events.push({
-      attacker: {
-        ...attacker,
-      },
-      defender: {
-        ...defender,
-      },
-      name: 'battle:round:end',
-      type: 'event'
-    })
+    if (eventRecording) {
+      events.push({
+        attacker: {
+          ...attacker,
+        },
+        defender: {
+          ...defender,
+        },
+        name: 'battle:round:end',
+        type: 'event'
+      })
+    }
     if (attacker.health <= 0) {
       attackers.casualties.push(attackers.survivors.shift())
       attacker = null
