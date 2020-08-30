@@ -130,12 +130,10 @@ export const battle = (
   // violence() protects itself from a missing die, no need to define here.
   {d, eventRecording = true, violenceMax = Infinity} = {},
 ) => {
-  // Clone the army groups so we can mutate them into the final results
-  // returned. The caller is responsible for committing the results or ignoring
-  // them. Ideally this allows for a later rules extensions where battle "kills"
+  // Battle only works with clones of incoming data.
+  // The caller is responsible for committing the results of the battle.
+  // Perhaps this allows for a later rules extensions where battle "kills"
   // can be translated to "downed" or "injured" or "captured" or "routed" units.
-  // A bit morbid, but allows our cloned input to just become output as anyone
-  // not dead is a survior.
   attackers = _.cloneDeep(attackers)
   attackers.casualties = []
   attackers.structures = attackers.structures || []
@@ -146,7 +144,7 @@ export const battle = (
   defenders.structures = defenders.structures || []
   defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
   defenders.terrains = defenders.terrains || []
-  // Track What happened during this battle.
+  // Play by play of battle.
   const events = []
 
   // While both groups still have units, keep going.
