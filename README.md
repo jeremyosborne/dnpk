@@ -16,9 +16,11 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [ ] Improve the battle module
-    - [ ] Allow the battle module to be run as a generator, yielding on each significant event.
-- [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
+- [ ] Meat Grinder: Make intermission interactive.
+    - [ ] Review troops.
+    - [ ] Sometimes reserve troops.
+    - [ ] Sometimes access to the vault-o-matic.
+- [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human rangers and elven rangers.
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
 - [ ] Cosmetics: Flags of cities and towers change as troops pass them / control them.

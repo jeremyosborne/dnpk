@@ -125,11 +125,11 @@ export const violence = ({
  * @property {object} structures reference to the structure argument.
  * @property {object} terrains reference to the terrain argument.
  */
-export const battle = (
+export const battleGenerator = function * (
   {attackers, defenders, structures = [], terrains = []},
   // violence() protects itself from a missing die, no need to define here.
   {d, eventRecording = true, violenceMax = Infinity} = {},
-) => {
+) {
   // Battle only works with clones of incoming data.
   // The caller is responsible for committing the results of the battle.
   // Perhaps this allows for a later rules extensions where battle "kills"
@@ -144,8 +144,6 @@ export const battle = (
   defenders.structures = defenders.structures || []
   defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
   defenders.terrains = defenders.terrains || []
-  // Play by play of battle.
-  const events = []
 
   // While both groups still have units, keep going.
   let attacker
@@ -199,7 +197,7 @@ export const battle = (
     }
 
     if (eventRecording) {
-      events.push({
+      yield {
         attacker: {
           ...attacker,
         },
@@ -208,7 +206,7 @@ export const battle = (
         },
         name: 'battle:round:start',
         type: 'event'
-      })
+      }
     }
 
     while (attacker.health && defender.health) {
@@ -232,7 +230,7 @@ export const battle = (
       }
 
       if (eventRecording) {
-        events.push({
+        yield {
           attacker: {
             ...attacker,
             // Provides `damaged`, `hit`, `roll`
@@ -245,7 +243,7 @@ export const battle = (
           },
           name: 'battle:round:violence',
           type: 'event'
-        })
+        }
       }
 
       if (violenceCount >= violenceMax) {
@@ -256,7 +254,7 @@ export const battle = (
 
     // The round is over. Someone has died, move the dead to the list of causalties.
     if (eventRecording) {
-      events.push({
+      yield {
         attacker: {
           ...attacker,
         },
@@ -265,7 +263,7 @@ export const battle = (
         },
         name: 'battle:round:end',
         type: 'event'
-      })
+      }
     }
     if (attacker.health <= 0) {
       attackers.casualties.push(attackers.survivors.shift())
@@ -277,12 +275,28 @@ export const battle = (
     }
   }
 
-  return {
+  yield {
     attackers,
     defenders,
-    events,
     structures,
     terrains,
+  }
+}
+
+// See battlegenerator docs.
+export const battle = (...args) => {
+  // Play by play of battle.
+  const events = []
+  for (const event of battleGenerator(...args)) {
+    events.push(event)
+  }
+  // Mirrors the original way of reporting out battle results.
+  // Even without eventing, the last event will be a set of structures containing
+  // the results of the battle.
+  const lastEvent = events.pop()
+  return {
+    ...lastEvent,
+    events,
   }
 }
 
