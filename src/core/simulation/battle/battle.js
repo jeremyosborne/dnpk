@@ -103,6 +103,8 @@ export const violence = ({
  * a `standard` die.
  * @param {boolean} [eventRecording=true] false if you only want the results of the battle
  * and no log of events.
+ * @param {number} [violenceMax=Infinity] set if you wish to error out at some maximum number
+ * of fight iterations, where an iteration is one while loop of violence.
  *
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
@@ -126,7 +128,7 @@ export const violence = ({
 export const battle = (
   {attackers, defenders, structures = [], terrains = []},
   // violence() protects itself from a missing die, no need to define here.
-  {d, eventRecording = true} = {},
+  {d, eventRecording = true, violenceMax = Infinity} = {},
 ) => {
   // Clone the army groups so we can mutate them into the final results
   // returned. The caller is responsible for committing the results or ignoring
@@ -150,6 +152,7 @@ export const battle = (
   // While both groups still have units, keep going.
   let attacker
   let defender
+  let violenceCount = 0
   while (attackers.survivors.length && defenders.survivors.length) {
     // `attacker` and `defender` battle structures are null at the beginning of a battle
     // and nullified if they become a casualty.
@@ -233,19 +236,24 @@ export const battle = (
       if (eventRecording) {
         events.push({
           attacker: {
-          // Provides `damaged`, `hit`, `roll`
-            ...attackerResults,
             ...attacker,
+            // Provides `damaged`, `hit`, `roll`
+            ...attackerResults,
           },
           defender: {
-          // Provides `damaged`, `hit`, `roll`
-            ...defenderResults,
             ...defender,
+            // Provides `damaged`, `hit`, `roll`
+            ...defenderResults,
           },
           name: 'battle:round:violence',
           type: 'event'
         })
       }
+
+      if (violenceCount >= violenceMax) {
+        throw new Error(`battle lasted ${violenceCount} violence rounds, longer than ${violenceMax}, possibly an infinite loop or stalemate battle.`)
+      }
+      violenceCount += 1
     }
 
     // The round is over. Someone has died, move the dead to the list of causalties.

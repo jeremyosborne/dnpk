@@ -17,7 +17,6 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Improve the battle module
-    - [ ] Have the battle module have a fight iteration maximum like at X number of rolls / turns the armies retreat exhausted.
     - [ ] Allow the battle module to be run as a generator, yielding on each significant event.
 - [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human archers and elvish archers.
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
