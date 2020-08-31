@@ -2,6 +2,11 @@ export {createRandom} from './create-random'
 export {createRandomWeightedArmies} from './create-random-weighted-armies'
 export {createRandomWeightedArmyGroup} from './create-random-weighted-army-group'
 
+// In general, one wants the health method alone, but the standard way of exporting
+// from this module is as group of named methods.
+import * as health from './health' // eslint-disable-line import/first
+export {health}
+
 export {randomNaming} from './random-naming'
 export {randomWeightedArmies, randomWeightedArmyWeighting} from './random-weighted-armies'
 

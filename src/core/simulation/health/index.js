@@ -4,6 +4,12 @@ export {army}
 import * as armyGroup from './army-group' // eslint-disable-line import/first
 export {armyGroup}
 
+import constrainHealthModifierWithinRuleBoundaries from './constrain-health-modifier-within-rule-boundaries' // eslint-disable-line import/first
+export {constrainHealthModifierWithinRuleBoundaries}
+
+import constrainHealthWithinRuleBoundaries from './constrain-health-within-rule-boundaries' // eslint-disable-line import/first
+export {constrainHealthWithinRuleBoundaries}
+
 import * as equipment from './equipment' // eslint-disable-line import/first
 export {equipment}
 
