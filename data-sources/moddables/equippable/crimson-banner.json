@@ -4,7 +4,7 @@
   "effects": [
     {
       "name": "brawn-aura",
-      "magnitude": 1
+      "magnitude": 3
     }
   ]
 }

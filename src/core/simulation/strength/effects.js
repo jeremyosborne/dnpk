@@ -6,11 +6,15 @@ import _ from 'lodash'
  *
  * @param {object[]} effects array of effect types where the magnitude is
  * singificant.
+ * @param {string} name name match of the effect to sum.
  *
  * @return {number} the sum
  */
-const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
-  return modifier + (effect.magnitude || 0)
+const sumEffectsByName = (effects, name) => _.reduce(effects, (modifier, effect) => {
+  if (effect.name === name) {
+    modifier += effect.magnitude || 0
+  }
+  return modifier
 }, 0)
 
 /**
@@ -25,12 +29,7 @@ const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
  * @return {number} a strength-modifier or 0
  */
 export const strengthModifierBrawn = ({effects = []} = {}) => {
-  let strength = 0
-  if (effects && effects.length) {
-    effects = _.filter(effects, (effect) => effect.name === 'brawn')
-    strength += sumEffects(effects)
-  }
-  return strength
+  return sumEffectsByName(effects, 'brawn')
 }
 
 /**
@@ -43,11 +42,20 @@ export const strengthModifierBrawn = ({effects = []} = {}) => {
  *
  * @return {number} a strength-modifier or 0
  */
-export const strengthModifierBrawnAura = ({effects = {}} = {}) => {
-  let strength = 0
-  if (effects && effects.length) {
-    effects = _.filter(effects, (effect) => effect.name === 'brawn-aura')
-    strength += sumEffects(effects)
-  }
-  return strength
+export const strengthModifierBrawnAura = ({effects = []} = {}) => {
+  return sumEffectsByName(effects, 'brawn-aura')
+}
+
+/**
+ * Calculate the strength modifier from `effect`s possessed that have `hero`.
+ *
+ * This strength modifier is historically shared with everyone in an army-group.
+ *
+ * @param {object} args
+ * @param {array} args.effects list of effects
+ *
+ * @return {number} a strength-modifier or 0
+ */
+export const strengthModifierHero = ({effects = []} = {}) => {
+  return sumEffectsByName(effects, 'hero')
 }

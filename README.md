@@ -16,10 +16,15 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [ ] Meat Grinder: Make intermission interactive.
-    - [ ] Review troops.
+- [X] Rule change: Hero bonuses come from the `hero` effect, not a convoluted bonus based on their strength.
+    - [X] Add the `hero` bonus directly to strength modifiers, like brawn-aura. Hero bonuses are cumulative mangitude based.
+    - [X] Adjust the weapons and equipment a bit to compensate for the lack of hero bonus generated from strength alone.
+- [ ] Meat Grinder: Make intermission more interactive.
+    - [X] Review troops.
     - [ ] Sometimes reserve troops.
     - [ ] Sometimes access to the vault-o-matic.
+- [ ] Modify metadata fields `comesFrom` and `appliesTo` to be arrays.
+    - [ ] Should `comesFrom` and `appliesTo` be promoted to first class properties? Are they actually metadata or are they used too often?
 - [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human rangers and elven rangers.
 - [ ] Cosmetics: when building an army in the classic game each one got `Xth troop of type Y of city Z` which adds some flavor for troops that last a long time, and some sobering effect as you get up to `306th light infantry that will likely immediately die` from your home city.
 - [ ] Cosmetics: objects should have a cosmetic identifier of `game time created` stored as... turn number? Integer meaning something something?
@@ -48,6 +53,8 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 
 ## Ideas
 
+- [ ] New `hero` effect change: a `hero` bonus could affect things differently than a `brawn-aura`, like allowing troops to recover, resist routing, or successful strategic retreats.
+- [ ] Make hero only equippables that are `artifacts`, and non-heroes can equip other common equipment.
 - [ ] Heroes have mounts. Mounts are `equippables` that can supply an individual move bonus or modification, or an army-group wide move bonus or modification.
 - [ ] Synergies between units to create more bonuses.
 - [ ] Move core code out into a shared, more reusable code base.

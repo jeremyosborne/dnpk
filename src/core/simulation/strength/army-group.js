@@ -1,6 +1,6 @@
-import * as army from './army'
 import * as equipment from './equipment'
 import * as effects from './effects'
+import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 
 /**
@@ -15,7 +15,7 @@ import _ from 'lodash'
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierAerial = ({armyGroup = []} = {}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+  const armies = gameObjectsCommon.armies.get(armyGroup)
   if (_.some(armies, (army) => _.some(army.effects, (effect) => effect.name === 'aerial'))) {
     return 1
   } else {
@@ -35,7 +35,7 @@ export const strengthModifierAerial = ({armyGroup = []} = {}) => {
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierElite = ({armyGroup = []} = {}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+  const armies = gameObjectsCommon.armies.get(armyGroup)
   if (_.some(armies, (army) => _.some(army.effects, (effect) => effect.name === 'elite'))) {
     return 1
   } else {
@@ -53,7 +53,7 @@ export const strengthModifierElite = ({armyGroup = []} = {}) => {
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierEquippableBrawnAura = ({armyGroup = []} = {}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+  const armies = gameObjectsCommon.armies.get(armyGroup)
   return _.reduce(armies, (strengthModifier, army) => {
     return strengthModifier + equipment.strengthModifierBrawnAura(army)
   }, 0)
@@ -69,7 +69,7 @@ export const strengthModifierEquippableBrawnAura = ({armyGroup = []} = {}) => {
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierEffectsBrawnAura = ({armyGroup = []} = {}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
+  const armies = gameObjectsCommon.armies.get(armyGroup)
   return _.reduce(armies, (strengthModifier, army) => {
     return strengthModifier + effects.strengthModifierBrawnAura(army)
   }, 0)
@@ -85,8 +85,8 @@ export const strengthModifierEffectsBrawnAura = ({armyGroup = []} = {}) => {
  * @return {number} the strength modifier or 0
  */
 export const strengthModifierHero = ({armyGroup = []} = {}) => {
-  const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
-  return _.reduce(armies, (modifier, a) => modifier + army.strengthModifierHero({army: a}), 0)
+  const armies = gameObjectsCommon.armies.get(armyGroup)
+  return _.reduce(armies, (modifier, a) => modifier + effects.strengthModifierHero({army: a}), 0)
 }
 
 /**
