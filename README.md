@@ -19,9 +19,12 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [X] Rule change: Hero bonuses come from the `hero` effect, not a convoluted bonus based on their strength.
     - [X] Add the `hero` bonus directly to strength modifiers, like brawn-aura. Hero bonuses are cumulative mangitude based.
     - [X] Adjust the weapons and equipment a bit to compensate for the lack of hero bonus generated from strength alone.
+- [ ] Change `comesFrom` field to be a `oneOf` of either Array<string> or string.
+- [ ] Include `deed`s after each battle.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
     - [X] Include equipment bonuses in the view.
+    - [ ] Include `deed`s.
     - [ ] Sometimes reserve troops.
     - [ ] Sometimes access to the vault-o-matic.
 - [ ] Modify metadata fields `comesFrom` and `appliesTo` to be arrays.
