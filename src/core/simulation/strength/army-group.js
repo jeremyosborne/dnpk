@@ -86,7 +86,7 @@ export const strengthModifierEffectsBrawnAura = ({armyGroup = []} = {}) => {
  */
 export const strengthModifierHero = ({armyGroup = []} = {}) => {
   const armies = gameObjectsCommon.armies.get(armyGroup)
-  return _.reduce(armies, (modifier, a) => modifier + effects.strengthModifierHero({army: a}), 0)
+  return _.reduce(armies, (modifier, army) => modifier + effects.strengthModifierHero(army), 0)
 }
 
 /**

@@ -10,7 +10,7 @@ describe('strength.army-group', () => {
     name: 'hero',
     strength: 4,
     effects: [
-      {name: 'hero'}
+      {name: 'hero', magnitude: 1}
     ],
     equipment: [
       {effects: [{name: 'brawn-aura', magnitude: 1}]}
@@ -48,22 +48,12 @@ describe('strength.army-group', () => {
   })
 
   describe('strengthModifierHero', () => {
-    it('handles various hero strength', () => {
+    it('handles hero', () => {
       const testHero = _.cloneDeep(armyHero)
       const armies = [testHero]
       const armyGroup = {armies}
-      testHero.strength = 3
-      expect(testModule.strengthModifierHero({armyGroup: armies})).toEqual(0)
-      expect(testModule.strengthModifierHero({armyGroup})).toEqual(0)
-      testHero.strength = 4
       expect(testModule.strengthModifierHero({armyGroup: armies})).toEqual(1)
       expect(testModule.strengthModifierHero({armyGroup})).toEqual(1)
-      testHero.strength = 7
-      expect(testModule.strengthModifierHero({armyGroup: armies})).toEqual(2)
-      expect(testModule.strengthModifierHero({armyGroup})).toEqual(2)
-      testHero.strength = 9
-      expect(testModule.strengthModifierHero({armyGroup: armies})).toEqual(3)
-      expect(testModule.strengthModifierHero({armyGroup})).toEqual(3)
     })
 
     it('does not explode', () => {
@@ -104,7 +94,7 @@ describe('strength.army-group', () => {
         name: 'hero',
         strength: 4,
         effects: [
-          {name: 'hero'}
+          {name: 'hero', magnitude: 1}
         ],
         equipment: [
           {effects: [{name: 'brawn-aura'}]}
