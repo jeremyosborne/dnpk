@@ -21,6 +21,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
     - [X] Adjust the weapons and equipment a bit to compensate for the lack of hero bonus generated from strength alone.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
+    - [X] Include equipment bonuses in the view.
     - [ ] Sometimes reserve troops.
     - [ ] Sometimes access to the vault-o-matic.
 - [ ] Modify metadata fields `comesFrom` and `appliesTo` to be arrays.

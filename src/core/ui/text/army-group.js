@@ -6,6 +6,16 @@ import {sprintf} from 'sprintf-js'
 import * as simulation from 'simulation'
 import * as ui from 'ui'
 
+const effectsList = (o) => _.map(gameObjectsCommon.effects.get(o), (eff) => {
+  if (eff.name === 'brawn-terrain-modifier' && eff.magnitude) {
+    // Terrain modifiers have embedded meta data that gets missed when
+    // displaying only the effect name.
+    return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${_.get(eff, 'metadata.appliesTo')}`
+  } else {
+    return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${ui.text.naming.short(eff)}`
+  }
+}).join(', ')
+
 /**
  * Take an army group and return text information about the group.
  *
@@ -40,27 +50,15 @@ export const string = (armyGroup) => {
       )
     )
 
-    if (army.effects.length) {
+    if (gameObjectsCommon.effects.size(army)) {
       // Display army effects.
-      info.push('  Effects: ' + _.map(army.effects, (eff) => {
-        if (eff.name === 'hero') {
-          // Hero bonus has a different calculation.
-          const heroBonus = simulation.strength.army.strengthModifierHero({army})
-          return `${heroBonus > 0 ? '+' : '-'}${Math.abs(heroBonus)} ${ui.text.naming.short(eff)}`
-        } else if (eff.name === 'brawn-terrain-modifier' && eff.magnitude) {
-          // Terrain modifiers have embedded meta data that gets missed when
-          // displaying only the effect name.
-          return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${_.get(eff, 'metadata.appliesTo')}`
-        } else {
-          return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${ui.text.naming.short(eff)}`
-        }
-      }).join(', '))
+      info.push('  Effects: ' + effectsList(army))
     }
 
-    if (army.equipment.length) {
+    if (gameObjectsCommon.equipment.size(army)) {
       // Display army inventory.
       info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
-        return ui.text.naming.short(eq)
+        return `\n    ${ui.text.naming.short(eq)}: ${effectsList(eq)}`
       }).join(', '))
     }
 
