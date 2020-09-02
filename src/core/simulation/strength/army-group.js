@@ -4,7 +4,7 @@ import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 
 /**
- * Calculate the strength modifier from aerial units.
+ * Calculate the strength modifier from aerial armies.
  *
  * Aerial is treated as a boolean, multiple effects in the army group do not stack.
  *
@@ -24,7 +24,7 @@ export const strengthModifierAerial = ({armyGroup = []} = {}) => {
 }
 
 /**
- * Calculate the strength modifier from elite units.
+ * Calculate the strength modifier from elite armies.
  *
  * Elite is treated as a boolean, multiple effects in the army group do not stack.
  *
@@ -76,7 +76,7 @@ export const strengthModifierEffectsBrawnAura = ({armyGroup = []} = {}) => {
 }
 
 /**
- * Calculate the strength modifier from all hero units in the army group.
+ * Calculate the strength modifier from all hero armies in the army group.
  *
  * @param {object} args
  * @param {object|object[]} [args.armyGroup=[]] either a formal `army-group` that implements

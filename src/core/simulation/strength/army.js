@@ -3,7 +3,7 @@ import * as equipment from './equipment'
 import * as gameObjectsCommon from 'game-objects-common'
 
 /**
- * Calculate the strength modifier from a hero unit.
+ * Calculate the strength modifier from a hero army.
  *
  * This method is somewhat awkard since it needs the effective strength of the
  * hero, which includes `equippables` that provide `brawn` as well as `brawn`

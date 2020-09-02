@@ -84,7 +84,7 @@ export const strengthModifierTerrainEmpire = (
  * on a neutral army or the terrain on any army of a particular empire.
  *
  * @param {object} args
- * @param {object} [args.army] the unit effected by the terrain. To caclulate just
+ * @param {object} [args.army] the army effected by the terrain. To caclulate just
  * the modifier an army receives from a piece of terrain, don't pass the empire.
  * @param {object} [args.empire] the empire to which an army belongs. To
  * caclulate just the modifier provided by an empire when battling in a specific

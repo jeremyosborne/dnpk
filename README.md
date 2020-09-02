@@ -16,9 +16,6 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [X] Rule change: Hero bonuses come from the `hero` effect, not a convoluted bonus based on their strength.
-    - [X] Add the `hero` bonus directly to strength modifiers, like brawn-aura. Hero bonuses are cumulative mangitude based.
-    - [X] Adjust the weapons and equipment a bit to compensate for the lack of hero bonus generated from strength alone.
 - [ ] Change `comesFrom` field to be a `oneOf` of either Array<string> or string.
 - [ ] Include `deed`s after each battle.
 - [ ] Meat Grinder: Make intermission more interactive.

@@ -5,7 +5,7 @@ import health from 'simulation/health'
 import strength from 'simulation/strength'
 
 /**
- * Calculate the results of violence between two units.
+ * Calculate the results of violence between two armies.
  *
  * This function determines who has hit who and who has damaged who.
  *
@@ -71,7 +71,7 @@ export const violence = ({
  * function and ends when one side has been obliterated by the other.
  * - A `battle` is made up of as many `battle:round`s as needed to determine the
  * victor.
- * - A `battle:round` is a one-on-one fight between two opposing units. It lasts
+ * - A `battle:round` is a one-on-one fight between two opposing armies. It lasts
  * until one army has been killed.
  * - A `battle:round` consists of:
  *     - one `battle:round:start` event
@@ -88,7 +88,7 @@ export const violence = ({
  * @param {object[]} args.attackers.terrains terrain affecting only the attackers.
  *
  * @param {object} args.defenders data for the defenders.
- * @param {object|object[]} args.defenders.armyGroup the defending units, which
+ * @param {object|object[]} args.defenders.armyGroup the defending armies, which
  * can be in an object that implements `armies` or can be a simple array of
  * `army` types.
  * @param {object} args.defenders.empire the defending empire.
@@ -109,17 +109,17 @@ export const violence = ({
  * @return {object} outcome and a battle report delivered as a list of events.
  * @property {object} attackers clone of the argument.
  * @property {object|object[]} attackers.armyGroup reference to the army group passed in.
- * @property {object[]} attackers.casualties copies of army units destroyed.
+ * @property {object[]} attackers.casualties copies of armies destroyed.
  * @property {object} attackers.empire reference to the empire passsed in.
- * @property {object[]} attackers.survivors copies of army units that have survived the battle.
+ * @property {object[]} attackers.survivors copies of armies that have survived the battle.
  * @property {object[]} attackers.structures copies of structures affecting only the attackers.
  * @property {object[]} attackers.terrains copies terrain affecting only the attackers.
  * @property {object} defenders clone of the argument.
  * @property {object|object[]} defenders.armyGroup reference to the army group passed in.
- * @property {object[]} defenders.casualties copies of army units destroyed.
+ * @property {object[]} defenders.casualties copies of armies destroyed.
  * @property {object} defenders.empire reference to the empire passsed in.
  * @property {object[]} defenders.structures copies of structures affecting only the defenders.
- * @property {object[]} defenders.survivors copies of army units that have survived the battle.
+ * @property {object[]} defenders.survivors copies of armies that have survived the battle.
  * @property {object[]} defenders.terrains copies terrain affecting only the defenders.
  * @property {object[]} events play by play of the battle.
  * @property {object} structures reference to the structure argument.
@@ -133,7 +133,7 @@ export const battleGenerator = function * (
   // Battle only works with clones of incoming data.
   // The caller is responsible for committing the results of the battle.
   // Perhaps this allows for a later rules extensions where battle "kills"
-  // can be translated to "downed" or "injured" or "captured" or "routed" units.
+  // can be translated to "downed" or "injured" or "captured" or "routed" armies.
   attackers = _.cloneDeep(attackers)
   attackers.casualties = []
   attackers.structures = attackers.structures || []
@@ -145,7 +145,7 @@ export const battleGenerator = function * (
   defenders.survivors = gameObjectsCommon.armies.sort(gameObjectsCommon.armies.get(defenders.armyGroup))
   defenders.terrains = defenders.terrains || []
 
-  // While both groups still have units, keep going.
+  // While both groups still have armies, keep going.
   let attacker
   let defender
   let violenceCount = 0

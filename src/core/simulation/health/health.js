@@ -9,7 +9,7 @@ import structureHealthModifier from './structure'
  * Calculate the effective health and cap based on game rules.
  *
  * Other than the army, all other input is optional and should only be passed
- * if you wish to use the objects to affect the health of the unit.
+ * if you wish to use the objects to affect the health of the army.
  *
  * @param {object} args params as arguments
  * @param {object} args.army the army providing the base health

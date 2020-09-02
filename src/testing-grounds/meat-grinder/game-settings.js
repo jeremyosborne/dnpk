@@ -35,6 +35,9 @@ export const gameSettings = async () => {
       ],
     })
     if (gameRulesName === UNSET_NAME) {
+      // gameRules is a singleton with very limited usage in our testing-grounds. We'll restore whatever
+      // the system default here is, too, along with our config setting.
+      gameRules.nameDefault.reset()
       settings.save({gameRulesName: ''})
     } else {
       settings.save({gameRulesName})

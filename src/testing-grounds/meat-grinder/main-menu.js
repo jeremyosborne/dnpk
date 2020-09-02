@@ -1,14 +1,15 @@
-import protagonistCreate from './protagonist-create'
 import armyGroupCreate from './army-group-create'
 import * as dataSourceGame from 'meat-grinder/data-source-game'
 import {prompt} from 'enquirer'
 import gameLoop from './game-loop'
 import gameDataManagement from './game-data-management'
 import * as gameObjectsCommon from 'game-objects-common'
+import * as gameRules from 'game-rules'
 import gameSettings from './game-settings'
 import {t} from 'l10n'
 import _ from 'lodash'
 import mausoleum from './mausoleum'
+import protagonistCreate from './protagonist-create'
 import sceneTest from './scene-test'
 import out from 'out'
 import * as ui from 'ui'
@@ -36,6 +37,19 @@ export const mainMenu = async () => {
       out.t('Army group: {{armyGroup}}', {armyGroup: ui.text.naming.short(armyGroup)})
     } else {
       out.t('Army group: none')
+    }
+
+    const {gameRulesName} = dataSourceGame.settings.get()
+    if (gameRulesName) {
+      if (_.includes(gameRules.dir(), gameRulesName)) {
+        gameRules.nameDefault(gameRulesName)
+        out.t('Using game rules from settings: {{name}}', {name: gameRulesName})
+      } else {
+        out.t('WARNING: Unsupported game rules: {{name}}.', {name: gameRulesName})
+        out.t('Using default game rules: {{name}}', {name: gameRules.nameDefault()})
+      }
+    } else {
+      out.t('Using default game rules: {{name}}', {name: gameRules.nameDefault()})
     }
     out('')
 

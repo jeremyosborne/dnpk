@@ -13,7 +13,7 @@ import _ from 'lodash'
  * @param {string} [args.name='hero'] the grouping to pull the name from. If not
  * included, a default will always be available.
  *
- * @return {string} new naming for your unit.
+ * @return {string} new naming for your army.
  */
 export const randomNaming = ({
   exclude = [],

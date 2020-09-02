@@ -16,7 +16,7 @@ const sumEffects = (effects) => _.reduce(effects, (modifier, effect) => {
 /**
  * Calculate the health modifier from `effect`s possessed that have `constitution`.
  *
- * This is assumed to be applied directly to the unit posessing the effects.
+ * This is assumed to be applied directly to the army posessing the effects.
  *
  * @param {object} args
  * @param {array} args.effects list of effects

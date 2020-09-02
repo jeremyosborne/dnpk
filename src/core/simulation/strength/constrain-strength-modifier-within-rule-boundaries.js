@@ -17,9 +17,9 @@ export const MIN_DEFAULT = -10000
  */
 export const constrainStrengthModifierWithinRuleBoundaries = (modifier = 0, {
   logger = _logger,
-  max = () => gameRules.get('unitStrengthModifierMax'),
+  max = () => gameRules.get('armyStrengthModifierMax'),
   maxDefault = MAX_DEFAULT,
-  min = () => gameRules.get('unitStrengthModifierMin'),
+  min = () => gameRules.get('armyStrengthModifierMin'),
   minDefault = MIN_DEFAULT,
 } = {}) => {
   let modifierMax = max()
