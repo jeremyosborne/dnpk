@@ -27,6 +27,8 @@ export const types = _.reduce([
   'army',
   // Adds lively and colorful descriptions to entities.
   'cosmetic',
+  // The old gods and not so old gods.
+  'deity',
   // Definitions of effects that can be applied to items or armies or anything else
   // that can be effected.
   'effect',

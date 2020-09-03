@@ -68,8 +68,10 @@ export const read = async (
       'translation',
       'army',
       'battle',
+      'deity',
       'empire',
       'equippable',
+      'meat-grinder',
     ],
     ...restConfig
   } = {},

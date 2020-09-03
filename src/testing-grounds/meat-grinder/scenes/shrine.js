@@ -4,7 +4,6 @@ import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import * as sceneChoices from './scene-choices'
 import out from 'out'
-import * as simulation from 'simulation'
 import * as ui from 'ui'
 import * as wrappers from './wrappers'
 
@@ -17,14 +16,14 @@ import * as wrappers from './wrappers'
  * @return {NextScene}
  */
 export const scene = async ({protagonist: {armyGroup}, terrain, turn}) => {
-  const deity = simulation.randomNaming({name: 'deity'})
+  const deity = _.sample(gameObjectsCommon.dir('deity'))
 
   // Deity official names can have some funky characters.
-  out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain}}. Your worthy armies will be blessed.', {deity, terrain: ui.text.naming.short(terrain)})
+  out.t('You come upon the shrine of {{- deity}} surrounded by {{terrain}}. Your worthy armies will be blessed.', {deity: ui.text.naming.short(deity), terrain: ui.text.naming.short(terrain)})
   const armies = Array.isArray(armyGroup) ? armyGroup : armyGroup.armies
   _.forEach(armies, (army) => {
     if (gameObjectsCommon.effects.blessings.has(army, deity)) {
-      out.t('{{army}} already has the blessing of {{- deity}}.', {army: ui.text.naming.short(army), deity})
+      out.t('{{army}} already has the blessing of {{- deity}}.', {army: ui.text.naming.short(army), deity: ui.text.naming.short(deity)})
     } else {
       gameObjectsCommon.effects.blessings.add(army, deity)
       out.t('{{army}} receives the blessing of {{- deity}}.', {army: ui.text.naming.short(army), deity})

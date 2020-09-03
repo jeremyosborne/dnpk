@@ -11,15 +11,7 @@ import * as l10n from 'l10n'
 
 export const main = async () => {
   // Load expected data into memory.
-  await l10n.read({
-    ns: [
-      'translation',
-      'army',
-      'battle',
-      'empire',
-      'equippable',
-    ]
-  })
+  await l10n.read()
   await dataSourceModdables.read()
 
   mockBattle()
