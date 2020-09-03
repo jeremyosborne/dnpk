@@ -11,7 +11,7 @@ describe('strength', () => {
         name: 'brawn-terrain-modifier',
         magnitude: -1,
         metadata: {
-          appliesTo: 'forest'
+          appliesTo: ['forest']
         }
       },
     ]
@@ -38,7 +38,7 @@ describe('strength', () => {
         name: 'brawn-terrain-modifier',
         magnitude: 1,
         metadata: {
-          appliesTo: 'forest'
+          appliesTo: ['forest']
         }
       },
     ]

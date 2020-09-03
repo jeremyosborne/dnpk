@@ -24,7 +24,7 @@ export const strengthModifierTerrainArmy = (
 ) => {
   if (army && terrain) {
     return _.reduce(army.effects, (terrainModifier, effect) => {
-      if (effect.name === 'brawn-terrain-modifier' && effect.metadata.appliesTo === terrain.name) {
+      if (effect.name === 'brawn-terrain-modifier' && _.includes(effect.metadata.appliesTo, terrain.name)) {
         const modification = effect.magnitude || 0
         if (!modification) {
           logger(`Likely error where magnitude of a terrain modifier is zero. Army: ${army}; Terrain: ${terrain}.`)
@@ -61,7 +61,7 @@ export const strengthModifierTerrainEmpire = (
 ) => {
   if (empire && terrain) {
     return _.reduce(empire.effects, (terrainModifier, effect) => {
-      if (effect.name === 'brawn-terrain-modifier' && effect.metadata.appliesTo === terrain.name) {
+      if (effect.name === 'brawn-terrain-modifier' && _.includes(effect.metadata.appliesTo, terrain.name)) {
         const modification = effect.magnitude || 0
         if (!modification) {
           logger(`Likely error where magnitude of a terrain modifier is zero: empire: ${empire}; terrain: ${terrain}`)

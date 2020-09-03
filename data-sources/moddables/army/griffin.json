@@ -8,7 +8,7 @@
       "name": "brawn-terrain-modifier",
       "magnitude": 1,
       "metadata": {
-        "appliesTo": "hill"
+        "appliesTo": ["hill"]
       }
     }
   ],

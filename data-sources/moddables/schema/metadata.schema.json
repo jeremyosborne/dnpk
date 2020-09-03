@@ -6,15 +6,23 @@
   "type": "object",
   "properties": {
     "appliesTo": {
+      "default": [],
       "description": "Identifies that this object is associated with or affects another object or class of objects.",
-      "type": "string"
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "comesFrom": {
-      "description": "Identifies that this object came from or was granted by another object or class of objects.",
-      "type": "string"
+      "default": [],
+      "description": "Identifies that this object came from or was granted by another object or class of objects by tags.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "createdAt": {
-      "description": "Human time when this object was created, ISO format.",
+      "description": "Human time when the object the metadata is attached to was created.",
       "format": "date-time",
       "type": "string"
     },

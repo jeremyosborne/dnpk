@@ -68,7 +68,7 @@ describe('game-objects-common.effects', () => {
 
     const deityName = 'spaghetti monster'
     const imposterName = 'not the spaghetti monster'
-    const blessing = {name: 'brawn', magnitude: 1, metadata: {comesFrom: deityName}}
+    const blessing = {name: 'brawn', magnitude: 1, metadata: {comesFrom: ['blessing', deityName]}}
     const army = {effects: [blessing]}
 
     describe('has', () => {

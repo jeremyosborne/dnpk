@@ -8,9 +8,11 @@ import * as ui from 'ui'
 
 const effectsList = (o) => _.map(gameObjectsCommon.effects.get(o), (eff) => {
   if (eff.name === 'brawn-terrain-modifier' && eff.magnitude) {
-    // Terrain modifiers have embedded meta data that gets missed when
-    // displaying only the effect name.
-    return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${_.get(eff, 'metadata.appliesTo')}`
+    return _.map(_.get(eff, 'metadata.appliesTo'), (appliesTo) => {
+      // Terrain modifiers have embedded meta data that gets missed when
+      // displaying only the effect name.
+      return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${appliesTo}`
+    }).join(' ')
   } else {
     return `${eff.magnitude > 0 ? '+' : '-'}${Math.abs(eff.magnitude)} ${ui.text.naming.short(eff)}`
   }
