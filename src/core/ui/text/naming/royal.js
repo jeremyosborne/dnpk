@@ -4,7 +4,7 @@ import _ from 'lodash'
 import _out from '../out'
 
 /**
- * Attempt to return a braggart naming with a full list of deeds.
+ * Attempt to return a braggart naming in an attempt to lull your opponent to sleep.
  *
  * As this focuses on "human" names, this prefers `armies` within an object, but not
  * other collections like `equipment`.
@@ -30,13 +30,13 @@ export const string = (o) => {
   }
 
   const names = _.map(collection, (item = {}) => {
-    const deeds = _.compact(gameObjectsCommon.cosmetics.deeds(item), (deed) => t(deed.value))
+    // TODO: Add deeds back in, or some other cosmetic.
     const names = _.compact([
       t(gameObjectsCommon.cosmetics.naming.proper(item)),
       t(gameObjectsCommon.cosmetics.naming.title(item)),
       t(item.name)
     ])
-    return t('{{names, simpleList}}', {names: _.concat(names, deeds)})
+    return t('{{names, simpleList}}', {names: _.concat(names)})
   })
 
   return t('{{names, complexList}}', {names})

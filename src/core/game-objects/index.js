@@ -10,6 +10,9 @@ export {army}
 import * as armyGroup from './army-group' // eslint-disable-line import/first
 export {armyGroup}
 
+import * as deed from './deed' // eslint-disable-line import/first
+export {deed}
+
 import * as deity from './deity' // eslint-disable-line import/first
 export {deity}
 

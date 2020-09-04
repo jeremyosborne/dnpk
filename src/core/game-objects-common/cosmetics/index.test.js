@@ -76,12 +76,6 @@ describe('game-objects-common.cosmetics', () => {
     })
   })
 
-  describe('deeds', () => {
-    it('works', () => {
-      expect(testMod.deeds(cosmetics)).toEqual([cosmetic2.value, cosmetic3.value])
-    })
-  })
-
   describe('naming', () => {
     describe('proper', () => {
       it('works', () => {

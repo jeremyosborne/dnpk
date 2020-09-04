@@ -17,7 +17,6 @@ Modules that make use of runtime configuration settings should list those within
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
 - [ ] Include `deed`s after each battle.
-    - [ ] Promote `deeds` to their own thing, beyond cosmetics. Cosmetics should be narrative only, while deeds have narrative plus effects? Perhaps `deeds` are this games XP?
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
     - [X] Include equipment bonuses in the view.

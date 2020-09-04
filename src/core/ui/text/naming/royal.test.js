@@ -14,10 +14,9 @@ describe('ui.text.naming.royal', () => {
       name: 'bob',
       cosmetics: [
         {name: 'naming-title', value: 'the bobber'},
-        {name: 'naming-proper', value: 'bobby'},
-        {name: 'deed', value: 'killer of slimes'}
+        {name: 'naming-proper', value: 'bobby'}
       ]
-    })).toEqual('bobby, the bobber, bob, killer of slimes')
+    })).toEqual('bobby, the bobber, bob')
     expect(testModule.string({
       name: 'bob',
       cosmetics: [
@@ -37,7 +36,6 @@ describe('ui.text.naming.royal', () => {
         cosmetics: [
           {name: 'naming-title', value: 'the bobber'},
           {name: 'naming-proper', value: 'bobby'},
-          {name: 'deed', value: 'eater of cake'},
         ]
       },
       {
@@ -45,11 +43,9 @@ describe('ui.text.naming.royal', () => {
         cosmetics: [
           {name: 'naming-title', value: 'the dude'},
           {name: 'naming-proper', value: 'dudley'},
-          {name: 'deed', value: 'eater of cake'},
-          {name: 'deed', value: 'sitter of couches'},
         ]
       },
-    ])).toEqual('bobby, the bobber, bob, eater of cake; dudley, the dude, dude, eater of cake, sitter of couches')
+    ])).toEqual('bobby, the bobber, bob; dudley, the dude, dude')
 
     expect(testModule.string('bob')).toEqual('bob')
     expect(testModule.string(new String('bob'))).toEqual('bob') // eslint-disable-line no-new-wrappers

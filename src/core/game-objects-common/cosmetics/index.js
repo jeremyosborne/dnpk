@@ -42,18 +42,6 @@ cosmetics.colors = (o) => {
 }
 
 /**
- * Array of all of the deeds an entity has accomplished.
- *
- * @param {object|object[]} o requires something that implements `cosmetics`
- * or a simple array of cosmetics.
- *
- * @return {string[]} may be an empty array
- */
-cosmetics.deeds = (o) => {
-  return _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'deed').map((deed) => deed.value || '')
-}
-
-/**
  * Various, common names an entity might be called.
  *
  * @type {Object}

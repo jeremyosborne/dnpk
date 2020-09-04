@@ -17,6 +17,14 @@
       "description": "Human friendly documentation that can be stored with the (human unfriendly) JSON. For optimized systems, this attribute should be pruned at run time.",
       "type": "string"
     },
+    "deeds": {
+      "default": [],
+      "description": "Various deeds performed by this entity.",
+      "items": {
+        "$ref": "https://jeremyosborne.com/dnpk/deed.schema.json"
+      },
+      "type": "array"
+    },
     "effects": {
       "default": [],
       "description": "Various effects applied to this entity.",
