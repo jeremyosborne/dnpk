@@ -2,8 +2,8 @@ import testMod from './'
 
 describe('game-objects-common.cosmetics', () => {
   const cosmetic1 = {name: 'color', id: '1', value: '#000000'}
-  const cosmetic2 = {name: 'deed', id: '2', value: 'slayed a pop tart'}
-  const cosmetic3 = {name: 'deed', id: '3', value: 'slayed a jello'}
+  const cosmetic2 = {name: 'naming-flavor', id: '2', value: 'reddish'}
+  const cosmetic3 = {name: 'naming-flavor', id: '3', value: 'orcish'}
   const cosmetic4 = {name: 'naming-proper', id: '4', value: 'jon jacob jingleheimer'}
   const cosmetic5 = {name: 'naming-title', id: '5', value: 'the schmidt, that\'s my name, too'}
 
@@ -21,7 +21,7 @@ describe('game-objects-common.cosmetics', () => {
     expect(testMod.has(cosmetics, cosmetic1)).toEqual(true)
     expect(testMod.has(cosmetics, cosmetic2)).toEqual(true)
     expect(testMod.hasName(cosmetics, 'color')).toEqual(true)
-    expect(testMod.hasName(cosmetics, 'deed')).toEqual(true)
+    expect(testMod.hasName(cosmetics, 'naming-flavor')).toEqual(true)
     const removed = testMod.remove(cosmetics, cosmetic1)
     expect(cosmetics.length).toEqual(1)
     expect(removed.id).toEqual(cosmetic1.id)
@@ -45,7 +45,7 @@ describe('game-objects-common.cosmetics', () => {
     expect(testMod.has(army, cosmetic1)).toEqual(true)
     testMod.add(army, cosmetic2)
     expect(testMod.hasName(army, 'color')).toEqual(true)
-    expect(testMod.hasName(army, 'deed')).toEqual(true)
+    expect(testMod.hasName(army, 'naming-flavor')).toEqual(true)
     const removed = testMod.remove(army, cosmetic1)
     expect(army.cosmetics.length).toEqual(1)
     expect(removed.id).toEqual(cosmetic1.id)
@@ -92,6 +92,12 @@ describe('game-objects-common.cosmetics', () => {
     describe('titles', () => {
       it('works', () => {
         expect(testMod.naming.titles(cosmetics)).toEqual([cosmetic5.value])
+      })
+    })
+
+    describe('flavors', () => {
+      it('works', () => {
+        expect(testMod.naming.flavors(cosmetics)).toEqual([cosmetic2.value, cosmetic3.value])
       })
     })
   })

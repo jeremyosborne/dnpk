@@ -30,10 +30,11 @@ export const string = (o) => {
   }
 
   const names = _.map(collection, (item = {}) => {
-    // TODO: Add deeds back in, or some other cosmetic.
+    // TODO: Add deeds back in for royal names.
     const names = _.compact([
       t(gameObjectsCommon.cosmetics.naming.proper(item)),
       t(gameObjectsCommon.cosmetics.naming.title(item)),
+      t('{{flavors, simpleList}}', {flavors: gameObjectsCommon.cosmetics.naming.flavors(item)}),
       t(item.name)
     ])
     return t('{{names, simpleList}}', {names: _.concat(names)})

@@ -30,7 +30,7 @@ cosmetics.color = (o) => {
 }
 
 /**
- * Array of all colors associated with an entity.
+ * Array of all color values associated with an entity.
  *
  * @param {object|object[]} o requires something that implements `cosmetics`
  * or a simple array of cosmetics.
@@ -47,6 +47,18 @@ cosmetics.colors = (o) => {
  * @type {Object}
  */
 cosmetics.naming = {}
+
+/**
+ * Array of all flavor values associated with an entity.
+ *
+ * @param {object|object[]} o requires something that implements `cosmetics`
+ * or a simple array of cosmetics.
+ *
+ * @return {string[]} may be an empty array
+ */
+cosmetics.naming.flavors = (o) => {
+  return _.filter(cosmetics.get(o), (cosmetic) => _.get(cosmetic, 'name') === 'naming-flavor').map((flavor) => flavor.value || '')
+}
 
 /**
  * Value of the first (in ascending positional order) naming-proper associated with an entity.

@@ -25,10 +25,10 @@ export const string = (o) => {
 
   const names = _.map(collection, (item = {}) => {
     if (_.isString(item)) {
-      // In case we get a string or set of strings, still try to do the right thing.
+      // In case we get a string still try to do the right thing.
       return t(item)
     } else {
-      return t(gameObjectsCommon.cosmetics.naming.proper(item)) || t(item.name) || t('UNKNOWN NAME')
+      return t(gameObjectsCommon.cosmetics.naming.proper(item)) || t(item.name) || t('WARNING: UNKNOWN NAME')
     }
   })
 

@@ -3,8 +3,7 @@
 
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "dist",
-    "preserveConstEnums": true
+    "outDir": "dist"
   },
 
   "include": ["src/**/*"],

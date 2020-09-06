@@ -32,8 +32,10 @@ export const string = (o) => {
   const names = _.map(collection, (item = {}) => {
     const names = _.compact([
       t(gameObjectsCommon.cosmetics.naming.proper(item)),
-      t(gameObjectsCommon.cosmetics.naming.title(item)),
-      t(item.name)
+      // Trying out removing the title for full name. Just proper + flavor text.
+      // t(gameObjectsCommon.cosmetics.naming.title(item)),
+      t('{{flavors, simpleList}}', {flavors: gameObjectsCommon.cosmetics.naming.flavors(item)}),
+      t(item.name),
     ])
     return t('{{names, simpleList}}', {names})
   })
