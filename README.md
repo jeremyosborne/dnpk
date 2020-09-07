@@ -16,18 +16,11 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
-- [X] Add `naming-flavor` text to cosmetics.
-    - [X] Prefer `naming.full` in most spots in code, and `naming.short` in intense sequences like battle reporting, or where the context of the naming is known.
-    - [X] Include flavor text for units when they are created.
-- [X] Write a general army creator function that adds flavor. Share it among the random generators.
-    - [X] Delete the usage of `createRandomWeightedArmies`. An `army-group` structure is stable and we can reference `armies` or use a getter.
-- [X] Add `deed`s to armies after each battle.
-- [X] Fix the `empire` terrain modifiers. They are old skool and wrong, need to do what `army` terrain modifiers do.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
     - [X] Include equipment bonuses in the view.
     - [X] Include full name.
-    - [ ] Include `deed`s.
+    - [X] Include `deed`s.
     - [ ] Sometimes reserve troops.
     - [ ] Sometimes access to the vault-o-matic.
 - [ ] Cosmetics: D&D style "races": elven light infantry, human light infantry; human rangers and elven rangers.
