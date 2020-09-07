@@ -1,4 +1,5 @@
 import * as gameObjects from 'game-objects'
+import _ from 'lodash'
 
 /**
  * Factory method for calling `create` through the game-objects-common module.
@@ -10,9 +11,10 @@ export const create = (
   // 'army', 'empire', etc.
   type,
   // Remaining arguments passed on as is.
-  ...args
+  {name, ...toMerge}
 ) => {
-  return gameObjects[type].create(...args)
+  const entity = gameObjects[type].create({name})
+  return _.merge(entity, toMerge)
 }
 
 export default create

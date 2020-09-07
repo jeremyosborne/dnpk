@@ -52,13 +52,17 @@ export const string = (armyGroup) => {
       )
     )
 
+    if (gameObjectsCommon.deeds.size(army)) {
+      info.push('  Deeds: ' + _.map(gameObjectsCommon.deeds.get(army), (deed) => {
+        return deed.value
+      }).join(', '))
+    }
+
     if (gameObjectsCommon.effects.size(army)) {
-      // Display army effects.
       info.push('  Effects: ' + effectsList(army))
     }
 
     if (gameObjectsCommon.equipment.size(army)) {
-      // Display army inventory.
       info.push('  Equipment: ' + _.map(army.equipment, (eq) => {
         return `\n    ${ui.text.naming.short(eq)}: ${effectsList(eq)}`
       }).join(', '))

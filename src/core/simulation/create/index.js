@@ -13,11 +13,13 @@ export const army = ({name}) => {
 
   // Cosmetics
   if (gameObjectsCommon.is.hero(army)) {
-    gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: randomNaming({name: 'hero'})})
+    const cosmetic = gameObjectsCommon.create('cosmetic', {name: 'naming-proper', value: randomNaming({name: 'hero'})})
+    gameObjectsCommon.cosmetics.add(army, cosmetic)
   }
-  if (!gameObjectsCommon.effects.hasName(army, 'elite')) {
-    // Elite units are already special enough.
-    gameObjectsCommon.cosmetics.add(army, {name: 'naming-flavor', value: randomNaming({name: 'flavor-army'})})
+  if (!gameObjectsCommon.effects.hasName(army, 'elite') && !gameObjectsCommon.effects.hasName(army, 'aerial')) {
+    // Some units are already flavored enough.
+    const cosmetic = gameObjectsCommon.create('cosmetic', {name: 'naming-flavor', value: randomNaming({name: 'hero'})})
+    gameObjectsCommon.cosmetics.add(army, cosmetic)
   }
 
   return army

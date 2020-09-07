@@ -92,18 +92,28 @@ export const battleReport = function * ({
   }
 }
 
+export const _createDeed = ({protagonist, terrain, turn}) => {
+  return gameObjectsCommon.create('deed', {
+    name: 'battle',
+    value: t('Survived a battle on {{terrain}} on turn {{turn}}', {
+      terrain: ui.text.naming.short(terrain),
+      turn,
+    })
+  })
+}
+
 /**
  * Generate a fight scene function.
  *
  * Takes a createAntagonist function that takes {protagonist} and must return antagonist data.
  */
-export const createScene = ({createAntagonist}) => _.flowRight([
+export const createScene = ({createAntagonist, createDeed = _createDeed}) => _.flowRight([
   wrappers.throwIfNoArmyGroup,
   wrappers.throwIfNoEmpire,
   wrappers.uiWhiteSpace,
   wrappers.uiGameTurn,
   wrappers.uiTerrain,
-])(async ({protagonist, terrain}) => {
+])(async ({protagonist, terrain, turn}) => {
   const protagonistEmpire = protagonist.empire
   let protagonistArmyGroup = protagonist.armyGroup
   const protagonistFlag = ui.text.flag(protagonistEmpire)
@@ -166,6 +176,15 @@ export const createScene = ({createAntagonist}) => _.flowRight([
     armyGroup: protagonistArmyGroup,
     casualties: attackers.casualties,
   })
+
+  // Add deeds to the survivors.
+  if (gameObjectsCommon.armies.size(protagonistArmyGroup)) {
+    // Mutate.
+    protagonistArmyGroup.armies.map((army) => {
+      const deed = createDeed({protagonist, terrain, turn})
+      gameObjectsCommon.deeds.add(army, deed)
+    })
+  }
 
   // By nature of the current rules, if the opposing team survives, they win.
   if (defenders.survivors.length) {
