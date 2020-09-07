@@ -6,28 +6,14 @@
       "name": "terrain-modifier-brawn",
       "magnitude": -1,
       "metadata": {
-        "name": "forest"
-      }
-    },
-    {
-      "name": "terrain-modifier-brawn",
-      "magnitude": -1,
-      "metadata": {
-        "name": "hill"
+        "appliesTo": ["hill", "forest"]
       }
     },
     {
       "name": "terrain-modifier-brawn",
       "magnitude": 1,
       "metadata": {
-        "name": "plain"
-      }
-    },
-    {
-      "name": "terrain-modifier-brawn",
-      "magnitude": 1,
-      "metadata": {
-        "name": "road"
+        "appliesTo": ["plain", "road"]
       }
     }
   ]

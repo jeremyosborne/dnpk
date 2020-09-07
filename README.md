@@ -22,7 +22,7 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [X] Write a general army creator function that adds flavor. Share it among the random generators.
     - [X] Delete the usage of `createRandomWeightedArmies`. An `army-group` structure is stable and we can reference `armies` or use a getter.
 - [X] Add `deed`s to armies after each battle.
-- [ ] Fix the `empire` terrain modifiers. They are old skool and wrong, need to do what `army` terrain modifiers do.
+- [X] Fix the `empire` terrain modifiers. They are old skool and wrong, need to do what `army` terrain modifiers do.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
     - [X] Include equipment bonuses in the view.

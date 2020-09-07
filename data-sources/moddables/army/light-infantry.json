@@ -5,21 +5,7 @@
       "name": "brawn-terrain-modifier",
       "magnitude": -1,
       "metadata": {
-        "appliesTo": ["forest"]
-      }
-    },
-    {
-      "name": "brawn-terrain-modifier",
-      "magnitude": -1,
-      "metadata": {
-        "appliesTo": ["hill"]
-      }
-    },
-    {
-      "name": "brawn-terrain-modifier",
-      "magnitude": -1,
-      "metadata": {
-        "appliesTo": ["marsh"]
+        "appliesTo": ["forest", "hill", "marsh"]
       }
     }
   ],

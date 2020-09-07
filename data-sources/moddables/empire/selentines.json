@@ -6,14 +6,7 @@
       "name": "terrain-modifier-brawn",
       "magnitude": 1,
       "metadata": {
-        "name": "shore"
-      }
-    },
-    {
-      "name": "terrain-modifier-brawn",
-      "magnitude": 1,
-      "metadata": {
-        "name": "water"
+        "appliesTo": ["shore", "water"]
       }
     }
   ]
