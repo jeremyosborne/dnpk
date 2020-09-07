@@ -1,0 +1,17 @@
+{
+  "documentation": "Flavor text for armies.",
+  "name": "flavor-army",
+  "namings": [
+    "elf",
+    "orc",
+    "dwarf",
+    "human",
+    "lizard",
+    "common",
+    "noble",
+    "ancient",
+    "halfling",
+    "half-orc",
+    "undead"
+  ]
+}

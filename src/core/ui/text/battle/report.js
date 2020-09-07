@@ -39,18 +39,27 @@ export const string = ({
         color: attackerColor,
         label: ui.text.naming.short(ev.attacker.ref),
       },
+      fullName: {
+        // Grander name used for battle entrance.
+        color: attackerColor,
+        label: ui.text.naming.full(ev.attacker.ref),
+      }
     }
     const defender = {
       ...ev.defender,
-      // rewrite name to support colorize formatter.
       name: {
         color: defenderColor,
         label: ui.text.naming.short(ev.defender.ref),
+      },
+      fullName: {
+        // Grander name used for battle entrance.
+        color: defenderColor,
+        label: ui.text.naming.full(ev.defender.ref),
       }
     }
     if (ev.name === 'battle:round:start') {
       info.push('')
-      info.push(t('{{attacker.name, colorize}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.name, colorize}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
+      info.push(t('{{attacker.fullName, colorize}} (str: {{attacker.strength}}) (health: {{attacker.health}}) vs. {{defender.fullName, colorize}} (str: {{defender.strength}}) (health: {{defender.health}})', {attacker, defender}))
     } else if (ev.name === 'battle:round:violence') {
       info.push(t('{{attacker.name, colorize}} (roll: {{attacker.roll}}) and {{defender.name, colorize}} (roll: {{defender.roll}})...', {attacker, defender}))
       if (attacker.damaged || defender.damaged) {

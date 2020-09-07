@@ -1,6 +1,6 @@
 import * as dataSourceModdables from 'data-source-moddables'
 import * as gameObjects from 'game-objects'
-import * as gameObjectsCommmon from 'game-objects-common'
+import * as gameObjectsCommon from 'game-objects-common'
 import _ from 'lodash'
 import * as random from 'random'
 
@@ -22,7 +22,7 @@ export const randomWeightedArmyWeighting = (name) => {
   }
 
   // Heroes have the lowest weight and will appear the least often.
-  if (gameObjectsCommmon.effects.hasName(a, 'hero')) {
+  if (gameObjectsCommon.effects.hasName(a, 'hero')) {
     return 1
   }
 
@@ -30,7 +30,7 @@ export const randomWeightedArmyWeighting = (name) => {
   // everything has a higher chance of being picked over a hero.
   const strength = a.strength
   const weight = 10 - strength + 2 * (10 - strength)
-  if (gameObjectsCommmon.effects.hasName(a, 'aerial') || gameObjectsCommmon.effects.hasName(a, 'elite')) {
+  if (gameObjectsCommon.effects.hasName(a, 'aerial') || gameObjectsCommon.effects.hasName(a, 'elite')) {
     return Math.ceil(weight / 2)
   } else {
     return weight

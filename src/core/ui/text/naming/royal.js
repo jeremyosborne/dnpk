@@ -30,14 +30,20 @@ export const string = (o) => {
   }
 
   const names = _.map(collection, (item = {}) => {
+    const names = t('{{names, simpleList}}', {
+      names: _.compact([
+        t(gameObjectsCommon.cosmetics.naming.proper(item)),
+        t(gameObjectsCommon.cosmetics.naming.title(item)),
+        t(item.name),
+      ])
+    })
+    const flavors = t('{{flavors, simpleList}}', {flavors: gameObjectsCommon.cosmetics.naming.flavors(item)})
+    if (flavors) {
+      return t('{{names}} ({{flavors}})', {names, flavors})
+    } else {
+      return names
+    }
     // TODO: Add deeds back in for royal names.
-    const names = _.compact([
-      t(gameObjectsCommon.cosmetics.naming.proper(item)),
-      t(gameObjectsCommon.cosmetics.naming.title(item)),
-      t('{{flavors, simpleList}}', {flavors: gameObjectsCommon.cosmetics.naming.flavors(item)}),
-      t(item.name)
-    ])
-    return t('{{names, simpleList}}', {names: _.concat(names)})
   })
 
   return t('{{names, complexList}}', {names})

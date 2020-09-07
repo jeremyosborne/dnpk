@@ -22,6 +22,10 @@ export const createRandomWeightedArmies = ({exclude, size = 8} = {}) => {
     if (gameObjectsCommon.is.hero(army)) {
       gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: randomNaming({name: 'hero'})})
     }
+    if (!gameObjectsCommon.effects.hasName(army, 'elite')) {
+      // Elite units are already special enough.
+      gameObjectsCommon.cosmetics.add(army, {name: 'naming-flavor', value: randomNaming({name: 'flavor-army'})})
+    }
     return army
   })
   return armies

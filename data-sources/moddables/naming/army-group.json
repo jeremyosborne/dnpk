@@ -1,6 +1,6 @@
 {
   "documentation": "Armies themselves represent a group, and these names imply multiple people banded together.",
-  "name": "army",
+  "name": "army-group",
   "namings": [
     "Pitch Eaters",
     "Dogs",

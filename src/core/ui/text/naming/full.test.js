@@ -17,7 +17,7 @@ describe('ui.text.naming.full', () => {
         {name: 'naming-proper', value: 'bobby'},
         {name: 'naming-flavor', value: 'orcish'},
       ]
-    })).toEqual('bobby, orcish, bob')
+    })).toEqual('bobby, bob (orcish)')
     expect(testModule.string({
       name: 'bob',
       cosmetics: [
@@ -48,7 +48,7 @@ describe('ui.text.naming.full', () => {
           {name: 'naming-flavor', value: 'human'},
         ]
       },
-    ])).toEqual('bobby, orcish, bob; dudley, human, dude')
+    ])).toEqual('bobby, bob (orcish); dudley, dude (human)')
 
     expect(testModule.string('bob')).toEqual('bob')
     expect(testModule.string(new String('bob'))).toEqual('bob') // eslint-disable-line no-new-wrappers

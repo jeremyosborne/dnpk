@@ -28,13 +28,13 @@ export const createArmyGroup = async () => {
       armyGroup = createRandomWeightedArmyGroup()
       out.t('army created:')
       ui.text.armyGroup.out(armyGroup)
-      const {reroll} = await prompt({
-        initial: false,
-        message: t('Do you wish to reroll (y) or keep this army (n)?'),
-        name: 'reroll',
+      const {keep} = await prompt({
+        initial: true,
+        message: t('Do you wish to keep this army (y) or reroll (n)?'),
+        name: 'keep',
         type: 'confirm',
       })
-      roll = reroll
+      roll = !keep
     }
     dataSourceGame.protagonist.save({armyGroups: [armyGroup]})
     await hitReturnToContinue()
