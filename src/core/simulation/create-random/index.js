@@ -1,3 +1,4 @@
+import * as create from '../create'
 import * as gameObjects from 'game-objects'
 import _ from 'lodash'
 
@@ -41,7 +42,12 @@ export const createRandom = ({
 
   const name = _.sample(names)
 
-  return typeModule.create({name})
+  if (create[type]) {
+    // If we've implemented a kitchen sink creation function for this type, use it.
+    return create[type]({name})
+  } else {
+    return typeModule.create({name})
+  }
 }
 
 export default createRandom

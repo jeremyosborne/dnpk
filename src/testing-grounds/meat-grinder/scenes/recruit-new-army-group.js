@@ -25,7 +25,7 @@ export const createArmies = ({armyGroup}) => {
         return false
       }
     }).map((aDef) => aDef.name)
-    armies = simulation.createRandomWeightedArmies({exclude, size})
+    armies = simulation.createRandomWeightedArmyGroup({exclude, size}).armies
     messages.prelude = t('It\'s dangerous to go alone. Here, take this: {{armies}}', {armies: ui.text.naming.short(armies), count: armies.length})
   }
 

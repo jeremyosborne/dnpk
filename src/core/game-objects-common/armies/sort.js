@@ -20,8 +20,7 @@ import * as strength from 'simulation/strength'
  * passed a simple list, will return a list of armies.
  */
 export const sort = (o) => {
-  let _armies = armies.get(o)
-  _armies = _.sortBy(_armies, [
+  const _armies = _.sortBy(armies.get(o), [
     // Brave heroes lead from the rear!
     // sortBy is ascending order, so armies that are heroes will get sorted to end.
     (army) => effects.hasName(army, 'hero') ? 1 : 0,

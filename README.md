@@ -19,7 +19,8 @@ General guidelines for the new year: After revisiting warlords and warlords 2, t
 - [X] Add `naming-flavor` text to cosmetics.
     - [X] Prefer `naming.full` in most spots in code, and `naming.short` in intense sequences like battle reporting, or where the context of the naming is known.
     - [X] Include flavor text for units when they are created.
-- [ ] Create a general army creation that adds flavor. Share it among the random generators.
+- [X] Write a general army creator function that adds flavor. Share it among the random generators.
+    - [X] Delete the usage of `createRandomWeightedArmies`. An `army-group` structure is stable and we can reference `armies` or use a getter.
 - [ ] Add `deed`s to armies after each battle.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.

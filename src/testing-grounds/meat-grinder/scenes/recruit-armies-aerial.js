@@ -34,7 +34,7 @@ export const createArmies = ({armyGroup}) => {
         return false
       }
     }).map((aDef) => aDef.name)
-    armies = simulation.createRandomWeightedArmies({exclude, size})
+    armies = simulation.createRandomWeightedArmyGroup({exclude, size}).armies
     // Use the default message.
   }
 

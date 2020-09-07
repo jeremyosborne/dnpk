@@ -1,5 +1,7 @@
+import * as create from './create'
+export {create}
+
 export {createRandom} from './create-random'
-export {createRandomWeightedArmies} from './create-random-weighted-armies'
 export {createRandomWeightedArmyGroup} from './create-random-weighted-army-group'
 
 // In general, one wants the health method alone, but the standard way of exporting

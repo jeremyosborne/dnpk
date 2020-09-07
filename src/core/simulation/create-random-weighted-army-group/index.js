@@ -1,6 +1,6 @@
+import * as create from '../create'
 import * as gameObjects from 'game-objects'
 import * as gameObjectsCommon from 'game-objects-common'
-import randomNaming from '../random-naming'
 import randomWeightedArmies from '../random-weighted-armies'
 
 /**
@@ -16,17 +16,7 @@ import randomWeightedArmies from '../random-weighted-armies'
 export const createRandomWeightedArmyGroup = ({exclude, size = 8} = {}) => {
   const names = randomWeightedArmies({size, exclude})
   const armies = names.map((name) => {
-    const army = gameObjects.army.create({name})
-    // TODO: I don't think the hero naming, or other cosmetics, should be done here. This should
-    // just create the random armies and they should be decorated elsewhere.
-    if (gameObjectsCommon.is.hero(army)) {
-      gameObjectsCommon.cosmetics.add(army, {name: 'naming-proper', value: randomNaming({name: 'hero'})})
-    }
-    if (!gameObjectsCommon.effects.hasName(army, 'elite')) {
-      // Elite units are already special enough.
-      gameObjectsCommon.cosmetics.add(army, {name: 'naming-flavor', value: randomNaming({name: 'flavor-army'})})
-    }
-    return army
+    return create.army({name})
   })
   const armyGroup = gameObjects.armyGroup.create({armies})
   return gameObjectsCommon.armies.sort(armyGroup)
