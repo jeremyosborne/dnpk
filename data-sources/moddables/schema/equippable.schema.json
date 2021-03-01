@@ -1,5 +1,5 @@
 {
-  "$id": "equippable.schema.json",
+  "$id": "equippable",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "equippable",
   "description": "Defines an item that can be equipped by a unit.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "cosmetic.schema.json"
+        "$ref": "cosmetic"
       },
       "type": "array"
     },
@@ -20,7 +20,7 @@
     "effects": {
       "description": "Intrinsic effects of this item, often granted to bearer when equipped.",
       "items": {
-        "$ref": "effect.schema.json"
+        "$ref": "effect"
       },
       "type": "array"
     },
@@ -29,7 +29,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

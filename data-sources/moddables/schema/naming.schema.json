@@ -1,5 +1,5 @@
 {
-  "$id": "naming.schema.json",
+  "$id": "naming",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "naming",
   "description": "A categorically grouped set of strings used for naming in game entities.",
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

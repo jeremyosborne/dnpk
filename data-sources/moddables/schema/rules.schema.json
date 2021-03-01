@@ -1,5 +1,5 @@
 {
-  "$id": "rules.schema.json",
+  "$id": "rules",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "rules",
   "description": "Optionally configurable rules for game mechanics, unit availability, economics, etc.",
@@ -76,7 +76,7 @@
       "type": "integer"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

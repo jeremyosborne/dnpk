@@ -1,5 +1,5 @@
 {
-  "$id": "cosmetic.schema.json",
+  "$id": "cosmetic",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "cosmetic",
   "description": "Defines a single, particular visualization for an entity.",
@@ -19,7 +19,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

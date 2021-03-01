@@ -1,5 +1,5 @@
 {
-  "$id": "effect.schema.json",
+  "$id": "effect",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "effect",
   "description": "Defines a single, particular, longer term effect.",
@@ -23,7 +23,7 @@
       "type": "integer"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

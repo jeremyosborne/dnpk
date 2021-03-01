@@ -1,5 +1,5 @@
 {
-  "$id": "structure.schema.json",
+  "$id": "structure",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "structure",
   "description": "Basic structure information.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "cosmetic.schema.json"
+        "$ref": "cosmetic"
       },
       "type": "array"
     },
@@ -20,7 +20,7 @@
     "effects": {
       "description": "Intrinsic effects provided by the structure, often bonuses granted to owners or occupiers.",
       "items": {
-        "$ref": "effect.schema.json"
+        "$ref": "effect"
       },
       "type": "array"
     },
@@ -28,7 +28,7 @@
       "default": [],
       "description": "Inventory actively mounted on this structure and affecting the structure, usually in a positive way and usually during battle.",
       "items": {
-        "$ref": "equippable.schema.json"
+        "$ref": "equippable"
       },
       "type": "array"
     },
@@ -37,7 +37,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {
@@ -48,7 +48,7 @@
       "default": [],
       "description": "Inventory stored within this structure that does not actively affect this structure or anything interacting with it.",
       "items": {
-        "$ref": "equippable.schema.json"
+        "$ref": "equippable"
       },
       "type": "array"
     },

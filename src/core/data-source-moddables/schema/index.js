@@ -60,9 +60,9 @@ const read = async function ({force = false} = {}, {
         const schema = JSON.parse(await fs.readFile(schemaFilePath))
         logger(`Loading schema ${schemaFilePath}, with schema $id: ${schema.$id}`)
         // Warn on file name mismatch, although what is important is the $id.
-        if (/([^/]*)\.schema\.json$/.exec(schemaFilePath)[1] !== /([^/]*)\.schema\.json$/.exec(schema.$id)[1]) {
-          logger(`Warning: filename ${schemaFilePath} out of sync with provided $id ${schema.$id}.`)
-        }
+        // if (/([^/]*)\.schema\.json$/.exec(schemaFilePath)[1] !== /([^/]*)\.schema\.json$/.exec(schema.$id)[1]) {
+        //   logger(`Warning: filename ${schemaFilePath} out of sync with provided $id ${schema.$id}.`)
+        // }
         ajv.addSchema(schema)
       })
     return Promise.all(loading)
@@ -85,7 +85,8 @@ const isLoaded = () => LOADED
  * @param {string} shortName like 'army' or 'effect.'
  * @return {string} the schema id, good for lookup within ajv.
  */
-const schemaId = (shortName) => `https://jeremyosborne.com/dnpk/${shortName}.schema.json`
+// const schemaId = (shortName) => `https://jeremyosborne.com/dnpk/${shortName}.schema.json`
+const schemaId = (shortName) => `${shortName}`
 
 /**
  * Validate an object against one of the defined types.

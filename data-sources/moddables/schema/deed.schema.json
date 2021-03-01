@@ -1,5 +1,5 @@
 {
-  "$id": "deed.schema.json",
+  "$id": "deed",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "deed",
   "description": "Defines a single, particular event an entity was part of.",
@@ -14,7 +14,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

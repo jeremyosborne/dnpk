@@ -1,5 +1,5 @@
 {
-  "$id": "terrain.schema.json",
+  "$id": "terrain",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "terrain",
   "description": "Basic terrain information.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "cosmetic.schema.json"
+        "$ref": "cosmetic"
       },
       "type": "array"
     },
@@ -22,7 +22,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {

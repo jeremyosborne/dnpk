@@ -1,5 +1,5 @@
 {
-  "$id": "army.schema.json",
+  "$id": "army",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "army",
   "description": "Defines a distinct army type, from which single entity instances are generated in game.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "cosmetic.schema.json"
+        "$ref": "cosmetic"
       },
       "type": "array"
     },
@@ -21,7 +21,7 @@
       "default": [],
       "description": "Various deeds performed by this entity.",
       "items": {
-        "$ref": "deed.schema.json"
+        "$ref": "deed"
       },
       "type": "array"
     },
@@ -29,7 +29,7 @@
       "default": [],
       "description": "Various effects applied to this entity.",
       "items": {
-        "$ref": "effect.schema.json"
+        "$ref": "effect"
       },
       "type": "array"
     },
@@ -37,7 +37,7 @@
       "default": [],
       "description": "Inventory actively used by the unit.",
       "items": {
-        "$ref": "equippable.schema.json"
+        "$ref": "equippable"
       },
       "type": "array"
     },
@@ -51,7 +51,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "movementSpeed": {

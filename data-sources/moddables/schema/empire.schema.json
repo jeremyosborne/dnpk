@@ -1,5 +1,5 @@
 {
-  "$id": "empire.schema.json",
+  "$id": "empire",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "empire",
   "description": "Defines a distinct empire.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "cosmetic.schema.json"
+        "$ref": "cosmetic"
       },
       "type": "array"
     },
@@ -21,7 +21,7 @@
       "default": [],
       "description": "Various effects applied to entities in this empire.",
       "items": {
-        "$ref": "effect.schema.json"
+        "$ref": "effect"
       },
       "type": "array"
     },
@@ -30,7 +30,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "metadata.schema.json",
+      "$ref": "metadata",
       "default": {}
     },
     "name": {
