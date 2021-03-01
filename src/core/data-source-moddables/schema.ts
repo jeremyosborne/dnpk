@@ -1,7 +1,6 @@
 import Ajv from 'ajv'
 import debug from 'debug'
 import {promises as fs} from 'fs'
-import moddablesKeyRoot from '../moddables-key-root'
 import path from 'path'
 
 const ajv = new Ajv({
@@ -19,7 +18,7 @@ const logger = debug(`dnpk/data-source-moddables/${MODULE_NAME}`)
 let LOADED = false
 
 /**
- * Call to load schemas from disk.
+ * Load schemas from disk.
  *
  * @param {object} args
  * @param {boolean} [args.force] if true, will reload items from disk even if already
@@ -36,14 +35,15 @@ let LOADED = false
  * @throw {Error}
  */
 const read = async function ({force = false} = {}, {
-  KEY_ROOT = moddablesKeyRoot(),
+  /** Directory containing our JSON Schema files. */
+  DEFS_DIR = path.resolve(path.join(__dirname, "schemas")),
+  /** Required file name test for our JSON schemas. Allows us to ignore other files within the `DEFS_DIR`. */
+  filenameRegExp = /\.schema\.json$/i,
 } = {}) {
   if (LOADED && !force) {
     logger('Already loaded, call to load ignored.')
     return false
   }
-
-  const DEFS_DIR = path.join(KEY_ROOT, MODULE_NAME)
 
   LOADED = true
 
@@ -52,14 +52,15 @@ const read = async function ({force = false} = {}, {
     // Assuming organization is flat.
     const files = await fs.readdir(DEFS_DIR)
     // Restrict loaded files.
-    const loading = files.filter((filename) => /.schema.json$/i.test(filename))
+    const loading = files.filter((filename) => filenameRegExp.test(filename))
       .map(async function (filename) {
         // Full path for loading.
         const schemaFilePath = path.join(DEFS_DIR, filename)
-        // AJV wants JSON objects, not plain text rom the file.
-        const schema = JSON.parse(await fs.readFile(schemaFilePath))
+        // AJV wants JSON objects, not plain text from the file.
+        const schema = JSON.parse(await fs.readFile(schemaFilePath, {encoding: "utf8"}))
         logger(`Loading schema ${schemaFilePath}, with schema $id: ${schema.$id}`)
         // Warn on file name mismatch, although what is important is the $id.
+        // TODO: This should be part of an external validation script or process.
         // if (/([^/]*)\.schema\.json$/.exec(schemaFilePath)[1] !== /([^/]*)\.schema\.json$/.exec(schema.$id)[1]) {
         //   logger(`Warning: filename ${schemaFilePath} out of sync with provided $id ${schema.$id}.`)
         // }
@@ -86,7 +87,7 @@ const isLoaded = () => LOADED
  * @return {string} the schema id, good for lookup within ajv.
  */
 // const schemaId = (shortName) => `https://jeremyosborne.com/dnpk/${shortName}.schema.json`
-const schemaId = (shortName) => `${shortName}`
+const schemaId = (shortName: string): string => shortName
 
 /**
  * Validate an object against one of the defined types.
@@ -107,10 +108,10 @@ const schemaId = (shortName) => `${shortName}`
  * `object` is a reference to the object passed in, provided as a convenience even
  * though default values are applied to the passed in reference.
  */
-const validate = ({object, type}) => {
+const validate = ({object, type}: any) => {
   const validator = ajv.getSchema(schemaId(type))
-  const valid = validator(object)
-  return {valid, errors: validator.errors, object}
+  const valid = validator?.(object)
+  return {valid, errors: validator?.errors, object}
 }
 
 // Public API.

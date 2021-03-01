@@ -5,14 +5,13 @@
 import debug from 'debug'
 import _ from 'lodash'
 import path from 'path'
-// schema module is like a type-factory, but needs its own special code.
 import schema from './schema'
 import typeFactoryFactory from './type-factory-factory'
 
 const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/${MODULE_NAME}`)
 
-logger('This module assumes an async call to provided `.read()` method before running the game.')
+logger('This module assumes an async call is made to the provided `.read()` method before running the game.')
 
 // Associative array of type factories to allow more human friendly dynamic
 // reference. These type factories do the barest of work to provide basic entities
@@ -20,8 +19,6 @@ logger('This module assumes an async call to provided `.read()` method before ru
 //
 // Creating new types: add the module name of the new type to the array below as
 // long as the type fits in with the `type-factory-factory` way of doing things.
-//
-// The `schema` module is a special snowflake and does not belong here.
 export const types = _.reduce([
   // Definitions of army units.
   'army',
