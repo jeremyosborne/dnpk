@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/structure.schema.json",
+  "$id": "structure.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "structure",
   "description": "Basic structure information.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/cosmetic.schema.json"
+        "$ref": "cosmetic.schema.json"
       },
       "type": "array"
     },
@@ -20,7 +20,7 @@
     "effects": {
       "description": "Intrinsic effects provided by the structure, often bonuses granted to owners or occupiers.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
+        "$ref": "effect.schema.json"
       },
       "type": "array"
     },
@@ -28,7 +28,7 @@
       "default": [],
       "description": "Inventory actively mounted on this structure and affecting the structure, usually in a positive way and usually during battle.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
+        "$ref": "equippable.schema.json"
       },
       "type": "array"
     },
@@ -37,7 +37,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "$ref": "metadata.schema.json",
       "default": {}
     },
     "name": {
@@ -48,7 +48,7 @@
       "default": [],
       "description": "Inventory stored within this structure that does not actively affect this structure or anything interacting with it.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/equippable.schema.json"
+        "$ref": "equippable.schema.json"
       },
       "type": "array"
     },

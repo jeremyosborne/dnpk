@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/effect.schema.json",
+  "$id": "effect.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "effect",
   "description": "Defines a single, particular, longer term effect.",
@@ -23,7 +23,7 @@
       "type": "integer"
     },
     "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "$ref": "metadata.schema.json",
       "default": {}
     },
     "name": {

@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/empire.schema.json",
+  "$id": "empire.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "empire",
   "description": "Defines a distinct empire.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/cosmetic.schema.json"
+        "$ref": "cosmetic.schema.json"
       },
       "type": "array"
     },
@@ -21,7 +21,7 @@
       "default": [],
       "description": "Various effects applied to entities in this empire.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/effect.schema.json"
+        "$ref": "effect.schema.json"
       },
       "type": "array"
     },
@@ -30,7 +30,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "$ref": "metadata.schema.json",
       "default": {}
     },
     "name": {

@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/rules.schema.json",
+  "$id": "rules.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "rules",
   "description": "Optionally configurable rules for game mechanics, unit availability, economics, etc.",
@@ -76,7 +76,7 @@
       "type": "integer"
     },
     "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "$ref": "metadata.schema.json",
       "default": {}
     },
     "name": {

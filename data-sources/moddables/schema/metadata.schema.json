@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+  "$id": "metadata.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "metadata",
   "description": "Descriptive information that can be a part of most objects.",

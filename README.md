@@ -16,6 +16,8 @@ Modules that make use of runtime configuration settings should list those within
 
 General guidelines for the new year: After revisiting warlords and warlords 2, those games and the community around them are still quite solid (and playable on modern hardware). No need to truly recreate the original (my favorite), but rather create a successor to the game that I never had and that the sequels didn't fulfill for me.
 
+- [ ] Conversion to typescript
+    - [ ] When json schemas change, run: `node_modules/.bin/json2ts data-sources/moddables/schema/ -o types/ --unreachableDefinitions --cwd=data-sources/moddables/schema/ --no-declareExternallyReferenced`, combine all of the files into one file, and provide as type aliases to the moddables that get created.
 - [ ] Meat Grinder: Make intermission more interactive.
     - [X] Review troops.
     - [X] Include equipment bonuses in the view.

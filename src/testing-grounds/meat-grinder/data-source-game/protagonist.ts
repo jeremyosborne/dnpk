@@ -10,9 +10,8 @@ const DATA_KEY = 'testing-grounds/protagonist'
 export class Protagonist {
   /**
    * Player object, if one has been created.
-   * @type {object}
    */
-  _cache = null
+  _cache: any | null = null
 
   clear = () => {
     this._cache = null
@@ -70,14 +69,14 @@ export class Protagonist {
     this.clear()
   }
 
-  set = (data) => {
+  set = (data: any) => {
     this._cache = {
       ...this._cache,
       ...data,
     }
   }
 
-  save = async (data) => {
+  save = async (data: any) => {
     this.set(data)
     await this.write()
   }

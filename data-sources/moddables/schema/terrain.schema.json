@@ -1,5 +1,5 @@
 {
-  "$id": "https://jeremyosborne.com/dnpk/terrain.schema.json",
+  "$id": "terrain.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "terrain",
   "description": "Basic terrain information.",
@@ -9,7 +9,7 @@
       "default": [],
       "description": "Various cosmetics applied to this entity.",
       "items": {
-        "$ref": "https://jeremyosborne.com/dnpk/cosmetic.schema.json"
+        "$ref": "cosmetic.schema.json"
       },
       "type": "array"
     },
@@ -22,7 +22,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "https://jeremyosborne.com/dnpk/metadata.schema.json",
+      "$ref": "metadata.schema.json",
       "default": {}
     },
     "name": {
