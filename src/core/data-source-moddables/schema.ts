@@ -12,34 +12,27 @@ const logger = debug(`dnpk/data-source-moddables/${MODULE_NAME}`)
 
 /**
  * This module has or has not been loaded at least one time.
- *
- * @type {boolean}
  */
 let LOADED = false
 
 /**
  * Load schemas from disk.
  *
- * @param {object} args
- * @param {boolean} [args.force] if true, will reload items from disk even if already
- * flagged as loaded.
- *
- * @param {object} config
- * @param {string} config.KEY_ROOT the key root-path for where our moddables can
- * be located and retrieved from.
- *
- * @return {Promise} resolves if schemas with true if schemas were loaded successfully,
- * false if schemas were intentionally not loaded, and rejects with error if something
- * happened while loading.
- *
- * @throw {Error}
+ * @return resolves with true if schemas were loaded successfully, false if schemas were 
+ * intentionally not loaded, and rejects with error if something bad happened while loading.
  */
-const read = async function ({force = false} = {}, {
-  /** Directory containing our JSON Schema files. */
+const read = async function ({force = false}: {
+  /** if true, will reload items from disk even if already flagged as loaded. */
+  force?: boolean
+} = {}, {
   DEFS_DIR = path.resolve(path.join(__dirname, "schemas")),
-  /** Required file name test for our JSON schemas. Allows us to ignore other files within the `DEFS_DIR`. */
   filenameRegExp = /\.schema\.json$/i,
-} = {}) {
+}: {
+  /** Directory containing our JSON Schema files. */
+  DEFS_DIR?: string,
+  /** Required file name test for our JSON schemas. Allows us to ignore other files within the `DEFS_DIR`. */
+  filenameRegExp?: RegExp,
+} = {}): Promise<boolean> {
   if (LOADED && !force) {
     logger('Already loaded, call to load ignored.')
     return false
@@ -52,7 +45,7 @@ const read = async function ({force = false} = {}, {
     // Assuming organization is flat.
     const files = await fs.readdir(DEFS_DIR)
     // Restrict loaded files.
-    const loading = files.filter((filename) => filenameRegExp.test(filename))
+    await Promise.all(files.filter((filename) => filenameRegExp.test(filename))
       .map(async function (filename) {
         // Full path for loading.
         const schemaFilePath = path.join(DEFS_DIR, filename)
@@ -65,8 +58,8 @@ const read = async function ({force = false} = {}, {
         //   logger(`Warning: filename ${schemaFilePath} out of sync with provided $id ${schema.$id}.`)
         // }
         ajv.addSchema(schema)
-      })
-    return Promise.all(loading)
+      }))
+    return true
   } catch (err) {
     throw new Error(`Error reading directory containing files: DEFS_DIR ${DEFS_DIR}, error: ${err}`)
   }

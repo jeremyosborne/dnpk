@@ -9,4 +9,7 @@ module.exports = {
   // If module is under CI, use the more extensive reporting options.
   // Default: ["json", "lcov", "text", "clover"]
   coverageReporters: ["text", "text-summary"],
+  transform: {
+    "^.+\\.(js|ts|tsx)$": "ts-jest"
+  },
 }
