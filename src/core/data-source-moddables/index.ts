@@ -19,7 +19,7 @@ logger('This module assumes an async call is made to the provided `.read()` meth
 //
 // Creating new types: add the module name of the new type to the array below as
 // long as the type fits in with the `type-factory-factory` way of doing things.
-export const types = _.reduce([
+export const types = _.reduce<string, Record<string, ModdableFactory>>([
   // Definitions of army units.
   'army',
   // Adds lively and colorful descriptions to entities.
@@ -56,18 +56,18 @@ export const clear = () => _.forIn(types, (t) => t.clear())
 /**
  * Build the prototype of a particular type.
  *
- * @param {object} args as dictionary
- * @param {string} args.name the unique name of the object, equivalent to the `name`
+ * @param args as dictionary
+ * @param args.name the unique name of the object, equivalent to the `name`
  * field of the definition.
- * @param {string} args.type the category of the type: `army`, `effect`, etc.
+ * @param args.type the category of the type: `army`, `effect`, etc.
  *
- * @return {object} provide a ready to go copy of the basic type, from which in
+ * @return provide a ready to go copy of the basic type, from which in
  * game objects can modify and operate on freely.
  *
- * @throw {Error} if base config definitions are bad or game attempts to create
+ * @throw if base config definitions are bad or game attempts to create
  * an object that has no definition.
  */
-export const create = ({name, type}) => {
+export const create = ({name, type}: {name: string, type: string}) => {
   const baseInstance = _.cloneDeep(types[type].get(name))
   if (!baseInstance) {
     throw new Error(`Requesting non existent name ${name} of type ${type}`)
@@ -94,7 +94,7 @@ export const create = ({name, type}) => {
  *
  * @return {string[]}
  */
-export const dir = (type) => types[type].dir()
+export const dir = (type: string) => types[type].dir()
 
 /**
  * Load schemas and types into memory.
@@ -102,12 +102,12 @@ export const dir = (type) => types[type].dir()
  * Due to the importance and necessity of this module, this is required for
  * proper operation and is assumed to be performed on app startup.
  *
- * @param {object} args as associative array. Meant to mirror what is passable
+ * @param args as associative array. Meant to mirror what is passable
  * to the `load` function.
  *
- * @return {Promise} resolves on successful load rejects on any load failures.
+ * @return resolves on successful load rejects on any load failures.
  */
-export const read = async function (args) {
+export const read = async (args: {force: boolean}): Promise<void> => {
   // Load schemas first so we don't ever have to think about load order when
   // validating relationship references between different type definitions.
   // Shouldn't be necessary at the time of writing, but one thing less to think
