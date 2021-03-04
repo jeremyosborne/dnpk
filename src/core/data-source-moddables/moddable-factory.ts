@@ -56,23 +56,19 @@ export class ModdableFactory {
   /**
    * Resets the cache.
    */
-  clear = () => {
-    this._cache = {}
-  }
+  clear = () => this._cache = {}
 
   /**
    * Return a list of the `name`s of the object definitions we have loaded.
-   *
-   * @return {string[]}
    */
   dir = () => _.keys(this._cache)
 
   /**
    * Get a reference to a specific definition that has been loaded.
    *
-   * @param {String} name the unique name of this type.
+   * @param name the unique name of this type.
    *
-   * @return {object} associative array, specific reference, or undefined if
+   * @return associative array, specific reference, or undefined if
    * name does not exist.
    */
   get = (name?: string) => {
@@ -86,10 +82,10 @@ export class ModdableFactory {
   /**
    * Loads and creates an associative array of types.
    *
-   * @param {boolean} force if true, will reload items from disk even if already
+   * @param force if true, will reload items from disk even if already
    * flagged as loaded.
    *
-   * @return {Promise} resolves on correct loading
+   * @return resolves on correct loading
    */
   read = async ({force = false} = {}) => {
     if (this.LOADED && !force) {
