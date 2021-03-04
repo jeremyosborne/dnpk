@@ -6,7 +6,7 @@ import debug from 'debug'
 import _ from 'lodash'
 import path from 'path'
 import schema from './schema'
-import typeFactoryFactory from './type-factory-factory'
+import {ModdableFactory} from './moddable-factory'
 
 const MODULE_NAME = path.basename(path.resolve(__dirname))
 const logger = debug(`dnpk/${MODULE_NAME}`)
@@ -44,7 +44,7 @@ export const types = _.reduce([
   // Makes up the world and affects fighting.
   'terrain',
 ], (t, mod) => {
-  t[mod] = typeFactoryFactory({MODULE_NAME: mod})
+  t[mod] = new ModdableFactory({moddableName: mod})
   return t
 }, {})
 

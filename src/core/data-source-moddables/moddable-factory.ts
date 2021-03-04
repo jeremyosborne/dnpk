@@ -2,8 +2,16 @@ import assert from 'assert'
 import debug from 'debug'
 import {promises as fs} from 'fs'
 import _ from 'lodash'
-import moddablesKeyRoot from './moddables-key-root'
 import path from 'path'
+
+/**
+ * Root path for where our moddables live.
+ * For an installable game, these files will get moved to the user directory.
+ * For a server based game, these files will be loaded. Either way, we'll
+ * eventually need to move to the `io` module, which will also mean the `io`
+ * module will need to be made more flexible.
+ */
+export const moddablesKeyRoot = () => path.resolve(path.resolve(__dirname), '../../../data-sources/moddables')
 
 const logger = debug('dnpk/data-source-moddables')
 
@@ -29,30 +37,27 @@ const logger = debug('dnpk/data-source-moddables')
  *
  * @return {object} returns public api for the type factory.
  */
-module.exports = ({
-  MODULE_NAME,
-}, {
-  KEY_ROOT = moddablesKeyRoot(),
-} = {}) => {
-  /**
-   * This module has or has not been loaded at least one time.
-   *
-   * @type {boolean}
-   */
-  const LOADED = false
+export class ModdableFactory {
+  /** Cache of currently loaded types, keyed by the type `name`. */
+  _cache: Record<string, unknown> = {}
 
-  /**
-   * Cache of currently loaded types, keyed by the type `name`.
-   *
-   * @type {Object}
-   */
-  let _cache = {}
+  /** This module has or has not been loaded at least one time. */
+  LOADED = false
+
+  /** Name of the moddable this factory handles. */
+  moddableName: string
+
+  constructor({
+    moddableName,
+  }: {moddableName: string}) {
+    this.moddableName = moddableName
+  }
 
   /**
    * Resets the cache.
    */
-  const clear = () => {
-    _cache = {}
+  clear = () => {
+    this._cache = {}
   }
 
   /**
@@ -60,7 +65,7 @@ module.exports = ({
    *
    * @return {string[]}
    */
-  const dir = () => _.keys(_cache)
+  dir = () => _.keys(this._cache)
 
   /**
    * Get a reference to a specific definition that has been loaded.
@@ -70,11 +75,11 @@ module.exports = ({
    * @return {object} associative array, specific reference, or undefined if
    * name does not exist.
    */
-  const get = (name) => {
+  get = (name?: string) => {
     if (name) {
-      return _cache[name]
+      return this._cache[name]
     } else {
-      return _cache
+      return this._cache
     }
   }
 
@@ -86,13 +91,13 @@ module.exports = ({
    *
    * @return {Promise} resolves on correct loading
    */
-  const read = async function ({force = false} = {}) {
-    if (LOADED && !force) {
+  read = async ({force = false} = {}) => {
+    if (this.LOADED && !force) {
       logger('Already loaded, call to load ignored.')
       return false
     }
 
-    const DEFS_DIR = path.join(KEY_ROOT, MODULE_NAME)
+    const DEFS_DIR = path.join(moddablesKeyRoot(), this.moddableName)
 
     // For data checking.
     const typeFiles = await fs.readdir(DEFS_DIR)
@@ -100,42 +105,34 @@ module.exports = ({
     const loading = typeFiles
       // .json files in this directory are assumed to be data defs.
       .filter((name) => /\.json$/.test(name))
-      .map(async function (typeFile) {
+      .map(async (typeFile) => {
         const typeFilePath = path.join(DEFS_DIR, typeFile)
         return {
-          typeDef: JSON.parse(await fs.readFile(typeFilePath)),
+          typeDef: JSON.parse(await fs.readFile(typeFilePath, 'utf8')),
           typeFilePath,
         }
       })
 
     return Promise.all(loading).then((typeDefs) => {
-      _cache = typeDefs.reduce((typeDefs, {typeDef, typeFilePath}) => {
-        logger(`${MODULE_NAME}: Reading ${typeFilePath} into set of types.`)
+      this._cache = typeDefs.reduce((_cache: Record<string, unknown>, {typeDef, typeFilePath}) => {
+        logger(`${this.moddableName}: Reading ${typeFilePath} into set of types.`)
         // This check should be moved to an external process or script that
         // can be run independently on the data / used as a data test.
-        if (typeDef.name !== /([^/]*)\.json$/.exec(typeFilePath)[1]) {
-          logger(`${MODULE_NAME}: Warning: filename ${typeFilePath} out of sync with provided $id ${typeDef.name}.`)
+        if (typeDef.name !== /([^/]*)\.json$/.exec(typeFilePath)?.[1]) {
+          logger(`${this.moddableName}: Warning: filename ${typeFilePath} out of sync with provided $id ${typeDef.name}.`)
         }
         // This is by schema definition, even though it also expressed in the file name.
         // Going to pick the data as the source of truth and not file name.
-        typeDefs[typeDef.name] = typeDef
-        return typeDefs
+        _cache[typeDef.name] = typeDef
+        return _cache
       }, {})
 
       // Watch for embedded data naming types that are out of sync with a file name.
       try {
-        assert(typeDefs.length === dir().length)
+        assert(typeDefs.length === this.dir().length)
       } catch (err) {
-        throw new Error(`${MODULE_NAME}: number of files loaded must equal number of definitions keyed in our hash. You likely have a duplicate or missing 'name' property in one of your definitions.`)
+        throw new Error(`${this.moddableName}: number of files loaded must equal number of definitions keyed in our hash. You likely have a duplicate or missing 'name' property in one of your definitions.`)
       }
     })
-  }
-
-  // Public API for the type factory factory.
-  return {
-    clear,
-    dir,
-    get,
-    read,
   }
 }
