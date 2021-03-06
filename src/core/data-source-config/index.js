@@ -1,13 +1,13 @@
-import * as dataSourceGlobal from 'core/data-source-global'
-import * as dataSourceProcessEnv from 'core/data-source-process-env'
-import debug from 'debug'
+import * as dataSourceGlobal from "core/data-source-global"
+import * as dataSourceProcessEnv from "core/data-source-process-env"
+import debug from "debug"
 
-const logger = debug('dnpk/core/data-source-config')
+const logger = debug("dnpk/core/data-source-config")
 
 /**
  * Key we use to access our configuration from the global.
  */
-export const DNPK_RUNTIME_CONFIGURATION_KEY = 'DNPK_RUNTIME_CONFIGURATION'
+export const DNPK_RUNTIME_CONFIGURATION_KEY = "DNPK_RUNTIME_CONFIGURATION"
 
 /**
  * Reference to the current runtime configuration object.
@@ -38,7 +38,7 @@ export const dataSource = {
     if (DATA_SOURCE) {
       return DATA_SOURCE
     } else {
-      logger('First call. Determining DATA_SOURCE.')
+      logger("First call. Determining DATA_SOURCE.")
 
       // We want you to use process.env, but if you're modifying the global,
       // you must want us to prefer that configuration. And process.env has become
@@ -48,7 +48,7 @@ export const dataSource = {
         DATA_SOURCE = dsGlobal.get()[DNPK_RUNTIME_CONFIGURATION_KEY]
         // Unlike process.env, this is a total opt in.
         if (DATA_SOURCE) {
-          logger('using global DNPK_RUNTIME_CONFIGURATION.')
+          logger("using global DNPK_RUNTIME_CONFIGURATION.")
           return DATA_SOURCE
         }
         // else fall through ...
@@ -56,11 +56,13 @@ export const dataSource = {
 
       if (dsProcessEnv.exists()) {
         DATA_SOURCE = dsProcessEnv.get()
-        logger('using process.env.')
+        logger("using process.env.")
         return DATA_SOURCE
       }
 
-      logger('WARNING: could not find a runtime config object, defaulting to empty object with no external defaults set.')
+      logger(
+        "WARNING: could not find a runtime config object, defaulting to empty object with no external defaults set."
+      )
       DATA_SOURCE = {}
       return DATA_SOURCE
     }
@@ -73,7 +75,7 @@ export const dataSource = {
    */
   set: (config) => {
     DATA_SOURCE = config
-  }
+  },
 }
 
 /**
@@ -84,9 +86,12 @@ export const dataSource = {
  * @param {string} key from which to return a value.
  * @return {string|undefined} value if set or undefined.
  */
-export const get = (key, {
-  // DI
-  dataSource: ds = dataSource
-} = {}) => {
+export const get = (
+  key,
+  {
+    // DI
+    dataSource: ds = dataSource,
+  } = {}
+) => {
   return ds.get()[key]
 }
