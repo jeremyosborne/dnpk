@@ -1,15 +1,15 @@
-import {createScene} from './fight-common'
-import * as gameObjects from 'game-objects'
-import {t} from 'l10n'
-import _ from 'lodash'
-import * as random from 'random'
-import * as simulation from 'simulation'
-import * as ui from 'ui'
+import { createScene } from "./fight-common"
+import * as gameObjects from "game-objects"
+import { t } from "l10n"
+import _ from "lodash"
+import * as random from "random"
+import * as simulation from "simulation"
+import * as ui from "ui"
 
-const createAntagonist = ({protagonist}) => {
+const createAntagonist = ({ protagonist }) => {
   // For the HORDE!
   const armyGroup = _.times(random.randint(15, 25), () => {
-    const army = gameObjects.army.create({name: 'light-infantry'})
+    const army = gameObjects.army.create({ name: "light-infantry" })
     army.strength = random.randint(1, 3)
     army.health = 1
     return army
@@ -19,14 +19,17 @@ const createAntagonist = ({protagonist}) => {
     antagonist: {
       empire: simulation.createRandom({
         exclude: [protagonist.empire.name],
-        type: 'empire',
+        type: "empire",
       }),
       armyGroup,
-      structures: []
+      structures: [],
     },
   }
   fightSceneState.messages = {
-    prelude: t('A horde of {{empire}} forces gather here. There are many of them.', {empire: ui.text.naming.short(fightSceneState.antagonist.empire)}),
+    prelude: t(
+      "A horde of {{empire}} forces gather here. There are many of them.",
+      { empire: ui.text.naming.short(fightSceneState.antagonist.empire) }
+    ),
   }
   return fightSceneState
 }
@@ -41,6 +44,6 @@ const createAntagonist = ({protagonist}) => {
  * While large in number, the opponents in our horde scenario are significantly weaker than usual,
  * likely a routed army or fleeing a city siege.
  */
-export const scene = createScene({createAntagonist})
+export const scene = createScene({ createAntagonist })
 
 export default scene

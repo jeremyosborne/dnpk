@@ -1,12 +1,12 @@
-import chalk from 'chalk'
-import * as dataSourceConfig from 'data-source-config'
-import * as dataSourceL10n from 'data-source-l10n'
-import i18next from 'i18next'
-import _ from 'lodash'
+import chalk from "chalk"
+import * as dataSourceConfig from "data-source-config"
+import * as dataSourceL10n from "data-source-l10n"
+import i18next from "i18next"
+import _ from "lodash"
 
 // By default, what key to inspect on the runtime config
 // dictionary for whether or not we'll run the underlying i18next in debug mode
-const I18NEXT_DEBUG_KEY = 'I18NEXT_DEBUG'
+const I18NEXT_DEBUG_KEY = "I18NEXT_DEBUG"
 
 // Default formatters for i18next, see: https://www.i18next.com/translation-function/formatting
 // key is the formatter name token
@@ -14,9 +14,9 @@ export const _formatters = {
   // callable: {{blah, colorize}}
   // if typeof blah === string, just print
   // if typeof blah.color === string, print via chalk.hex(blah.color)(blah.label)
-  colorize: (value, format, lng) => {
-    const color = _.get(value, 'color')
-    const label = _.get(value, 'label')
+  colorize: (value) => {
+    const color = _.get(value, "color")
+    const label = _.get(value, "label")
     if (color) {
       return chalk.hex(color)(label)
     } else {
@@ -29,18 +29,18 @@ export const _formatters = {
   // takes a list of strings and joins them, based on language.
   // In English, I'd always write the dynamic elements of the array into a simple, comma delimited list,
   // without trailing `and` conjunction.
-  simpleList: (value, format, lng) => {
+  simpleList: (value) => {
     // TODO: switch on language
-    return _.join(value, ', ')
+    return _.join(value, ", ")
   },
 
   // callable: {{Array<string>, simpleList}}
   // takes a list of strings and joins them, based on language.
   // In English, this would potentially be a list of already comma delimited lists, like a list of
   // long names for a handful of heroes.
-  complexList: (value, format, lng) => {
+  complexList: (value) => {
     // TODO: switch on language
-    return _.join(value, '; ')
+    return _.join(value, "; ")
   },
 }
 
@@ -63,15 +63,15 @@ export const _formatters = {
  */
 export const read = async (
   {
-    lng = 'en',
+    lng = "en",
     ns = [
-      'translation',
-      'army',
-      'battle',
-      'deity',
-      'empire',
-      'equippable',
-      'meat-grinder',
+      "translation",
+      "army",
+      "battle",
+      "deity",
+      "empire",
+      "equippable",
+      "meat-grinder",
     ],
     ...restConfig
   } = {},
@@ -84,11 +84,15 @@ export const read = async (
   // Easier to treat as array throughout.
   ns = Array.isArray(ns) ? ns : [ns]
   // Assume we should always be able to read the files....
-  await Promise.all(_.map(ns, (ns) => dataSourceL10n.read({lng, ns})))
-  const resources = _.reduce(ns, (r, n) => {
-    _.set(r, `${lng}.${n}`, dataSourceL10n.get({lng, ns: n}))
-    return r
-  }, {})
+  await Promise.all(_.map(ns, (ns) => dataSourceL10n.read({ lng, ns })))
+  const resources = _.reduce(
+    ns,
+    (r, n) => {
+      _.set(r, `${lng}.${n}`, dataSourceL10n.get({ lng, ns: n }))
+      return r
+    },
+    {}
+  )
 
   await read({
     // default namespace to use.
@@ -105,12 +109,12 @@ export const read = async (
 
     interpolation: {
       format: function (value, format, lng) {
-        if (typeof formatters[format] === 'function') {
+        if (typeof formatters[format] === "function") {
           return formatters[format](value, format, lng)
         } else {
           return value
         }
-      }
+      },
     },
 
     // Treat default token characters of `:` and `.` as normal characters.

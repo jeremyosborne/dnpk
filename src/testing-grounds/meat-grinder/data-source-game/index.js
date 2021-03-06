@@ -1,16 +1,16 @@
-import _ from 'lodash'
+import _ from "lodash"
 
-import {counterKills, counterDead} from './counters' // eslint-disable-line import/first
-export {counterKills, counterDead}
+import { counterKills, counterDead } from "./counters"
+export { counterKills, counterDead }
 
-import {protagonist} from './protagonist' // eslint-disable-line import/first
-export {protagonist}
+import { protagonist } from "./protagonist"
+export { protagonist }
 
-import {settings} from './settings' // eslint-disable-line import/first
-export {settings}
+import { settings } from "./settings"
+export { settings }
 
-import {vaultEquippables} from './vaults' // eslint-disable-line import/first
-export {vaultEquippables}
+import { vaultEquippables } from "./vaults"
+export { vaultEquippables }
 
 // Register module here to opt into the batch loading, remove, writing, etc.
 export const dataSources = {

@@ -4,35 +4,35 @@
 // Object creation and helper methods for in game objects.
 //
 
-import * as army from './army' // eslint-disable-line import/first
-export {army}
+import * as army from "./army"
+export { army }
 
-import * as armyGroup from './army-group' // eslint-disable-line import/first
-export {armyGroup}
+import * as armyGroup from "./army-group"
+export { armyGroup }
 
-import * as cosmetic from './cosmetic' // eslint-disable-line import/first
-export {cosmetic}
+import * as cosmetic from "./cosmetic"
+export { cosmetic }
 
-import * as deed from './deed' // eslint-disable-line import/first
-export {deed}
+import * as deed from "./deed"
+export { deed }
 
-import * as deity from './deity' // eslint-disable-line import/first
-export {deity}
+import * as deity from "./deity"
+export { deity }
 
-import * as effect from './effect' // eslint-disable-line import/first
-export {effect}
+import * as effect from "./effect"
+export { effect }
 
-import * as empire from './empire' // eslint-disable-line import/first
-export {empire}
+import * as empire from "./empire"
+export { empire }
 
-import * as equippable from './equippable' // eslint-disable-line import/first
-export {equippable}
+import * as equippable from "./equippable"
+export { equippable }
 
-import * as player from './player' // eslint-disable-line import/first
-export {player}
+import * as player from "./player"
+export { player }
 
-import * as structure from './structure' // eslint-disable-line import/first
-export {structure}
+import * as structure from "./structure"
+export { structure }
 
-import * as terrain from './terrain' // eslint-disable-line import/first
-export {terrain}
+import * as terrain from "./terrain"
+export { terrain }

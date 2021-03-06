@@ -1,22 +1,22 @@
-import * as army from './army' // eslint-disable-line import/first
-export {army}
+import * as army from "./army"
+export { army }
 
-import * as armyGroup from './army-group' // eslint-disable-line import/first
-export {armyGroup}
+import * as armyGroup from "./army-group"
+export { armyGroup }
 
-import constrainHealthModifierWithinRuleBoundaries from './constrain-health-modifier-within-rule-boundaries' // eslint-disable-line import/first
-export {constrainHealthModifierWithinRuleBoundaries}
+import constrainHealthModifierWithinRuleBoundaries from "./constrain-health-modifier-within-rule-boundaries"
+export { constrainHealthModifierWithinRuleBoundaries }
 
-import constrainHealthWithinRuleBoundaries from './constrain-health-within-rule-boundaries' // eslint-disable-line import/first
-export {constrainHealthWithinRuleBoundaries}
+import constrainHealthWithinRuleBoundaries from "./constrain-health-within-rule-boundaries"
+export { constrainHealthWithinRuleBoundaries }
 
-import * as equipment from './equipment' // eslint-disable-line import/first
-export {equipment}
+import * as equipment from "./equipment"
+export { equipment }
 
-import health from './health' // eslint-disable-line import/first
-export {health}
+import health from "./health"
+export { health }
 // also...
 export default health
 
-import * as structure from './structure' // eslint-disable-line import/first
-export {structure}
+import * as structure from "./structure"
+export { structure }

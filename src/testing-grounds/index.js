@@ -9,16 +9,16 @@
 // Programs should load/manage their own assets and not assume that the
 // launcher has loaded anything.
 //
-import * as dataSourceModdables from 'data-source-moddables'
-import {prompt} from 'enquirer'
-import * as l10n from 'l10n'
-import _ from 'lodash'
-import meatGrinder from 'meat-grinder'
-import mockBattle from 'mock-battle'
-import monteCarlo from 'monte-carlo'
-import out from 'out'
+import * as dataSourceModdables from "data-source-moddables"
+import { prompt } from "enquirer"
+import * as l10n from "l10n"
+import _ from "lodash"
+import meatGrinder from "meat-grinder"
+import mockBattle from "mock-battle"
+import monteCarlo from "monte-carlo"
+import out from "out"
 
-const {t} = l10n
+const { t } = l10n
 
 //
 // Register programs in `actions` to allow them to be chosen from the main
@@ -27,30 +27,37 @@ const {t} = l10n
 export const mainMenu = async () => {
   const actions = [
     {
-      message: t('Meat Grinder: an idle clicker for testing various game mechanics and ideas'),
+      message: t(
+        "Meat Grinder: an idle clicker for testing various game mechanics and ideas"
+      ),
       next: meatGrinder,
     },
     {
-      message: t('Monte carlo testing'),
+      message: t("Monte carlo testing"),
       next: monteCarlo,
     },
     {
-      message: t('Mock Battle: a simple battle simulator and console test tool'),
+      message: t(
+        "Mock Battle: a simple battle simulator and console test tool"
+      ),
       next: mockBattle,
     },
     {
-      message: t('Quit'),
-      next: () => process.exit(0)
+      message: t("Quit"),
+      next: () => process.exit(0),
     },
   ]
 
   const answer = await prompt({
     // Map our action objects into enquirer friendly action objects that don't
     // like functions for `value`s...
-    choices: _.map(actions, ({message}, index) => ({name: _.toString(index), message})),
-    message: 'DNPK Testing Grounds: Main Menu',
-    name: 'action',
-    type: 'select',
+    choices: _.map(actions, ({ message }, index) => ({
+      name: _.toString(index),
+      message,
+    })),
+    message: "DNPK Testing Grounds: Main Menu",
+    name: "action",
+    type: "select",
   })
 
   // ...look up the action function from the response.
@@ -67,10 +74,11 @@ export const main = async () => {
   // is mainly a REPL.
   try {
     let next = mainMenu
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       // I'll probably switch this on and off 50 more times as I modify this test tool.
       // console.clear()
-      next = await next() || mainMenu
+      next = (await next()) || mainMenu
     }
   } catch (err) {
     if (!err) {
@@ -78,10 +86,10 @@ export const main = async () => {
       // here is probably the result of a SIGINT equivalent.
       // see: https://github.com/enquirer/enquirer/blob/master/index.d.ts#L12
       // see: https://github.com/enquirer/enquirer#-key-bindings
-      out('Exiting...')
+      out("Exiting...")
     } else {
       // ...else something bad probably happened.
-      out('Something happened, terminating. Error:', err)
+      out("Something happened, terminating. Error:", err)
     }
   }
 }

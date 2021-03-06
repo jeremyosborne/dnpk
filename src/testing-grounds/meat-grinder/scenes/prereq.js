@@ -1,7 +1,7 @@
-import * as gameObjectsCommon from 'game-objects-common'
-import _ from 'lodash'
-import * as sceneChoices from './scene-choices'
-import * as wrappers from './wrappers'
+import * as gameObjectsCommon from "game-objects-common"
+import _ from "lodash"
+import * as sceneChoices from "./scene-choices"
+import * as wrappers from "./wrappers"
 
 /**
  * This is assumed to be the first scene run, and other than things considered
@@ -10,7 +10,7 @@ import * as wrappers from './wrappers'
  *
  * @return {NextScene}
  */
-export const scene = async ({protagonist: {armyGroup}}) => {
+export const scene = async ({ protagonist: { armyGroup } }) => {
   if (!gameObjectsCommon.armies.size(armyGroup)) {
     // Give the protagonist a fresh army-group if they don't have one...
     return sceneChoices.defeat()
@@ -20,6 +20,4 @@ export const scene = async ({protagonist: {armyGroup}}) => {
   }
 }
 
-export default _.flow([
-  wrappers.throwIfNoEmpire,
-])(scene)
+export default _.flow([wrappers.throwIfNoEmpire])(scene)

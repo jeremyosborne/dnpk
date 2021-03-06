@@ -1,4 +1,4 @@
-export {violence, battle} from './battle'
+export { violence, battle } from "./battle"
 
-import * as dice from './dice' // eslint-disable-line import/first
-export {dice}
+import * as dice from "./dice"
+export { dice }

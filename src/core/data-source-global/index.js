@@ -14,8 +14,8 @@ export const exists = () => {
  * @return {object}
  */
 export const get = () => {
-  if (typeof window !== 'undefined') {
-    return window
+  if (typeof window !== "undefined") {
+    return window // eslint-disable-line no-undef
   } else {
     return global
   }

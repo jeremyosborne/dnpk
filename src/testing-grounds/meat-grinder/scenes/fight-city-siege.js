@@ -1,18 +1,18 @@
-import {createScene} from './fight-common'
-import * as gameObjectsCommon from 'game-objects-common'
-import {t} from 'l10n'
-import _ from 'lodash'
-import * as random from 'random'
-import * as simulation from 'simulation'
-import * as ui from 'ui'
+import { createScene } from "./fight-common"
+import * as gameObjectsCommon from "game-objects-common"
+import { t } from "l10n"
+import _ from "lodash"
+import * as random from "random"
+import * as simulation from "simulation"
+import * as ui from "ui"
 
-const createAntagonist = ({protagonist}) => {
+const createAntagonist = ({ protagonist }) => {
   // Keep the castle troops fodderish.
-  const exclude = _.filter(gameObjectsCommon.def('army'), (aDef) => {
+  const exclude = _.filter(gameObjectsCommon.def("army"), (aDef) => {
     if (
-      gameObjectsCommon.effects.hasName(aDef, 'aerial') ||
-        gameObjectsCommon.effects.hasName(aDef, 'elite') ||
-        gameObjectsCommon.is.hero(aDef)
+      gameObjectsCommon.effects.hasName(aDef, "aerial") ||
+      gameObjectsCommon.effects.hasName(aDef, "elite") ||
+      gameObjectsCommon.is.hero(aDef)
     ) {
       return true
     } else {
@@ -21,9 +21,12 @@ const createAntagonist = ({protagonist}) => {
   }).map((aDef) => aDef.name)
 
   // Defenders get some significant defense.
-  const structure = gameObjectsCommon.create('structure', {name: 'city'})
+  const structure = gameObjectsCommon.create("structure", { name: "city" })
   // Modify the defense of the brawn-aura to 2.
-  const brawnAura = _.find(gameObjectsCommon.effects.get(structure), (effect) => effect.name === 'brawn-aura')
+  const brawnAura = _.find(
+    gameObjectsCommon.effects.get(structure),
+    (effect) => effect.name === "brawn-aura"
+  )
   // All cities should have a brawnAura, breaking here is good if that changes.
   brawnAura.magnitude = 2
 
@@ -31,17 +34,20 @@ const createAntagonist = ({protagonist}) => {
     antagonist: {
       empire: simulation.createRandom({
         exclude: [protagonist.empire.name],
-        type: 'empire',
+        type: "empire",
       }),
       armyGroup: simulation.createRandomWeightedArmyGroup({
         exclude,
         size: random.randint(10, 30),
       }),
-      structures: [structure]
+      structures: [structure],
     },
   }
   fightSceneState.messages = {
-    prelude: t('A city belonging to {{empire}} looms before you. There are many defenders resisting your siege.', {empire: ui.text.naming.short(fightSceneState.antagonist.empire)}),
+    prelude: t(
+      "A city belonging to {{empire}} looms before you. There are many defenders resisting your siege.",
+      { empire: ui.text.naming.short(fightSceneState.antagonist.empire) }
+    ),
   }
   return fightSceneState
 }
@@ -59,6 +65,6 @@ const createAntagonist = ({protagonist}) => {
  * This is a city siege against common troops, although still a tough battle for any
  * but the most elite protagonist.
  */
-export const scene = createScene({createAntagonist})
+export const scene = createScene({ createAntagonist })
 
 export default scene

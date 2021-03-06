@@ -1,6 +1,6 @@
-import _ from 'lodash'
-import * as random from 'random'
-import * as sceneNames from './scene-names'
+import _ from "lodash"
+import * as random from "random"
+import * as sceneNames from "./scene-names"
 
 /**
  * Call when the protagonist has been defeated and it's time to resupply.
@@ -51,7 +51,11 @@ export const generalEncounter = () => () => {
     [sceneNames.VAULT_EQUIPPABLES]: 2,
   }
 
-  return random.choices(_.keys(weightedChoices), 1, _.values(weightedChoices))[0]
+  return random.choices(
+    _.keys(weightedChoices),
+    1,
+    _.values(weightedChoices)
+  )[0]
 }
 
 /**
@@ -78,5 +82,9 @@ export const violent = () => () => {
     [sceneNames.FIGHT_HORDE]: 2,
   }
 
-  return random.choices(_.keys(weightedChoices), 1, _.values(weightedChoices))[0]
+  return random.choices(
+    _.keys(weightedChoices),
+    1,
+    _.values(weightedChoices)
+  )[0]
 }
