@@ -9,9 +9,10 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "module": "commonjs",
+    "lib": ["DOM"],
     "outDir": "dist",
     "paths": {
-      "*": ["*", "src/core/*", "src/testing-grounds/*"]
+      "*": ["*", "src/*", "src/core/*", "src/testing-grounds/*"]
     },
     "sourceMap": true,
     "target": "es5"

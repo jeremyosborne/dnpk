@@ -13,15 +13,11 @@ export const DNPK_RUNTIME_CONFIGURATION_KEY = "DNPK_RUNTIME_CONFIGURATION"
  * Reference to the current runtime configuration object.
  *
  * This will be set and cached after first call to the data source.
- *
- * @type {object}
  */
-let DATA_SOURCE = null
+let DATA_SOURCE: NodeJS.ProcessEnv | Record<string, string> | null | undefined
 
 /**
  * Manages to the runtime configuration object.
- *
- * @type {Object}
  */
 export const dataSource = {
   /**
@@ -34,7 +30,7 @@ export const dataSource = {
     // DI
     dataSourceGlobal: dsGlobal = dataSourceGlobal,
     dataSourceProcessEnv: dsProcessEnv = dataSourceProcessEnv,
-  } = {}) => {
+  } = {}): typeof DATA_SOURCE => {
     if (DATA_SOURCE) {
       return DATA_SOURCE
     } else {
@@ -71,9 +67,9 @@ export const dataSource = {
   /**
    * Manually set a runtime configuration object.
    *
-   * @param {object} config to inject
+   * @param config to inject
    */
-  set: (config) => {
+  set: (config: typeof DATA_SOURCE): void => {
     DATA_SOURCE = config
   },
 }
@@ -87,11 +83,11 @@ export const dataSource = {
  * @return {string|undefined} value if set or undefined.
  */
 export const get = (
-  key,
+  key: string,
   {
     // DI
     dataSource: ds = dataSource,
   } = {}
 ) => {
-  return ds.get()[key]
+  return ds.get()?.[key]
 }

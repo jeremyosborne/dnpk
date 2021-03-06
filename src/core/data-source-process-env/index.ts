@@ -1,12 +1,10 @@
 /**
  * Whether or not this data source exists and can be accessed.
- *
- * @return {boolean} true if it exists, false if not.
  */
 export const exists = () => {
   // This is hard to test in babel-node since process.env always needs to be
   // an object and can't be null or undefined.
-  return typeof process === 'object' && typeof process.env === 'object'
+  return typeof process === "object" && typeof process.env === "object"
 }
 
 /**
