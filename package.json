@@ -28,6 +28,7 @@
     "@types/node": "^14.14.31",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
     "acorn-stage3": "^2.1.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.0.0",
