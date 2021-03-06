@@ -1,8 +1,8 @@
-import * as dataSourceGlobal from 'data-source-global'
-import * as dataSourceProcessEnv from 'data-source-process-env'
+import * as dataSourceGlobal from 'core/data-source-global'
+import * as dataSourceProcessEnv from 'core/data-source-process-env'
 import debug from 'debug'
 
-const logger = debug('dnpk/data-source-config')
+const logger = debug('dnpk/core/data-source-config')
 
 /**
  * Key we use to access our configuration from the global.

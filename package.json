@@ -10,10 +10,9 @@
   "scripts": {
     "l10n": "i18next 'src/core/**/*.{js,jsx}' -c src/core/l10n/i18next-parser.config.js",
     "lint": "eslint \"src/**/*.js?(x)\"",
-    "repl": "NODE_PATH=src/core:src/testing-grounds babel-node `# Start up a node repl with a corrected node path.`",
-    "start": "NODE_PATH=src/core:src/testing-grounds ts-node src/testing-grounds",
-    "start-babel": "NODE_PATH=src/core:src/testing-grounds babel-node src/testing-grounds",
-    "test": "NODE_PATH=src/core:src/testing-grounds jest --config .jest.config.js `# append a '-- <some path name>' without the quotes to run a single file or directory of tests.`"
+    "repl": "NODE_PATH=src:src/core:src/testing-grounds babel-node `# Start up a node repl with a corrected node path.`",
+    "start": "NODE_PATH=src:src/core:src/testing-grounds ts-node src/testing-grounds `# developer specific start`",
+    "test": "NODE_PATH=src:src/core:src/testing-grounds jest --config .jest.config.js `# append a '-- <some path name>' without the quotes to run a single file or directory of tests.`"
   },
   "husky": {
     "hooks": {
@@ -31,11 +30,6 @@
   },
   "homepage": "https://github.com/jeremyosborne/dnpk#readme",
   "devDependencies": {
-    "@babel/cli": "^7.12.17",
-    "@babel/core": "^7.12.17",
-    "@babel/node": "^7.12.17",
-    "@babel/plugin-proposal-class-properties": "^7.12.13",
-    "@babel/preset-env": "^7.12.17",
     "@tsconfig/node12": "^1.0.7",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.20",

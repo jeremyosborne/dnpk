@@ -1,6 +1,6 @@
 # Configuration
 
-Provides environment agnostic access to built time and run time configuration.
+Provides environment agnostic access to build time and run time configuration.
 
 ## Dev Notes
 

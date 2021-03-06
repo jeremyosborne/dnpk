@@ -18,6 +18,7 @@
         // for reason, see: https://github.com/benmosher/eslint-plugin-import/issues/142#issuecomment-340854319
         "moduleDirectory": [
           "node_modules",
+          "src/",
           "src/core",
           // This is due to prototype work on testing-grounds.
           "src/testing-grounds"
